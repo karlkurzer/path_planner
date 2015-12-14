@@ -39,7 +39,7 @@ public:
     // euclidean distance
     float movementCost(const Node2D& pred) const { return sqrt((x - pred.x)*(x - pred.x) + (y - pred.y)*(y - pred.y)); }
 
-    static float aStar2D () {}
+    float aStar2D (Node2D& start, const Node2D& goal);
 private:
     // x = position (length), y = position (width), g = cost, h = cost to go, pred = pointer to predecessor node
     int x;
