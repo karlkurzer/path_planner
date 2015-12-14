@@ -1,7 +1,24 @@
+#include <functional>
+#include <queue>
+#include <vector>
 #include "node2d.h"
 
-float aStar2D(Node2D& start, const Node2D& goal)
+//###################################################
+//                                 2D NODE COMPARISON
+//###################################################
+struct Compare2DNodes : public std::binary_function<Node2D*, Node2D*, bool>
 {
+    bool operator()(const Node2D* lhs, const Node2D* rhs) const { return lhs->getC() > rhs->getC(); }
+};
+
+bool operator ==(const Node2D& lhs, const Node2D& rhs) { return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY(); }
+
+//###################################################
+//                                 				2D A*
+//###################################################
+float Node2D::aStar2D(Node2D& start, Node2D& goal)
+{
+    std::vector<int> first;
     // create empty grid
     for (int i = 0; i < length; i++)
     {
@@ -14,11 +31,9 @@ float aStar2D(Node2D& start, const Node2D& goal)
     }
     // PREDECESSOR AND SUCCESSOR POSITION
     int x, y, xSucc, ySucc;
-    //Node2D start(xStart, yStart, 0, 0, nullptr);
-    //Node2D goal(xGoal, yGoal, 0, 0, nullptr);
 
     // OPEN LIST
-    priority_queue<Node2D*, vector<Node2D*>, Compare2DNodes> O;
+    std::priority_queue<Node2D*, vector<Node2D*>, Compare2DNodes> O;
     // update g value
     start.updateG(start);
     // update h value
