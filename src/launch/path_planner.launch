@@ -1,0 +1,6 @@
+<launch>
+  <node name="talker" pkg="path_planner" type="talker" />
+  <node name="tf_broadcaster" pkg="path_planner" type="tf_broadcaster" />
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/karl/ros_ws/src/map.yaml" />
+  <node name="rviz" pkg="rviz" type="rviz" />
+</launch>
