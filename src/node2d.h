@@ -1,14 +1,14 @@
 #ifndef NODE2D_H
 #define NODE2D_H
 
-
 #include <cmath>
 
+#include "nav_msgs/OccupancyGrid.h"
+
 class Node2D {
-public:
+  public:
     // CONSTRUCTOR
-    Node2D(int x, int y, float g, float h, Node2D* pred)
-    {
+    Node2D(int x, int y, float g, float h, Node2D* pred) {
         this->x = x;
         this->y = y;
         this->g = g;
@@ -37,10 +37,17 @@ public:
     // to goal
     void updateH(const Node2D& goal) { h = movementCost(goal); }
     // euclidean distance
-    float movementCost(const Node2D& pred) const { return sqrt((x - pred.x)*(x - pred.x) + (y - pred.y)*(y - pred.y)); }
+    float movementCost(const Node2D& pred) const { return sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y)); }
+    // aStar algorithm
+    static float aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid);
 
-    static float aStar2D (Node2D& start, Node2D& goal);
-private:
+    // CONSTANT VALUES
+    // possible directions
+    static const int dir;
+    // possible movements
+    static const int dx[];
+    static const int dy[];
+  private:
     // x = position (length), y = position (width), g = cost, h = cost to go, pred = pointer to predecessor node
     int x;
     int y;
