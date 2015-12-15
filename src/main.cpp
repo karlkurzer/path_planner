@@ -5,21 +5,21 @@
 //###################################################
 
 #include <ctime>
+#include <iostream>
+#include <cstring>
 
-#include "ros/ros.h"
+#include <ros/ros.h>
 #include "nav_msgs/OccupancyGrid.h"
 
 #include "dubins.h"
-#include "node2d.h"
-
-using namespace std;
+#include "node3d.h"
 
 //###################################################
 //                              COUT STANDARD MESSAGE
 //###################################################
 
-void message(const string& msg) {
-    cout << "\n### " << msg << endl;
+void message(const std::string& msg) {
+    std::cout << "\n### " << msg << std::endl;
 }
 
 ////###################################################
@@ -67,33 +67,37 @@ void message(const string& msg) {
 //}
 
 //###################################################
+//                                                CFG
+//###################################################
+
+struct cfg {
+    bool penalty;
+    bool dubins;
+    bool twoD;
+};
+
+//###################################################
+//                                       ROS CALLBACK
+//###################################################
+void mapCallback(const nav_msgs::OccupancyGrid::ConstPtr& grid) {
+    Node3D start(0, 0, 0, 0, 0, nullptr);
+    Node3D goal(0, 0, 0, 0, 0, nullptr);
+    Node3D::aStar(start, goal, grid);
+}
+
+//###################################################
 //                                               MAIN
 //###################################################
 int main(int argc, char** argv) {
-    srand(time(NULL));
-    Node3D start3D(0, 0, 0, 0, 0, nullptr);
-    Node3D goal3D(0, 0, 0, 0, 0, nullptr);
-    int selection;
+    cfg config;
+    config.penalty = false;
+    config.dubins = false;
+    config.twoD = false;
     message("Approaching Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
-
-    while (true) {
-        message("Select scenario type 33 to exit\nScenario 0: empty\nScenario 1: barrier\nScenario 2: maze\nScenario 9: random");
-        cin >> selection;
-
-        if (selection == 33) { break; }
-
-        message("penalty (default = 1)");
-        cin >> penalty;
-        message("dubins (default = 1)");
-        cin >> dubins;
-        message("twoD (default = 1)");
-        cin >> twoD;
-        createScenario(start3D, goal3D, start2D, goal2D, selection);
-        message("start searching the path");
-        cout << "The length is " << aStar3D(start3D, goal3D);
-        printGrid(start3D, goal3D);
-    }
-
+    ros::init(argc, argv, "a_star");
+    ros::NodeHandle n;
+    ros::Subscriber sub = n.subscribe("map", 1000, mapCallback);
+    ros::spin();
     return 0;
 }
 ////###################################################

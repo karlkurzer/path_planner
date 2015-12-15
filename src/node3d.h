@@ -8,6 +8,8 @@
 #include "dubins.h"
 #include "node2d.h"
 
+struct cfg;
+
 class Node3D {
   public:
     // CONSTRUCTOR
@@ -41,10 +43,11 @@ class Node3D {
     // from start
     void updateG(const Node3D& pred) { g += movementCost(pred); }
     // to goal
-    void updateH(const Node3D& goal) { h = costToGo(goal); }
+    void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid) { h = costToGo(goal, grid); }
     // COST CALCULATION
     // cost for movement, g
     float movementCost(const Node3D& pred) const {
+        bool penalty = false;
         float distance, tPenalty = 0;
 
         if (penalty) {
@@ -58,7 +61,9 @@ class Node3D {
         return distance + tPenalty;
     }
     // cost to go, dubins path / 2D A*
-    float costToGo(const Node3D& goal) const {
+    float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) const {
+        bool dubins = false;
+        bool twoD = false;
         float cost = 0, dubinsLength = 0, euclidean = 0;
         int newT = 0, newGoalT = 0;
 
@@ -77,17 +82,17 @@ class Node3D {
             dubinsLength = dubins_path_length(&path);
         }
 
-        if (twoD && listCostGoal2D[x][y] == 0) {
+        if (twoD && costGoal[y * oGrid->info.width + x] == 0) {
             Node2D start2d(x, y, 0, 0, nullptr);
             Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
-            listCostGoal2D[x][y] = Node2D::astar(start2d, goal2d, grid);
+            costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d, goal2d, oGrid);
         }
 
         euclidean = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
-        return max(euclidean, max(dubinsLength, listCostGoal2D[x][y]));
+        return std::max(euclidean, std::max(dubinsLength, costGoal[y * oGrid->info.width + x]));
     }
     //  aStar algorithm
-    static float aStar(Node3D& start, Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid);
+    static float aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
     // CONSTANT VALUES
     // possible directions
     static const int dir;
@@ -95,6 +100,7 @@ class Node3D {
     static const int dx[];
     static const int dy[];
     static const int dt[];
+    static float costGoal[];
   private:
     // x = position (length), y = position (width), t = heading, g = cost, h = cost to go, pred = pointer to predecessor node
     int x;

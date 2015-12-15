@@ -27,14 +27,17 @@ bool operator ==(const Node2D& lhs, const Node2D& rhs) {
 //###################################################
 //                                 				2D A*
 //###################################################
-float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid) {
+float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
     // LISTS dynamically allocated ROW MAJOR ORDER
-    int width = grid->info.width;
-    int height = grid->info.height;
+    int width = oGrid->info.width;
+    int height = oGrid->info.height;
     int length = width * height;
     int idx = 0;
     int idxSucc = 0;
-    //    grid = new int [length];
+    bool* open;
+    bool* closed;
+    float* cost;
+    float* costToGo;
     open = new bool [length];
     closed = new bool [length];
     cost = new float [length];
@@ -51,7 +54,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
     // PREDECESSOR AND SUCCESSOR POSITION
     int x, y, xSucc, ySucc;
     // OPEN LIST
-    std::priority_queue<Node2D*, vector<Node2D*>, Compare2DNodes> O;
+    std::priority_queue<Node2D*, std::vector<Node2D*>, Compare2DNodes> O;
     // update g value
     start.updateG(start);
     // update h value
@@ -102,7 +105,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
                     // ensure successor is on grid ROW MAJOR
                     if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < length) {
                         // ensure successor is not blocked by obstacle
-                        if (grid[idxSucc] == 0) {
+                        if (oGrid->data[idxSucc] == 0) {
                             // ensure successor is not on closed list
                             if (closed[idxSucc] == false) {
                                 Node2D* nSucc;

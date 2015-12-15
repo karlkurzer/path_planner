@@ -39,7 +39,7 @@ class Node2D {
     // euclidean distance
     float movementCost(const Node2D& pred) const { return sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y)); }
     // aStar algorithm
-    static float aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid);
+    static float aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
 
     // CONSTANT VALUES
     // possible directions

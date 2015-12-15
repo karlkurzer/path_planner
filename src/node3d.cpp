@@ -13,9 +13,14 @@ const int Node3D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 const int Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
 
 //###################################################
+//                                   OBSTACLEBLOATING
+//###################################################
+
+
+//###################################################
 //                                 3D NODE COMPARISON
 //###################################################
-struct CompareNodes : public binary_function<Node3D*, Node3D*, bool> {
+struct CompareNodes : public std::binary_function<Node3D*, Node3D*, bool> {
     bool operator()(const Node3D* lhs, const Node3D* rhs) const {
         return lhs->getC() > rhs->getC();
     }
@@ -28,7 +33,7 @@ bool operator == (const Node3D& lhs, const Node3D& rhs) {
 //###################################################
 //                                 				3D A*
 //###################################################
-float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid) {
+float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
     // MOTION PRIMITIVES
     int dX[8][3];
     int dY[8][3];
@@ -56,13 +61,16 @@ float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::Occupancy
     }
 
     // LISTS dynamically allocated ROW MAJOR ORDER
-    int width = grid->info.width;
-    int height = grid->info.height;
+    int width = oGrid->info.width;
+    int height = oGrid->info.height;
     int depth = sizeof(dt) / sizeof(int);
     int length = width * height * depth;
     int idx = 0;
     int idxSucc = 0;
-    //    grid = new int [length];
+    bool* open;
+    bool* closed;
+    float* cost;
+    float* costToGo;
     open = new bool [length];
     closed = new bool [length];
     cost = new float [length];
@@ -76,14 +84,21 @@ float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::Occupancy
         costToGo[i] = 0;
     }
 
+    // 2D COSTS
+    Node3D::costGoal[width * height];
+
+    for (int i = 0; i < width * height; ++i) {
+        Node3D::costGoal[i] = 0;
+    }
+
     // PREDECESSOR AND SUCCESSOR POSITION
     int x, y, t, xSucc, ySucc, tSucc;
     // OPEN LIST
-    priority_queue<Node3D*, vector<Node3D*>, CompareNodes> O;
+    std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
     // update g value
     start.updateG(start);
     // update h value
-    start.updateH(goal);
+    start.updateH(goal, oGrid);
     // push on priority queue
     O.push(&start);
     // add node to open list with total estimated cost
@@ -140,8 +155,8 @@ float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::Occupancy
 
                     // ensure successor is on grid ROW MAJOR^2
                     if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < length && dT[tSucc] >= 0 && dT[tSucc] < depth) {
-                        // ensure successor is not blocked by obstacle
-                        if (grid[xSucc][ySucc] && obstacleBloating(xSucc, ySucc)) {
+                        // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
+                        if (oGrid->data[ySucc * width + xSucc] == 0) {
                             // ensure successor is not on closed list
                             if (closed[idxSucc] == false) {
                                 Node3D* nSucc;
@@ -155,7 +170,7 @@ float Node3D::aStar(Node3D& start, const Node3D& goal, const nav_msgs::Occupancy
                                     nSucc->setPred(nPred);
                                     nSucc->updateG(*nPred);
                                     cost[idxSucc] = nSucc->getG();
-                                    nSucc->updateH(goal);
+                                    nSucc->updateH(goal, oGrid);
                                     costToGo[idxSucc] = nSucc->getH();
                                     // put successor on open list
                                     open[idxSucc] = true;
