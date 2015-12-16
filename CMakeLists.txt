@@ -29,6 +29,9 @@ file(GLOB SOURCES
     src/node2d.h
     src/node3d.cpp
     src/node3d.h
+    src/path.cpp
+    src/path.h
+    src/subscribeandpublish.h
 )
 
 ## Declare ROS messages and services
@@ -50,3 +53,4 @@ add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
 add_executable(a_star src/main.cpp ${SOURCES})
+target_link_libraries(a_star ${catkin_LIBRARIES})

@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "talker");
     ros::NodeHandle n;
     ros::Publisher goal_pub = n.advertise<geometry_msgs::PoseStamped>("current_goal",10);
-    ros::Publisher plan_pub = n.advertise<nav_msgs::Path>("current_path",10);
+    ros::Publisher plan_pub = n.advertise<nav_msgs::Path>("path",10);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
         p[2].pose.orientation.w = 0;
 
         nav_msgs::Path plan;
-        plan.header.frame_id = "/plan";
+        plan.header.frame_id = "/path";
         plan.header.stamp = ros::Time::now();
         plan.poses = p;
         plan_pub.publish(plan);

@@ -43,56 +43,14 @@ class Node3D {
     // from start
     void updateG(const Node3D& pred) { g += movementCost(pred); }
     // to goal
-    void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid) { h = costToGo(goal, grid); }
+    void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float costGoal[]) { h = costToGo(goal, grid, costGoal); }
     // COST CALCULATION
     // cost for movement, g
-    float movementCost(const Node3D& pred) const {
-        bool penalty = false;
-        float distance, tPenalty = 0;
-
-        if (penalty) {
-            //heading penalty
-            if (abs(t - pred.getT()) > 180) { tPenalty = (360 - abs(t - pred.getT())) / 45; }
-            else { tPenalty = abs(t - pred.getT()) / 45; }
-        }
-
-        // euclidean distance
-        distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
-        return distance + tPenalty;
-    }
+    float movementCost(const Node3D& pred) const;
     // cost to go, dubins path / 2D A*
-    float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) const {
-        bool dubins = false;
-        bool twoD = false;
-        float cost = 0, dubinsLength = 0, euclidean = 0;
-        int newT = 0, newGoalT = 0;
-
-        if (dubins) {
-            // theta conversion
-            newT = (int)((360 - t) + 180) % 360;
-            newGoalT = (int)((360 - goal.t) + 180) % 360;
-            //start
-            double q0[] = { x, y, newT / 180 * M_PI };
-            // goal
-            double q1[] = { goal.x, goal.y, newGoalT / 180 * M_PI };
-            // turning radius
-            float r = 1;
-            DubinsPath path;
-            dubins_init(q0, q1, r, &path);
-            dubinsLength = dubins_path_length(&path);
-        }
-
-        if (twoD && costGoal[y * oGrid->info.width + x] == 0) {
-            Node2D start2d(x, y, 0, 0, nullptr);
-            Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
-            costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d, goal2d, oGrid);
-        }
-
-        euclidean = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
-        return std::max(euclidean, std::max(dubinsLength, costGoal[y * oGrid->info.width + x]));
-    }
+    float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float costGoal[]) const;
     //  aStar algorithm
-    static float aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
+    static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
     // CONSTANT VALUES
     // possible directions
     static const int dir;
@@ -100,7 +58,6 @@ class Node3D {
     static const int dx[];
     static const int dy[];
     static const int dt[];
-    static float costGoal[];
   private:
     // x = position (length), y = position (width), t = heading, g = cost, h = cost to go, pred = pointer to predecessor node
     int x;

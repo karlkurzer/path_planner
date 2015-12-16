@@ -5,71 +5,23 @@
 //###################################################
 
 #include <ctime>
-#include <iostream>
 #include <cstring>
+#include <iostream>
+#include <vector>
 
 #include <ros/ros.h>
 #include "nav_msgs/OccupancyGrid.h"
+#include "nav_msgs/Path.h"
+#include "geometry_msgs/PoseStamped.h"
 
+#include "subscribeandpublish.h"
 #include "dubins.h"
 #include "node3d.h"
-
-//###################################################
-//                              COUT STANDARD MESSAGE
-//###################################################
-
-void message(const std::string& msg) {
-    std::cout << "\n### " << msg << std::endl;
-}
-
-////###################################################
-////                                         PRINT GRID
-////###################################################
-
-//void printGrid(const Node3D& start, const Node3D& goal) {
-//    int total3D = 0;
-
-//    for (int i = 0; i < length; i++) {
-//        for (int j = 0; j < width; j++) {
-//            int count3D = 0;
-
-//            for (int k = 0; k < dir; k++) {
-//                if (listClosed3D[i][j][k]) { count3D++; }
-//            }
-
-//            total3D += count3D;
-//            pathClosed[i][j] = count3D;
-//        }
-//    }
-
-//    message("The grid");
-//    cout << total3D << " 3D nodes have been expanded" << endl;
-//    cout << total2D << " 2D nodes have been expanded" << endl;
-
-//    for (int i = 0; i < length; i++) {
-//        cout << endl;
-
-//        for (int j = 0; j < width; j++) {
-//            if (goal.getX() == i && goal.getY() == j)
-//            { cout << "G"; }
-//            else if (start.getX() == i && start.getY() == j)
-//            { cout << "S"; }
-//            else if (path[i][j])
-//            { cout << "+"; }
-//            else if (pathClosed[i][j] > 0)
-//            { cout << "|"; }
-//            else if (!grid[i][j])
-//            { cout << "#"; }
-//            else if (grid[i][j])
-//            { cout << "."; }
-//        }
-//    }
-//}
+#include "path.h"
 
 //###################################################
 //                                                CFG
 //###################################################
-
 struct cfg {
     bool penalty;
     bool dubins;
@@ -77,12 +29,10 @@ struct cfg {
 };
 
 //###################################################
-//                                       ROS CALLBACK
+//                              COUT STANDARD MESSAGE
 //###################################################
-void mapCallback(const nav_msgs::OccupancyGrid::ConstPtr& grid) {
-    Node3D start(0, 0, 0, 0, 0, nullptr);
-    Node3D goal(0, 0, 0, 0, 0, nullptr);
-    Node3D::aStar(start, goal, grid);
+void message(const std::string& msg) {
+    std::cout << "\n### " << msg << std::endl;
 }
 
 //###################################################
@@ -95,21 +45,10 @@ int main(int argc, char** argv) {
     config.twoD = false;
     message("Approaching Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
     ros::init(argc, argv, "a_star");
-    ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("map", 1000, mapCallback);
+    SubscribeAndPublish supPub;
     ros::spin();
     return 0;
 }
-////###################################################
-////                                         TRACE PATH
-////###################################################
-
-//void tracePath(Node3D* node, int count = 0) {
-//    if (node == nullptr) { return; }
-
-//    path[node->getX()][node->getY()] = true;
-//    tracePath(node->getPred(), count);
-//}
 
 ////###################################################
 ////                            TRAVERSABILITY CHECKING
