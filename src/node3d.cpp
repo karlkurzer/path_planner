@@ -87,8 +87,8 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY()
-         && lhs.getT() == rhs.getT();
+  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
+  //&& lhs.getT() == rhs.getT();
 }
 
 //###################################################
@@ -134,26 +134,23 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
   float* cost;
   float* costToGo;
   float* costGoal;
-  open = new bool [length];
-  closed = new bool [length];
+  open = new bool [length]();
+  closed = new bool [length]();
   cost = new float [length]();
   costToGo = new float [length]();
   // 2D COSTS
   costGoal = new float [width * height]();
-
   // initialize all lists
-  for (int i = 0; i < length; ++i) {
-    open[i] = false;
-    closed[i] = false;
-    cost[i] = 0;
-    costToGo[i] = 0;
-  }
-
+  //  for (int i = 0; i < length; ++i) {
+  //    open[i] = false;
+  //    closed[i] = false;
+  //    cost[i] = 0;
+  //    costToGo[i] = 0;
+  //  }
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, t, xSucc, ySucc, tSucc;
   // OPEN LIST
-  std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes>
-  O;
+  std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
   // update g value
   start.updateG(start);
   // update h value
@@ -161,8 +158,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
   // push on priority queue
   O.push(&start);
   // add node to open list with total estimated cost
-  cost[dT[(int) start.getT()]*width * height + start.getY() *
-       width + start.getX()] = start.getG();
+  cost[dT[(int) start.getT()]*width * height + start.getY() * width + start.getX()] = start.getG();
 
   // continue until O empty
   while (!O.empty()) {
@@ -218,7 +214,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
 
           // ensure successor is on grid ROW MAJOR^2
           if (xSucc >= 0 && xSucc < width && ySucc >= 0
-              && ySucc < length && dT[tSucc] >= 0 && dT[tSucc] < depth) {
+              && ySucc < height && dT[tSucc] >= 0 && dT[tSucc] < depth) {
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (oGrid->data[ySucc * width + xSucc] == 0) {
               // ensure successor is not on closed list
