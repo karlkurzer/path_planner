@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>path_planner</name>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <description>The path_planner package</description>
   <maintainer email="kurzer@kth.se">Karl Kurzer</maintainer>
   <license>BSD</license>

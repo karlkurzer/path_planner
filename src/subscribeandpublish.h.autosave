@@ -31,6 +31,7 @@ class SubscribeAndPublish {
     grid = map;
   }
 
+  // sets the goal pose and initializes the search
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal) {
     int x = (int)goal->pose.position.x;
     int y = (int)goal->pose.position.y;
@@ -56,6 +57,7 @@ class SubscribeAndPublish {
     }
   }
 
+  //sets the start pose
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
     int x = (int)initial->pose.pose.position.x;
     int y = (int)initial->pose.pose.position.y;
@@ -71,8 +73,8 @@ class SubscribeAndPublish {
     }
   }
 
-  void publishNodes (const geometry_msgs::PoseArray::ConstPtr& nodes){
-      pub_nodes.publish(nodes);
+  void publishNodes(const geometry_msgs::PoseArray::ConstPtr& nodes) {
+    pub_nodes.publish(nodes);
   }
 
  private:

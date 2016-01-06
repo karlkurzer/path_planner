@@ -7,9 +7,14 @@
 // CONSTANT VALUES
 // possible directions
 const int Node3D::dir = 8;
+// possible movements old
+//const int Node3D::dx[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
+//const int Node3D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+//const int Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
+
 // possible movements
-const int Node3D::dx[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
-const int Node3D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+const int Node3D::dx[] = { 1,  1,  0,  -1,  -1, -1,   0,    1 };
+const int Node3D::dy[] = { 0,  1,  1,   1,   0, -1,  -1,   -1 };
 const int Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
 
 //###################################################
@@ -87,8 +92,9 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
-  //&& lhs.getT() == rhs.getT();
+//  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
+//         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) < 45;
+    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
 }
 
 //###################################################
@@ -134,19 +140,13 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
   float* cost;
   float* costToGo;
   float* costGoal;
+  // initialize all lists
   open = new bool [length]();
   closed = new bool [length]();
   cost = new float [length]();
   costToGo = new float [length]();
   // 2D COSTS
   costGoal = new float [width * height]();
-  // initialize all lists
-  //  for (int i = 0; i < length; ++i) {
-  //    open[i] = false;
-  //    closed[i] = false;
-  //    cost[i] = 0;
-  //    costToGo[i] = 0;
-  //  }
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, t, xSucc, ySucc, tSucc;
   // OPEN LIST
