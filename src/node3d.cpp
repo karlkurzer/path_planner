@@ -15,7 +15,7 @@ const int Node3D::dir = 8;
 // possible movements
 const int Node3D::dx[] = { 1,  1,  0,  -1,  -1, -1,   0,    1 };
 const int Node3D::dy[] = { 0,  1,  1,   1,   0, -1,  -1,   -1 };
-const int Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
+const float Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
 
 //###################################################
 //                                      MOVEMENT COST
@@ -42,19 +42,16 @@ float Node3D::movementCost(const Node3D& pred) const {
 float Node3D::costToGo(const Node3D& goal,
                        const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
                        float costGoal[]) const {
-  bool dubins = false;
+  bool dubins = true;
   bool twoD = false;
   float cost = 0, dubinsLength = 0, euclidean = 0;
   int newT = 0, newGoalT = 0;
 
   if (dubins) {
-    // theta conversion
-    newT = (int)((360 - t) + 180) % 360;
-    newGoalT = (int)((360 - goal.t) + 180) % 360;
     //start
-    double q0[] = { x, y, newT / 180 * M_PI };
+    double q0[] = { x, y, t / 180 * M_PI };
     // goal
-    double q1[] = { goal.x, goal.y, newGoalT / 180 * M_PI };
+    double q1[] = { goal.x, goal.y, goal.t / 180 * M_PI };
     // turning radius
     float r = 1;
     DubinsPath path;
@@ -92,16 +89,21 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-//  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
-//         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) < 45;
-    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
+    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
+           std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <=22.5;
+  //preturn lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
 }
 
 //###################################################
 //                                 				3D A*
 //###################################################
+//Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
+//                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
 Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
-                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
+                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
+                      int width, int height, int depth, int length, bool* open, bool* closed, float* cost,
+                      float* costToGo,
+                      float* costGoal) {
   // MOTION PRIMITIVES
   int dX[8][3];
   int dY[8][3];
@@ -128,25 +130,25 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     else { dT[i] = factor; }
   }
 
-  // LISTS dynamically allocated ROW MAJOR ORDER
-  int width = oGrid->info.width;
-  int height = oGrid->info.height;
-  int depth = sizeof(dt) / sizeof(int);
-  int length = width * height * depth;
+  //  // LISTS dynamically allocated ROW MAJOR ORDER
+  //  int width = oGrid->info.width;
+  //  int height = oGrid->info.height;
+  //  int depth = sizeof(dt) / sizeof(int);
+  //  int length = width * height * depth;
   int idx = 0;
   int idxSucc = 0;
-  bool* open;
-  bool* closed;
-  float* cost;
-  float* costToGo;
-  float* costGoal;
-  // initialize all lists
-  open = new bool [length]();
-  closed = new bool [length]();
-  cost = new float [length]();
-  costToGo = new float [length]();
-  // 2D COSTS
-  costGoal = new float [width * height]();
+  //  bool* open;
+  //  bool* closed;
+  //  float* cost;
+  //  float* costToGo;
+  //  float* costGoal;
+  //  // initialize all lists
+  //  open = new bool [length]();
+  //  closed = new bool [length]();
+  //  cost = new float [length]();
+  //  costToGo = new float [length]();
+  //  // 2D COSTS
+  //  costGoal = new float [width * height]();
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, t, xSucc, ySucc, tSucc;
   // OPEN LIST
@@ -169,7 +171,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     x = nPred->getX();
     y = nPred->getY();
     t = nPred->getT();
-    idx = dT[(int) start.getT()] * width * height + y * width +
+    idx = dT[(int) t] * width * height + y * width +
           x;
 
     // lazy deletion of rewired node
@@ -185,11 +187,6 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
 
       // goal test
       if (*nPred == goal) {
-        delete[] open;
-        delete[] closed;
-        delete[] cost;
-        delete[] costToGo;
-        delete[] costGoal;
         return nPred;
       }
       // continue with search
@@ -209,7 +206,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
           if (tSucc > 359)  { tSucc = tSucc % 360; }
           else if (tSucc < 0)  { tSucc = 360 + tSucc; }
 
-          idxSucc = dT[(int)tSucc] * width * height + ySucc * width +
+          idxSucc = dT[(int) tSucc] * width * height + ySucc * width +
                     xSucc;
 
           // ensure successor is on grid ROW MAJOR^2
@@ -247,11 +244,6 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
 
   // return 0
   if (O.empty()) {
-    delete[] open;
-    delete[] closed;
-    delete[] cost;
-    delete[] costToGo;
-    delete[] costGoal;
     return nullptr;
   }
 }

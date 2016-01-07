@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-#include "nav_msgs/OccupancyGrid.h"
+#include <nav_msgs/OccupancyGrid.h>
 
 #include "dubins.h"
 #include "node2d.h"
@@ -52,15 +52,20 @@ class Node3D {
   float costToGo(const Node3D& goal,
                  const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float costGoal[]) const;
   //  aStar algorithm
+  //  static Node3D* aStar(Node3D& start, const Node3D& goal,
+  //                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
   static Node3D* aStar(Node3D& start, const Node3D& goal,
-                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
+                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
+                       int width, int height, int depth, int length, bool* open, bool* closed, float* cost,
+                       float* costToGo,
+                       float* costGoal);
   // CONSTANT VALUES
   // possible directions
   static const int dir;
   // possible movements
   static const int dx[];
   static const int dy[];
-  static const int dt[];
+  static const float dt[];
  private:
   // x = position (length), y = position (width), t = heading, g = cost, h = cost to go, pred = pointer to predecessor node
   int x;
@@ -74,26 +79,8 @@ class Node3D {
 ////###################################################
 ////                                  CONST DECLARATION
 ////###################################################
-///*
 //    HEADING => 0 - 359 degrees, 0 being north pointing towards negative X
 //    X-COORDINATE => designating the length of the grid/world
 //    Y-COORDINATE => designating the width of the grid/world
-//*/
-
-//// PATH TRACE
-//bool path[length][width];
-//int pathClosed[length][width];
-//// ALGORITHM LISTS
-//// 2D
-//bool listOpen2D[length][width];
-//bool listClosed2D[length][width];
-//float listCost2D[length][width];
-//float listCostToGo2D[length][width];
-//float listCostGoal2D[length][width];
-
-//// USER CHOICE
-//bool penalty = true;
-//bool dubins = true;
-//bool twoD = true;
 
 #endif // NODE3D_H

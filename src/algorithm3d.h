@@ -9,7 +9,7 @@ class Algorithm3D {
  public:
   Algorithm3D();
 
-  static search(Node3D& start, const Node3D& goal,
+  static void search(Node3D& start, const Node3D& goal,
                 const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
   }
 };

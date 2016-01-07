@@ -7,7 +7,6 @@
 #include <tf/transform_datatypes.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
-#include <geometry_msgs/PoseArray.h>
 
 #include "node3d.h"
 #include "path.h"
@@ -15,64 +14,100 @@
 class SubscribeAndPublish {
  public:
   SubscribeAndPublish() {
-    //Topic you want to publish
+    // topics to publish
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
     pub_nodes = n.advertise<geometry_msgs::PoseArray>("/nodes", 1);
-    //Topic you want to subscribe
+    // topics to subscribe
     sub_map = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
-    sub_goal = n.subscribe("/move_base_simple/goal", 1,
-                           &SubscribeAndPublish::setGoal, this);
-    sub_start = n.subscribe("/initialpose", 1,
-                            &SubscribeAndPublish::setStart, this);
+    sub_goal = n.subscribe("/move_base_simple/goal", 1, &SubscribeAndPublish::setGoal, this);
+    sub_start = n.subscribe("/initialpose", 1, &SubscribeAndPublish::setStart, this);
   }
-
+  // receiving the map
   void setMap(const nav_msgs::OccupancyGrid::ConstPtr map) {
     std::cout << "I am seeing the map..." << std::endl;
     grid = map;
   }
 
+  // sets the goal pose and initializes the search
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal) {
+
+    // LISTS dynamically allocated ROW MAJOR ORDER
+    int width = grid->info.width;
+    int height = grid->info.height;
+    int depth = 8;
+    int length = width * height * depth;
+    bool* open;
+    bool* closed;
+    float* cost;
+    float* costToGo;
+    float* costGoal;
+    // initialize all lists
+    open = new bool [length]();
+    closed = new bool [length]();
+    cost = new float [length]();
+    costToGo = new float [length]();
+    // 2D COSTS
+    costGoal = new float [width * height]();
+
+    // retrieving goal position
     int x = (int)goal->pose.position.x;
     int y = (int)goal->pose.position.y;
-    float t = tf::getYaw(goal->pose.orientation);
+    float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI;
 
-    if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
-      Node3D nGoal(x, y, t * 180 / M_PI, 0, 0, nullptr);
+    if (t < 0) {
+      t = 360 + t;
+    }
+
+    if (height >= y && y >= 0 && width >= x && x >= 0) {
+      Node3D nGoal(x, y, t, 0, 0, nullptr);
+      std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
       Node3D nStart(0, 0, 0, 0, 0, nullptr);
 
+      // setting the start position
       if (start != nullptr) {
         nStart.setX(start->pose.pose.position.x);
         nStart.setY(start->pose.pose.position.y);
-        nStart.setT(tf::getYaw(start->pose.pose.orientation) * 180 / M_PI);
+        t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI;
+
+        if (t < 0) {
+          t = 360 + t;
+        }
+
+        nStart.setT(t);
       }
 
-      std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:"
-                << t << " deg:" << t * 180 / M_PI << std::endl;
-      Path path(Node3D::aStar(nStart, nGoal, grid), "path");
+
+      Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
+                              costToGo, costGoal), "path");
       pub_path.publish(path.getPath());
+      pub_nodes.publish(Path::getNodes(width, height, depth, length, closed));
+      delete[] open;
+      delete[] closed;
+      delete[] cost;
+      delete[] costToGo;
+      delete[] costGoal;
     } else {
-      std::cout << "Invalid goal selected x:" << x << " y:" << y << " t:"
-                << t << " deg:" << t * 180 / M_PI << std::endl;
+      std::cout << "invalid goal x:" << x << " y:" << y << " t:" << t << std::endl;
     }
   }
 
+  // sets the start pose
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
     int x = (int)initial->pose.pose.position.x;
     int y = (int)initial->pose.pose.position.y;
-    float t = tf::getYaw(initial->pose.pose.orientation);
-    std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:"
-              << t << " deg:" << t * 180 / M_PI << std::endl;
+    float t = tf::getYaw(initial->pose.pose.orientation) * 180 / M_PI;
+
+    if (t < 0) {
+      t = 360 + t;
+    }
+
+    std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << t << std::endl;
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       start = initial;
     } else {
-      std::cout << "Invalid start selected x:" << x << " y:" << y << " t:"
-                << t << " deg:" << t * 180 / M_PI << std::endl;
+      std::cout << "invalid start x:" << x << " y:" << y << " t:" << t << std::endl;
     }
-  }
-
-  void publishNodes (const geometry_msgs::PoseArray::ConstPtr& nodes){
-      pub_nodes.publish(nodes);
   }
 
  private:

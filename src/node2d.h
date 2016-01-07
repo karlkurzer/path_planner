@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-#include "nav_msgs/OccupancyGrid.h"
+#include <nav_msgs/OccupancyGrid.h>
 
 class Node2D {
   public:
