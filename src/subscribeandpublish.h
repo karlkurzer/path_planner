@@ -2,6 +2,7 @@
 #define SUBSCRIBEANDPUBLISH
 
 #include <iostream>
+#include <ctime>
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
@@ -16,7 +17,8 @@ class SubscribeAndPublish {
   SubscribeAndPublish() {
     // topics to publish
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
-    pub_nodes = n.advertise<geometry_msgs::PoseArray>("/nodes", 1);
+    pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
+    pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
     // topics to subscribe
     sub_map = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
     sub_goal = n.subscribe("/move_base_simple/goal", 1, &SubscribeAndPublish::setGoal, this);
@@ -76,11 +78,15 @@ class SubscribeAndPublish {
         nStart.setT(t);
       }
 
-
+      clock_t t1, t2;
+      t1 = clock();
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
                               costToGo, costGoal), "path");
+      t2 = clock();
+      std::cout << "time: " << x << (float)t2 - (float)t1 <<std::endl;
       pub_path.publish(path.getPath());
-      pub_nodes.publish(Path::getNodes(width, height, depth, length, closed));
+      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
+      pub_nodes2D.publish(Path::getNodes2D(width, height, costGoal));
       delete[] open;
       delete[] closed;
       delete[] cost;
@@ -113,7 +119,8 @@ class SubscribeAndPublish {
  private:
   ros::NodeHandle n;
   ros::Publisher pub_path;
-  ros::Publisher pub_nodes;
+  ros::Publisher pub_nodes3D;
+  ros::Publisher pub_nodes2D;
   ros::Subscriber sub_map;
   ros::Subscriber sub_goal;
   ros::Subscriber sub_start;

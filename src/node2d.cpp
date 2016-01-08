@@ -43,6 +43,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
   closed = new bool [length]();
   cost = new float [length]();
   costToGo = new float [length]();
+
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, xSucc, ySucc;
   // OPEN LIST
