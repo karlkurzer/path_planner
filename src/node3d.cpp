@@ -7,11 +7,6 @@
 // CONSTANT VALUES
 // possible directions
 const int Node3D::dir = 8;
-// possible movements old
-//const int Node3D::dx[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
-//const int Node3D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
-//const int Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
-
 // possible movements
 const int Node3D::dx[] = { 1,  1,  0,  -1,  -1, -1,   0,    1 };
 const int Node3D::dy[] = { 0,  1,  1,   1,   0, -1,  -1,   -1 };
@@ -31,8 +26,7 @@ float Node3D::movementCost(const Node3D& pred) const {
   }
 
   // euclidean distance
-  distance = sqrt((x - pred.x) * (x - pred.x) +
-                  (y - pred.y) * (y - pred.y));
+  distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
   return distance + tPenalty;
 }
 
@@ -43,33 +37,34 @@ float Node3D::costToGo(const Node3D& goal,
                        const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
                        float costGoal[]) const {
   bool dubins = true;
-  bool twoD = false;
-  float cost = 0, dubinsLength = 0, euclidean = 0;
-  int newT = 0, newGoalT = 0;
+  bool twoD = true;
+  float dubinsCost = 0;
+  float euclideanCost = 0;
 
+  // if dubins heuristic is activated calculate the shortest path, constrained
   if (dubins) {
     //start
     double q0[] = { x, y, t / 180 * M_PI };
     // goal
     double q1[] = { goal.x, goal.y, goal.t / 180 * M_PI };
     // turning radius
-    float r = 1;
+    float r = 1.5;
     DubinsPath path;
     dubins_init(q0, q1, r, &path);
-    dubinsLength = dubins_path_length(&path);
+    dubinsCost = dubins_path_length(&path);
   }
 
+  // if twoD heuristic is activated determine shortest path, unconstrained
   if (twoD && costGoal[y * oGrid->info.width + x] == 0) {
     Node2D start2d(x, y, 0, 0, nullptr);
     Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
-    costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d,
-                                          goal2d, oGrid);
+    costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d, goal2d, oGrid);
   }
 
-  euclidean = sqrt((x - goal.x) * (x - goal.x) +
-                   (y - goal.y) * (y - goal.y));
-  return std::max(euclidean, std::max(dubinsLength,
-                                      costGoal[y * oGrid->info.width + x]));
+  // else calculate the euclidean distance
+  euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
+  // return the maximum of the heuristics, making the heuristic admissable
+  return std::max(euclideanCost, std::max(dubinsCost, costGoal[y * oGrid->info.width + x]));
 }
 
 //###################################################
@@ -82,28 +77,23 @@ float Node3D::costToGo(const Node3D& goal,
 //###################################################
 struct CompareNodes : public
   std::binary_function<Node3D*, Node3D*, bool> {
-  bool operator()(const Node3D* lhs,
-                  const Node3D* rhs) const {
+  bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-    return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
-           std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <=22.5;
-  //preturn lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
+  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
+         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 22.5;
+  //return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
 }
 
 //###################################################
 //                                 				3D A*
 //###################################################
-//Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
-//                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
 Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
-                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
-                      int width, int height, int depth, int length, bool* open, bool* closed, float* cost,
-                      float* costToGo,
-                      float* costGoal) {
+                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid, int width, int height, int depth, int length,
+                      bool* open, bool* closed, float* cost, float* costToGo, float* costGoal) {
   // MOTION PRIMITIVES
   int dX[8][3];
   int dY[8][3];
@@ -130,27 +120,11 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     else { dT[i] = factor; }
   }
 
-  //  // LISTS dynamically allocated ROW MAJOR ORDER
-  //  int width = oGrid->info.width;
-  //  int height = oGrid->info.height;
-  //  int depth = sizeof(dt) / sizeof(int);
-  //  int length = width * height * depth;
-  int idx = 0;
-  int idxSucc = 0;
-  //  bool* open;
-  //  bool* closed;
-  //  float* cost;
-  //  float* costToGo;
-  //  float* costGoal;
-  //  // initialize all lists
-  //  open = new bool [length]();
-  //  closed = new bool [length]();
-  //  cost = new float [length]();
-  //  costToGo = new float [length]();
-  //  // 2D COSTS
-  //  costGoal = new float [width * height]();
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, t, xSucc, ySucc, tSucc;
+  int idx = 0;
+  int idxSucc = 0;
+
   // OPEN LIST
   std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
   // update g value
