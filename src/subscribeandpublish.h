@@ -14,6 +14,9 @@
 
 class SubscribeAndPublish {
  public:
+  //###################################################
+  //                                        CONSTRUCTOR
+  //###################################################
   SubscribeAndPublish() {
     // topics to publish
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
@@ -24,13 +27,19 @@ class SubscribeAndPublish {
     sub_goal = n.subscribe("/move_base_simple/goal", 1, &SubscribeAndPublish::setGoal, this);
     sub_start = n.subscribe("/initialpose", 1, &SubscribeAndPublish::setStart, this);
   }
-  // receiving the map
-  void setMap(const nav_msgs::OccupancyGrid::ConstPtr map) {
+
+  //###################################################
+  //                                                MAP
+  //###################################################
+  void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
     std::cout << "I am seeing the map..." << std::endl;
     grid = map;
+    bloatObstacles(grid);
   }
 
-  // sets the goal pose and initializes the search
+  //###################################################
+  //                         INITIALIZE GOAL AND SEARCH
+  //###################################################
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal) {
 
     // LISTS dynamically allocated ROW MAJOR ORDER
@@ -65,7 +74,7 @@ class SubscribeAndPublish {
       std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
       Node3D nStart(0, 0, 0, 0, 0, nullptr);
 
-      // setting the start position
+      // setting the start position and catches an undefined error if neccessary
       if (start != nullptr) {
         nStart.setX(start->pose.pose.position.x);
         nStart.setY(start->pose.pose.position.y);
@@ -78,15 +87,19 @@ class SubscribeAndPublish {
         nStart.setT(t);
       }
 
-      clock_t t1, t2;
-      t1 = clock();
+      //      clock_t t1, t2;
+      //      t1 = clock();
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
                               costToGo, costGoal), "path");
-      t2 = clock();
-      std::cout << "time: " << x << (float)t2 - (float)t1 <<std::endl;
+      //      t2 = clock();
+      //      std::cout << "time: " << x << ((float)t2 - (float)t1) / 1000000 << std::endl;
+
+      // publish the results of the search
       pub_path.publish(path.getPath());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
       pub_nodes2D.publish(Path::getNodes2D(width, height, costGoal));
+
+      // LISTS deleted
       delete[] open;
       delete[] closed;
       delete[] cost;
@@ -97,7 +110,9 @@ class SubscribeAndPublish {
     }
   }
 
-  // sets the start pose
+  //###################################################
+  //                                   INITIALIZE START
+  //###################################################
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
     int x = (int)initial->pose.pose.position.x;
     int y = (int)initial->pose.pose.position.y;
@@ -116,6 +131,41 @@ class SubscribeAndPublish {
     }
   }
 
+  //###################################################
+  //                                   OBSTACLEBLOATING
+  //###################################################
+  void bloatObstacles(nav_msgs::OccupancyGrid::Ptr& grid) {
+    int height = grid->info.height;
+    int width = grid->info.width;
+    int length = height * width;
+    int x, y, xSucc, ySucc;
+    bool* bloating;
+    bloating = new bool[length]();
+
+    for (int i = 0; i < length; ++i) {
+      x = i % width;
+      y = (i / width) % height;
+
+      if (grid->data[i]) {
+        // bloat the obstacle
+        for (int i = 0; i < 8; ++i) {
+          xSucc = x + Node3D::dx[i];
+          ySucc = y + Node3D::dy[i];
+
+          if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height) {
+            bloating[ySucc * width + xSucc] = true;
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i < length; ++i) {
+      grid->data[i] = bloating[i];
+    }
+
+    delete[] bloating;
+  }
+
  private:
   ros::NodeHandle n;
   ros::Publisher pub_path;
@@ -124,7 +174,7 @@ class SubscribeAndPublish {
   ros::Subscriber sub_map;
   ros::Subscriber sub_goal;
   ros::Subscriber sub_start;
-  nav_msgs::OccupancyGrid::ConstPtr grid;
+  nav_msgs::OccupancyGrid::Ptr grid;
   geometry_msgs::PoseWithCovarianceStamped::ConstPtr start;
 };
 

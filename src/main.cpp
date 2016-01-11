@@ -7,17 +7,17 @@
 #include <ctime>
 #include <cstring>
 #include <iostream>
-#include <vector>
+//#include <vector>
 
 #include <ros/ros.h>
-#include <nav_msgs/OccupancyGrid.h>
-#include <nav_msgs/Path.h>
-#include <geometry_msgs/PoseStamped.h>
+//#include <nav_msgs/OccupancyGrid.h>
+//#include <nav_msgs/Path.h>
+//#include <geometry_msgs/PoseStamped.h>
 
 #include "subscribeandpublish.h"
-#include "dubins.h"
-#include "node3d.h"
-#include "path.h"
+//#include "dubins.h"
+//#include "node3d.h"
+//#include "path.h"
 
 //###################################################
 //                                                CFG
