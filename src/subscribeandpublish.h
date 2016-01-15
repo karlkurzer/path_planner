@@ -6,6 +6,7 @@
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
+//#include <sensor_msgs/JointState.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
@@ -19,6 +20,7 @@ class SubscribeAndPublish {
   //###################################################
   SubscribeAndPublish() {
     // topics to publish
+//    pub_rcv = n.advertise<sensor_msgs::JointState>("/joint_states", 1);
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
@@ -168,6 +170,7 @@ class SubscribeAndPublish {
 
  private:
   ros::NodeHandle n;
+//  ros::Publisher pub_rcv;
   ros::Publisher pub_path;
   ros::Publisher pub_nodes3D;
   ros::Publisher pub_nodes2D;

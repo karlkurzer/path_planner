@@ -7,6 +7,7 @@
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
+//#include <sensor_msgs/JointState.h>
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseArray.h>
