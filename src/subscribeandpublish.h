@@ -54,6 +54,7 @@ class SubscribeAndPublish {
     float* cost;
     float* costToGo;
     float* costGoal;
+
     // initialize all lists
     open = new bool [length]();
     closed = new bool [length]();

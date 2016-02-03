@@ -23,12 +23,12 @@ float Node3D::movementCost(const Node3D& pred) const {
     //heading penalty
     if (abs(t - pred.getT()) > 180) { tPenalty = (360 - abs(t - pred.getT())) / 45; }
     else { tPenalty = abs(t - pred.getT()) / 45; }
-  }
+    }
 
   // euclidean distance
   distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
   return distance + tPenalty;
-}
+  }
 
 //###################################################
 //                                         COST TO GO
@@ -52,20 +52,20 @@ float Node3D::costToGo(const Node3D& goal,
     DubinsPath path;
     dubins_init(q0, q1, r, &path);
     dubinsCost = dubins_path_length(&path);
-  }
+    }
 
   // if twoD heuristic is activated determine shortest path, unconstrained
   if (twoD && costGoal[y * oGrid->info.width + x] == 0) {
     Node2D start2d(x, y, 0, 0, nullptr);
     Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
     costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d, goal2d, oGrid);
-  }
+    }
 
   // else calculate the euclidean distance
   euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
   // return the maximum of the heuristics, making the heuristic admissable
   return std::max(euclideanCost, std::max(dubinsCost, costGoal[y * oGrid->info.width + x]));
-}
+  }
 
 //###################################################
 //                                 3D NODE COMPARISON
@@ -74,14 +74,14 @@ struct CompareNodes : public
   std::binary_function<Node3D*, Node3D*, bool> {
   bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
-  }
-};
+    }
+  };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
   return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
          std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 22.5;
   //return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
-}
+  }
 
 //###################################################
 //                                 				3D A*
@@ -100,12 +100,13 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
       if (i + j < 8) {
         dX[i][j] = Node3D::dx[i + j];
         dY[i][j] = Node3D::dy[i + j];
-      } else {
+        }
+      else {
         dX[i][j] = Node3D::dx[i + j - 8];
         dY[i][j] = Node3D::dy[i + j - 8];
+        }
       }
     }
-  }
 
   // generate theta mapping
   for (int i = 0; i < 360; i++) {
@@ -113,7 +114,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
 
     if (factor < 0) { dT[i] = 7; }
     else { dT[i] = factor; }
-  }
+    }
 
   // PREDECESSOR AND SUCCESSOR POSITION
   int x, y, t, xSucc, ySucc, tSucc;
@@ -140,14 +141,14 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     x = nPred->getX();
     y = nPred->getY();
     t = nPred->getT();
-    idx = dT[(int) t] * width * height + y * width +
-          x;
+    idx = dT[(int) t] * width * height + y * width + x;
 
     // lazy deletion of rewired node
     if (closed[idx] == true) {
       O.pop();
       continue;
-    } else if (closed[idx] == false) {
+      }
+    else if (closed[idx] == false) {
       // remove node from open list
       O.pop();
       open[idx] = false;
@@ -157,7 +158,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
       // goal test
       if (*nPred == goal) {
         return nPred;
-      }
+        }
       // continue with search
       else {
         // determine index of motion primitive
@@ -175,12 +176,11 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
           if (tSucc > 359)  { tSucc = tSucc % 360; }
           else if (tSucc < 0)  { tSucc = 360 + tSucc; }
 
-          idxSucc = dT[(int) tSucc] * width * height + ySucc * width +
-                    xSucc;
+          idxSucc = dT[(int) tSucc] * width * height + ySucc * width + xSucc;
 
           // ensure successor is on grid ROW MAJOR^2
-          if (xSucc >= 0 && xSucc < width && ySucc >= 0
-              && ySucc < height && dT[tSucc] >= 0 && dT[tSucc] < depth) {
+          if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height && dT[tSucc] >= 0 &&
+              dT[tSucc] < depth) {
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (oGrid->data[ySucc * width + xSucc] == 0) {
               // ensure successor is not on closed list
@@ -202,17 +202,18 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                   // put successor on open list
                   open[idxSucc] = true;
                   O.push(nSucc);
-                } else { delete nSucc; }
+                  }
+                else { delete nSucc; }
+                }
               }
             }
           }
         }
       }
     }
-  }
 
   // return 0
   if (O.empty()) {
     return nullptr;
+    }
   }
-}
