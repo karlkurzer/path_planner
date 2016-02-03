@@ -29,10 +29,6 @@ file(GLOB SOURCES
     src/node2d.h
     src/node3d.cpp
     src/node3d.h
-    src/algorithm2d.cpp
-    src/algorithm2d.h
-    src/algorithm3d.cpp
-    src/algorithm3d.h
     src/path.cpp
     src/path.h
     src/subscribeandpublish.h
