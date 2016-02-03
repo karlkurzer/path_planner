@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     config.penalty = false;
     config.dubins = false;
     config.twoD = false;
-    message("Approaching Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
+    message("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
     ros::init(argc, argv, "a_star");
     SubscribeAndPublish supPub;
     ros::spin();
