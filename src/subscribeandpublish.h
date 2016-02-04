@@ -47,7 +47,7 @@ class SubscribeAndPublish {
     // LISTS dynamically allocated ROW MAJOR ORDER
     int width = grid->info.width;
     int height = grid->info.height;
-    int depth = 8;
+    int depth = 72;
     int length = width * height * depth;
     bool* open;
     bool* closed;
@@ -66,7 +66,7 @@ class SubscribeAndPublish {
     // retrieving goal position
     int x = (int)goal->pose.position.x;
     int y = (int)goal->pose.position.y;
-    float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI;
+    float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
 
     if (t < 0) {
       t = 360 + t;
@@ -81,7 +81,7 @@ class SubscribeAndPublish {
       if (start != nullptr) {
         nStart.setX(start->pose.pose.position.x);
         nStart.setY(start->pose.pose.position.y);
-        t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI;
+        t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI - 90;
 
         if (t < 0) {
           t = 360 + t;

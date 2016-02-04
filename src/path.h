@@ -54,15 +54,19 @@ class Path {
     nodes.header.frame_id = "path";
     nodes.header.stamp = ros::Time::now();
     int count = 0;
+    float max = 0, min = 360;
 
     for (int i = 0; i < length; ++i) {
       if (closed[i]) {
         count++;
         geometry_msgs::Pose node;
-        node.position.x = i % width;
-        node.position.y = (i / width) % height;
-        node.orientation = tf::createQuaternionMsgFromYaw((float)Node3D::dt[(i /
-                           (width * height)) % depth] / 180 * M_PI);
+        // center in cell +0.5
+        node.position.x = i % width + 0.5;
+        node.position.y = (i / width) % height + 0.5;
+        // correct for rotation +90/5 not yet done!!!
+        node.orientation = tf::createQuaternionMsgFromYaw((i / (width * height) % depth + 18) /
+                           (float)180 * M_PI * 5);
+
         nodes.poses.push_back(node);
       }
     }
@@ -79,10 +83,12 @@ class Path {
     for (int i = 0; i < width * height; ++i) {
       if (costGoal[i] != 0) {
         visualization_msgs::Marker node;
+
         // delete all previous markers
         if (count == 0) {
-            node.action = 3;
+          node.action = 3;
         }
+
         node.header.frame_id = "path";
         node.header.stamp = ros::Time::now();
         node.id = count;
@@ -94,8 +100,9 @@ class Path {
         node.color.r = 1.0;
         node.color.g = 0.0;
         node.color.b = 0.0;
-        node.pose.position.x = i % width;
-        node.pose.position.y = (i / width) % height;
+        // center in cell +0.5
+        node.pose.position.x = i % width + 0.5;
+        node.pose.position.y = (i / width) % height + 0.5;
         nodes.markers.push_back(node);
         count++;
       }
