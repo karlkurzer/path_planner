@@ -57,7 +57,7 @@ float Node3D::costToGo(const Node3D& goal,
     // goal
     double q1[] = { goal.x, goal.y, goal.t / 180 * M_PI };
     // minimum turning radius
-    float r = 1.5;
+    float r = 6;
     DubinsPath path;
     dubins_init(q0, q1, r, &path);
     dubinsCost = dubins_path_length(&path);
@@ -92,7 +92,7 @@ struct CompareNodes : public
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
   return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
-         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 5;
+         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 15;
 }
 
 //###################################################

@@ -54,7 +54,6 @@ class Path {
     nodes.header.frame_id = "path";
     nodes.header.stamp = ros::Time::now();
     int count = 0;
-    float max = 0, min = 360;
 
     for (int i = 0; i < length; ++i) {
       if (closed[i]) {

@@ -6,7 +6,6 @@
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
-//#include <sensor_msgs/JointState.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
@@ -20,7 +19,7 @@ class SubscribeAndPublish {
   //###################################################
   SubscribeAndPublish() {
     // topics to publish
-//    pub_rcv = n.advertise<sensor_msgs::JointState>("/joint_states", 1);
+    //    pub_rcv = n.advertise<sensor_msgs::JointState>("/joint_states", 1);
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
@@ -64,8 +63,8 @@ class SubscribeAndPublish {
     costGoal = new float [width * height]();
 
     // retrieving goal position
-    int x = (int)goal->pose.position.x;
-    int y = (int)goal->pose.position.y;
+    float x = goal->pose.position.x;
+    float y = goal->pose.position.y;
     float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
 
     if (t < 0) {
@@ -90,12 +89,9 @@ class SubscribeAndPublish {
         nStart.setT(t);
       }
 
-      //      clock_t t1, t2;
-      //      t1 = clock();
+
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
                               costToGo, costGoal), "path");
-      //      t2 = clock();
-      //      std::cout << "time: " << x << ((float)t2 - (float)t1) / 1000000 << std::endl;
 
       // publish the results of the search
       pub_path.publish(path.getPath());
@@ -117,9 +113,9 @@ class SubscribeAndPublish {
   //                                   INITIALIZE START
   //###################################################
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
-    int x = (int)initial->pose.pose.position.x;
-    int y = (int)initial->pose.pose.position.y;
-    float t = tf::getYaw(initial->pose.pose.orientation) * 180 / M_PI;
+    float x = initial->pose.pose.position.x;
+    float y = initial->pose.pose.position.y;
+    float t = tf::getYaw(initial->pose.pose.orientation) * 180 / M_PI - 90;
 
     if (t < 0) {
       t = 360 + t;
@@ -138,6 +134,8 @@ class SubscribeAndPublish {
   //                                   OBSTACLEBLOATING
   //###################################################
   void bloatObstacles(nav_msgs::OccupancyGrid::Ptr& grid) {
+    int dx[] = { 1,  1,  0,  -1,  -1, -1,   0,    1 };
+    int dy[] = { 0,  1,  1,   1,   0, -1,  -1,   -1 };
     int height = grid->info.height;
     int width = grid->info.width;
     int length = height * width;
@@ -151,9 +149,9 @@ class SubscribeAndPublish {
 
       if (grid->data[i]) {
         // bloat the obstacle
-        for (int i = 0; i < 8; ++i) {
-          xSucc = x + Node3D::dx[i];
-          ySucc = y + Node3D::dy[i];
+        for (int j = 0; j < 8; ++j) {
+          xSucc = x + dx[j];
+          ySucc = y + dy[j];
 
           if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height) {
             bloating[ySucc * width + xSucc] = true;
@@ -171,7 +169,7 @@ class SubscribeAndPublish {
 
  private:
   ros::NodeHandle n;
-//  ros::Publisher pub_rcv;
+  //  ros::Publisher pub_rcv;
   ros::Publisher pub_path;
   ros::Publisher pub_nodes3D;
   ros::Publisher pub_nodes2D;
