@@ -8,9 +8,13 @@
 // possible directions
 const int Node3D::dir = 3;
 // possible movements
-const float Node3D::dx[] = { 0,    -0.07387, 0.07387};
-const float Node3D::dy[] = { 0.92, 0.938607, 0.938607};
-const float Node3D::dt[] = { 0,     9,   -9};
+//const float Node3D::dx[] = { 0,    -0.07387, 0.07387};
+//const float Node3D::dy[] = { 0.92, 0.938607, 0.938607};
+//const float Node3D::dt[] = { 0,     9,   -9};
+
+const float Node3D::dx[] = { 0,    -0.16578, 0.16578};
+const float Node3D::dy[] = { 1.4142, 1.4007, 1.4007};
+const float Node3D::dt[] = { 0,     13.5,   -13.5};
 
 //###################################################
 //                                      MOVEMENT COST
@@ -27,13 +31,13 @@ float Node3D::movementCost(const Node3D& pred) const {
   // euclidean distance
   distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
   if (t - pred.getT() == dt[2]) {
-    distance = 0.942477796;
+    distance = 1,4137;
   }
   if (t - pred.getT() == dt[1]) {
-    distance = 0.942477796;
+    distance = 1,4137;
   }
   if (t - pred.getT() == dt[0]) {
-    distance = 0.92;
+    distance = 1,4142;
   }
   return distance + tPenalty;
 }

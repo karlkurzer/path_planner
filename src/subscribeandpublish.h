@@ -89,6 +89,15 @@ class SubscribeAndPublish {
         nStart.setT(t);
       }
 
+      if (false) {
+        nGoal.setX(10);
+        nGoal.setY(10);
+        nGoal.setT(270);
+        nStart.setX(2);
+        nStart.setY(10);
+        nStart.setT(270);
+      }
+
 
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
                               costToGo, costGoal), "path");
