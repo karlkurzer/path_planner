@@ -23,6 +23,8 @@ class SubscribeAndPublish {
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
+    pub_costMap = n.advertise<nav_msgs::OccupancyGrid>("/costMap", 1);
+    pub_start = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/start", 1);
     // topics to subscribe
     sub_map = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
     sub_goal = n.subscribe("/move_base_simple/goal", 1, &SubscribeAndPublish::setGoal, this);
@@ -89,23 +91,35 @@ class SubscribeAndPublish {
         nStart.setT(t);
       }
 
-      if (false) {
+      auto i = 0;
+
+      if (i == 2) {
+        nStart.setX(3);
+        nStart.setY(0);
+        nStart.setT(0);
+        nGoal.setX(50);
+        nGoal.setY(20);
+        nGoal.setT(180);
+      } else if (i == 3) {
+        nStart.setX(5);
+        nStart.setY(10);
+        nStart.setT(270);
         nGoal.setX(10);
         nGoal.setY(10);
         nGoal.setT(270);
-        nStart.setX(2);
-        nStart.setY(10);
-        nStart.setT(270);
       }
 
-
+      ros::Time t0 = ros::Time::now();
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
                               costToGo, costGoal), "path");
-
+      ros::Time t1 = ros::Time::now();
+      ros::Duration d(t1 - t0);
+      std::cout << "Time in ms:" << d * 1000 << std::endl;
       // publish the results of the search
       pub_path.publish(path.getPath());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
       pub_nodes2D.publish(Path::getNodes2D(width, height, costGoal));
+      pub_costMap.publish(Path::getCosts(width, height, depth, cost));
 
       // LISTS deleted
       delete[] open;
@@ -125,6 +139,13 @@ class SubscribeAndPublish {
     float x = initial->pose.pose.position.x;
     float y = initial->pose.pose.position.y;
     float t = tf::getYaw(initial->pose.pose.orientation) * 180 / M_PI - 90;
+    // publish the start without covariance for rviz
+    geometry_msgs::PoseStamped startN;
+    startN.pose.position = initial->pose.pose.position;
+    startN.pose.orientation = initial->pose.pose.orientation;
+    startN.header.frame_id = "map";
+    startN.header.stamp = ros::Time::now();
+
 
     if (t < 0) {
       t = 360 + t;
@@ -134,6 +155,7 @@ class SubscribeAndPublish {
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       start = initial;
+      pub_start.publish(startN);
     } else {
       std::cout << "invalid start x:" << x << " y:" << y << " t:" << t << std::endl;
     }
@@ -182,6 +204,8 @@ class SubscribeAndPublish {
   ros::Publisher pub_path;
   ros::Publisher pub_nodes3D;
   ros::Publisher pub_nodes2D;
+  ros::Publisher pub_costMap;
+  ros::Publisher pub_start;
   ros::Subscriber sub_map;
   ros::Subscriber sub_goal;
   ros::Subscriber sub_start;

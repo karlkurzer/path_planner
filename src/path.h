@@ -36,6 +36,7 @@ class Path {
     tracePath(node->getPred());
   }
 
+  // final path
   void addNode(Node3D* node) {
     geometry_msgs::PoseStamped vertex;
     vertex.pose.position.x = node->getX();
@@ -48,6 +49,7 @@ class Path {
     path.poses.push_back(vertex);
   }
 
+  // 3d expansion
   static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length,
       bool* closed) {
     geometry_msgs::PoseArray nodes;
@@ -74,6 +76,7 @@ class Path {
     return nodes;
   }
 
+  // 2d nodes
   static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* costGoal) {
     visualization_msgs::MarkerArray nodes;
 
@@ -109,6 +112,39 @@ class Path {
 
     std::cout << count << " 2D a* searches conducted" << std::endl;
     return nodes;
+  }
+
+  // cost heat map
+  static nav_msgs::OccupancyGrid getCosts(int width, int height, int depth, float* cost) {
+    nav_msgs::OccupancyGrid costGrid;
+    costGrid.header.frame_id = "map";
+    costGrid.header.stamp = ros::Time::now();
+    costGrid.info.height = height;
+    costGrid.info.width = width;
+    // needs to be set to the correct unit
+    costGrid.info.resolution = 1;
+    float sum;
+    int count;
+
+    for (int j = 0; j < height; ++j) {
+      for (int i = 0; i < width; ++i) {
+        sum = 0;
+        count = 0;
+
+        for (int k = 0; k < depth; ++k) {
+          sum += cost[k * width * height + j * width + i];
+
+          if (cost[k * width * height + j * width + i] > 0) {
+            count++;
+          }
+        }
+
+        sum /= count;
+        costGrid.data.push_back(sum);
+      }
+    }
+
+    return costGrid;
   }
 
  private:

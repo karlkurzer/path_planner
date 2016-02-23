@@ -8,38 +8,37 @@
 // possible directions
 const int Node3D::dir = 3;
 // possible movements
-//const float Node3D::dx[] = { 0,    -0.07387, 0.07387};
-//const float Node3D::dy[] = { 0.92, 0.938607, 0.938607};
-//const float Node3D::dt[] = { 0,     9,   -9};
+//const float Node3D::dx[] = { 0,         -0.018496,  0.018496};
+//const float Node3D::dy[] = { 0.471239,  0.470755,   0.470755};
+//const float Node3D::dt[] = { 0,         4.5,        -4.5};
 
-const float Node3D::dx[] = { 0,    -0.16578, 0.16578};
-const float Node3D::dy[] = { 1.4142, 1.4007, 1.4007};
-const float Node3D::dt[] = { 0,     13.5,   -13.5};
+const float Node3D::dx[] = { 0,       -0.07387, 0.07387};
+const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
+const float Node3D::dt[] = { 0,       9,   -9};
+
+//const float Node3D::dx[] = { 0,       -0.16578, 0.16578};
+//const float Node3D::dy[] = { 1.41372, 1.40067, 1.40067};
+//const float Node3D::dt[] = { 0,       13.5,   -13.5};
 
 //###################################################
 //                                      MOVEMENT COST
 //###################################################
 float Node3D::movementCost(const Node3D& pred) const {
-  bool penalty = false;
-  float distance, tPenalty = 0;
 
-  if (penalty) {
-    // turning penalty
-    if (abs(t - pred.getT()) > 0) { tPenalty = 1;}
-  }
+  float distance = 0;
+  //  bool penalty = false;
+  //  float tPenalty = 0;
+  //  if (penalty) {
+  //    // turning penalty
+  //    if (abs(t - pred.getT()) > 0) { tPenalty = 1;}
+  //  }
 
   // euclidean distance
-  distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
-  if (t - pred.getT() == dt[2]) {
-    distance = 1,4137;
-  }
-  if (t - pred.getT() == dt[1]) {
-    distance = 1,4137;
-  }
-  if (t - pred.getT() == dt[0]) {
-    distance = 1,4142;
-  }
-  return distance + tPenalty;
+  //  distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
+
+  distance = dy[0];
+
+  return distance;
 }
 
 //###################################################
@@ -57,14 +56,28 @@ float Node3D::costToGo(const Node3D& goal,
   // constrained without obstacles
   if (dubins) {
     // start
-    double q0[] = { x, y, t / 180 * M_PI };
+    double q0[] = { x, y, (t + 90) / 180 * M_PI };
     // goal
-    double q1[] = { goal.x, goal.y, goal.t / 180 * M_PI };
+    double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
     // minimum turning radius
     float r = 6;
     DubinsPath path;
     dubins_init(q0, q1, r, &path);
     dubinsCost = dubins_path_length(&path);
+
+    //    // start
+    //    q0[0] = x;
+    //    q0[1] = y;
+    //    q0[2] = (t + 90 - 5) / 180 * M_PI;
+    //    // goal
+    //    q1[0] = goal.x;
+    //    q1[1] = goal.y;
+    //    q1[2] = (goal.t + 90 - 5) / 180 * M_PI ;
+    //    dubins_init(q0, q1, r, &path);
+
+    //    if (dubins_path_length(&path) < dubinsCost) {
+    //      dubinsCost = dubins_path_length(&path);
+    //    }
   }
 
   // if twoD heuristic is activated determine shortest path
@@ -95,8 +108,8 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
-         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 15;
+  return trunc(lhs.getX()) == trunc(rhs.getX()) && trunc(lhs.getY()) == trunc(rhs.getY()) &&
+         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 10;
 }
 
 //###################################################
@@ -114,7 +127,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
   // OPEN LIST
   std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
   // update g value
-  start.updateG(start);
+  //  start.updateG(start); == 0;
   // update h value
   start.updateH(goal, oGrid, costGoal);
   // push on priority queue
@@ -146,7 +159,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
       closed[idx] = true;
 
       // goal test
-      if (nPred->getIdx(width, height) == goal.getIdx(width, height)) {
+      if (*nPred == goal) {
         return nPred;
       }
       // continue with search
@@ -181,7 +194,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                 // calculate new g value
                 float newG = nPred->getG() + nSucc->movementCost(*nPred);
 
-                // if successor not on open list or g value lower than before put it on open list
+                // if successor not on open list or found a shorter way to the cell, or hitting cell in a row
                 if (open[idxSucc] == false || newG < cost[idxSucc]) {
                   // set predecessor
                   nSucc->setPred(nPred);
@@ -192,7 +205,24 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                   // put successor on open list
                   open[idxSucc] = true;
                   O.push(nSucc);
-                } else { delete nSucc; }
+                }
+                /*
+                   // some new function testing for same fields
+                  nSucc->updateH(goal, oGrid, costGoal);
+                  float newH = nPred->getH();
+                  else if (newH < costToGo[idxSucc] && nPred->getIdx(width, height) == nSucc->getIdx(width, height)) {
+                  // set predecessor
+                  nSucc->setPred(nPred->getPred());
+                  nSucc->updateG(*nPred);
+                  cost[idxSucc] = nSucc->getG();
+                  nSucc->updateH(goal, oGrid, costGoal);
+                  costToGo[idxSucc] = nSucc->getH();
+                  // put successor on open list
+                  open[idxSucc] = true;
+                  O.push(nSucc);
+                  }
+                */
+                else { delete nSucc; }
               }
             }
           }
