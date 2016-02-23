@@ -37,7 +37,7 @@ float Node3D::costToGo(const Node3D& goal,
                        const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
                        float costGoal[]) const {
   bool dubins = false;
-  bool twoD = true;
+  bool twoD = false;
   float dubinsCost = 0;
   float euclideanCost = 0;
 

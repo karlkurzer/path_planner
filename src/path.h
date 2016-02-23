@@ -61,8 +61,8 @@ class Path {
         geometry_msgs::Pose node;
         node.position.x = i % width;
         node.position.y = (i / width) % height;
-        node.orientation = tf::createQuaternionMsgFromYaw((float)Node3D::dt[(i /
-                           (width * height)) % depth] / 180 * M_PI);
+        node.orientation = tf::createQuaternionMsgFromYaw(((float)Node3D::dt[(i /
+                           (width * height)) % depth] + 45) / 180 * M_PI);
         nodes.poses.push_back(node);
       }
     }
@@ -79,10 +79,12 @@ class Path {
     for (int i = 0; i < width * height; ++i) {
       if (costGoal[i] != 0) {
         visualization_msgs::Marker node;
+
         // delete all previous markers
         if (count == 0) {
-            node.action = 3;
+          node.action = 3;
         }
+
         node.header.frame_id = "path";
         node.header.stamp = ros::Time::now();
         node.id = count;
