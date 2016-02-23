@@ -38,76 +38,50 @@ class SubscribeAndPublish {
     std::cout << "I am seeing the map..." << std::endl;
     grid = map;
     bloatObstacles(grid);
-  }
 
-  //###################################################
-  //                         INITIALIZE GOAL AND SEARCH
-  //###################################################
-  void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal) {
+    // if a start as well as goal is defined go ahead and plan
+    if (start != nullptr && goal != nullptr) {
+      // LISTS dynamically allocated ROW MAJOR ORDER
+      int width = grid->info.width;
+      int height = grid->info.height;
+      int depth = 72;
+      int length = width * height * depth;
+      bool* open;
+      bool* closed;
+      float* cost;
+      float* costToGo;
+      float* costGoal;
 
-    // LISTS dynamically allocated ROW MAJOR ORDER
-    int width = grid->info.width;
-    int height = grid->info.height;
-    int depth = 72;
-    int length = width * height * depth;
-    bool* open;
-    bool* closed;
-    float* cost;
-    float* costToGo;
-    float* costGoal;
+      // initialize all lists
+      open = new bool [length]();
+      closed = new bool [length]();
+      cost = new float [length]();
+      costToGo = new float [length]();
+      // 2D COSTS
+      costGoal = new float [width * height]();
 
-    // initialize all lists
-    open = new bool [length]();
-    closed = new bool [length]();
-    cost = new float [length]();
-    costToGo = new float [length]();
-    // 2D COSTS
-    costGoal = new float [width * height]();
+      // retrieving goal position
+      float x = goal->pose.position.x;
+      float y = goal->pose.position.y;
+      float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
 
-    // retrieving goal position
-    float x = goal->pose.position.x;
-    float y = goal->pose.position.y;
-    float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
+      if (t < 0) {
+        t = 360 + t;
+      }
 
-    if (t < 0) {
-      t = 360 + t;
-    }
-
-    if (height >= y && y >= 0 && width >= x && x >= 0) {
       Node3D nGoal(x, y, t, 0, 0, nullptr);
-      std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
-      Node3D nStart(0, 0, 0, 0, 0, nullptr);
 
-      // setting the start position and catches an undefined error if neccessary
-      if (start != nullptr) {
-        nStart.setX(start->pose.pose.position.x);
-        nStart.setY(start->pose.pose.position.y);
-        t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI - 90;
+      // retrieving start position
+      x = start->pose.pose.position.x;
+      y = start->pose.pose.position.y;
+      t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI - 90;
 
-        if (t < 0) {
-          t = 360 + t;
-        }
-
-        nStart.setT(t);
+      if (t < 0) {
+        t = 360 + t;
       }
 
-      auto i = 0;
+      Node3D nStart(x, y, t, 0, 0, nullptr);
 
-      if (i == 2) {
-        nStart.setX(3);
-        nStart.setY(0);
-        nStart.setT(0);
-        nGoal.setX(50);
-        nGoal.setY(20);
-        nGoal.setT(180);
-      } else if (i == 3) {
-        nStart.setX(5);
-        nStart.setY(10);
-        nStart.setT(270);
-        nGoal.setX(10);
-        nGoal.setY(10);
-        nGoal.setT(270);
-      }
 
       ros::Time t0 = ros::Time::now();
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
@@ -127,6 +101,26 @@ class SubscribeAndPublish {
       delete[] cost;
       delete[] costToGo;
       delete[] costGoal;
+    }
+  }
+
+  //###################################################
+  //                         INITIALIZE GOAL AND SEARCH
+  //###################################################
+  void setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
+    // retrieving goal position
+    float x = end->pose.position.x;
+    float y = end->pose.position.y;
+    float t = tf::getYaw(end->pose.orientation) * 180 / M_PI - 90;
+
+    if (t < 0) {
+      t = 360 + t;
+    }
+
+    std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
+
+    if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
+      goal = end;
     } else {
       std::cout << "invalid goal x:" << x << " y:" << y << " t:" << t << std::endl;
     }
@@ -211,6 +205,7 @@ class SubscribeAndPublish {
   ros::Subscriber sub_start;
   nav_msgs::OccupancyGrid::Ptr grid;
   geometry_msgs::PoseWithCovarianceStamped::ConstPtr start;
+  geometry_msgs::PoseStamped::ConstPtr goal;
 };
 
 #endif // SUBSCRIBEANDPUBLISH
