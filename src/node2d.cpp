@@ -27,13 +27,14 @@ bool operator ==(const Node2D& lhs, const Node2D& rhs) {
 //###################################################
 //                                 				2D A*
 //###################################################
-float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
+float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid,
+                    float* cost2d) {
+
   // LISTS dynamically allocated ROW MAJOR ORDER
-  int width = oGrid->info.width;
-  int height = oGrid->info.height;
+  int width = grid->info.width;
+  int height = grid->info.height;
   int length = width * height;
-  int idx = 0;
-  int idxSucc = 0;
+  // define list pointers
   bool* open;
   bool* closed;
   float* cost;
@@ -45,7 +46,13 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
   costToGo = new float [length]();
 
   // PREDECESSOR AND SUCCESSOR POSITION
-  int x, y, xSucc, ySucc;
+  int x;
+  int y;
+  int idx = 0;
+  int xSucc;
+  int ySucc;
+  int idxSucc = 0;
+
   // OPEN LIST
   std::priority_queue<Node2D*, std::vector<Node2D*>, Compare2DNodes> O;
   // update g value
@@ -59,7 +66,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
 
   // continue until O empty
   while (!O.empty()) {
-    // create new node pointer
+    // define node pointer
     Node2D* nPred;
     // pop node with lowest cost from priority queue
     nPred = O.top();
@@ -98,7 +105,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
           // ensure successor is on grid ROW MAJOR
           if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height) {
             // ensure successor is not blocked by obstacle
-            if (oGrid->data[idxSucc] == 0) {
+            if (grid->data[idxSucc] == 0) {
               // ensure successor is not on closed list
               if (closed[idxSucc] == false) {
                 Node2D* nSucc;
@@ -112,6 +119,8 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
                   nSucc->setPred(nPred);
                   nSucc->updateG(*nPred);
                   cost[idxSucc] = nSucc->getG();
+                  //update the 2d costs
+                  cost2d[idxSucc] = cost[idxSucc];
                   nSucc->updateH(goal);
                   costToGo[idxSucc] = nSucc->getH();
                   // put successor on open list
@@ -127,11 +136,9 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
   }
 
   // return large number to guide search away
-  if (O.empty()) {
-    delete[] open;
-    delete[] closed;
-    delete[] cost;
-    delete[] costToGo;
-    return 1000;
-  }
+  delete[] open;
+  delete[] closed;
+  delete[] cost;
+  delete[] costToGo;
+  return 1000;
 }

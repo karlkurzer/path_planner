@@ -45,20 +45,20 @@ class Node3D {
     // from start
     void updateG(const Node3D& pred) { g += movementCost(pred); }
     // to goal
-    void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float costGoal[]) { h = costToGo(goal, grid, costGoal); }
+    void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float cost2d[]) { h = costToGo(goal, grid, cost2d); }
 
     // COST CALCULATION
     // cost for movement, g
     float movementCost(const Node3D& pred) const;
     // cost to go, dubins path or 2D A*
     float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
-                   float costGoal[]) const;
+                   float cost2d[]) const;
 
     //  aStar algorithm
     //  static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
     static Node3D* aStar(Node3D& start, const Node3D& goal,
-                         const nav_msgs::OccupancyGrid::ConstPtr& oGrid, int width, int height, int depth, int length,
-                         bool* open, bool* closed, float* cost, float* costToGo, float* costGoal);
+                         const nav_msgs::OccupancyGrid::ConstPtr& grid, int width, int height, int depth, int length,
+                         bool* open, bool* closed, float* cost, float* costToGo, float* cost2d);
 
     // CONSTANT VALUES
     // possible directions

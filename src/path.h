@@ -7,7 +7,6 @@
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
-//#include <sensor_msgs/JointState.h>
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseArray.h>
@@ -18,25 +17,35 @@
 
 class Path {
  public:
-  // CONSTRUCTOR
+  //###################################################
+  //                                        CONSTRUCTOR
+  //###################################################
   Path(Node3D* goal, const std::string& frame_id) {
     path.header.frame_id = frame_id;
     path.header.stamp = ros::Time::now();
-    tracePath(goal);
+    length = -Node3D::dy[0];
+    length = tracePath(goal);
   }
 
   nav_msgs::Path getPath() {
     return path;
   }
 
-  void tracePath(Node3D* node) {
-    if (node == nullptr) { return; }
+  float getLength() {
+    return length;
+  }
+
+  //###################################################
+  //                                         TRACE PATH
+  //###################################################
+  float tracePath(Node3D* node) {
+    if (node == nullptr) { return length; }
 
     addNode(node);
+    length += Node3D::dy[0];
     tracePath(node->getPred());
   }
 
-  // final path
   void addNode(Node3D* node) {
     geometry_msgs::PoseStamped vertex;
     vertex.pose.position.x = node->getX();
@@ -49,7 +58,9 @@ class Path {
     path.poses.push_back(vertex);
   }
 
-  // 3d expansion
+  //###################################################
+  //                                     TRACE 3D NODES
+  //###################################################
   static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length,
       bool* closed) {
     geometry_msgs::PoseArray nodes;
@@ -76,14 +87,16 @@ class Path {
     return nodes;
   }
 
-  // 2d nodes
-  static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* costGoal) {
+  //###################################################
+  //                                     TRACE 2D NODES
+  //###################################################
+  static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d) {
     visualization_msgs::MarkerArray nodes;
 
     int count = 0;
 
     for (int i = 0; i < width * height; ++i) {
-      if (costGoal[i] != 0) {
+      if (cost2d[i] != 0) {
         visualization_msgs::Marker node;
 
         // delete all previous markers
@@ -110,11 +123,13 @@ class Path {
       }
     }
 
-    std::cout << count << " 2D a* searches conducted" << std::endl;
+    std::cout << count << " 2D nodes expanded" << std::endl;
     return nodes;
   }
 
-  // cost heat map
+  //###################################################
+  //                                       COST HEATMAP
+  //###################################################
   static nav_msgs::OccupancyGrid getCosts(int width, int height, int depth, float* cost) {
     nav_msgs::OccupancyGrid costGrid;
     costGrid.header.frame_id = "map";
@@ -139,7 +154,7 @@ class Path {
           }
         }
 
-        sum /= count;
+//        sum /= count;
         costGrid.data.push_back(sum);
       }
     }
@@ -149,6 +164,7 @@ class Path {
 
  private:
   nav_msgs::Path path;
+  float length;
 };
 
 #endif // PATH_H

@@ -18,15 +18,21 @@ class SubscribeAndPublish {
   //                                        CONSTRUCTOR
   //###################################################
   SubscribeAndPublish() {
-    // topics to publish
+    // topics to PUBLISH
     //    pub_rcv = n.advertise<sensor_msgs::JointState>("/joint_states", 1);
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
     pub_costMap = n.advertise<nav_msgs::OccupancyGrid>("/costMap", 1);
     pub_start = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/start", 1);
-    // topics to subscribe
-    sub_map = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
+
+    // topics to SUBSCRIBE
+    if (manual) {
+      sub_map = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
+    } else {
+      sub_map = n.subscribe("/occ_map", 1, &SubscribeAndPublish::setMap, this);
+    }
+
     sub_goal = n.subscribe("/move_base_simple/goal", 1, &SubscribeAndPublish::setGoal, this);
     sub_start = n.subscribe("/initialpose", 1, &SubscribeAndPublish::setStart, this);
   }
@@ -37,20 +43,30 @@ class SubscribeAndPublish {
   void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
     std::cout << "I am seeing the map..." << std::endl;
     grid = map;
+
     bloatObstacles(grid);
 
-    // if a start as well as goal is defined go ahead and plan
+    // plan if the switch is not set to manual
+    if (!manual) { plan();}
+  }
+
+  //###################################################
+  //                                      PLAN THE PATH
+  //###################################################
+  void plan() {
+    // if a start as well as goal are defined go ahead and plan
     if (start != nullptr && goal != nullptr) {
       // LISTS dynamically allocated ROW MAJOR ORDER
       int width = grid->info.width;
       int height = grid->info.height;
       int depth = 72;
       int length = width * height * depth;
+      // define list pointers
       bool* open;
       bool* closed;
       float* cost;
       float* costToGo;
-      float* costGoal;
+      float* cost2d;
 
       // initialize all lists
       open = new bool [length]();
@@ -58,7 +74,7 @@ class SubscribeAndPublish {
       cost = new float [length]();
       costToGo = new float [length]();
       // 2D COSTS
-      costGoal = new float [width * height]();
+      cost2d = new float [width * height]();
 
       // retrieving goal position
       float x = goal->pose.position.x;
@@ -82,30 +98,32 @@ class SubscribeAndPublish {
 
       Node3D nStart(x, y, t, 0, 0, nullptr);
 
-
       ros::Time t0 = ros::Time::now();
       Path path(Node3D::aStar(nStart, nGoal, grid, width, height, depth, length, open, closed, cost,
-                              costToGo, costGoal), "path");
+                              costToGo, cost2d), "path");
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
-      std::cout << "Time in ms:" << d * 1000 << std::endl;
+      std::cout << "Time in ms: " << d * 1000 << std::endl;
+      std::cout << "Length in m: " << path.getLength() << std::endl;
       // publish the results of the search
       pub_path.publish(path.getPath());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
-      pub_nodes2D.publish(Path::getNodes2D(width, height, costGoal));
+      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
       pub_costMap.publish(Path::getCosts(width, height, depth, cost));
 
       // LISTS deleted
-      delete[] open;
-      delete[] closed;
-      delete[] cost;
-      delete[] costToGo;
-      delete[] costGoal;
+      delete [] open;
+      delete [] closed;
+      delete [] cost;
+      delete [] costToGo;
+      delete [] cost2d;
+    } else {
+      std::cout << "missing goal or start" << std::endl;
     }
   }
 
   //###################################################
-  //                         INITIALIZE GOAL AND SEARCH
+  //                                    INITIALIZE GOAL
   //###################################################
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
     // retrieving goal position
@@ -121,6 +139,9 @@ class SubscribeAndPublish {
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       goal = end;
+
+      if (manual) { plan();}
+
     } else {
       std::cout << "invalid goal x:" << x << " y:" << y << " t:" << t << std::endl;
     }
@@ -149,6 +170,9 @@ class SubscribeAndPublish {
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       start = initial;
+
+      if (manual) { plan();}
+
       pub_start.publish(startN);
     } else {
       std::cout << "invalid start x:" << x << " y:" << y << " t:" << t << std::endl;
@@ -189,10 +213,11 @@ class SubscribeAndPublish {
       grid->data[i] = bloating[i];
     }
 
-    delete[] bloating;
+    delete [] bloating;
   }
 
  private:
+  bool manual = true;
   ros::NodeHandle n;
   //  ros::Publisher pub_rcv;
   ros::Publisher pub_path;
