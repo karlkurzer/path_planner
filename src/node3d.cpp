@@ -122,7 +122,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     x = nPred->getX();
     y = nPred->getY();
     t = nPred->getT();
-    std::cout <<"Expanding\nx: " <<x <<"\ny: " <<y <<"\nt: " <<t <<std::endl;
+    //    std::cout <<"Expanding\nx: " <<x <<"\ny: " <<y <<"\nt: " <<t <<std::endl;
     idx = nPred->getIdx(width, height);
 
     // lazy deletion of rewired node
@@ -165,21 +165,32 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (grid->data[(int)ySucc * width + (int)xSucc] == 0) {
 
-              // ensure successor is not on closed list
-              if (closed[idxSucc] == false) {
+              // ensure successor is not on closed list or it has the same index
+              if (closed[idxSucc] == false || idx == idxSucc) {
                 Node3D* nSucc;
                 nSucc = new Node3D(xSucc, ySucc, tSucc, nPred->getG(), 0, nullptr);
 
                 // calculate new g value
-                float newG = nPred->getG() + nSucc->movementCost(*nPred);
+                nSucc->updateG(*nPred);
+                float newG = nSucc->getG();
 
-                // if successor not on open list or found a shorter way to the cell, or hitting cell in a row
+                // if successor not on open list or found a shorter way to the cell
                 if (open[idxSucc] == false || newG < cost[idxSucc]) {
-                  // set predecessor
-                  nSucc->setPred(nPred);
-                  nSucc->updateG(*nPred);
-                  cost[idxSucc] = nSucc->getG();
+
+                    // DEBUG if successor is in the same cell
+                  // calculate heuristic
                   nSucc->updateH(goal, grid, cost2d);
+                  if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
+                    std::cout << idx << " entered occupied cell\n";
+                    // set predecessor to predecessor of predecessor
+                    nSucc->setPred(nPred->getPred());
+                  } else {
+                    //set predecessor
+                    nSucc->setPred(nPred);
+                  }
+
+                  // set costs
+                  cost[idxSucc] = nSucc->getG();
                   costToGo[idxSucc] = nSucc->getH();
                   // put successor on open list
                   open[idxSucc] = true;

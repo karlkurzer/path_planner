@@ -23,30 +23,31 @@ class Path {
   Path(Node3D* goal, const std::string& frame_id) {
     path.header.frame_id = frame_id;
     path.header.stamp = ros::Time::now();
-    length = -Node3D::dy[0];
-    length = tracePath(goal);
+    int count = 0;
+    tracePath(goal, count);
   }
 
   nav_msgs::Path getPath() {
     return path;
   }
 
-  float getLength() {
-    return length;
+  visualization_msgs::MarkerArray getPathNodes() {
+    return pathNodes;
   }
 
   //###################################################
   //                                         TRACE PATH
   //###################################################
-  float tracePath(Node3D* node) {
-    if (node == nullptr) { return length; }
+  void tracePath(Node3D* node, int count) {
+    if (node == nullptr) { return; }
 
-    addNode(node);
-    length += Node3D::dy[0];
-    tracePath(node->getPred());
+    addSegment(node);
+    addNode(node, count);
+    count++;
+    tracePath(node->getPred(), count);
   }
 
-  void addNode(Node3D* node) {
+  void addSegment(Node3D* node) {
     geometry_msgs::PoseStamped vertex;
     vertex.pose.position.x = node->getX();
     vertex.pose.position.y = node->getY();
@@ -56,6 +57,30 @@ class Path {
     vertex.pose.orientation.z = 0;
     vertex.pose.orientation.w = 0;
     path.poses.push_back(vertex);
+  }
+
+  void addNode(Node3D* node, int count) {
+    visualization_msgs::Marker pathNode;
+
+    // delete all previous markers
+    if (count == 0) {
+      pathNode.action = 3;
+    }
+
+    pathNode.header.frame_id = "path";
+    pathNode.header.stamp = ros::Time::now();
+    pathNode.id = count;
+    pathNode.type = visualization_msgs::Marker::SPHERE;
+    pathNode.scale.x = 0.1;
+    pathNode.scale.y = 0.1;
+    pathNode.scale.z = 0.1;
+    pathNode.color.a = 1.0;
+    pathNode.color.r = 1.0;
+    pathNode.color.g = 0.0;
+    pathNode.color.b = 0.0;
+    pathNode.pose.position.x = node->getX();
+    pathNode.pose.position.y = node->getY();
+    pathNodes.markers.push_back(pathNode);
   }
 
   //###################################################
@@ -154,7 +179,7 @@ class Path {
           }
         }
 
-//        sum /= count;
+        //        sum /= count;
         costGrid.data.push_back(sum);
       }
     }
@@ -164,7 +189,7 @@ class Path {
 
  private:
   nav_msgs::Path path;
-  float length;
+  visualization_msgs::MarkerArray pathNodes;
 };
 
 #endif // PATH_H

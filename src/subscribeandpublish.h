@@ -21,6 +21,7 @@ class SubscribeAndPublish {
     // topics to PUBLISH
     //    pub_rcv = n.advertise<sensor_msgs::JointState>("/joint_states", 1);
     pub_path = n.advertise<nav_msgs::Path>("/path", 1);
+    pub_pathNodes = n.advertise<visualization_msgs::MarkerArray>("/pathNodes", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
     pub_costMap = n.advertise<nav_msgs::OccupancyGrid>("/costMap", 1);
@@ -104,9 +105,10 @@ class SubscribeAndPublish {
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
       std::cout << "Time in ms: " << d * 1000 << std::endl;
-      std::cout << "Length in m: " << path.getLength() << std::endl;
+//      std::cout << "Length in m: " << path.getLength() << std::endl;
       // publish the results of the search
       pub_path.publish(path.getPath());
+      pub_pathNodes.publish(path.getPathNodes());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
       pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
       pub_costMap.publish(Path::getCosts(width, height, depth, cost));
@@ -221,6 +223,7 @@ class SubscribeAndPublish {
   ros::NodeHandle n;
   //  ros::Publisher pub_rcv;
   ros::Publisher pub_path;
+  ros::Publisher pub_pathNodes;
   ros::Publisher pub_nodes3D;
   ros::Publisher pub_nodes2D;
   ros::Publisher pub_costMap;
