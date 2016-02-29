@@ -75,9 +75,9 @@ class Path {
     pathNode.scale.y = 0.1;
     pathNode.scale.z = 0.1;
     pathNode.color.a = 1.0;
-    pathNode.color.r = 1.0;
+    pathNode.color.r = 0.5;
     pathNode.color.g = 0.0;
-    pathNode.color.b = 0.0;
+    pathNode.color.b = 0.5;
     pathNode.pose.position.x = node->getX();
     pathNode.pose.position.y = node->getY();
     pathNodes.markers.push_back(pathNode);

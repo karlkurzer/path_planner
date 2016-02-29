@@ -49,7 +49,7 @@ float Node3D::costToGo(const Node3D& goal,
   // constrained without obstacles
   if (dubins) {
     // minimum turning radius
-    const float r = 6;
+    const float r = 3;
     // start
     double q0[] = { x, y, (t + 90) / 180 * M_PI };
     // goal
@@ -165,7 +165,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (grid->data[(int)ySucc * width + (int)xSucc] == 0) {
 
-              // ensure successor is not on closed list or it has the same index
+              // ensure successor is not on closed list or it has the same index as the predecessor
               if (closed[idxSucc] == false || idx == idxSucc) {
                 Node3D* nSucc;
                 nSucc = new Node3D(xSucc, ySucc, tSucc, nPred->getG(), 0, nullptr);
@@ -181,9 +181,11 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                   // calculate heuristic
                   nSucc->updateH(goal, grid, cost2d);
                   if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
-                    std::cout << idx << " entered occupied cell\n";
+//                    std::cout << idx << " entered occupied cell\n";
                     // set predecessor to predecessor of predecessor
                     nSucc->setPred(nPred->getPred());
+                    // remove from closed list so that it can be expanded again
+                    closed[idxSucc] = false;
                   } else {
                     //set predecessor
                     nSucc->setPred(nPred);
