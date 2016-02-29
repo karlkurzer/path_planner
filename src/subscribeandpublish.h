@@ -86,6 +86,10 @@ class SubscribeAndPublish {
         t = 360 + t;
       }
 
+      if (t >= 360) {
+        t -= 360;
+      }
+
       Node3D nGoal(x, y, t, 0, 0, nullptr);
 
       // retrieving start position
@@ -97,6 +101,10 @@ class SubscribeAndPublish {
         t = 360 + t;
       }
 
+      if (t >= 360) {
+        t -= 360;
+      }
+
       Node3D nStart(x, y, t, 0, 0, nullptr);
 
       ros::Time t0 = ros::Time::now();
@@ -105,7 +113,7 @@ class SubscribeAndPublish {
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
       std::cout << "Time in ms: " << d * 1000 << std::endl;
-//      std::cout << "Length in m: " << path.getLength() << std::endl;
+      //      std::cout << "Length in m: " << path.getLength() << std::endl;
       // publish the results of the search
       pub_path.publish(path.getPath());
       pub_pathNodes.publish(path.getPathNodes());
@@ -137,6 +145,10 @@ class SubscribeAndPublish {
       t = 360 + t;
     }
 
+    if (t >= 360) {
+      t -= 360;
+    }
+
     std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
@@ -166,6 +178,10 @@ class SubscribeAndPublish {
 
     if (t < 0) {
       t = 360 + t;
+    }
+
+    if (t >= 360) {
+      t -= 360;
     }
 
     std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << t << std::endl;

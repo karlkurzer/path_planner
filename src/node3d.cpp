@@ -10,13 +10,13 @@ auto count2D = 0;
 // possible directions
 const int Node3D::dir = 3;
 // possible movements
-//const float Node3D::dx[] = { 0,         -0.018496,  0.018496};
-//const float Node3D::dy[] = { 0.471239,  0.470755,   0.470755};
-//const float Node3D::dt[] = { 0,         4.5,        -4.5};
+const float Node3D::dx[] = { 0,        -0.032869,  0.032869};
+const float Node3D::dy[] = { 0.62832,   0.62717,   0.62717};
+const float Node3D::dt[] = { 0,         6,        -6};
 
-const float Node3D::dx[] = { 0,       -0.07387, 0.07387};
-const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
-const float Node3D::dt[] = { 0,       9,   -9};
+//const float Node3D::dx[] = { 0,       -0.07387, 0.07387};
+//const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
+//const float Node3D::dt[] = { 0,       9,   -9};
 
 //const float Node3D::dx[] = { 0,       -0.16578, 0.16578};
 //const float Node3D::dy[] = { 1.41372, 1.40067, 1.40067};
