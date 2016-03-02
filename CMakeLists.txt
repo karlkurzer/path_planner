@@ -31,6 +31,7 @@ file(GLOB SOURCES
     src/node3d.h
     src/path.cpp
     src/path.h
+    src/constants.h
     src/subscribeandpublish.h
 )
 

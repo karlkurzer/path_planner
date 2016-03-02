@@ -55,10 +55,10 @@ class Node3D {
                    float cost2d[]) const;
 
     //  aStar algorithm
-    //  static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
     static Node3D* aStar(Node3D& start, const Node3D& goal,
                          const nav_msgs::OccupancyGrid::ConstPtr& grid, int width, int height, int depth, int length,
                          bool* open, bool* closed, float* cost, float* costToGo, float* cost2d);
+    static bool collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, float x, float y, float t);
 
     // CONSTANT VALUES
     // possible directions

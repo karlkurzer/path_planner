@@ -4,8 +4,6 @@
 
 #include "node3d.h"
 
-auto count2D = 0;
-
 // CONSTANT VALUES
 // possible directions
 const int Node3D::dir = 3;
@@ -74,6 +72,14 @@ float Node3D::costToGo(const Node3D& goal,
   euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
   // return the maximum of the heuristics, making the heuristic admissable
   return std::max(euclideanCost, std::max(dubinsCost, cost2d[(int)y * grid->info.width + (int)x]));
+}
+
+//###################################################
+//                                 COLLISION CHECKING
+//###################################################
+bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, float x, float y,
+                               float t) {
+
 }
 
 //###################################################
@@ -163,6 +169,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
               trunc(tSucc / 5) < depth) {
 
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
+            // TODO COLLISION CHECKING
             if (grid->data[(int)ySucc * width + (int)xSucc] == 0) {
 
               // ensure successor is not on closed list or it has the same index as the predecessor
@@ -177,11 +184,12 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                 // if successor not on open list or found a shorter way to the cell
                 if (open[idxSucc] == false || newG < cost[idxSucc]) {
 
-                    // DEBUG if successor is in the same cell
+                  // DEBUG if successor is in the same cell
                   // calculate heuristic
                   nSucc->updateH(goal, grid, cost2d);
+
                   if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
-//                    std::cout << idx << " entered occupied cell\n";
+                    //                    std::cout << idx << " entered occupied cell\n";
                     // set predecessor to predecessor of predecessor
                     nSucc->setPred(nPred->getPred());
                     // remove from closed list so that it can be expanded again
@@ -197,25 +205,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
                   // put successor on open list
                   open[idxSucc] = true;
                   O.push(nSucc);
-                }
-
-                /*
-                   // some new function testing for same fields
-                  nSucc->updateH(goal, grid, cost2d);
-                  float newH = nPred->getH();
-                  else if (newH < costToGo[idxSucc] && nPred->getIdx(width, height) == nSucc->getIdx(width, height)) {
-                  // set predecessor
-                  nSucc->setPred(nPred->getPred());
-                  nSucc->updateG(*nPred);
-                  cost[idxSucc] = nSucc->getG();
-                  nSucc->updateH(goal, grid, cost2d);
-                  costToGo[idxSucc] = nSucc->getH();
-                  // put successor on open list
-                  open[idxSucc] = true;
-                  O.push(nSucc);
-                  }
-                */
-                else { delete nSucc; }
+                } else { delete nSucc; }
               }
             }
           }
@@ -224,7 +214,6 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
     }
   }
 
-  // return 0
   if (O.empty()) {
     return nullptr;
   }

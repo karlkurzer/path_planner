@@ -1,7 +1,7 @@
 //###################################################
 //                      HYBRID A* ALGORITHM
 //	AUTHOR:		Karl Kurzer
-//	WRITTEN:	2015-02-05
+//	WRITTEN:	2015-03-02
 //###################################################
 
 #include <cstring>
@@ -20,9 +20,13 @@ void message(const std::string& msg) {
 //                                               MAIN
 //###################################################
 int main(int argc, char** argv) {
+
   message("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
+
   ros::init(argc, argv, "a_star");
+
   SubscribeAndPublish supPub;
+
   ros::spin();
   return 0;
 }
