@@ -22,6 +22,7 @@ class SubscribeAndPublish {
   SubscribeAndPublish() {
     // _____
     // TODOS
+
     lookup::collisionLookup(collisionLookup);
 
     // _________________
@@ -55,7 +56,7 @@ class SubscribeAndPublish {
     grid = map;
 
     if (constants::obstacleBloating) {
-        bloatObstacles(grid);
+      bloatObstacles(grid);
     }
 
     // plan if the switch is not set to manual
@@ -125,7 +126,8 @@ class SubscribeAndPublish {
 
       Node3D nStart(x, y, t, 0, 0, nullptr);
 
-      // time the execution of the planner
+      // ___________________________
+      // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
       Path path(Node3D::aStar(nStart, nGoal, grid, length, open, closed, cost, costToGo, cost2d, collisionLookup), "path");
       ros::Time t1 = ros::Time::now();
@@ -276,7 +278,7 @@ class SubscribeAndPublish {
   nav_msgs::OccupancyGrid::Ptr grid;
   geometry_msgs::PoseWithCovarianceStamped::ConstPtr start;
   geometry_msgs::PoseStamped::ConstPtr goal;
-  constants::config collisionLookup[constants::headings];
+  constants::config collisionLookup[constants::headings * constants::positions];
 };
 
 #endif // SUBSCRIBEANDPUBLISH

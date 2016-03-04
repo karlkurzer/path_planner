@@ -76,31 +76,40 @@ float Node3D::costToGo(const Node3D& goal,
 bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t) {
   int X = trunc(x);
   int Y = trunc(y);
-  int T = trunc(t / constants::deltaHeadingDeg);
+  int iX = trunc((x - (long)x) * constants::positionResolution);
+  int iY = trunc((y - (long)y) * constants::positionResolution);
+  int iT = trunc(t / constants::deltaHeadingDeg);
   int cX;
   int cY;
+  int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
 
-  for (int i = 0; i < collisionLookup->length; ++i) {
-    cX = (X + collisionLookup[T].pos[i].x);
-    cY = (Y + collisionLookup[T].pos[i].y);
+  //  std::cout << idx << " has length " << collisionLookup[idx].length << std::endl;
+
+  for (int i = 0; i < collisionLookup[idx].length; ++i) {
+    cX = (X + collisionLookup[idx].pos[i].x);
+    cY = (Y + collisionLookup[idx].pos[i].y);
+    //    //DEBUG
+    //    std::cout << "[" << i << "]\t"
+    //              << collisionLookup[idx].pos[i].x << " | "
+    //              << collisionLookup[idx].pos[i].y << std::endl;
 
     // make sure the configuration coordinates are actually on the grid
     if (cX >= 0 && cX < grid->info.width && cY >= 0 && cY < grid->info.height) {
       if (grid->data[cY * grid->info.width + cX]) {
-      return false;
+        return false;
+      }
     }
   }
-}
 
-return true;
+  return true;
 }
 
 //###################################################
 //                                 3D NODE COMPARISON
 //###################################################
 struct CompareNodes : public
-std::binary_function<Node3D*, Node3D*, bool> {
-bool operator()(const Node3D* lhs, const Node3D* rhs) const {
+  std::binary_function<Node3D*, Node3D*, bool> {
+  bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
 };
@@ -181,7 +190,6 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
               trunc(tSucc / constants::deltaHeadingDeg) < constants::headings) {
 
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
-            // TODO COLLISION CHECKING
             if (collisionChecking(grid, collisionLookup, xSucc, ySucc, tSucc)) {
 
               // ensure successor is not on closed list or it has the same index as the predecessor

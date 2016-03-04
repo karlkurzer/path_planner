@@ -26,10 +26,10 @@ static const bool obstacleBloating = false;
 static const double bloating = 0;
 
 // [m] -- width of the vehicle
-static const double width = 1.75 + bloating;
+static const double width = 1.75 + 2 * bloating;
 
 // [m] -- length of the vehicle
-static const double length = 2.65 + bloating;
+static const double length = 2.65 + 2 * bloating;
 
 // [m] -- minimum turning radius of the vehicle
 const float r = 5;
@@ -50,7 +50,12 @@ static const float cellSize = 1;
 // LOOKUP SPECIFIC
 
 // [m] -- bounding box size length/width
-static const int bbSize = std::ceil((sqrt(width * width + length* length) + 2 * bloating) / cellSize) + 4;
+static const int bbSize = std::ceil(sqrt(width * width + length* length) + 4 / cellSize);
+
+// [#] -- number of discrete per cell length
+static const int positionResolution = 10;
+// [#] -- number of discrete points in one square
+static const int positions = positionResolution * positionResolution;
 
 // [i] -- relative position from center of the vehicle
 struct relPos {
@@ -61,7 +66,7 @@ struct relPos {
 //
 struct config {
   int length;
-  relPos pos[bbSize];
+  relPos pos[64];
 };
 
 }
