@@ -1,11 +1,67 @@
 #ifndef COLLISIONLOOKUP
 #define COLLISIONLOOKUP
 
+#include "dubins.h"
 #include "constants.h"
 
 namespace lookup {
+
 //###################################################
-//                                    COLLISIONLOOKUP
+//                                      DUBINS LOOKUP
+//###################################################
+void dubinsLookup(float* lookup) {
+  bool DEBUG = false;
+
+  DubinsPath path;
+
+  int width = constants::dubinsWidth / constants::cellSize;
+
+  //  // increase the width by one to make it square
+  //  if (width % 2 != 0) {
+  //    width++;
+  //  }
+
+  const int headings = constants::headings;
+
+  // start and goal vector
+  double start[3];
+  double goal[] = {0, 0, 0};
+
+  // iterate over the X index of a grid cell
+  for (int X = 0; X < width; ++X) {
+    start[0] = X;
+
+    // iterate over the Y index of a grid cell
+    for (int Y = 0; Y < width; ++Y) {
+      start[1] = Y;
+
+      // iterate over the start headings
+      for (int h0 = 0; h0 < headings; ++h0) {
+        start[2] = (constants::deltaHeadingDeg * h0 + 270) / 180.f * M_PI;
+
+        // iterate over the goal headings
+        for (int h1 = 0; h1 < headings; ++h1) {
+          goal[2] = (constants::deltaHeadingDeg * h1 + 270) / 180.f * M_PI;
+
+          // calculate the actual cost
+          dubins_init(start, goal, constants::r, &path);
+          lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] = dubins_path_length(&path);
+
+          if (DEBUG && lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] < sqrt(X * X + Y * Y) * 1.000001) {
+            std::cout << X << " | " << Y << " | "
+                      << constants::deltaHeadingDeg* h0 << " | "
+                      << constants::deltaHeadingDeg* h1 << " length: "
+                      << lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] << "\n";
+
+          }
+        }
+      }
+    }
+  }
+}
+
+//###################################################
+//                                   COLLISION LOOKUP
 //###################################################
 
 // _____________
@@ -16,8 +72,8 @@ int sign(double x) {
   if (x < 0) { return -1; }
 }
 
-// _______________
-// LOOKUP CREATION
+// _________________________
+// COLLISION LOOKUP CREATION
 void collisionLookup(constants::config* lookup) {
   bool DEBUG = false;
   // cell size
@@ -104,7 +160,7 @@ void collisionLookup(constants::config* lookup) {
     p[3].y = c.y - constants::length / 2 / cSize;
 
     for (int o = 0; o < constants::headings; ++o) {
-      if (DEBUG && q * constants::headings + o == 3726) { std::cout << "\ndegrees: " << theta * 180 / M_PI << std::endl; }
+      if (DEBUG && q * constants::headings + o == 3726) { std::cout << "\ndegrees: " << theta * 180.f / M_PI << std::endl; }
 
       // initialize cSpace
       for (int i = 0; i < size; ++i) {
@@ -140,8 +196,8 @@ void collisionLookup(constants::config* lookup) {
         }
 
         //set indexes
-        X = trunc(start.x);
-        Y = trunc(start.y);
+        X = (int)start.x;
+        Y = (int)start.y;
         //      std::cout << "StartCell: " << X << "," << Y << std::endl;
         cSpace[Y * size + X] = true;
         t.x = end.x - start.x;
@@ -175,21 +231,21 @@ void collisionLookup(constants::config* lookup) {
           tMaxY = tDeltaY * (1 - (1 - (start.y / cSize - (long)(start.y / cSize))));
         }
 
-        while (trunc(end.x) != X || trunc(end.y) != Y) {
+        while ((int)end.x != X || (int)end.y != Y) {
           // only increment x if the t length is smaller and the result will be closer to the goal
-          if (tMaxX < tMaxY && std::abs(X + stepX - trunc(end.x)) < std::abs(X - trunc(end.x))) {
+          if (tMaxX < tMaxY && std::abs(X + stepX - (int)end.x) < std::abs(X - (int)end.x)) {
             tMaxX = tMaxX + tDeltaX;
             X = X + stepX;
             cSpace[Y * size + X] = true;
             //          std::cout << "Cell: " << X << "," << Y << std::endl;
             // only increment y if the t length is smaller and the result will be closer to the goal
-          } else if (tMaxY < tMaxX && std::abs(Y + stepY - trunc(end.y)) < std::abs(Y - trunc(end.y))) {
+          } else if (tMaxY < tMaxX && std::abs(Y + stepY - (int)end.y) < std::abs(Y - (int)end.y)) {
             tMaxY = tMaxY + tDeltaY;
             Y = Y + stepY;
             cSpace[Y * size + X] = true;
             //          std::cout << "Cell: " << X << "," << Y << std::endl;
-          } else if (2 >= std::abs(X - trunc(end.x)) + std::abs(Y - trunc(end.y))) {
-            if (std::abs(X - trunc(end.x)) > std::abs(Y - trunc(end.y))) {
+          } else if (2 >= std::abs(X - (int)end.x) + std::abs(Y - (int)end.y)) {
+            if (std::abs(X - (int)end.x) > std::abs(Y - (int)end.y)) {
               X = X + stepX;
               cSpace[Y * size + X] = true;
             } else {
@@ -239,8 +295,8 @@ void collisionLookup(constants::config* lookup) {
         for (int j = 0; j < size; ++j) {
           if (cSpace[i * size + j]) {
             // compute the relative position of the car cells
-            lookup[q * constants::headings + o].pos[count].x = j - trunc(c.x);
-            lookup[q * constants::headings + o].pos[count].y = i - trunc(c.y);
+            lookup[q * constants::headings + o].pos[count].x = j - (int)c.x;
+            lookup[q * constants::headings + o].pos[count].y = i - (int)c.y;
             // add one for the length of the current list
             count++;
           }

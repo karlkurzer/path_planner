@@ -33,6 +33,7 @@ file(GLOB SOURCES
     src/path.h
     src/lookup.h
     src/constants.h
+    src/helper.h
     src/subscribeandpublish.h
 )
 

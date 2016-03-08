@@ -23,34 +23,72 @@ const float Node3D::dt[] = { 0,         6,        -6};
 //###################################################
 //                                      MOVEMENT COST
 //###################################################
-float Node3D::movementCost(const Node3D& pred) const {
+inline float Node3D::movementCost(const Node3D& pred) const {
 
-  float distance = dy[0];
-  // euclidean distance
-  //  distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
-  distance = dy[0];
-  return distance;
+  // penalize turning
+  if ((int)t > (int)pred.getT()) {
+    return dy[0] * constants::penaltyTurning;
+  } else  {
+    return dy[0];
+  }
+
 }
 
 //###################################################
 //                                         COST TO GO
 //###################################################
-float Node3D::costToGo(const Node3D& goal,
-                       const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                       float cost2d[]) const {
+float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup) const {
   float dubinsCost = 0;
   float euclideanCost = 0;
 
   // if dubins heuristic is activated calculate the shortest path
   // constrained without obstacles
   if (constants::dubins) {
-    // start
-    double q0[] = { x, y, (t + 90) / 180 * M_PI };
-    // goal
-    double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
-    DubinsPath path;
-    dubins_init(q0, q1, constants::r, &path);
-    dubinsCost = dubins_path_length(&path);
+    int uX = std::abs((int)goal.x - (int)x);
+    int uY = std::abs((int)goal.y - (int)y);
+
+
+    // if the lookup table flag is set and the vehicle is in the lookup area
+    if (constants::dubinsLookup && uX < constants::dubinsWidth - 1 && uY < constants::dubinsWidth - 1) {
+      int X = (int)goal.x - (int)x;
+      int Y = (int)goal.y - (int)y;
+      int h0;
+      int h1;
+
+      // mirror on x axis
+      if (X >= 0 && Y <= 0) {
+        h0 = (int)(helper::normalizeHeading(180.f - t) / constants::deltaHeadingDeg);
+        h1 = (int)(helper::normalizeHeading(180.f - goal.t) / constants::deltaHeadingDeg);
+      }
+      // mirror on y axis
+      else if (X <= 0 && Y >= 0) {
+        h0 = (int)(helper::normalizeHeading(180.f - t) / constants::deltaHeadingDeg);
+        h1 = (int)(helper::normalizeHeading(180.f - goal.t) / constants::deltaHeadingDeg);
+
+      }
+      // mirror on xy axis
+      else if (X <= 0 && Y <= 0) {
+        h0 = (int)(helper::normalizeHeading(360.f - t) / constants::deltaHeadingDeg);
+        h1 = (int)(helper::normalizeHeading(360.f - goal.t) / constants::deltaHeadingDeg);
+
+      } else {
+        h0 = (int)(t / constants::deltaHeadingDeg);
+        h1 = (int)(goal.t / constants::deltaHeadingDeg);
+      }
+
+      dubinsCost = dubinsLookup[uX * constants::dubinsWidth * constants::headings * constants::headings
+                                + uY *  constants::headings * constants::headings
+                                + h0 * constants::headings
+                                + h1];
+    } else {
+      // start
+      double q0[] = { x, y, (t + 90) / 180 * M_PI };
+      // goal
+      double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
+      DubinsPath path;
+      dubins_init(q0, q1, constants::r, &path);
+      dubinsCost = dubins_path_length(&path);
+    }
   }
 
   // if twoD heuristic is activated determine shortest path
@@ -74,24 +112,18 @@ float Node3D::costToGo(const Node3D& goal,
 //                                 COLLISION CHECKING
 //###################################################
 bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t) {
-  int X = trunc(x);
-  int Y = trunc(y);
-  int iX = trunc((x - (long)x) * constants::positionResolution);
-  int iY = trunc((y - (long)y) * constants::positionResolution);
-  int iT = trunc(t / constants::deltaHeadingDeg);
+  int X = (int)x;
+  int Y = (int)y;
+  int iX = (int)((x - (long)x) * constants::positionResolution);
+  int iY = (int)((y - (long)y) * constants::positionResolution);
+  int iT = (int)(t / constants::deltaHeadingDeg);
+  int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
   int cX;
   int cY;
-  int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
-
-  //  std::cout << idx << " has length " << collisionLookup[idx].length << std::endl;
 
   for (int i = 0; i < collisionLookup[idx].length; ++i) {
     cX = (X + collisionLookup[idx].pos[i].x);
     cY = (Y + collisionLookup[idx].pos[i].y);
-    //    //DEBUG
-    //    std::cout << "[" << i << "]\t"
-    //              << collisionLookup[idx].pos[i].x << " | "
-    //              << collisionLookup[idx].pos[i].y << std::endl;
 
     // make sure the configuration coordinates are actually on the grid
     if (cX >= 0 && cX < grid->info.width && cY >= 0 && cY < grid->info.height) {
@@ -115,26 +147,34 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return trunc(lhs.getX()) == trunc(rhs.getX()) && trunc(lhs.getY()) == trunc(rhs.getY()) &&
+  return (int)lhs.getX() == (int)rhs.getX() && (int)lhs.getY() == (int)rhs.getY() &&
          std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= constants::deltaHeadingDeg;
 }
 
 //###################################################
 //                                 				3D A*
 //###################################################
-Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
-                      const nav_msgs::OccupancyGrid::ConstPtr& grid, int length, bool* open, bool* closed, float* cost, float* costToGo, float* cost2d, constants::config* collisionLookup) {
+Node3D* Node3D::aStar(Node3D& start,
+                      const Node3D& goal,
+                      const nav_msgs::OccupancyGrid::ConstPtr& grid,
+                      int length,
+                      bool* open,
+                      bool* closed,
+                      float* cost,
+                      float* costToGo,
+                      float* cost2d,
+                      constants::config* collisionLookup,
+                      float* dubinsLookup) {
 
   // PREDECESSOR AND SUCCESSOR POSITION
   float x, y, t, xSucc, ySucc, tSucc;
   int idx = 0;
   int idxSucc = 0;
 
-
   // OPEN LIST
   std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
   // update h value
-  start.updateH(goal, grid, cost2d);
+  start.updateH(goal, grid, cost2d, dubinsLookup);
   // push on priority queue
   O.push(&start);
   // add node to open list with total estimated cost
@@ -178,16 +218,15 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
           ySucc = y + dx[i] * sin(t / 180 * M_PI) + dy[i] * cos(t / 180 * M_PI);
           tSucc = t + dt[i];
 
-          // limit theta to 0-360
-          if (tSucc >= 360)  { tSucc = tSucc - 360; }
-          else if (tSucc < 0)  { tSucc = 360 + tSucc; }
+          // set theta to a value (0,360]
+          tSucc = helper::normalizeHeading(tSucc);
 
           // get index of the successor
-          idxSucc = trunc(tSucc / constants::deltaHeadingDeg) * grid->info.width * grid->info.height + trunc(ySucc) * grid->info.width + trunc(xSucc);
+          idxSucc = (int)(tSucc / constants::deltaHeadingDeg) * grid->info.width * grid->info.height + (int)(ySucc) * grid->info.width + (int)(xSucc);
 
           // ensure successor is on grid ROW MAJOR^2
-          if (xSucc >= 0 && xSucc < grid->info.width && ySucc >= 0 && ySucc < grid->info.height && trunc(tSucc / constants::deltaHeadingDeg) >= 0 &&
-              trunc(tSucc / constants::deltaHeadingDeg) < constants::headings) {
+          if (xSucc >= 0 && xSucc < grid->info.width && ySucc >= 0 && ySucc < grid->info.height && (int)(tSucc / constants::deltaHeadingDeg) >= 0 &&
+              (int)(tSucc / constants::deltaHeadingDeg) < constants::headings) {
 
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (collisionChecking(grid, collisionLookup, xSucc, ySucc, tSucc)) {
@@ -206,7 +245,7 @@ Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
 
                   // DEBUG if successor is in the same cell
                   // calculate heuristic
-                  nSucc->updateH(goal, grid, cost2d);
+                  nSucc->updateH(goal, grid, cost2d, dubinsLookup);
 
                   if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
                     //                    std::cout << idx << " entered occupied cell\n";

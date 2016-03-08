@@ -10,6 +10,7 @@
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include "constants.h"
+#include "helper.h"
 #include "node3d.h"
 #include "path.h"
 #include "lookup.h"
@@ -22,7 +23,9 @@ class SubscribeAndPublish {
   SubscribeAndPublish() {
     // _____
     // TODOS
-
+    if (constants::dubinsLookup) {
+      lookup::dubinsLookup(dubinsLookup);
+    }
     lookup::collisionLookup(collisionLookup);
 
     // _________________
@@ -98,13 +101,7 @@ class SubscribeAndPublish {
       float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
 
       // set theta to a value (0,360]
-      if (t < 0) {
-        t = 360 + t;
-      }
-
-      if (t >= 360) {
-        t -= 360;
-      }
+      t = helper::normalizeHeading(t);
 
       Node3D nGoal(x, y, t, 0, 0, nullptr);
 
@@ -116,20 +113,14 @@ class SubscribeAndPublish {
       t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI - 90;
 
       // set theta to a value (0,360]
-      if (t < 0) {
-        t = 360 + t;
-      }
-
-      if (t >= 360) {
-        t -= 360;
-      }
+      t = helper::normalizeHeading(t);
 
       Node3D nStart(x, y, t, 0, 0, nullptr);
 
       // ___________________________
       // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
-      Path path(Node3D::aStar(nStart, nGoal, grid, length, open, closed, cost, costToGo, cost2d, collisionLookup), "path");
+      Path path(Node3D::aStar(nStart, nGoal, grid, length, open, closed, cost, costToGo, cost2d, collisionLookup, dubinsLookup), "path");
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
       std::cout << "Time in ms: " << d * 1000 << std::endl;
@@ -164,14 +155,7 @@ class SubscribeAndPublish {
     float y = end->pose.position.y;
     float t = tf::getYaw(end->pose.orientation) * 180 / M_PI - 90;
 
-    // set theta to a value (0,360]
-    if (t < 0) {
-      t = 360 + t;
-    }
-
-    if (t >= 360) {
-      t -= 360;
-    }
+    t = helper::normalizeHeading(t);
 
     std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
 
@@ -199,14 +183,7 @@ class SubscribeAndPublish {
     startN.header.frame_id = "map";
     startN.header.stamp = ros::Time::now();
 
-
-    if (t < 0) {
-      t = 360 + t;
-    }
-
-    if (t >= 360) {
-      t -= 360;
-    }
+    t = helper::normalizeHeading(t);
 
     std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << t << std::endl;
 
@@ -279,6 +256,7 @@ class SubscribeAndPublish {
   geometry_msgs::PoseWithCovarianceStamped::ConstPtr start;
   geometry_msgs::PoseStamped::ConstPtr goal;
   constants::config collisionLookup[constants::headings * constants::positions];
+  float* dubinsLookup = new float [constants::headings * constants::headings * constants::dubinsWidth * constants::dubinsWidth];
 };
 
 #endif // SUBSCRIBEANDPUBLISH

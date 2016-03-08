@@ -27,8 +27,7 @@ bool operator ==(const Node2D& lhs, const Node2D& rhs) {
 //###################################################
 //                                 				2D A*
 //###################################################
-float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                    float* cost2d) {
+float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d) {
 
   // LISTS dynamically allocated ROW MAJOR ORDER
   int width = grid->info.width;

@@ -8,8 +8,8 @@
 #include "dubins.h"
 #include "node2d.h"
 #include "constants.h"
+#include "helper.h"
 
-struct cfg;
 
 class Node3D {
  public:
@@ -25,41 +25,42 @@ class Node3D {
   }
 
   // GETTER METHODS
-  float getX() const { return x; }
-  float getY() const { return y; }
-  float getT() const { return t; }
-  float getG() const { return g; }
-  float getH() const { return h; }
-  float getC() const { return g + h; }
-  int getIdx(int width, int height) const {return trunc(t / constants::deltaHeadingDeg) * width * height + trunc(y) * width + trunc(x);}
-  Node3D* getPred() const { return pred; }
+  inline float getX() const { return x; }
+  inline float getY() const { return y; }
+  inline float getT() const { return t; }
+  inline float getG() const { return g; }
+  inline float getH() const { return h; }
+  inline float getC() const { return g + h; }
+  inline int getIdx(int width, int height) const {return (int)(t / constants::deltaHeadingDeg) * width * height + (int)(y) * width + (int)(x);}
+  inline Node3D* getPred() const { return pred; }
 
   // SETTER METHODS
-  void setX(const float& x) { this->x = x; }
-  void setY(const float& y) { this->y = y; }
-  void setT(const float& t) { this->t = t; }
-  void setG(const float& g) { this->g = g; }
-  void setH(const float& h) { this->h = h; }
-  void setPred(Node3D* pred) { this->pred = pred; }
+  inline void setX(const float& x) { this->x = x; }
+  inline void setY(const float& y) { this->y = y; }
+  inline void setT(const float& t) { this->t = t; }
+  inline void setG(const float& g) { this->g = g; }
+  inline void setH(const float& h) { this->h = h; }
+  inline void setPred(Node3D* pred) { this->pred = pred; }
 
   // UPDATE METHODS
   // from start
-  void updateG(const Node3D& pred) { g += movementCost(pred); }
+  inline void updateG(const Node3D& pred) { g += movementCost(pred); }
   // to goal
-  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float cost2d[]) { h = costToGo(goal, grid, cost2d); }
+  inline void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup)
+  { h = costToGo(goal, grid, cost2d, dubinsLookup); }
 
   // COST CALCULATION
   // cost for movement, g
-  float movementCost(const Node3D& pred) const;
+  inline float movementCost(const Node3D& pred) const;
   // cost to go, dubins path or 2D A*
-  float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
-                 float cost2d[]) const;
+  inline float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float* cost2d, float* dubinsLookup) const;
 
   //  aStar algorithm
   static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, int length,
-                       bool* open, bool* closed, float* cost, float* costToGo, float* cost2d, constants::config* collisionLookup);
+                       bool* open, bool* closed, float* cost, float* costToGo, float* cost2d, constants::config* collisionLookup,
+                       float* dubinsLookup);
 
-  static bool collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t);
+  static inline bool collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t);
 
   // CONSTANT VALUES
   // possible directions
