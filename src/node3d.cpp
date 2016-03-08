@@ -136,6 +136,40 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
   return true;
 }
 
+
+//###################################################
+//                               DUBINS SHOT CALLBACK
+//###################################################
+inline int dubinsSampleCallback(double q[3], double p, void* user_data) {
+
+  float t = (q[2] - 2 * M_PI * (int)(q[2] / (2 * M_PI))) * 180 / M_PI;
+
+  std::cout << "sample " << p << "\t"
+            << q[0] << " | "
+            << q[1] << " | "
+            << t << "\n";
+
+  if (false /*collision checking*/) {
+    return 1;
+  } else {
+    // create a node and put it on the
+    return 0;
+  }
+}
+
+//###################################################
+//                                        DUBINS SHOT
+//###################################################
+inline float Node3D::dubinsShot(const Node3D& goal) const {
+  // start
+  double q0[] = { x, y, (t + 90) / 180 * M_PI };
+  // goal
+  double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
+  DubinsPath path;
+  dubins_init(q0, q1, constants::r, &path);
+  dubins_path_sample_many(&path, dubinsSampleCallback, constants::dubinsStepSize, nullptr);
+}
+
 //###################################################
 //                                 3D NODE COMPARISON
 //###################################################

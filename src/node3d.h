@@ -55,7 +55,11 @@ class Node3D {
   // cost to go, dubins path or 2D A*
   inline float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float* cost2d, float* dubinsLookup) const;
 
-  //  aStar algorithm
+  // DUBINS SHOOTING
+  inline float dubinsShot(const Node3D& goal) const;
+  static inline int dubinsSampleCallback(double q[3], double p, void* user_data);
+
+  //  HYBRID A* ALGORITHM
   static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, int length,
                        bool* open, bool* closed, float* cost, float* costToGo, float* cost2d, constants::config* collisionLookup,
                        float* dubinsLookup);
@@ -79,12 +83,5 @@ class Node3D {
   float h;
   Node3D* pred;
 };
-
-////###################################################
-////                                  CONST DECLARATION
-////###################################################
-//    HEADING => 0 - 359 degrees, 0 being north pointing towards negative X
-//    X-COORDINATE => designating the length of the grid/world
-//    Y-COORDINATE => designating the width of the grid/world
 
 #endif // NODE3D_H

@@ -1,6 +1,13 @@
 #ifndef CONSTANTS
 #define CONSTANTS
 
+////###################################################
+////                                               INFO
+////###################################################
+//    HEADING => 0 - 359 degrees, 0 being north pointing towards positive Y
+//    X-COORDINATE => designating the width of the grid
+//    Y-COORDINATE => designating the height of the grid
+
 #include <cmath>
 
 namespace constants {
@@ -57,6 +64,9 @@ static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
 static const float penaltyTurning = 1.1;
+
+// [m] -- dubins shot step size
+static const float dubinsStepSize = 0.1;
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC
