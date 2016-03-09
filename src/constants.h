@@ -18,10 +18,10 @@ namespace constants {
 static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
-static const bool dubinsLookup = true * dubins;
+static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = false;
+static const bool twoD = true;
 
 // flag -- switch to false for velodyne data
 static const bool manual = true;
@@ -66,7 +66,7 @@ static const float factor2D = sqrt(5) / sqrt(2) + 1;
 static const float penaltyTurning = 1.1;
 
 // [m] -- dubins shot step size
-static const float dubinsStepSize = 0.1;
+static const float dubinsStepSize = 0.5;
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC

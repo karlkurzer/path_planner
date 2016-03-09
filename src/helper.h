@@ -37,8 +37,6 @@ inline float toRad(float t) {
   return normalizeHeadingRad(t / 180 * M_PI);
 }
 
-
-
 }
 
 #endif // HELPER

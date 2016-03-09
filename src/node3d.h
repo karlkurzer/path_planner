@@ -23,7 +23,10 @@ class Node3D {
     this->h = h;
     this->pred = pred;
   }
-
+  // overloaded default constructor
+  Node3D() {
+    Node3D(0, 0, 0, 0, 0, nullptr);
+  }
   // GETTER METHODS
   inline float getX() const { return x; }
   inline float getY() const { return y; }
@@ -55,9 +58,8 @@ class Node3D {
   // cost to go, dubins path or 2D A*
   inline float costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float* cost2d, float* dubinsLookup) const;
 
-  // DUBINS SHOOTING
-  inline float dubinsShot(const Node3D& goal) const;
-  static inline int dubinsSampleCallback(double q[3], double p, void* user_data);
+  // DUBINS SHOT
+  inline Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
 
   //  HYBRID A* ALGORITHM
   static Node3D* aStar(Node3D& start, const Node3D& goal, bool* open, bool* closed, float* cost, float* costToGo, float* cost2d,

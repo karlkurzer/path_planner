@@ -82,9 +82,9 @@ float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstP
                                 + h1];
     } else {
       // start
-      double q0[] = { x, y, (t + 90) / 180 * M_PI };
+      double q0[] = { x, y, t};
       // goal
-      double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
+      double q1[] = { goal.x, goal.y, goal.t};
       DubinsPath path;
       dubins_init(q0, q1, constants::r, &path);
       dubinsCost = dubins_path_length(&path);
@@ -115,7 +115,9 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
   int X = (int)x;
   int Y = (int)y;
   int iX = (int)((x - (long)x) * constants::positionResolution);
-  int iY = (int)((y - (long)y) * constants::positionResolution);
+  iX = iX ? iX : 0;
+  int iY = (int)((y - (long)y) * constants::positionResolution) <= 0;
+  iY = iY ? iY : 0;
   int iT = (int)(t / constants::deltaHeadingDeg);
   int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
   int cX;
@@ -138,39 +140,58 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
 
 
 //###################################################
-//                               DUBINS SHOT CALLBACK
-//###################################################
-inline int Node3D::dubinsSampleCallback(double q[3], double p, void* user_data) {
-
-  // set t to a value (0,360]
-  float t = (q[2] - 2 * M_PI * (int)(q[2] / (2 * M_PI))) * 180 / M_PI;
-  // set theta to a value (0,360]
-  t = helper::normalizeHeading(t + 270);
-
-  std::cout << "sample " << p / constants::dubinsStepSize << "\t"
-            << q[0] << " | "
-            << q[1] << " | "
-            << t << "\n";
-
-  if (false /*collision checking*/) {
-    return 1;
-  } else {
-    // create a node and put it on the
-    return 0;
-  }
-}
-
-//###################################################
 //                                        DUBINS SHOT
 //###################################################
-inline float Node3D::dubinsShot(const Node3D& goal) const {
+inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
   // start
-  double q0[] = { x, y, (t + 90) / 180 * M_PI };
+  double q0[] = { x, y, t };
   // goal
-  double q1[] = { goal.x, goal.y, (goal.t + 90) / 180 * M_PI };
+  double q1[] = { goal.x, goal.y, goal.t };
+  // initialize the path
   DubinsPath path;
+  // calculate the path
   dubins_init(q0, q1, constants::r, &path);
-  dubins_path_sample_many(&path, dubinsSampleCallback, constants::dubinsStepSize, nullptr);
+
+  int i = 0;
+  float x = 0.f;
+  float length = dubins_path_length(&path);
+
+  Node3D* dubinsNodes = new Node3D [(int)(length / constants::dubinsStepSize) + 1];
+
+  while (x <  length) {
+    double q[3];
+    dubins_path_sample(&path, x, q);
+    q[2] = helper::normalizeHeading(q[2]);
+
+    // collision check
+    if (collisionChecking(grid, collisionLookup, q[0], q[1], q[2])) {
+      //      std::cout << "sample " << x / constants::dubinsStepSize << "\t"
+      //                << q[0] << " | "
+      //                << q[1] << " | "
+      //                << q[2] << "\n";
+      dubinsNodes[i].setX(q[0]);
+      dubinsNodes[i].setY(q[1]);
+      dubinsNodes[i].setT(q[2]);
+
+      // set the predecessor to the previous step
+      if (i > 0) {
+        dubinsNodes[i].setPred(&dubinsNodes[i - 1]);
+      } else {
+        dubinsNodes[i].setPred(pred);
+      }
+
+      x += constants::dubinsStepSize;
+      i++;
+    } else {
+      // delete all nodes
+//      std::cout << "Dubins shot collided, discarding the path" << "\n";
+      delete [] dubinsNodes;
+      return nullptr;
+    }
+  }
+
+//  std::cout << "Dubins shot connected, returning the path" << "\n";
+  return &dubinsNodes[i - 1];
 }
 
 //###################################################
@@ -247,8 +268,18 @@ Node3D* Node3D::aStar(Node3D& start,
       }
       // continue with search
       else {
-        //        nPred->dubinsShot(goal);
-        // loop over possible successor nodes
+        // ___________
+        // DUBINS SHOT
+        if (std::abs(x - goal.x) < 10 && std::abs(y - goal.y) < 10) {
+          Node3D* nDubins = nPred->dubinsShot(goal, grid, collisionLookup);
+
+          if (nDubins != nullptr) {
+            return nDubins;
+          }
+        }
+
+        // ______________________
+        // CREATE SUCCESSOR NODES
         for (int i = 0; i < 3; i++) {
 
           // calculate successor positions
