@@ -26,6 +26,7 @@ class SubscribeAndPublish {
     if (constants::dubinsLookup) {
       lookup::dubinsLookup(dubinsLookup);
     }
+
     lookup::collisionLookup(collisionLookup);
 
     // _________________
@@ -79,19 +80,19 @@ class SubscribeAndPublish {
       int depth = constants::headings;
       int length = width * height * depth;
       // define list pointers
-      bool* open;
-      bool* closed;
-      float* cost;
-      float* costToGo;
-      float* cost2d;
+      bool* open = new bool [length]();
+      bool* closed = new bool [length]();
+      float* cost = new float [length]();
+      float* costToGo = new float [length]();
+      float* cost2d = new float [width * height]();
 
-      // initialize all lists
-      open = new bool [length]();
-      closed = new bool [length]();
-      cost = new float [length]();
-      costToGo = new float [length]();
-      // 2D COSTS
-      cost2d = new float [width * height]();
+      //      // initialize all lists
+      //      open = new bool [length]();
+      //      closed = new bool [length]();
+      //      cost = new float [length]();
+      //      costToGo = new float [length]();
+      //      // 2D COSTS
+      //      cost2d = new float [width * height]();
 
       // ________________________
       // retrieving goal position
@@ -120,7 +121,7 @@ class SubscribeAndPublish {
       // ___________________________
       // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
-      Path path(Node3D::aStar(nStart, nGoal, grid, length, open, closed, cost, costToGo, cost2d, collisionLookup, dubinsLookup), "path");
+      Path path(Node3D::aStar(nStart, nGoal, open, closed, cost, costToGo, cost2d, grid, collisionLookup, dubinsLookup), "path");
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
       std::cout << "Time in ms: " << d * 1000 << std::endl;

@@ -140,11 +140,14 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
 //###################################################
 //                               DUBINS SHOT CALLBACK
 //###################################################
-inline int dubinsSampleCallback(double q[3], double p, void* user_data) {
+inline int Node3D::dubinsSampleCallback(double q[3], double p, void* user_data) {
 
+  // set t to a value (0,360]
   float t = (q[2] - 2 * M_PI * (int)(q[2] / (2 * M_PI))) * 180 / M_PI;
+  // set theta to a value (0,360]
+  t = helper::normalizeHeading(t + 270);
 
-  std::cout << "sample " << p << "\t"
+  std::cout << "sample " << p / constants::dubinsStepSize << "\t"
             << q[0] << " | "
             << q[1] << " | "
             << t << "\n";
@@ -181,8 +184,9 @@ struct CompareNodes : public
 };
 
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return (int)lhs.getX() == (int)rhs.getX() && (int)lhs.getY() == (int)rhs.getY() &&
-         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= constants::deltaHeadingDeg;
+  return (int)lhs.getX() == (int)rhs.getX() &&
+         (int)lhs.getY() == (int)rhs.getY() &&
+         std::abs(lhs.getT() - rhs.getT()) <= constants::deltaHeadingDeg;
 }
 
 //###################################################
@@ -190,13 +194,12 @@ bool operator == (const Node3D& lhs, const Node3D& rhs) {
 //###################################################
 Node3D* Node3D::aStar(Node3D& start,
                       const Node3D& goal,
-                      const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                      int length,
                       bool* open,
                       bool* closed,
                       float* cost,
                       float* costToGo,
                       float* cost2d,
+                      const nav_msgs::OccupancyGrid::ConstPtr& grid,
                       constants::config* collisionLookup,
                       float* dubinsLookup) {
 
@@ -244,6 +247,7 @@ Node3D* Node3D::aStar(Node3D& start,
       }
       // continue with search
       else {
+        //        nPred->dubinsShot(goal);
         // loop over possible successor nodes
         for (int i = 0; i < 3; i++) {
 

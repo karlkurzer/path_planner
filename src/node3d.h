@@ -60,9 +60,8 @@ class Node3D {
   static inline int dubinsSampleCallback(double q[3], double p, void* user_data);
 
   //  HYBRID A* ALGORITHM
-  static Node3D* aStar(Node3D& start, const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, int length,
-                       bool* open, bool* closed, float* cost, float* costToGo, float* cost2d, constants::config* collisionLookup,
-                       float* dubinsLookup);
+  static Node3D* aStar(Node3D& start, const Node3D& goal, bool* open, bool* closed, float* cost, float* costToGo, float* cost2d,
+                       const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float* dubinsLookup);
 
   static inline bool collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t);
 
