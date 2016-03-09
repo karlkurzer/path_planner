@@ -37,11 +37,11 @@ void dubinsLookup(float* lookup) {
 
       // iterate over the start headings
       for (int h0 = 0; h0 < headings; ++h0) {
-        start[2] = (constants::deltaHeadingDeg * h0 + 270) / 180.f * M_PI;
+        start[2] = constants::deltaHeadingRad * h0;
 
         // iterate over the goal headings
         for (int h1 = 0; h1 < headings; ++h1) {
-          goal[2] = (constants::deltaHeadingDeg * h1 + 270) / 180.f * M_PI;
+          goal[2] = constants::deltaHeadingRad * h1;
 
           // calculate the actual cost
           dubins_init(start, goal, constants::r, &path);
@@ -147,17 +147,17 @@ void collisionLookup(constants::config* lookup) {
     c.x = (double)size / 2 + points[q].x;
     c.y = (double) size / 2 + points[q].y;
 
-    p[0].x = c.x - constants::width / 2 / cSize;
-    p[0].y = c.y - constants::length / 2 / cSize;
+    p[0].x = c.x - constants::length / 2 / cSize;
+    p[0].y = c.y - constants::width / 2 / cSize;
 
-    p[1].x = c.x - constants::width / 2 / cSize;
-    p[1].y = c.y + constants::length / 2 / cSize;
+    p[1].x = c.x - constants::length / 2 / cSize;
+    p[1].y = c.y + constants::width / 2 / cSize;
 
-    p[2].x = c.x + constants::width / 2 / cSize;
-    p[2].y = c.y + constants::length / 2 / cSize;
+    p[2].x = c.x + constants::length / 2 / cSize;
+    p[2].y = c.y + constants::width / 2 / cSize;
 
-    p[3].x = c.x + constants::width / 2 / cSize;
-    p[3].y = c.y - constants::length / 2 / cSize;
+    p[3].x = c.x + constants::length / 2 / cSize;
+    p[3].y = c.y - constants::width / 2 / cSize;
 
     for (int o = 0; o < constants::headings; ++o) {
       if (DEBUG && q * constants::headings + o == 3726) { std::cout << "\ndegrees: " << theta * 180.f / M_PI << std::endl; }

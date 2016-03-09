@@ -18,7 +18,7 @@ namespace constants {
 static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
-static const bool dubinsLookup = true*dubins;
+static const bool dubinsLookup = true * dubins;
 
 // flag -- to turn on the 2D heuristic
 static const bool twoD = false;
@@ -48,10 +48,10 @@ static const float r = 5;
 static const int headings = 72;
 
 // [°] -- discretization value of heading == goal condition
-static const float deltaHeadingDeg = 360 / headings;
+static const float deltaHeadingDeg = 360 / (float)headings;
 
 // [c*PI] -- discretization value of heading
-static const float deltaHeadingRad = 2 * M_PIl / headings;
+static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 
 // [m] -- cell size in [m]
 static const float cellSize = 1;
@@ -74,7 +74,7 @@ static const float dubinsStepSize = 0.1;
 // [m] -- width of the dubinsArea / 2
 static const int dubinsWidth = 25;
 // [m²] -- area of the dubinsArea
-static const int dubinsArea = dubinsWidth*dubinsWidth;
+static const int dubinsArea = dubinsWidth * dubinsWidth;
 
 
 // _________________________

@@ -68,8 +68,8 @@ void Path::addVehicle(Node3D* node, int count) {
   pathVehicle.header.stamp = ros::Time::now();
   pathVehicle.id = count;
   pathVehicle.type = visualization_msgs::Marker::CUBE;
-  pathVehicle.scale.x = constants::width;
-  pathVehicle.scale.y = constants::length;
+  pathVehicle.scale.x = constants::length - constants::bloating * 2;
+  pathVehicle.scale.y = constants::width - constants::bloating * 2;
   pathVehicle.scale.z = 1;
   pathVehicle.color.a = 0.1;
   pathVehicle.color.r = 0.5;
@@ -77,7 +77,7 @@ void Path::addVehicle(Node3D* node, int count) {
   pathVehicle.color.b = 0.5;
   pathVehicle.pose.position.x = node->getX();
   pathVehicle.pose.position.y = node->getY();
-  pathVehicle.pose.orientation = tf::createQuaternionMsgFromYaw(node->getT() /180 * M_PI);
+  pathVehicle.pose.orientation = tf::createQuaternionMsgFromYaw(node->getT());
   pathVehicles.markers.push_back(pathVehicle);
 }
 
@@ -98,9 +98,7 @@ geometry_msgs::PoseArray Path::getNodes3D(int width, int height, int depth, int 
       // center in cell +0.5
       node.position.x = i % width + 0.5;
       node.position.y = (i / width) % height + 0.5;
-      // correct for rotation + 90/5 = 18
-      node.orientation = tf::createQuaternionMsgFromYaw((i / (width * height) % depth + 90/constants::deltaHeadingDeg) /
-                         (float)180 * M_PI * constants::deltaHeadingDeg);
+      node.orientation = tf::createQuaternionMsgFromYaw((i / (width * height) % depth) * constants::deltaHeadingRad);
 
       nodes.poses.push_back(node);
     }

@@ -31,7 +31,7 @@ class Node3D {
   inline float getG() const { return g; }
   inline float getH() const { return h; }
   inline float getC() const { return g + h; }
-  inline int getIdx(int width, int height) const {return (int)(t / constants::deltaHeadingDeg) * width * height + (int)(y) * width + (int)(x);}
+  inline int getIdx(int width, int height) const {return (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x);}
   inline Node3D* getPred() const { return pred; }
 
   // SETTER METHODS

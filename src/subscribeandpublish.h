@@ -79,30 +79,22 @@ class SubscribeAndPublish {
       int height = grid->info.height;
       int depth = constants::headings;
       int length = width * height * depth;
-      // define list pointers
+      // define list pointers and initialize lists
       bool* open = new bool [length]();
       bool* closed = new bool [length]();
       float* cost = new float [length]();
       float* costToGo = new float [length]();
       float* cost2d = new float [width * height]();
 
-      //      // initialize all lists
-      //      open = new bool [length]();
-      //      closed = new bool [length]();
-      //      cost = new float [length]();
-      //      costToGo = new float [length]();
-      //      // 2D COSTS
-      //      cost2d = new float [width * height]();
-
       // ________________________
       // retrieving goal position
       float x = goal->pose.position.x;
       float y = goal->pose.position.y;
       // adjust the theta for the RViz offset
-      float t = tf::getYaw(goal->pose.orientation) * 180 / M_PI - 90;
+      float t = tf::getYaw(goal->pose.orientation);
 
-      // set theta to a value (0,360]
-      t = helper::normalizeHeading(t);
+      // set theta to a value (0,2PI]
+      t = helper::normalizeHeadingRad(t);
 
       Node3D nGoal(x, y, t, 0, 0, nullptr);
 
@@ -111,10 +103,10 @@ class SubscribeAndPublish {
       x = start->pose.pose.position.x;
       y = start->pose.pose.position.y;
       // adjust the theta for the RViz offset
-      t = tf::getYaw(start->pose.pose.orientation) * 180 / M_PI - 90;
+      t = tf::getYaw(start->pose.pose.orientation);
 
-      // set theta to a value (0,360]
-      t = helper::normalizeHeading(t);
+      // set theta to a value (0,2PI]
+      t = helper::normalizeHeadingRad(t);
 
       Node3D nStart(x, y, t, 0, 0, nullptr);
 
@@ -154,11 +146,9 @@ class SubscribeAndPublish {
     // retrieving goal position
     float x = end->pose.position.x;
     float y = end->pose.position.y;
-    float t = tf::getYaw(end->pose.orientation) * 180 / M_PI - 90;
+    float t = tf::getYaw(end->pose.orientation);
 
-    t = helper::normalizeHeading(t);
-
-    std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << t << std::endl;
+    std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       goal = end;
@@ -166,7 +156,7 @@ class SubscribeAndPublish {
       if (constants::manual) { plan();}
 
     } else {
-      std::cout << "invalid goal x:" << x << " y:" << y << " t:" << t << std::endl;
+      std::cout << "invalid goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
     }
   }
 
@@ -176,7 +166,7 @@ class SubscribeAndPublish {
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
     float x = initial->pose.pose.position.x;
     float y = initial->pose.pose.position.y;
-    float t = tf::getYaw(initial->pose.pose.orientation) * 180 / M_PI - 90;
+    float t = tf::getYaw(initial->pose.pose.orientation);
     // publish the start without covariance for rviz
     geometry_msgs::PoseStamped startN;
     startN.pose.position = initial->pose.pose.position;
@@ -184,9 +174,7 @@ class SubscribeAndPublish {
     startN.header.frame_id = "map";
     startN.header.stamp = ros::Time::now();
 
-    t = helper::normalizeHeading(t);
-
-    std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << t << std::endl;
+    std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
 
     if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
       start = initial;
@@ -196,7 +184,7 @@ class SubscribeAndPublish {
       // publish start for RViz
       pub_start.publish(startN);
     } else {
-      std::cout << "invalid start x:" << x << " y:" << y << " t:" << t << std::endl;
+      std::cout << "invalid start x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
     }
   }
 

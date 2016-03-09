@@ -8,9 +8,9 @@
 // possible directions
 const int Node3D::dir = 3;
 // possible movements
-const float Node3D::dx[] = { 0,        -0.032869,  0.032869};
-const float Node3D::dy[] = { 0.62832,   0.62717,   0.62717};
-const float Node3D::dt[] = { 0,         6,        -6};
+const float Node3D::dy[] = { 0,        -0.032869,  0.032869};
+const float Node3D::dx[] = { 0.62832,   0.62717,   0.62717};
+const float Node3D::dt[] = { 0,         0.10472,   -0.10472};
 
 //const float Node3D::dx[] = { 0,       -0.07387, 0.07387};
 //const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
@@ -27,9 +27,9 @@ inline float Node3D::movementCost(const Node3D& pred) const {
 
   // penalize turning
   if ((int)t > (int)pred.getT()) {
-    return dy[0] * constants::penaltyTurning;
+    return dx[0] * constants::penaltyTurning;
   } else  {
-    return dy[0];
+    return dx[0];
   }
 
 }
@@ -186,7 +186,7 @@ struct CompareNodes : public
 bool operator == (const Node3D& lhs, const Node3D& rhs) {
   return (int)lhs.getX() == (int)rhs.getX() &&
          (int)lhs.getY() == (int)rhs.getY() &&
-         std::abs(lhs.getT() - rhs.getT()) <= constants::deltaHeadingDeg;
+         std::abs(lhs.getT() - rhs.getT()) <= constants::deltaHeadingRad;
 }
 
 //###################################################
@@ -252,19 +252,19 @@ Node3D* Node3D::aStar(Node3D& start,
         for (int i = 0; i < 3; i++) {
 
           // calculate successor positions
-          xSucc = x + dx[i] * cos(t / 180 * M_PI) - dy[i] * sin(t / 180 * M_PI);
-          ySucc = y + dx[i] * sin(t / 180 * M_PI) + dy[i] * cos(t / 180 * M_PI);
+          xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
+          ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
           tSucc = t + dt[i];
 
           // set theta to a value (0,360]
-          tSucc = helper::normalizeHeading(tSucc);
+          tSucc = helper::normalizeHeadingRad(tSucc);
 
           // get index of the successor
-          idxSucc = (int)(tSucc / constants::deltaHeadingDeg) * grid->info.width * grid->info.height + (int)(ySucc) * grid->info.width + (int)(xSucc);
+          idxSucc = (int)(tSucc / constants::deltaHeadingRad) * grid->info.width * grid->info.height + (int)(ySucc) * grid->info.width + (int)(xSucc);
 
           // ensure successor is on grid ROW MAJOR^2
-          if (xSucc >= 0 && xSucc < grid->info.width && ySucc >= 0 && ySucc < grid->info.height && (int)(tSucc / constants::deltaHeadingDeg) >= 0 &&
-              (int)(tSucc / constants::deltaHeadingDeg) < constants::headings) {
+          if (xSucc >= 0 && xSucc < grid->info.width && ySucc >= 0 && ySucc < grid->info.height && (int)(tSucc / constants::deltaHeadingRad) >= 0 &&
+              (int)(tSucc / constants::deltaHeadingRad) < constants::headings) {
 
             // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
             if (collisionChecking(grid, collisionLookup, xSucc, ySucc, tSucc)) {

@@ -1,6 +1,8 @@
 #ifndef HELPER
 #define HELPER
 
+#include <cmath>
+
 namespace helper {
 
 // set theta to a value (0,360]
@@ -17,6 +19,25 @@ inline float normalizeHeading(float t) {
 
   return t;
 }
+
+inline float normalizeHeadingRad(float t) {
+  if (t < 0) {
+    t = t - 2 * M_PI * (int)(t / (2 * M_PI));
+    t = 2 * M_PI + t;
+  }
+
+  return t - 2 * M_PI * (int)(t / (2 * M_PI));
+}
+
+inline float toDeg(float t) {
+  return normalizeHeadingRad(t) * 180 / M_PI ;
+}
+
+inline float toRad(float t) {
+  return normalizeHeadingRad(t / 180 * M_PI);
+}
+
+
 
 }
 
