@@ -115,10 +115,10 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
   int X = (int)x;
   int Y = (int)y;
   int iX = (int)((x - (long)x) * constants::positionResolution);
-  iX = iX ? iX : 0;
-  int iY = (int)((y - (long)y) * constants::positionResolution) <= 0;
-  iY = iY ? iY : 0;
-  int iT = (int)(t / constants::deltaHeadingDeg);
+  iX = iX > 0 ? iX : 0;
+  int iY = (int)((y - (long)y) * constants::positionResolution);
+  iY = iY > 0 ? iY : 0;
+  int iT = (int)(t / constants::deltaHeadingRad);
   int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
   int cX;
   int cY;
@@ -161,7 +161,7 @@ inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyG
   while (x <  length) {
     double q[3];
     dubins_path_sample(&path, x, q);
-    q[2] = helper::normalizeHeading(q[2]);
+    q[2] = helper::normalizeHeadingRad(q[2]);
 
     // collision check
     if (collisionChecking(grid, collisionLookup, q[0], q[1], q[2])) {
@@ -184,13 +184,13 @@ inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyG
       i++;
     } else {
       // delete all nodes
-//      std::cout << "Dubins shot collided, discarding the path" << "\n";
+      //      std::cout << "Dubins shot collided, discarding the path" << "\n";
       delete [] dubinsNodes;
       return nullptr;
     }
   }
 
-//  std::cout << "Dubins shot connected, returning the path" << "\n";
+  //  std::cout << "Dubins shot connected, returning the path" << "\n";
   return &dubinsNodes[i - 1];
 }
 

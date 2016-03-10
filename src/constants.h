@@ -14,6 +14,12 @@ namespace constants {
 // _________________
 // CONFIG FLAGS
 
+// flag -- switch to false for velodyne data
+static const bool manual = true;
+
+// flag -- to turn on the dubins shot
+static const bool dubinsShot = true;
+
 // flag -- to turn on the dubins heuristic
 static const bool dubins = false;
 
@@ -21,10 +27,8 @@ static const bool dubins = false;
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = true;
+static const bool twoD = false;
 
-// flag -- switch to false for velodyne data
-static const bool manual = true;
 
 // flag -- switch to true to activate obstacle bloating
 static const bool obstacleBloating = false;
@@ -63,10 +67,10 @@ static const float cellSize = 1;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.1;
+static const float penaltyTurning = 1.05;
 
 // [m] -- dubins shot step size
-static const float dubinsStepSize = 0.5;
+static const float dubinsStepSize = 1;
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC

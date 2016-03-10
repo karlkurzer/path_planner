@@ -22,19 +22,19 @@ inline float normalizeHeading(float t) {
 
 inline float normalizeHeadingRad(float t) {
   if (t < 0) {
-    t = t - 2 * M_PI * (int)(t / (2 * M_PI));
-    t = 2 * M_PI + t;
+    t = t - 2.f * M_PI * (int)(t / (2.f * M_PI));
+    return 2.f * M_PI + t;
   }
 
-  return t - 2 * M_PI * (int)(t / (2 * M_PI));
+  return t - 2.f * M_PI * (int)(t / (2.f * M_PI));
 }
 
 inline float toDeg(float t) {
-  return normalizeHeadingRad(t) * 180 / M_PI ;
+  return normalizeHeadingRad(t) * 180.f / M_PI ;
 }
 
 inline float toRad(float t) {
-  return normalizeHeadingRad(t / 180 * M_PI);
+  return normalizeHeadingRad(t / 180.f * M_PI);
 }
 
 }
