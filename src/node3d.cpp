@@ -57,23 +57,23 @@ float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstP
 
       // mirror on x axis
       if (X >= 0 && Y <= 0) {
-        h0 = (int)(helper::normalizeHeading(180.f - t) / constants::deltaHeadingDeg);
-        h1 = (int)(helper::normalizeHeading(180.f - goal.t) / constants::deltaHeadingDeg);
+        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / constants::deltaHeadingRad);
       }
       // mirror on y axis
       else if (X <= 0 && Y >= 0) {
-        h0 = (int)(helper::normalizeHeading(180.f - t) / constants::deltaHeadingDeg);
-        h1 = (int)(helper::normalizeHeading(180.f - goal.t) / constants::deltaHeadingDeg);
+        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / constants::deltaHeadingRad);
 
       }
       // mirror on xy axis
       else if (X <= 0 && Y <= 0) {
-        h0 = (int)(helper::normalizeHeading(360.f - t) / constants::deltaHeadingDeg);
-        h1 = (int)(helper::normalizeHeading(360.f - goal.t) / constants::deltaHeadingDeg);
+        h0 = (int)(helper::normalizeHeadingRad(M_PI - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI - goal.t) / constants::deltaHeadingRad);
 
       } else {
-        h0 = (int)(t / constants::deltaHeadingDeg);
-        h1 = (int)(goal.t / constants::deltaHeadingDeg);
+        h0 = (int)(t / constants::deltaHeadingRad);
+        h1 = (int)(goal.t / constants::deltaHeadingRad);
       }
 
       dubinsCost = dubinsLookup[uX * constants::dubinsWidth * constants::headings * constants::headings
@@ -270,7 +270,7 @@ Node3D* Node3D::aStar(Node3D& start,
       else {
         // ___________
         // DUBINS SHOT
-        if (std::abs(x - goal.x) < 10 && std::abs(y - goal.y) < 10) {
+        if (constants::dubinsShot && std::abs(x - goal.x) < 10 && std::abs(y - goal.y) < 10) {
           Node3D* nDubins = nPred->dubinsShot(goal, grid, collisionLookup);
 
           if (nDubins != nullptr) {

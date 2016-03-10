@@ -18,10 +18,10 @@ namespace constants {
 static const bool manual = true;
 
 // flag -- to turn on the dubins shot
-static const bool dubinsShot = true;
+static const bool dubinsShot = false;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = false;
+static const bool dubins = true;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
@@ -76,7 +76,7 @@ static const float dubinsStepSize = 1;
 // DUBINS LOOKUP SPECIFIC
 
 // [m] -- width of the dubinsArea / 2
-static const int dubinsWidth = 25;
+static const int dubinsWidth = 15;
 // [m²] -- area of the dubinsArea
 static const int dubinsArea = dubinsWidth * dubinsWidth;
 

@@ -125,7 +125,7 @@ class SubscribeAndPublish {
       pub_pathVehicles.publish(path.getPathVehicles());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
       pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
-      pub_costMap.publish(Path::getCosts(width, height, depth, cost));
+      pub_costMap.publish(Path::getCosts(width, height, depth, cost, costToGo));
 
       // _____________
       // LISTS DELETED

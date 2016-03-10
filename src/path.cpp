@@ -151,32 +151,34 @@ visualization_msgs::MarkerArray Path::getNodes2D(int width, int height, float* c
 //###################################################
 //                                       COST HEATMAP
 //###################################################
-nav_msgs::OccupancyGrid Path::getCosts(int width, int height, int depth, float* cost) {
-  nav_msgs::OccupancyGrid costGrid;
-  costGrid.header.frame_id = "map";
-  costGrid.header.stamp = ros::Time::now();
-  costGrid.info.height = height;
-  costGrid.info.width = width;
-  // needs to be set to the correct unit
-  costGrid.info.resolution = 1;
+sensor_msgs::PointCloud2 Path::getCosts(int width, int height, int depth, float* cost, float* costToGo) {
+  sensor_msgs::PointCloud2 costCloud;
+  costCloud.header.frame_id = "map";
+  costCloud.header.stamp = ros::Time::now();
+  costCloud.height = height;
+  costCloud.width = width;
   float sum;
-  int count;
+  float min;
+  int idx;
 
   for (int j = 0; j < height; ++j) {
     for (int i = 0; i < width; ++i) {
       sum = 0;
-      count = 0;
+      min = 1000;
 
+      // iterate over all headings
       for (int k = 0; k < depth; ++k) {
-        sum += cost[k * width * height + j * width + i];
-
-        if (cost[k * width * height + j * width + i] > 0) {
-          count++;
+        //        sum += cost[k * width * height + j * width + i];
+        idx = k * width * height + j * width + i;
+        min = idx;
+        std::cout<< idx <<"\n";
+        if (cost[idx] > 0 && cost[idx]+costToGo[idx] < min) {
+//          min = cost[idx]+costToGo[idx];
         }
       }
 
       //        sum /= count;
-      costGrid.data.push_back(sum);
+      costCloud.data.push_back();
     }
   }
 
