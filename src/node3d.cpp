@@ -21,23 +21,46 @@ const float Node3D::dt[] = { 0,         0.10472,   -0.10472};
 //const float Node3D::dt[] = { 0,       13.5,   -13.5};
 
 //###################################################
+//                                         IS ON GRID
+//###################################################
+bool Node3D::isOnGrid(const int width, const int height) const {
+  return x >= 0 && x < width && y >= 0 && y < height && (int)(t / constants::deltaHeadingRad) >= 0 && (int)(t / constants::deltaHeadingRad) < constants::headings;
+}
+
+
+//###################################################
+//                                   CREATE SUCCESSOR
+//###################################################
+Node3D* Node3D::createSuccessor(const int i) const {
+  // calculate successor positions
+  float xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
+  float ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
+  float tSucc = helper::normalizeHeadingRad(t + dt[i]);
+  float g = pred != nullptr ? pred->getG() : 0;
+  return new Node3D(xSucc, ySucc, tSucc, g, 0, nullptr);
+}
+
+
+//###################################################
 //                                      MOVEMENT COST
 //###################################################
-inline float Node3D::movementCost(const Node3D& pred) const {
+void Node3D::updateG() {
+  float predT = pred != nullptr ? pred->getT() : t;
 
   // penalize turning
-  if ((int)t > (int)pred.getT()) {
-    return dx[0] * constants::penaltyTurning;
+  if ((int)t != t) {
+    g += dx[0] * constants::penaltyTurning;
   } else  {
-    return dx[0];
+    g += dx[0];
   }
 
 }
 
+
 //###################################################
 //                                         COST TO GO
 //###################################################
-float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup) const {
+void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup) {
   float dubinsCost = 0;
   float euclideanCost = 0;
 
@@ -105,13 +128,13 @@ float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstP
   // else calculate the euclidean distance
   euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
   // return the maximum of the heuristics, making the heuristic admissable
-  return std::max(euclideanCost, std::max(dubinsCost, cost2d[(int)y * grid->info.width + (int)x]));
+  h = std::max(euclideanCost, std::max(dubinsCost, cost2d[(int)y * grid->info.width + (int)x]));
 }
 
 //###################################################
 //                                 COLLISION CHECKING
 //###################################################
-bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float x, float y, float t) {
+bool Node3D::isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
   int X = (int)x;
   int Y = (int)y;
   int iX = (int)((x - (long)x) * constants::positionResolution);
@@ -142,7 +165,7 @@ bool Node3D::collisionChecking(const nav_msgs::OccupancyGrid::ConstPtr& grid, co
 //###################################################
 //                                        DUBINS SHOT
 //###################################################
-inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
+Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
   // start
   double q0[] = { x, y, t };
   // goal
@@ -161,13 +184,12 @@ inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyG
   while (x <  length) {
     double q[3];
     dubins_path_sample(&path, x, q);
-    q[2] = helper::normalizeHeadingRad(q[2]);
+    dubinsNodes[i].setX(q[0]);
+    dubinsNodes[i].setY(q[1]);
+    dubinsNodes[i].setT(helper::normalizeHeadingRad(q[2]));
 
     // collision check
-    if (collisionChecking(grid, collisionLookup, q[0], q[1], q[2])) {
-      dubinsNodes[i].setX(q[0]);
-      dubinsNodes[i].setY(q[1]);
-      dubinsNodes[i].setT(q[2]);
+    if (dubinsNodes[i].isTraversable(grid, collisionLookup)) {
 
       // set the predecessor to the previous step
       if (i > 0) {
@@ -211,128 +233,122 @@ bool operator == (const Node3D& lhs, const Node3D& rhs) {
 //###################################################
 Node3D* Node3D::aStar(Node3D& start,
                       const Node3D& goal,
-                      bool* open,
-                      bool* closed,
-                      float* cost,
-                      float* costToGo,
+                      Node3D* nodes,
                       float* cost2d,
                       const nav_msgs::OccupancyGrid::ConstPtr& grid,
                       constants::config* collisionLookup,
                       float* dubinsLookup) {
+  Visualize visualization;
 
   // PREDECESSOR AND SUCCESSOR POSITION
-  float x, y, t, xSucc, ySucc, tSucc;
-  int idx = 0;
-  int idxSucc = 0;
+  int iPred, iSucc;
+  int width = grid->info.width;
+  int height = grid->info.height;
+  float newG;
 
   // OPEN LIST
   std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
   // update h value
   start.updateH(goal, grid, cost2d, dubinsLookup);
-  // push on priority queue
+  // mark start as open
+  start.open();
+  // push on priority queue aka open list
   O.push(&start);
-  // add node to open list with total estimated cost
-  cost[start.getIdx(grid->info.width, grid->info.height)] = start.getC();
+  iPred = start.setI(width, height);
+  nodes[iPred] = start;
+
   // create new node pointer
   Node3D* nPred;
+  Node3D* nSucc;
 
   // continue until O empty
   while (!O.empty()) {
     // pop node with lowest cost from priority queue
     nPred = O.top();
-    x = nPred->getX();
-    y = nPred->getY();
-    t = nPred->getT();
+    // set index
+    iPred = nPred->setI(width, height);
+    // RViz mark current node
     //    std::cout <<"Expanding\nx: " <<x <<"\ny: " <<y <<"\nt: " <<t <<std::endl;
-    idx = nPred->getIdx(grid->info.width, grid->info.height);
 
-    // lazy deletion of rewired node
-    if (closed[idx] == true) {
+    // _____________________________
+    // LAZY DELETION of rewired node
+    // if there exists a pointer this node has already been expanded
+    if (nodes[iPred].isClosed()) {
       // pop node from the open list and start with a fresh node
       O.pop();
       continue;
-    } else if (closed[idx] == false) {
+    }
+    // _________________
+    // EXPANSION OF NODE
+    else if (nodes[iPred].isOpen()) {
+      // add node to closed list
+      nodes[iPred].close();
       // remove node from open list
       O.pop();
-      open[idx] = false;
-      // add node to closed list
-      closed[idx] = true;
 
-      // goal test
+      // _________
+      // GOAL TEST
       if (*nPred == goal) {
         return nPred;
       }
-      // continue with search
-      else {
-        // ___________
-        // DUBINS SHOT
-        if (constants::dubinsShot && std::abs(x - goal.x) < 10 && std::abs(y - goal.y) < 10) {
-          Node3D* nDubins = nPred->dubinsShot(goal, grid, collisionLookup);
 
-          if (nDubins != nullptr) {
-            return nDubins;
-          }
+      // ____________________
+      // CONTINUE WITH SEARCH
+      else {
+        // _______________________
+        // SEARCH WITH DUBINS SHOT
+        if (constants::dubinsShot && std::abs(nPred->getX() - goal.x) < 10 && std::abs(nPred->getY() - goal.y) < 10) {
+          nSucc = nPred->dubinsShot(goal, grid, collisionLookup);
+
+          if (nSucc != nullptr) { return nSucc; }
         }
 
-        // ______________________
-        // CREATE SUCCESSOR NODES
+        // ______________________________
+        // SEARCH WITH FORWARD SIMULATION
         for (int i = 0; i < 3; i++) {
 
-          // calculate successor positions
-          xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
-          ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
-          tSucc = t + dt[i];
+          // create possible successor
+          nSucc = nPred->createSuccessor(i);
+          // set index of the successor
+          iSucc = nSucc->setI(width, height);
 
-          // set theta to a value (0,360]
-          tSucc = helper::normalizeHeadingRad(tSucc);
+          // ensure successor is on grid and traversable
+          if (nSucc->isOnGrid(width, height) && nSucc->isTraversable(grid, collisionLookup)) {
 
-          // get index of the successor
-          idxSucc = (int)(tSucc / constants::deltaHeadingRad) * grid->info.width * grid->info.height + (int)(ySucc) * grid->info.width + (int)(xSucc);
+            // ensure successor is not on closed list or it has the same index as the predecessor
+            if (!nodes[iSucc].isClosed() || iPred == iSucc) {
 
-          // ensure successor is on grid ROW MAJOR^2
-          if (xSucc >= 0 && xSucc < grid->info.width && ySucc >= 0 && ySucc < grid->info.height && (int)(tSucc / constants::deltaHeadingRad) >= 0 &&
-              (int)(tSucc / constants::deltaHeadingRad) < constants::headings) {
+              // calculate new G value
+              nSucc->updateG();
+              newG = nSucc->getG();
 
-            // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
-            if (collisionChecking(grid, collisionLookup, xSucc, ySucc, tSucc)) {
+              // if successor not on open list or found a shorter way to the cell
+              if (!nodes[iSucc].isOpen() || newG < nodes[iSucc].getG()) {
 
-              // ensure successor is not on closed list or it has the same index as the predecessor
-              if (closed[idxSucc] == false || idx == idxSucc) {
-                Node3D* nSucc;
-                nSucc = new Node3D(xSucc, ySucc, tSucc, nPred->getG(), 0, nullptr);
+                // calculate heuristic
+                nSucc->updateH(goal, grid, cost2d, dubinsLookup);
 
-                // calculate new g value
-                nSucc->updateG(*nPred);
-                float newG = nSucc->getG();
+                // if successor is in the same cell set predecessor to predecessor of predecessor
+                if (iPred == iSucc && nSucc->getH() < nPred->getH()) {
+                  nSucc->setPred(nPred->getPred());
+                  // remove from closed list so that it can be expanded again
+                  //                  delete closed[nPred->getI()];
+                  //                  closed[nPred->getI()] = nullptr;
 
-                // if successor not on open list or found a shorter way to the cell
-                if (open[idxSucc] == false || newG < cost[idxSucc]) {
+                }
+                //set predecessor to predecessor
+                else {
+                  nSucc->setPred(nPred);
+                }
 
-                  // DEBUG if successor is in the same cell
-                  // calculate heuristic
-                  nSucc->updateH(goal, grid, cost2d, dubinsLookup);
-
-                  if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
-                    // std::cout << idx << " entered occupied cell\n";
-                    // set predecessor to predecessor of predecessor
-                    nSucc->setPred(nPred->getPred());
-                    // remove from closed list so that it can be expanded again
-                    closed[idxSucc] = false;
-                  } else {
-                    //set predecessor
-                    nSucc->setPred(nPred);
-                  }
-
-                  // set costs
-                  cost[idxSucc] = nSucc->getG();
-                  costToGo[idxSucc] = nSucc->getH();
-                  // put successor on open list
-                  open[idxSucc] = true;
-                  O.push(nSucc);
-                } else { delete nSucc; }
-              }
-            }
-          }
+                // put successor on open list
+                nSucc->open();
+                nodes[iSucc] = *nSucc;
+                O.push(&nodes[iSucc]);
+                delete nSucc;
+              } else { delete nSucc; }
+            } else { delete nSucc; }
+          } else { delete nSucc; }
         }
       }
     }

@@ -32,6 +32,8 @@ file(GLOB SOURCES
     src/node3d.h
     src/path.cpp
     src/path.h
+    src/visualize.cpp
+    src/visualize.h
     src/lookup.h
     src/constants.h
     src/helper.h

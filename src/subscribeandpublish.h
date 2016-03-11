@@ -83,11 +83,9 @@ class SubscribeAndPublish {
       int depth = constants::headings;
       int length = width * height * depth;
       // define list pointers and initialize lists
-      bool* open = new bool [length]();
-      bool* closed = new bool [length]();
-      float* cost = new float [length]();
-      float* costToGo = new float [length]();
-      float* cost2d = new float [width * height]();
+      Node3D* nodes = new Node3D[length];
+      float* cost2d = new float[width * height]();
+
 
       // ________________________
       // retrieving goal position
@@ -116,7 +114,7 @@ class SubscribeAndPublish {
       // ___________________________
       // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
-      Path path(Node3D::aStar(nStart, nGoal, open, closed, cost, costToGo, cost2d, grid, collisionLookup, dubinsLookup), "path");
+      Path path(Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup), "path");
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
 
@@ -129,17 +127,13 @@ class SubscribeAndPublish {
       pub_path.publish(path.getPath());
       pub_pathNodes.publish(path.getPathNodes());
       pub_pathVehicles.publish(path.getPathVehicles());
-      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
-      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
-      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
+      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, nodes));
+//      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
+//      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
 
-      // _____________
-      // LISTS DELETED
-      delete [] open;
-      delete [] closed;
-      delete [] cost;
-      delete [] costToGo;
+      delete [] nodes;
       delete [] cost2d;
+
     } else {
       std::cout << "missing goal or start" << std::endl;
     }

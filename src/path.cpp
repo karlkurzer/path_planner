@@ -84,15 +84,14 @@ void Path::addVehicle(Node3D* node, int count) {
 //###################################################
 //                                     TRACE 3D NODES
 //###################################################
-geometry_msgs::PoseArray Path::getNodes3D(int width, int height, int depth, int length,
-    bool* closed) {
+geometry_msgs::PoseArray Path::getNodes3D(int width, int height, int depth, int length, Node3D* closed) {
   geometry_msgs::PoseArray nodes;
   nodes.header.frame_id = "path";
   nodes.header.stamp = ros::Time::now();
   int count = 0;
 
   for (int i = 0; i < length; ++i) {
-    if (closed[i]) {
+    if (closed[i].isClosed()) {
       count++;
       geometry_msgs::Pose node;
       // center in cell +0.5

@@ -58,7 +58,7 @@ class Path {
 
   // ______________
   // TRACE 3D NODES
-  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, bool* closed);
+  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, Node3D* closed);
   // ______________
   // TRACE 2D NODES
   static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d);
