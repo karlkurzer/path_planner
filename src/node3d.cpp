@@ -80,7 +80,7 @@ float Node3D::costToGo(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstP
                                 + uY *  constants::headings * constants::headings
                                 + h0 * constants::headings
                                 + h1];
-    } else {
+    } else { /*if (constants::dubinsShot && std::abs(x - goal.x) >= 10 && std::abs(y - goal.y) >= 10)*/
       // start
       double q0[] = { x, y, t};
       // goal
@@ -165,10 +165,6 @@ inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyG
 
     // collision check
     if (collisionChecking(grid, collisionLookup, q[0], q[1], q[2])) {
-      //      std::cout << "sample " << x / constants::dubinsStepSize << "\t"
-      //                << q[0] << " | "
-      //                << q[1] << " | "
-      //                << q[2] << "\n";
       dubinsNodes[i].setX(q[0]);
       dubinsNodes[i].setY(q[1]);
       dubinsNodes[i].setT(q[2]);
@@ -183,8 +179,8 @@ inline Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyG
       x += constants::dubinsStepSize;
       i++;
     } else {
-      // delete all nodes
       //      std::cout << "Dubins shot collided, discarding the path" << "\n";
+      // delete all nodes
       delete [] dubinsNodes;
       return nullptr;
     }
@@ -317,7 +313,7 @@ Node3D* Node3D::aStar(Node3D& start,
                   nSucc->updateH(goal, grid, cost2d, dubinsLookup);
 
                   if (idx == idxSucc && nSucc->getH() < nPred->getH()) {
-                    //                    std::cout << idx << " entered occupied cell\n";
+                    // std::cout << idx << " entered occupied cell\n";
                     // set predecessor to predecessor of predecessor
                     nSucc->setPred(nPred->getPred());
                     // remove from closed list so that it can be expanded again

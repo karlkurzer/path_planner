@@ -104,7 +104,10 @@ geometry_msgs::PoseArray Path::getNodes3D(int width, int height, int depth, int 
     }
   }
 
-  std::cout << count << " 3D nodes expanded" << std::endl;
+  if (constants::coutDEBUG) {
+    std::cout << count << " 3D nodes expanded" << std::endl;
+  }
+
   return nodes;
 }
 
@@ -141,7 +144,10 @@ visualization_msgs::MarkerArray Path::getNodes2D(int width, int height, float* c
     }
   }
 
-  std::cout << count << " 2D nodes expanded" << std::endl;
+  if (constants::coutDEBUG) {
+    std::cout << count << " 2D nodes expanded" << std::endl;
+  }
+
   return nodes;
 }
 
@@ -225,6 +231,10 @@ visualization_msgs::MarkerArray Path::getCosts(int width, int height, int depth,
       costCubes.markers.push_back(costCube);
       cube = false;
     }
+  }
+
+  if (constants::coutDEBUG) {
+    std::cout << "min cost: " << min << " | max cost: " << max << std::endl;
   }
 
   return costCubes;

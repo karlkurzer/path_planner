@@ -14,14 +14,17 @@ namespace constants {
 // _________________
 // CONFIG FLAGS
 
+// flag -- switch to true for cout info
+static const bool coutDEBUG = true;
+
 // flag -- switch to false for velodyne data
-static const bool manual = false;
+static const bool manual = true;
 
 // flag -- to turn on the dubins shot
-static const bool dubinsShot = true;
+static const bool dubinsShot = false;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = false;
+static const bool dubins = true;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
@@ -46,7 +49,7 @@ static const double width = 1.75 + 2 * bloating;
 static const double length = 2.65 + 2 * bloating;
 
 // [m] -- minimum turning radius of the vehicle
-static const float r = 5;
+static const float r = 6;
 
 // [#] -- number of discretizations in heading
 static const int headings = 72;

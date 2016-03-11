@@ -56,7 +56,10 @@ class SubscribeAndPublish {
   //                                                MAP
   //###################################################
   void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
-    std::cout << "I am seeing the map..." << std::endl;
+    if (constants::coutDEBUG) {
+      std::cout << "I am seeing the map..." << std::endl;
+    }
+
     grid = map;
 
     if (constants::obstacleBloating) {
@@ -116,7 +119,10 @@ class SubscribeAndPublish {
       Path path(Node3D::aStar(nStart, nGoal, open, closed, cost, costToGo, cost2d, grid, collisionLookup, dubinsLookup), "path");
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
-      std::cout << "Time in ms: " << d * 1000 << std::endl;
+
+      if (constants::coutDEBUG) {
+        std::cout << "Time in ms: " << d * 1000 << std::endl;
+      }
 
       // _________________________________
       // PUBLISH THE RESULTS OF THE SEARCH
