@@ -37,7 +37,7 @@ class SubscribeAndPublish {
     pub_pathVehicles = n.advertise<visualization_msgs::MarkerArray>("/pathVehicles", 1);
     pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
-    pub_costMap = n.advertise<nav_msgs::OccupancyGrid>("/costMap", 1);
+    pub_costCubes = n.advertise<visualization_msgs::MarkerArray>("/costCubes", 1);
     pub_start = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/start", 1);
 
     // ___________________
@@ -125,7 +125,7 @@ class SubscribeAndPublish {
       pub_pathVehicles.publish(path.getPathVehicles());
       pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, closed));
       pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
-      pub_costMap.publish(Path::getCosts(width, height, depth, cost, costToGo));
+      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
 
       // _____________
       // LISTS DELETED
@@ -234,7 +234,7 @@ class SubscribeAndPublish {
   ros::Publisher pub_pathVehicles;
   ros::Publisher pub_nodes3D;
   ros::Publisher pub_nodes2D;
-  ros::Publisher pub_costMap;
+  ros::Publisher pub_costCubes;
   ros::Publisher pub_start;
   // subscriber
   ros::Subscriber sub_map;

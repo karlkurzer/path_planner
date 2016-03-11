@@ -113,18 +113,15 @@ geometry_msgs::PoseArray Path::getNodes3D(int width, int height, int depth, int 
 //###################################################
 visualization_msgs::MarkerArray Path::getNodes2D(int width, int height, float* cost2d) {
   visualization_msgs::MarkerArray nodes;
+  visualization_msgs::Marker node;
 
   int count = 0;
 
   for (int i = 0; i < width * height; ++i) {
     if (cost2d[i] != 0) {
-      visualization_msgs::Marker node;
 
       // delete all previous markers
-      if (count == 0) {
-        node.action = 3;
-      }
-
+      node.action = count == 0 ? 3 : 0;
       node.header.frame_id = "path";
       node.header.stamp = ros::Time::now();
       node.id = count;
@@ -151,36 +148,84 @@ visualization_msgs::MarkerArray Path::getNodes2D(int width, int height, float* c
 //###################################################
 //                                       COST HEATMAP
 //###################################################
-sensor_msgs::PointCloud2 Path::getCosts(int width, int height, int depth, float* cost, float* costToGo) {
-  sensor_msgs::PointCloud2 costCloud;
-  costCloud.header.frame_id = "map";
-  costCloud.header.stamp = ros::Time::now();
-  costCloud.height = height;
-  costCloud.width = width;
-  float sum;
-  float min;
+visualization_msgs::MarkerArray Path::getCosts(int width, int height, int depth, float* cost, float* costToGo) {
+  visualization_msgs::MarkerArray costCubes;
+  visualization_msgs::Marker costCube;
+
+  float min = 1000;
+  float max = 0;
   int idx;
+  bool cube;
+  bool once = true;
+  float red = 0;
+  float green = 0;
+  float blue = 0;
 
-  for (int j = 0; j < height; ++j) {
-    for (int i = 0; i < width; ++i) {
-      sum = 0;
-      min = 1000;
+  ColorGradient heatMapGradient;
+  heatMapGradient.createDefaultHeatMapGradient();
 
-      // iterate over all headings
-      for (int k = 0; k < depth; ++k) {
-        //        sum += cost[k * width * height + j * width + i];
-        idx = k * width * height + j * width + i;
-        min = idx;
-        std::cout<< idx <<"\n";
-        if (cost[idx] > 0 && cost[idx]+costToGo[idx] < min) {
-//          min = cost[idx]+costToGo[idx];
-        }
+  float values[width * height];
+
+  // ________________________________
+  // DETERMINE THE MAX AND MIN VALUES
+  for (int i = 0; i < width * height; ++i) {
+    values[i] = 1000;
+
+    // iterate over all headings
+    for (int k = 0; k < depth; ++k) {
+      idx = k * width * height + i;
+
+      // set the minimum for the cell
+      if (cost[idx] > 0 && cost[idx] + costToGo[idx] < values[i]) {
+        values[i] = cost[idx] + costToGo[idx];
       }
+    }
 
-      //        sum /= count;
-      costCloud.data.push_back();
+    // set a new minimum
+    if (values[i] > 0 && values[i] < min) {
+      min = values[i];
+    }
+
+    // set a new maximum
+    if (values[i] > 0 && values[i] > max && values[i] != 1000) {
+      max = values[i];
     }
   }
 
-  return costGrid;
+  // _______________
+  // PAINT THE CUBES
+  for (int i = 0; i < width * height; ++i) {
+    // if a value exists continue
+    if (values[i] != 1000) {
+      // delete all previous markers
+      if (once) {
+        costCube.action = 3;
+        once = false;
+      } else {
+        costCube.action = 0;
+      }
+
+
+      costCube.header.frame_id = "path";
+      costCube.header.stamp = ros::Time::now();
+      costCube.id = i;
+      costCube.type = visualization_msgs::Marker::CUBE;
+      values[i] = (values[i] - min) / (max - min);
+      costCube.scale.x = 1.0;
+      costCube.scale.y = 1.0;
+      costCube.scale.z = 0.1;
+      costCube.color.a = 0.5;
+      heatMapGradient.getColorAtValue(values[i], red, green, blue);
+      costCube.color.r = red;
+      costCube.color.g = green;
+      costCube.color.b = blue;
+      // center in cell +0.5
+      costCube.pose.position.x = i % width + 0.5;
+      costCube.pose.position.y = (i / width) % height + 0.5;
+      costCubes.markers.push_back(costCube);
+      cube = false;
+    }
+  }
+
+  return costCubes;
 }

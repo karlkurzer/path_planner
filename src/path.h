@@ -11,10 +11,11 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseArray.h>
 #include <visualization_msgs/MarkerArray.h>
-#include <sensor_msgs/PointCloud2.h>
 
 #include "node3d.h"
 #include "constants.h"
+#include "helper.h"
+#include "gradient.h"
 
 class Path {
  public:
@@ -63,7 +64,7 @@ class Path {
   static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d);
   // ____________
   // COST HEATMAP
-  static sensor_msgs::PointCloud2 getCosts(int width, int height, int depth, float* cost, float* costToGo);
+  static visualization_msgs::MarkerArray getCosts(int width, int height, int depth, float* cost, float* costToGo);
 
  private:
   nav_msgs::Path path;

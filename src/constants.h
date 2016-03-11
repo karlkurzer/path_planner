@@ -15,19 +15,19 @@ namespace constants {
 // CONFIG FLAGS
 
 // flag -- switch to false for velodyne data
-static const bool manual = true;
+static const bool manual = false;
 
 // flag -- to turn on the dubins shot
-static const bool dubinsShot = false;
+static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = true;
+static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = false;
+static const bool twoD = true;
 
 
 // flag -- switch to true to activate obstacle bloating
