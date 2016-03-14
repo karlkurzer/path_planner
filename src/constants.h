@@ -21,10 +21,10 @@ static const bool coutDEBUG = true;
 static const bool manual = true;
 
 // flag -- to turn on the dubins shot
-static const bool dubinsShot = false;
+static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = false;
+static const bool dubins = true;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;

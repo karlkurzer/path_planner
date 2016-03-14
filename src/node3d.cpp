@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "node3d.h"
+#include "visualize.h"
 
 // CONSTANT VALUES
 // possible directions
@@ -238,7 +239,9 @@ Node3D* Node3D::aStar(Node3D& start,
                       const nav_msgs::OccupancyGrid::ConstPtr& grid,
                       constants::config* collisionLookup,
                       float* dubinsLookup) {
+
   Visualize visualization;
+  ros::Duration d(0.1);
 
   // PREDECESSOR AND SUCCESSOR POSITION
   int iPred, iSucc;
@@ -261,6 +264,8 @@ Node3D* Node3D::aStar(Node3D& start,
   Node3D* nPred;
   Node3D* nSucc;
 
+
+
   // continue until O empty
   while (!O.empty()) {
     // pop node with lowest cost from priority queue
@@ -268,7 +273,9 @@ Node3D* Node3D::aStar(Node3D& start,
     // set index
     iPred = nPred->setI(width, height);
     // RViz mark current node
-    //    std::cout <<"Expanding\nx: " <<x <<"\ny: " <<y <<"\nt: " <<t <<std::endl;
+    // publish the new node
+    visualization.publishNode3D(*nPred);
+    d.sleep();
 
     // _____________________________
     // LAZY DELETION of rewired node
@@ -323,7 +330,7 @@ Node3D* Node3D::aStar(Node3D& start,
               newG = nSucc->getG();
 
               // if successor not on open list or found a shorter way to the cell
-              if (!nodes[iSucc].isOpen() || newG < nodes[iSucc].getG()) {
+              if (!nodes[iSucc].isOpen() || newG < nodes[iSucc].getG() || iPred == iSucc) {
 
                 // calculate heuristic
                 nSucc->updateH(goal, grid, cost2d, dubinsLookup);

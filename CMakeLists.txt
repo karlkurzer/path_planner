@@ -30,6 +30,8 @@ file(GLOB SOURCES
     src/node2d.h
     src/node3d.cpp
     src/node3d.h
+    src/algorithm.cpp
+    src/algorithm.h
     src/path.cpp
     src/path.h
     src/visualize.cpp

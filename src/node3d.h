@@ -16,6 +16,8 @@ class Node3D {
  public:
 
   // CONSTRUCTOR
+  Node3D():Node3D(0,0,0,0,0,nullptr){}
+  // overloaded constructor
   Node3D(float x, float y, float t, float g, float h, Node3D* pred) {
     this->x = x;
     this->y = y;
@@ -26,10 +28,7 @@ class Node3D {
     this->o = false;
     this->c = false;
   }
-  // overloaded default constructor
-  Node3D() {
-    Node3D(0, 0, 0, 0, 0, nullptr);
-  }
+
   // GETTER METHODS
   float getX() const { return x; }
   float getY() const { return y; }

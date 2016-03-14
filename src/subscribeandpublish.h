@@ -83,7 +83,7 @@ class SubscribeAndPublish {
       int depth = constants::headings;
       int length = width * height * depth;
       // define list pointers and initialize lists
-      Node3D* nodes = new Node3D[length];
+      Node3D* nodes = new Node3D[length]();
       float* cost2d = new float[width * height]();
 
 
@@ -127,11 +127,12 @@ class SubscribeAndPublish {
       pub_path.publish(path.getPath());
       pub_pathNodes.publish(path.getPathNodes());
       pub_pathVehicles.publish(path.getPathVehicles());
-      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, nodes));
+//      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, nodes));
 //      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
 //      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
 
       delete [] nodes;
+      nodes = nullptr;
       delete [] cost2d;
 
     } else {
