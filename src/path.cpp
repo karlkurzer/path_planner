@@ -5,7 +5,7 @@
 //###################################################
 // __________
 // TRACE PATH
-void Path::tracePath(Node3D* node, int count) {
+void Path::tracePath(const Node3D* node, int count) {
   if (node == nullptr) { return; }
 
   addSegment(node);
@@ -13,12 +13,16 @@ void Path::tracePath(Node3D* node, int count) {
   count++;
   addVehicle(node, count);
   count++;
+  if (node->getPred() == node){
+      std::cout <<"loop";
+      return;
+  }
   tracePath(node->getPred(), count);
 }
 
 // ___________
 // ADD SEGMENT
-void Path::addSegment(Node3D* node) {
+void Path::addSegment(const Node3D* node) {
   geometry_msgs::PoseStamped vertex;
   vertex.pose.position.x = node->getX();
   vertex.pose.position.y = node->getY();
@@ -32,7 +36,7 @@ void Path::addSegment(Node3D* node) {
 
 // ________
 // ADD NODE
-void Path::addNode(Node3D* node, int count) {
+void Path::addNode(const Node3D* node, int count) {
   visualization_msgs::Marker pathNode;
 
   // delete all previous markers
@@ -48,15 +52,15 @@ void Path::addNode(Node3D* node, int count) {
   pathNode.scale.y = 0.1;
   pathNode.scale.z = 0.1;
   pathNode.color.a = 1.0;
-  pathNode.color.r = 0.5;
-  pathNode.color.g = 0.0;
-  pathNode.color.b = 0.5;
+  pathNode.color.r = purple.red;
+  pathNode.color.g = purple.green;
+  pathNode.color.b = purple.blue;
   pathNode.pose.position.x = node->getX();
   pathNode.pose.position.y = node->getY();
   pathNodes.markers.push_back(pathNode);
 }
 
-void Path::addVehicle(Node3D* node, int count) {
+void Path::addVehicle(const Node3D* node, int count) {
   visualization_msgs::Marker pathVehicle;
 
   // delete all previous markers
@@ -72,9 +76,9 @@ void Path::addVehicle(Node3D* node, int count) {
   pathVehicle.scale.y = constants::width - constants::bloating * 2;
   pathVehicle.scale.z = 1;
   pathVehicle.color.a = 0.1;
-  pathVehicle.color.r = 0.5;
-  pathVehicle.color.g = 0.0;
-  pathVehicle.color.b = 0.5;
+  pathVehicle.color.r = teal.red;
+  pathVehicle.color.g = teal.green;
+  pathVehicle.color.b = teal.blue;
   pathVehicle.pose.position.x = node->getX();
   pathVehicle.pose.position.y = node->getY();
   pathVehicle.pose.orientation = tf::createQuaternionMsgFromYaw(node->getT());

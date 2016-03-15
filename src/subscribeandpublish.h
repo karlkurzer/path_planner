@@ -6,6 +6,7 @@
 
 #include <ros/ros.h>
 #include <tf/transform_datatypes.h>
+#include <tf/transform_listener.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
@@ -67,7 +68,14 @@ class SubscribeAndPublish {
     }
 
     // plan if the switch is not set to manual
-    if (!constants::manual) { plan();}
+    if (!constants::manual) {
+      listener.lookupTransform("/map", "/base_link", ros::Time(0), transform);
+
+      //      movingStart->pose.pose.position.x = transform.getOrigin().x();
+      //      movingStart->pose.pose.position.y = transform.getOrigin().y();
+      //    tf::quaternionTFToMsg(transform.getRotation(),goal->pose.orientation);
+      plan();
+    }
   }
 
   //###################################################
@@ -97,7 +105,7 @@ class SubscribeAndPublish {
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
 
-      Node3D nGoal(x, y, t, 0, 0, nullptr);
+      const Node3D nGoal(x, y, t, 0, 0, nullptr);
 
       // _________________________
       // retrieving start position
@@ -114,7 +122,8 @@ class SubscribeAndPublish {
       // ___________________________
       // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
-      Path path(Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup), "path");
+      //      Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup);
+      Path path(Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup));
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
 
@@ -127,9 +136,9 @@ class SubscribeAndPublish {
       pub_path.publish(path.getPath());
       pub_pathNodes.publish(path.getPathNodes());
       pub_pathVehicles.publish(path.getPathVehicles());
-//      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, nodes));
-//      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
-//      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
+      //      pub_nodes3D.publish(Path::getNodes3D(width, height, depth, length, nodes));
+      //      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
+      //      pub_costCubes.publish(Path::getCosts(width, height, depth, cost, costToGo));
 
       delete [] nodes;
       nodes = nullptr;
@@ -241,9 +250,13 @@ class SubscribeAndPublish {
   ros::Subscriber sub_map;
   ros::Subscriber sub_goal;
   ros::Subscriber sub_start;
+  // tf listener
+  tf::TransformListener listener;
+  tf::StampedTransform transform;
   // general pointer
   nav_msgs::OccupancyGrid::Ptr grid;
   geometry_msgs::PoseWithCovarianceStamped::ConstPtr start;
+  geometry_msgs::PoseWithCovarianceStamped::ConstPtr movingStart;
   geometry_msgs::PoseStamped::ConstPtr goal;
   constants::config collisionLookup[constants::headings * constants::positions];
   float* dubinsLookup = new float [constants::headings * constants::headings * constants::dubinsWidth * constants::dubinsWidth];

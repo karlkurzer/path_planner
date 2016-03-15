@@ -9,9 +9,19 @@
 // possible directions
 const int Node3D::dir = 3;
 // possible movements
-const float Node3D::dy[] = { 0,        -0.032869,  0.032869};
-const float Node3D::dx[] = { 0.62832,   0.62717,   0.62717};
-const float Node3D::dt[] = { 0,         0.10472,   -0.10472};
+//const float Node3D::dy[] = { 0,        -0.032869,  0.032869};
+//const float Node3D::dx[] = { 0.62832,   0.62717,   0.62717};
+//const float Node3D::dt[] = { 0,         0.10472,   -0.10472};
+
+// R = 6, 6.75 DEG
+const float Node3D::dy[] = { 0,        -0.0415893,  0.0415893};
+const float Node3D::dx[] = { 0.7068582,   0.705224,   0.705224};
+const float Node3D::dt[] = { 0,         0.1178097,   -0.1178097};
+
+// R = 3, 6.75 DEG
+//const float Node3D::dy[] = { 0,        -0.0207946, 0.0207946};
+//const float Node3D::dx[] = { 0.35342917352,   0.352612,  0.352612};
+//const float Node3D::dt[] = { 0,         0.11780972451,   -0.11780972451};
 
 //const float Node3D::dx[] = { 0,       -0.07387, 0.07387};
 //const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
@@ -37,7 +47,6 @@ Node3D* Node3D::createSuccessor(const int i) const {
   float xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
   float ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
   float tSucc = helper::normalizeHeadingRad(t + dt[i]);
-  float g = pred != nullptr ? pred->getG() : 0;
   return new Node3D(xSucc, ySucc, tSucc, g, 0, nullptr);
 }
 
@@ -49,7 +58,7 @@ void Node3D::updateG() {
   float predT = pred != nullptr ? pred->getT() : t;
 
   // penalize turning
-  if ((int)t != t) {
+  if ((int)t != (int)predT) {
     g += dx[0] * constants::penaltyTurning;
   } else  {
     g += dx[0];
@@ -67,7 +76,7 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
 
   // if dubins heuristic is activated calculate the shortest path
   // constrained without obstacles
-  if (constants::dubins) {
+  if (constants::dubins && std::abs(x - goal.x) > 1 && std::abs(y - goal.y) > 1) {
     int uX = std::abs((int)goal.x - (int)x);
     int uY = std::abs((int)goal.y - (int)y);
 
@@ -196,7 +205,11 @@ Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::Co
       if (i > 0) {
         dubinsNodes[i].setPred(&dubinsNodes[i - 1]);
       } else {
-        dubinsNodes[i].setPred(pred);
+        dubinsNodes[i].setPred(this);
+      }
+
+      if (&dubinsNodes[i] == dubinsNodes[i].getPred()) {
+        std::cout << "looping shot";
       }
 
       x += constants::dubinsStepSize;
@@ -241,7 +254,7 @@ Node3D* Node3D::aStar(Node3D& start,
                       float* dubinsLookup) {
 
   Visualize visualization;
-  ros::Duration d(0.1);
+  ros::Duration d(0.005);
 
   // PREDECESSOR AND SUCCESSOR POSITION
   int iPred, iSucc;
@@ -272,10 +285,14 @@ Node3D* Node3D::aStar(Node3D& start,
     nPred = O.top();
     // set index
     iPred = nPred->setI(width, height);
+
     // RViz mark current node
     // publish the new node
-    visualization.publishNode3D(*nPred);
-    d.sleep();
+    if (constants::visualization) {
+      visualization.publishNode3DPoses(*nPred);
+      visualization.publishNode3DPose(*nPred);
+      d.sleep();
+    }
 
     // _____________________________
     // LAZY DELETION of rewired node
@@ -304,7 +321,7 @@ Node3D* Node3D::aStar(Node3D& start,
       else {
         // _______________________
         // SEARCH WITH DUBINS SHOT
-        if (constants::dubinsShot && std::abs(nPred->getX() - goal.x) < 10 && std::abs(nPred->getY() - goal.y) < 10) {
+        if (constants::dubinsShot && std::abs(nPred->getX() - goal.x) < 6 && std::abs(nPred->getY() - goal.y) < 6) {
           nSucc = nPred->dubinsShot(goal, grid, collisionLookup);
 
           if (nSucc != nullptr) { return nSucc; }
@@ -346,6 +363,10 @@ Node3D* Node3D::aStar(Node3D& start,
                 //set predecessor to predecessor
                 else {
                   nSucc->setPred(nPred);
+                }
+
+                if (nSucc->getPred() == nSucc) {
+                  std::cout << "looping";
                 }
 
                 // put successor on open list

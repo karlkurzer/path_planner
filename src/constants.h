@@ -15,10 +15,13 @@ namespace constants {
 // CONFIG FLAGS
 
 // flag -- switch to true for cout info
-static const bool coutDEBUG = true;
+static const bool coutDEBUG = 1;
+
+// flag -- switch to true for live visualization
+static const bool visualization = 0;
 
 // flag -- switch to false for velodyne data
-static const bool manual = true;
+static const bool manual = 0;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
@@ -70,7 +73,7 @@ static const float cellSize = 1;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.05;
+static const float penaltyTurning = 1.00;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;

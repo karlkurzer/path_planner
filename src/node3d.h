@@ -18,7 +18,7 @@ class Node3D {
   // CONSTRUCTOR
   Node3D():Node3D(0,0,0,0,0,nullptr){}
   // overloaded constructor
-  Node3D(float x, float y, float t, float g, float h, Node3D* pred) {
+  Node3D(float x, float y, float t, float g, float h, const Node3D* pred) {
     this->x = x;
     this->y = y;
     this->t = t;
@@ -38,7 +38,7 @@ class Node3D {
   float getC() const { return g + h; }
   bool  isOpen() const { return o; }
   bool  isClosed() const { return c; }
-  Node3D* getPred() const { return pred; }
+  const Node3D* getPred() const { return pred; }
 
   // SETTER METHODS
   void setX(const float& x) { this->x = x; }
@@ -49,7 +49,7 @@ class Node3D {
   int setI(int width, int height) { this->i = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return i;}
   void open() { o = true; c = false;}
   void close() { c = true; o = false; }
-  void setPred(Node3D* pred) { this->pred = pred; }
+  void setPred(const Node3D* pred) { this->pred = pred; }
 
   // UPDATE METHODS
   // from start
@@ -92,7 +92,7 @@ class Node3D {
   int i;
   bool o;
   bool c;
-  Node3D* pred;
+  const Node3D* pred;
 };
 
 #endif // NODE3D_H
