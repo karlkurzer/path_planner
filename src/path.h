@@ -21,8 +21,8 @@ class Path {
  public:
   // ___________
   // CONSTRUCTOR
-  Path(Node3D* goal, const std::string& frame_id) {
-    path.header.frame_id = frame_id;
+  Path(Node3D* goal) {
+    path.header.frame_id = "path";
     path.header.stamp = ros::Time::now();
     int count = 0;
     tracePath(goal, count);
@@ -30,14 +30,14 @@ class Path {
 
   // __________
   // TRACE PATH
-  void tracePath(Node3D* node, int count);
+  void tracePath(const Node3D* node, int count);
 
-  // addign a segment to the path
-  void addSegment(Node3D* node);
+  // adding a segment to the path
+  void addSegment(const Node3D* node);
   // adding a node to the path
-  void addNode(Node3D* node, int count);
+  void addNode(const Node3D* node, int count);
   // adding a vehicle shape to the path
-  void addVehicle(Node3D* node, int count);
+  void addVehicle(const Node3D* node, int count);
 
   // ______________
   // GETTER METHODS
@@ -58,7 +58,7 @@ class Path {
 
   // ______________
   // TRACE 3D NODES
-  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, bool* closed);
+  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, Node3D* closed);
   // ______________
   // TRACE 2D NODES
   static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d);
@@ -70,6 +70,17 @@ class Path {
   nav_msgs::Path path;
   visualization_msgs::MarkerArray pathNodes;
   visualization_msgs::MarkerArray pathVehicles;
+  // COLORS
+  struct color {
+    float red;
+    float green;
+    float blue;
+  };
+  const color teal = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f};
+  const color green = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f};
+  const color orange = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f};
+  const color pink = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f};
+  const color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
 };
 
 #endif // PATH_H
