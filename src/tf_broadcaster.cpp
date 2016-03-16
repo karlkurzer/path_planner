@@ -11,7 +11,7 @@ nav_msgs::OccupancyGridPtr grid;
 
 // map callback
 void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
-  std::cout << "I am seeing the map..." << std::endl;
+  std::cout << "Creating transform for map..." << std::endl;
   grid = map;
 }
 

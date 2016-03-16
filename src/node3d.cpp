@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "node3d.h"
-#include "visualize.h"
 
 // CONSTANT VALUES
 // possible directions
@@ -27,9 +26,9 @@ const float Node3D::dt[] = { 0,         0.1178097,   -0.1178097};
 //const float Node3D::dy[] = { 0.94248, 0.938607, 0.938607};
 //const float Node3D::dt[] = { 0,       9,   -9};
 
-//const float Node3D::dx[] = { 0,       -0.16578, 0.16578};
-//const float Node3D::dy[] = { 1.41372, 1.40067, 1.40067};
-//const float Node3D::dt[] = { 0,       13.5,   -13.5};
+//const float Node3D::dy[] = { 0,       -0.16578, 0.16578};
+//const float Node3D::dx[] = { 1.41372, 1.40067, 1.40067};
+//const float Node3D::dt[] = { 0,       0.2356194,   -0.2356194};
 
 //###################################################
 //                                         IS ON GRID
@@ -251,9 +250,9 @@ Node3D* Node3D::aStar(Node3D& start,
                       float* cost2d,
                       const nav_msgs::OccupancyGrid::ConstPtr& grid,
                       constants::config* collisionLookup,
-                      float* dubinsLookup) {
+                      float* dubinsLookup,
+                      Visualize& visualization) {
 
-  Visualize visualization;
   ros::Duration d(0.005);
 
   // PREDECESSOR AND SUCCESSOR POSITION
@@ -286,8 +285,7 @@ Node3D* Node3D::aStar(Node3D& start,
     // set index
     iPred = nPred->setI(width, height);
 
-    // RViz mark current node
-    // publish the new node
+    // RViz visualization
     if (constants::visualization) {
       visualization.publishNode3DPoses(*nPred);
       visualization.publishNode3DPose(*nPred);
@@ -330,7 +328,6 @@ Node3D* Node3D::aStar(Node3D& start,
         // ______________________________
         // SEARCH WITH FORWARD SIMULATION
         for (int i = 0; i < 3; i++) {
-
           // create possible successor
           nSucc = nPred->createSuccessor(i);
           // set index of the successor

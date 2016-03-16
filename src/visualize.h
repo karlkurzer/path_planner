@@ -7,6 +7,8 @@
 #include <geometry_msgs/PoseArray.h>
 #include <visualization_msgs/MarkerArray.h>
 
+#include "gradient.h"
+
 #include "node3d.h"
 
 class Node3D;
@@ -16,29 +18,35 @@ class Visualize {
   // ___________
   // CONSTRUCTOR
   Visualize() {
-    // REGISTER THE PUBLISHER
-    //    pubNode3D = n.advertise<visualization_msgs::MarkerArray>("/visualizeNodes3D", 1);
+    // _________________
+    // TOPICS TO PUBLISH
     pubNode3D = n.advertise<geometry_msgs::PoseStamped>("/visualizeNodes3DPose", 100);
     pubNodes3D = n.advertise<geometry_msgs::PoseArray>("/visualizeNodes3DPoses", 100);
-    // INITIALIZE THE COUNT
-    idNode3D = 0;
+    pubNodes3DCosts = n.advertise<visualization_msgs::MarkerArray>("/visualizeNodes3DCosts", 100);
 
     // CONFIGURE THE CONTAINER
     poses3D.header.frame_id = "path";
-    poses3D.header.stamp = ros::Time();
   }
+
+  // CLEAR VISUALIZATION
+  void clear();
 
   // PUBLISH A SINGEL/ARRAY 3D NODE TO RViz
   void publishNode3DPose(Node3D& node);
   void publishNode3DPoses(Node3D& node);
 
+  // PUBLISH THE COST FOR A 3D NODE TO RViz
+  void publishNode3DCosts(Node3D* nodes, int width, int height, int depth);
+
  private:
   ros::NodeHandle n;
+  //publisher
   ros::Publisher pubNode3D;
   ros::Publisher pubNodes3D;
+  ros::Publisher pubNodes3DCosts;
+  // visualization variables
   visualization_msgs::MarkerArray nodes3D;
   geometry_msgs::PoseArray poses3D;
-  int idNode3D;
   // COLORS
   struct color {
     float red;

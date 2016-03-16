@@ -18,10 +18,10 @@ namespace constants {
 static const bool coutDEBUG = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 0;
+static const bool visualization = 1;
 
 // flag -- switch to false for velodyne data
-static const bool manual = 0;
+static const bool manual = 1;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;

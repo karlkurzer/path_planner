@@ -15,58 +15,60 @@
 #include "node3d.h"
 #include "constants.h"
 #include "helper.h"
-#include "gradient.h"
 
 class Path {
  public:
   // ___________
   // CONSTRUCTOR
-  Path(Node3D* goal) {
+  Path() {
+    // _________________
+    // TOPICS TO PUBLISH
+    pubPath = n.advertise<nav_msgs::Path>("/path", 1);
+    pubPathNodes = n.advertise<visualization_msgs::MarkerArray>("/pathNodes", 1);
+    pubPathVehicles = n.advertise<visualization_msgs::MarkerArray>("/pathVehicle", 1);
+
+    // CONFIGURE THE CONTAINER
     path.header.frame_id = "path";
-    path.header.stamp = ros::Time::now();
-    int count = 0;
-    tracePath(goal, count);
   }
 
   // __________
   // TRACE PATH
-  void tracePath(const Node3D* node, int count);
+  void tracePath(const Node3D* node, int i);
 
   // adding a segment to the path
-  void addSegment(const Node3D* node);
+  void addSegment(const Node3D* node, int i);
   // adding a node to the path
-  void addNode(const Node3D* node, int count);
+  void addNode(const Node3D* node, int i);
   // adding a vehicle shape to the path
-  void addVehicle(const Node3D* node, int count);
+  void addVehicle(const Node3D* node, int i);
 
   // ______________
-  // GETTER METHODS
+  // PUBLISH METHODS
 
-  // get path
-  nav_msgs::Path getPath() {
-    return path;
-  }
-  // get path nodes
-  visualization_msgs::MarkerArray getPathNodes() {
-    return pathNodes;
-  }
-  // get path vehicles
-  visualization_msgs::MarkerArray getPathVehicles() {
-    return pathVehicles;
-  }
+  // CLEAR THE PATH
+  void clear();
+  // PUBLISH THE PATH
+  void publishPath() { pubPath.publish(path); }
+  // PUBLISH THE NODES OF THE VEHCILE PATH
+  void publishPathNodes() { pubPathNodes.publish(pathNodes); }
+  // PUBLISH THE VEHICLE ALONG THE PATH
+  void publishPathVehicles() { pubPathVehicles.publish(pathVehicles); }
 
+  //  // ______________
+  //  // TRACE 3D NODES
+  //  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, Node3D* closed);
+  //  // ______________
+  //  // TRACE 2D NODES
+  //  static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d);
 
-  // ______________
-  // TRACE 3D NODES
-  static geometry_msgs::PoseArray getNodes3D(int width, int height, int depth, int length, Node3D* closed);
-  // ______________
-  // TRACE 2D NODES
-  static visualization_msgs::MarkerArray getNodes2D(int width, int height, float* cost2d);
-  // ____________
-  // COST HEATMAP
-  static visualization_msgs::MarkerArray getCosts(int width, int height, int depth, float* cost, float* costToGo);
 
  private:
+  ros::NodeHandle n;
+  // publisher
+  ros::Publisher pubPath;
+  ros::Publisher pubPathNodes;
+  ros::Publisher pubPathVehicles;
+  // path variables
   nav_msgs::Path path;
   visualization_msgs::MarkerArray pathNodes;
   visualization_msgs::MarkerArray pathVehicles;

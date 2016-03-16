@@ -11,6 +11,8 @@
 #include "helper.h"
 #include "visualize.h"
 
+class Visualize;
+
 
 class Node3D {
  public:
@@ -71,7 +73,8 @@ class Node3D {
 
   //  HYBRID A* ALGORITHM
   static Node3D* aStar(Node3D& start, const Node3D& goal, Node3D* nodes, float* cost2d,
-                       const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup, float* dubinsLookup);
+                       const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup,
+                       float* dubinsLookup,Visualize& visualization);
 
 
   // CONSTANT VALUES
