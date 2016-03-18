@@ -33,7 +33,6 @@ class SubscribeAndPublish {
 
     // _________________
     // TOPICS TO PUBLISH
-    //    pub_nodes3D = n.advertise<geometry_msgs::PoseArray>("/nodes3D", 1);
     //    pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
     pubStart = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/start", 1);
 
@@ -127,7 +126,7 @@ class SubscribeAndPublish {
   }
 
 
-  //###################################################p
+  //###################################################
   //                                      PLAN THE PATH
   //###################################################
   void plan() {
@@ -152,7 +151,10 @@ class SubscribeAndPublish {
       float t = tf::getYaw(goal.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
-      const Node3D nGoal(x, y, t, 0, 0, nullptr);
+            const Node3D nGoal(x, y, t, 0, 0, nullptr);
+      // __________
+      // DEBUG GOAL
+//      const Node3D nGoal(1, 1, M_PI, 0, 0, nullptr);
 
 
       // _________________________
@@ -163,6 +165,9 @@ class SubscribeAndPublish {
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
       Node3D nStart(x, y, t, 0, 0, nullptr);
+      // ___________
+      // DEBUG START
+//      Node3D nStart(1, 15, 0, 0, 0, nullptr);
 
 
       // ___________________________
@@ -176,7 +181,7 @@ class SubscribeAndPublish {
       // FIND THE PATH
       Node3D* nSolution = Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup, visualization);
       // TRACE THE PATH
-      path.tracePath(nSolution, 0);
+      path.tracePath(nSolution);
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
 

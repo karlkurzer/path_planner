@@ -12,7 +12,8 @@
 //###################################################
 //                              COUT STANDARD MESSAGE
 //###################################################
-void message(const std::string& msg) {
+template<typename T>
+void message(const T& msg) {
   std::cout << "\n### " << msg << std::endl;
 }
 

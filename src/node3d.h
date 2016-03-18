@@ -18,7 +18,7 @@ class Node3D {
  public:
 
   // CONSTRUCTOR
-  Node3D():Node3D(0,0,0,0,0,nullptr){}
+  Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
   // overloaded constructor
   Node3D(float x, float y, float t, float g, float h, const Node3D* pred) {
     this->x = x;
@@ -38,6 +38,7 @@ class Node3D {
   float getG() const { return g; }
   float getH() const { return h; }
   float getC() const { return g + h; }
+  int getIdx() const { return idx; }
   bool  isOpen() const { return o; }
   bool  isClosed() const { return c; }
   const Node3D* getPred() const { return pred; }
@@ -48,7 +49,7 @@ class Node3D {
   void setT(const float& t) { this->t = t; }
   void setG(const float& g) { this->g = g; }
   void setH(const float& h) { this->h = h; }
-  int setI(int width, int height) { this->i = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return i;}
+  int setI(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
   void open() { o = true; c = false;}
   void close() { c = true; o = false; }
   void setPred(const Node3D* pred) { this->pred = pred; }
@@ -59,8 +60,17 @@ class Node3D {
   // to goal
   void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup);
 
+  // CUSTOM OPERATORS
+  bool operator == (const Node3D& rhs) const;
+  bool operator() (const Node3D* rhs) const;
+//  bool operator()(const Node3D* lhs, const Node3D* rhs);
+
+
   // DUBINS SHOT
   Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
+
+  // RANGE CHECKING
+  bool isInRange(const Node3D& goal) const;
 
   // GRID CHECKING
   bool isOnGrid(const int width, const int height) const;
@@ -74,7 +84,7 @@ class Node3D {
   //  HYBRID A* ALGORITHM
   static Node3D* aStar(Node3D& start, const Node3D& goal, Node3D* nodes, float* cost2d,
                        const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup,
-                       float* dubinsLookup,Visualize& visualization);
+                       float* dubinsLookup, Visualize& visualization);
 
 
   // CONSTANT VALUES
@@ -92,7 +102,7 @@ class Node3D {
   float t;
   float g;
   float h;
-  int i;
+  int idx;
   bool o;
   bool c;
   const Node3D* pred;

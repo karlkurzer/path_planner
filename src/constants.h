@@ -17,11 +17,11 @@ namespace constants {
 // flag -- switch to true for cout info
 static const bool coutDEBUG = 1;
 
-// flag -- switch to true for live visualization
-static const bool visualization = 1;
-
 // flag -- switch to false for velodyne data
 static const bool manual = 1;
+
+// flag -- switch to true for live visualization
+static const bool visualization = 1*manual;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
@@ -63,8 +63,14 @@ static const float deltaHeadingDeg = 360 / (float)headings;
 // [c*PI] -- discretization value of heading
 static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 
-// [m] -- cell size in [m]
+// [c*PI] -- goal condition
+static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
+
+// [m] -- cell size
 static const float cellSize = 1;
+
+// [m] -- tie breaker to break ties between nodes in the same cell
+static const float tieBreaker = 0.001;
 
 // ___________________
 // HEURISTIC CONSTANTS
@@ -73,10 +79,13 @@ static const float cellSize = 1;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.00;
+static const float penaltyTurning = 1.01;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;
+
+// [m] -- dubins shot distance
+static const float dubinsShotDistance = 1*1*(r*r);
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC

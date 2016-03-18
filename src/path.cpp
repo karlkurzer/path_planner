@@ -29,7 +29,7 @@ void Path::tracePath(const Node3D* node, int i) {
 
   if (node == nullptr) { return; }
 
-  addSegment(node, i);
+  addSegment(node);
   addNode(node, i);
   i++;
   addVehicle(node, i);
@@ -45,9 +45,7 @@ void Path::tracePath(const Node3D* node, int i) {
 
 // ___________
 // ADD SEGMENT
-void Path::addSegment(const Node3D* node, int i) {
-  if (i == 0) {path.poses.clear();}
-
+void Path::addSegment(const Node3D* node) {
   geometry_msgs::PoseStamped vertex;
   vertex.pose.position.x = node->getX();
   vertex.pose.position.y = node->getY();

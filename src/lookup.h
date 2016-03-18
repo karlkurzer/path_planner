@@ -11,6 +11,7 @@ namespace lookup {
 //###################################################
 void dubinsLookup(float* lookup) {
   bool DEBUG = false;
+  std::cout << "I am building the Dubin's lookup table...";
 
   DubinsPath path;
 
@@ -58,6 +59,7 @@ void dubinsLookup(float* lookup) {
       }
     }
   }
+  std::cout << " done!" << std::endl;
 }
 
 //###################################################
@@ -76,6 +78,7 @@ int sign(double x) {
 // COLLISION LOOKUP CREATION
 void collisionLookup(constants::config* lookup) {
   bool DEBUG = false;
+  std::cout << "I am building the collision lookup table...";
   // cell size
   const float cSize = constants::cellSize;
   // bounding box size length/width
@@ -328,6 +331,7 @@ void collisionLookup(constants::config* lookup) {
       }
     }
   }
+  std::cout << " done!" << std::endl;
 }
 
 }

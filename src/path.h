@@ -33,10 +33,10 @@ class Path {
 
   // __________
   // TRACE PATH
-  void tracePath(const Node3D* node, int i);
+  void tracePath(const Node3D* node, int i = 0);
 
   // adding a segment to the path
-  void addSegment(const Node3D* node, int i);
+  void addSegment(const Node3D* node);
   // adding a node to the path
   void addNode(const Node3D* node, int i);
   // adding a vehicle shape to the path
