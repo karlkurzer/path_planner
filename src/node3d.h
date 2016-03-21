@@ -7,80 +7,96 @@
 
 #include "dubins.h"
 #include "node2d.h"
-
-struct cfg;
+#include "constants.h"
+#include "helper.h"
+class Node2D;
+class Visualize;
 
 class Node3D {
  public:
+
   // CONSTRUCTOR
-  Node3D(int x, int y, float t, float g, float h, Node3D* pred) {
+  Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
+  // overloaded constructor
+  Node3D(float x, float y, float t, float g, float h, const Node3D* pred) {
     this->x = x;
     this->y = y;
     this->t = t;
     this->g = g;
     this->h = h;
     this->pred = pred;
+    this->o = false;
+    this->c = false;
+    this->idx = -1;
+
   }
+
   // GETTER METHODS
-  int getX() const { return x; }
-  int getY() const { return y; }
+  float getX() const { return x; }
+  float getY() const { return y; }
   float getT() const { return t; }
   float getG() const { return g; }
   float getH() const { return h; }
-  Node3D* getPred() const { return pred; }
-  // returns total estimated cost for node
   float getC() const { return g + h; }
+  int getIdx() const { return idx; }
+  bool  isOpen() const { return o; }
+  bool  isClosed() const { return c; }
+  const Node3D* getPred() const { return pred; }
 
   // SETTER METHODS
-  void setX(const int& x) { this->x = x; }
-  void setY(const int& y) { this->y = y; }
+  void setX(const float& x) { this->x = x; }
+  void setY(const float& y) { this->y = y; }
   void setT(const float& t) { this->t = t; }
   void setG(const float& g) { this->g = g; }
   void setH(const float& h) { this->h = h; }
-  void setPred(Node3D* pred) { this->pred = pred; }
+  int setIdx(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
+  void open() { o = true; c = false;}
+  void close() { c = true; o = false; }
+  void setPred(const Node3D* pred) { this->pred = pred; }
 
   // UPDATE METHODS
   // from start
-  void updateG(const Node3D& pred) { g += movementCost(pred); }
+  void updateG();
   // to goal
-  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid,
-               float costGoal[]) { h = costToGo(goal, grid, costGoal); }
-  // COST CALCULATION
-  // cost for movement, g
-  float movementCost(const Node3D& pred) const;
-  // cost to go, dubins path / 2D A*
-  float costToGo(const Node3D& goal,
-                 const nav_msgs::OccupancyGrid::ConstPtr& oGrid, float costGoal[]) const;
-  //  aStar algorithm
-  //  static Node3D* aStar(Node3D& start, const Node3D& goal,
-  //                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid);
-  static Node3D* aStar(Node3D& start, const Node3D& goal,
-                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
-                       int width, int height, int depth, int length, bool* open, bool* closed, float* cost,
-                       float* costToGo,
-                       float* costGoal);
+  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization);
+
+  // CUSTOM OPERATORS
+  bool operator == (const Node3D& rhs) const;
+
+  // DUBINS SHOT
+  Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
+
+  // RANGE CHECKING
+  bool isInRange(const Node3D& goal) const;
+
+  // GRID CHECKING
+  bool isOnGrid(const int width, const int height) const;
+
+  // COLLISION CHECKING
+  bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
+
+  // SUCCESSOR CREATION
+  Node3D* createSuccessor(const int i);
+
   // CONSTANT VALUES
   // possible directions
   static const int dir;
   // possible movements
-  static const int dx[];
-  static const int dy[];
+  static const float dx[];
+  static const float dy[];
   static const float dt[];
+
  private:
-  // x = position (length), y = position (width), t = heading, g = cost, h = cost to go, pred = pointer to predecessor node
-  int x;
-  int y;
+  // x = position (length), y = position (width), t = heading, g = cost, h = cost to go, i = index, pred = pointer to predecessor node
+  float x;
+  float y;
   float t;
   float g;
   float h;
-  Node3D* pred;
+  int idx;
+  bool o;
+  bool c;
+  const Node3D* pred;
 };
-
-////###################################################
-////                                  CONST DECLARATION
-////###################################################
-//    HEADING => 0 - 359 degrees, 0 being north pointing towards negative X
-//    X-COORDINATE => designating the length of the grid/world
-//    Y-COORDINATE => designating the width of the grid/world
 
 #endif // NODE3D_H

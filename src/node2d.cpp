@@ -1,6 +1,4 @@
-#include <functional>
-#include <queue>
-#include <vector>
+#include <boost/heap/binomial_heap.hpp>
 
 #include "node2d.h"
 
@@ -12,126 +10,144 @@ const int Node2D::dx[] = { -1, -1, 0, 1, 1, 1, 0, -1 };
 const int Node2D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 
 //###################################################
+//                                         IS ON GRID
+//###################################################
+bool Node2D::isOnGrid(const int width, const int height) const {
+  return  x >= 0 && x < width && y >= 0 && y < height;
+}
+
+
+//###################################################
+//                                   CREATE SUCCESSOR
+//###################################################
+Node2D* Node2D::createSuccessor(const int i) {
+  int xSucc = x + Node2D::dx[i];
+  int ySucc = y + Node2D::dy[i];
+  return new Node2D(xSucc, ySucc, g, 0, this);
+}
+
+
+//###################################################
 //                                 2D NODE COMPARISON
 //###################################################
-struct Compare2DNodes : public std::binary_function<Node2D*, Node2D*, bool> {
+struct CompareNodes {
   bool operator()(const Node2D* lhs, const Node2D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
 };
 
-bool operator ==(const Node2D& lhs, const Node2D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
+bool Node2D::operator == (const Node2D& rhs) const {
+  return x == rhs.x && y == rhs.y;
 }
+
 
 //###################################################
 //                                 				2D A*
 //###################################################
-float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& oGrid) {
-  // LISTS dynamically allocated ROW MAJOR ORDER
-  int width = oGrid->info.width;
-  int height = oGrid->info.height;
-  int length = width * height;
-  int idx = 0;
-  int idxSucc = 0;
-  bool* open;
-  bool* closed;
-  float* cost;
-  float* costToGo;
-  // initialize all lists
-  open = new bool [length]();
-  closed = new bool [length]();
-  cost = new float [length]();
-  costToGo = new float [length]();
+float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, Visualize& visualization) {
 
-  // PREDECESSOR AND SUCCESSOR POSITION
-  int x, y, xSucc, ySucc;
-  // OPEN LIST
-  std::priority_queue<Node2D*, std::vector<Node2D*>, Compare2DNodes> O;
-  // update g value
-  start.updateG(start);
+  // PREDECESSOR AND SUCCESSOR INDEX
+  int iPred, iSucc;
+  int width = grid->info.width;
+  int height = grid->info.height;
+  float newG;
+
+  // reset the open and closed list
+  for (int i = 0; i < width * height; ++i) {
+    nodes2D[i].c = false;
+    nodes2D[i].o = false;
+  }
+
+  // VISUALIZATION DELAY
+  ros::Duration d(0.001);
+
+  boost::heap::binomial_heap<Node2D*,
+        boost::heap::compare<CompareNodes>> O;
   // update h value
   start.updateH(goal);
+  // mark start as open
+  start.open();
   // push on priority queue
   O.push(&start);
-  // add node to open list with total estimated cost
-  cost[start.getY() * width + start.getX()] = start.getC();
+  iPred = start.setIdx(width);
+  nodes2D[iPred] = start;
+
+  // NODE POINTER
+  Node2D* nPred;
+  Node2D* nSucc;
 
   // continue until O empty
   while (!O.empty()) {
-    // create new node pointer
-    Node2D* nPred;
     // pop node with lowest cost from priority queue
     nPred = O.top();
-    x = nPred->getX();
-    y = nPred->getY();
-    idx = y * width + x;
+    // set index
+    iPred = nPred->setIdx(width);
 
-    // lazy deletion of rewired node
-    if (closed[idx] == true) {
-      // remove node from open list
+    // _____________________________
+    // LAZY DELETION of rewired node
+    // if there exists a pointer this node has already been expanded
+    if (nodes2D[iPred].isClosed()) {
+      // pop node from the open list and start with a fresh node
       O.pop();
       continue;
-    } else if (closed[idx] == false) {
+    }
+    // _________________
+    // EXPANSION OF NODE
+    else if (nodes2D[iPred].isOpen()) {
+      // add node to closed list
+      nodes2D[iPred].close();
+      nodes2D[iPred].discover();
+
+      // RViz visualization
+      if (constants::visualization2D) {
+        visualization.publishNode2DPoses(*nPred);
+        visualization.publishNode2DPose(*nPred);
+//        d.sleep();
+      }
+
       // remove node from open list
       O.pop();
-      open[idx] = false;
-      // add node to closed list
-      closed[idx] = true;
 
-      // goal test
+      // _________
+      // GOAL TEST
       if (*nPred == goal) {
-        delete[] open;
-        delete[] closed;
-        delete[] cost;
-        delete[] costToGo;
         return nPred->getG();
       }
-      // continue with search
+      // ____________________
+      // CONTINUE WITH SEARCH
       else {
-        // create positions of successor nodes
+        // _______________________________
+        // CREATE POSSIBLE SUCCESSOR NODES
         for (int i = 0; i < Node2D::dir; i++) {
-          xSucc = x + Node2D::dx[i];
-          ySucc = y + Node2D::dy[i];
-          idxSucc = ySucc * width + xSucc;
+          // create possible successor
+          nSucc = nPred->createSuccessor(i);
+          // set index of the successor
+          iSucc = nSucc->setIdx(width);
 
           // ensure successor is on grid ROW MAJOR
-          if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height) {
-            // ensure successor is not blocked by obstacle
-            if (oGrid->data[idxSucc] == 0) {
-              // ensure successor is not on closed list
-              if (closed[idxSucc] == false) {
-                Node2D* nSucc;
-                nSucc = new Node2D(xSucc, ySucc, nPred->getG(), 0, nullptr);
-                // calculate new g value
-                float newG = nPred->getG() + nSucc->movementCost(*nPred);
+          // ensure successor is not blocked by obstacle
+          // ensure successor is not on closed list
+          if (nSucc->isOnGrid(width, height) && !grid->data[iSucc] && !nodes2D[iSucc].isClosed()) {
+            // calculate new G value
+            nSucc->updateG();
+            newG = nSucc->getG();
 
-                // if successor not on open list or g value lower than before put it on open list
-                if (open[idxSucc] == false || newG < cost[idxSucc]) {
-                  // set predecessor
-                  nSucc->setPred(nPred);
-                  nSucc->updateG(*nPred);
-                  cost[idxSucc] = nSucc->getG();
-                  nSucc->updateH(goal);
-                  costToGo[idxSucc] = nSucc->getH();
-                  // put successor on open list
-                  open[idxSucc] = true;
-                  O.push(nSucc);
-                } else { delete nSucc; }
-              }
-            }
-          }
+            // if successor not on open list or g value lower than before put it on open list
+            if (!nodes2D[iSucc].isOpen() || newG < nodes2D[iSucc].getG()) {
+              // calculate the H value
+              nSucc->updateH(goal);
+              // put successor on open list
+              nSucc->open();
+              nodes2D[iSucc] = *nSucc;
+              O.push(&nodes2D[iSucc]);
+              delete nSucc;
+            } else { delete nSucc; }
+          } else { delete nSucc; }
         }
       }
     }
   }
 
   // return large number to guide search away
-  if (O.empty()) {
-    delete[] open;
-    delete[] closed;
-    delete[] cost;
-    delete[] costToGo;
-    return 1000;
-  }
+  return 1000;
 }

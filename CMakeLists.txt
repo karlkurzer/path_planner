@@ -25,12 +25,20 @@ find_package(catkin REQUIRED COMPONENTS
 file(GLOB SOURCES
     src/dubins.cpp
     src/dubins.h
+    src/gradient.h
     src/node2d.cpp
     src/node2d.h
     src/node3d.cpp
     src/node3d.h
+    src/algorithm.cpp
+    src/algorithm.h
     src/path.cpp
     src/path.h
+    src/visualize.cpp
+    src/visualize.h
+    src/lookup.h
+    src/constants.h
+    src/helper.h
     src/subscribeandpublish.h
 )
 
@@ -42,12 +50,6 @@ file(GLOB SOURCES
 catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS})
-
-#add_executable(talker src/talker.cpp)
-#target_link_libraries(talker ${catkin_LIBRARIES})
-
-#add_executable(listener src/listener.cpp)
-#target_link_libraries(listener ${catkin_LIBRARIES})
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})

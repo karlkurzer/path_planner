@@ -1,219 +1,245 @@
-#include <functional>
-#include <queue>
-#include <vector>
-
 #include "node3d.h"
 
 // CONSTANT VALUES
 // possible directions
-const int Node3D::dir = 8;
+const int Node3D::dir = 3;
 // possible movements
-const int Node3D::dx[] = { 1,  1,  0,  -1,  -1, -1,   0,    1 };
-const int Node3D::dy[] = { 0,  1,  1,   1,   0, -1,  -1,   -1 };
-const float Node3D::dt[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
+//const float Node3D::dy[] = { 0,        -0.032869,  0.032869};
+//const float Node3D::dx[] = { 0.62832,   0.62717,   0.62717};
+//const float Node3D::dt[] = { 0,         0.10472,   -0.10472};
+
+// R = 6, 6.75 DEG
+const float Node3D::dy[] = { 0,        -0.0415893,  0.0415893};
+const float Node3D::dx[] = { 0.7068582,   0.705224,   0.705224};
+const float Node3D::dt[] = { 0,         0.1178097,   -0.1178097};
+
+// R = 3, 6.75 DEG
+//const float Node3D::dy[] = { 0,        -0.0207946, 0.0207946};
+//const float Node3D::dx[] = { 0.35342917352,   0.352612,  0.352612};
+//const float Node3D::dt[] = { 0,         0.11780972451,   -0.11780972451};
+
+//const float Node3D::dy[] = { 0,       -0.16578, 0.16578};
+//const float Node3D::dx[] = { 1.41372, 1.40067, 1.40067};
+//const float Node3D::dt[] = { 0,       0.2356194,   -0.2356194};
+
+//###################################################
+//                                         IS ON GRID
+//###################################################
+bool Node3D::isOnGrid(const int width, const int height) const {
+  return x >= 0 && x < width && y >= 0 && y < height && (int)(t / constants::deltaHeadingRad) >= 0 && (int)(t / constants::deltaHeadingRad) < constants::headings;
+}
+
+
+//###################################################
+//                                        IS IN RANGE
+//###################################################
+bool Node3D::isInRange(const Node3D& goal) const {
+  float dx = std::abs(x - goal.x);
+  float dy = std::abs(y - goal.y);
+  return (dx * dx) + (dy * dy) < constants::dubinsShotDistance;
+}
+
+//###################################################
+//                                   CREATE SUCCESSOR
+//###################################################
+Node3D* Node3D::createSuccessor(const int i) {
+  // calculate successor positions
+  float xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
+  float ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
+  float tSucc = helper::normalizeHeadingRad(t + dt[i]);
+  return new Node3D(xSucc, ySucc, tSucc, g, 0, this);
+}
+
 
 //###################################################
 //                                      MOVEMENT COST
 //###################################################
-float Node3D::movementCost(const Node3D& pred) const {
-  bool penalty = false;
-  float distance, tPenalty = 0;
+void Node3D::updateG() {
+  float predT = pred->t;
 
-  if (penalty) {
-    //heading penalty
-    if (abs(t - pred.getT()) > 180) { tPenalty = (360 - abs(t - pred.getT())) / 45; }
-    else { tPenalty = abs(t - pred.getT()) / 45; }
-    }
-
-  // euclidean distance
-  distance = sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y));
-  return distance + tPenalty;
+  // penalize turning
+  if ((int)t != (int)predT) {
+    g += dx[0] * constants::penaltyTurning;
+  } else  {
+    g += dx[0];
   }
+
+}
+
 
 //###################################################
 //                                         COST TO GO
 //###################################################
-float Node3D::costToGo(const Node3D& goal,
-                       const nav_msgs::OccupancyGrid::ConstPtr& oGrid,
-                       float costGoal[]) const {
-  bool dubins = false;
-  bool twoD = false;
+void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization) {
   float dubinsCost = 0;
   float euclideanCost = 0;
+  float twoDoffset = 0;
 
-  // if dubins heuristic is activated calculate the shortest path, constrained
-  if (dubins) {
-    //start
-    double q0[] = { x, y, t / 180 * M_PI };
-    // goal
-    double q1[] = { goal.x, goal.y, goal.t / 180 * M_PI };
-    // turning radius
-    float r = 1.5;
-    DubinsPath path;
-    dubins_init(q0, q1, r, &path);
-    dubinsCost = dubins_path_length(&path);
+  // if dubins heuristic is activated calculate the shortest path
+  // constrained without obstacles
+  if (constants::dubins) {
+    int uX = std::abs((int)goal.x - (int)x);
+    int uY = std::abs((int)goal.y - (int)y);
+
+
+    // if the lookup table flag is set and the vehicle is in the lookup area
+    if (constants::dubinsLookup && uX < constants::dubinsWidth - 1 && uY < constants::dubinsWidth - 1) {
+      int X = (int)goal.x - (int)x;
+      int Y = (int)goal.y - (int)y;
+      int h0;
+      int h1;
+
+      // mirror on x axis
+      if (X >= 0 && Y <= 0) {
+        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / constants::deltaHeadingRad);
+      }
+      // mirror on y axis
+      else if (X <= 0 && Y >= 0) {
+        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / constants::deltaHeadingRad);
+
+      }
+      // mirror on xy axis
+      else if (X <= 0 && Y <= 0) {
+        h0 = (int)(helper::normalizeHeadingRad(M_PI - t) / constants::deltaHeadingRad);
+        h1 = (int)(helper::normalizeHeadingRad(M_PI - goal.t) / constants::deltaHeadingRad);
+
+      } else {
+        h0 = (int)(t / constants::deltaHeadingRad);
+        h1 = (int)(goal.t / constants::deltaHeadingRad);
+      }
+
+      dubinsCost = dubinsLookup[uX * constants::dubinsWidth * constants::headings * constants::headings
+                                + uY *  constants::headings * constants::headings
+                                + h0 * constants::headings
+                                + h1];
+    } else { /*if (constants::dubinsShot && std::abs(x - goal.x) >= 10 && std::abs(y - goal.y) >= 10)*/
+      // start
+      double q0[] = { x, y, t};
+      // goal
+      double q1[] = { goal.x, goal.y, goal.t};
+      DubinsPath path;
+      dubins_init(q0, q1, constants::r, &path);
+      dubinsCost = dubins_path_length(&path);
     }
+  }
 
-  // if twoD heuristic is activated determine shortest path, unconstrained
-  if (twoD && costGoal[y * oGrid->info.width + x] == 0) {
+  // if twoD heuristic is activated determine shortest path
+  // unconstrained with obstacles
+  if (constants::twoD && !nodes2D[(int)y * grid->info.width + (int)x].isDiscovered()) {
+    // create a 2d start node
     Node2D start2d(x, y, 0, 0, nullptr);
+    // create a 2d goal node
     Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
-    costGoal[y * oGrid->info.width + x] = Node2D::aStar(start2d, goal2d, oGrid);
-    }
+    // run 2d astar and return the cost of the cheapest path for that node
+    nodes2D[(int)y * grid->info.width + (int)x].setG(Node2D::aStar(goal2d, start2d, grid, nodes2D, visualization));
+  }
 
   // else calculate the euclidean distance
   euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
-  // return the maximum of the heuristics, making the heuristic admissable
-  return std::max(euclideanCost, std::max(dubinsCost, costGoal[y * oGrid->info.width + x]));
+
+  if (constants::twoD) {
+    // offset for same node in cell
+    twoDoffset = sqrt(((x - (long)x) - (goal.x - (long)goal.x)) * ((x - (long)x) - (goal.x - (long)goal.x)) +
+                      ((y - (long)y) - (goal.y - (long)goal.y)) * ((y - (long)y) - (goal.y - (long)goal.y)));
+
   }
+  // return the maximum of the heuristics, making the heuristic admissable
+  h = std::max(euclideanCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG()-twoDoffset));
+}
+
+//###################################################
+//                                 COLLISION CHECKING
+//###################################################
+bool Node3D::isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
+  int X = (int)x;
+  int Y = (int)y;
+  int iX = (int)((x - (long)x) * constants::positionResolution);
+  iX = iX > 0 ? iX : 0;
+  int iY = (int)((y - (long)y) * constants::positionResolution);
+  iY = iY > 0 ? iY : 0;
+  int iT = (int)(t / constants::deltaHeadingRad);
+  int idx = iY * constants::positionResolution * constants::headings + iX * constants::headings + iT;
+  int cX;
+  int cY;
+
+  for (int i = 0; i < collisionLookup[idx].length; ++i) {
+    cX = (X + collisionLookup[idx].pos[i].x);
+    cY = (Y + collisionLookup[idx].pos[i].y);
+
+    // make sure the configuration coordinates are actually on the grid
+    if (cX >= 0 && cX < grid->info.width && cY >= 0 && cY < grid->info.height) {
+      if (grid->data[cY * grid->info.width + cX]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+
+//###################################################
+//                                        DUBINS SHOT
+//###################################################
+Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const {
+  // start
+  double q0[] = { x, y, t };
+  // goal
+  double q1[] = { goal.x, goal.y, goal.t };
+  // initialize the path
+  DubinsPath path;
+  // calculate the path
+  dubins_init(q0, q1, constants::r, &path);
+
+  int i = 0;
+  float x = 0.f;
+  float length = dubins_path_length(&path);
+
+  Node3D* dubinsNodes = new Node3D [(int)(length / constants::dubinsStepSize) + 1];
+
+  while (x <  length) {
+    double q[3];
+    dubins_path_sample(&path, x, q);
+    dubinsNodes[i].setX(q[0]);
+    dubinsNodes[i].setY(q[1]);
+    dubinsNodes[i].setT(helper::normalizeHeadingRad(q[2]));
+
+    // collision check
+    if (dubinsNodes[i].isTraversable(grid, collisionLookup)) {
+
+      // set the predecessor to the previous step
+      if (i > 0) {
+        dubinsNodes[i].setPred(&dubinsNodes[i - 1]);
+      } else {
+        dubinsNodes[i].setPred(this);
+      }
+
+      if (&dubinsNodes[i] == dubinsNodes[i].pred) {
+        std::cout << "looping shot";
+      }
+
+      x += constants::dubinsStepSize;
+      i++;
+    } else {
+      //      std::cout << "Dubins shot collided, discarding the path" << "\n";
+      // delete all nodes
+      delete [] dubinsNodes;
+      return nullptr;
+    }
+  }
+
+  //  std::cout << "Dubins shot connected, returning the path" << "\n";
+  return &dubinsNodes[i - 1];
+}
 
 //###################################################
 //                                 3D NODE COMPARISON
 //###################################################
-struct CompareNodes : public
-  std::binary_function<Node3D*, Node3D*, bool> {
-  bool operator()(const Node3D* lhs, const Node3D* rhs) const {
-    return lhs->getC() > rhs->getC();
-    }
-  };
-
-bool operator == (const Node3D& lhs, const Node3D& rhs) {
-  return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() &&
-         std::abs(std::abs(lhs.getT()) - std::abs(rhs.getT())) <= 22.5;
-  //return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
-  }
-
-//###################################################
-//                                 				3D A*
-//###################################################
-Node3D* Node3D::aStar(Node3D& start, const Node3D& goal,
-                      const nav_msgs::OccupancyGrid::ConstPtr& oGrid, int width, int height, int depth, int length,
-                      bool* open, bool* closed, float* cost, float* costToGo, float* costGoal) {
-  // MOTION PRIMITIVES
-  int dX[8][3];
-  int dY[8][3];
-  int dT[360];
-
-  // generate motion primitives
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 3; j++) {
-      if (i + j < 8) {
-        dX[i][j] = Node3D::dx[i + j];
-        dY[i][j] = Node3D::dy[i + j];
-        }
-      else {
-        dX[i][j] = Node3D::dx[i + j - 8];
-        dY[i][j] = Node3D::dy[i + j - 8];
-        }
-      }
-    }
-
-  // generate theta mapping
-  for (int i = 0; i < 360; i++) {
-    int factor = (int) i / 45 - 1;
-
-    if (factor < 0) { dT[i] = 7; }
-    else { dT[i] = factor; }
-    }
-
-  // PREDECESSOR AND SUCCESSOR POSITION
-  int x, y, t, xSucc, ySucc, tSucc;
-  int idx = 0;
-  int idxSucc = 0;
-
-  // OPEN LIST
-  std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
-  // update g value
-  start.updateG(start);
-  // update h value
-  start.updateH(goal, oGrid, costGoal);
-  // push on priority queue
-  O.push(&start);
-  // add node to open list with total estimated cost
-  cost[dT[(int) start.getT()]*width * height + start.getY() * width + start.getX()] = start.getG();
-
-  // continue until O empty
-  while (!O.empty()) {
-    // create new node pointer
-    Node3D* nPred;
-    // pop node with lowest cost from priority queue
-    nPred = O.top();
-    x = nPred->getX();
-    y = nPred->getY();
-    t = nPred->getT();
-    idx = dT[(int) t] * width * height + y * width + x;
-
-    // lazy deletion of rewired node
-    if (closed[idx] == true) {
-      O.pop();
-      continue;
-      }
-    else if (closed[idx] == false) {
-      // remove node from open list
-      O.pop();
-      open[idx] = false;
-      // add node to closed list
-      closed[idx] = true;
-
-      // goal test
-      if (*nPred == goal) {
-        return nPred;
-        }
-      // continue with search
-      else {
-        // determine index of motion primitive
-        int j = dT[t];
-
-        // create positions of successor nodes
-        for (int i = 0; i < 3; i++) {
-          xSucc = x + dX[j][i];
-          ySucc = y + dY[j][i];
-
-          if (i == 0)  { tSucc = t - 45; }
-          else if (i == 1)  { tSucc = t ; }
-          else if (i == 2)  { tSucc = t + 45; }
-
-          if (tSucc > 359)  { tSucc = tSucc % 360; }
-          else if (tSucc < 0)  { tSucc = 360 + tSucc; }
-
-          idxSucc = dT[(int) tSucc] * width * height + ySucc * width + xSucc;
-
-          // ensure successor is on grid ROW MAJOR^2
-          if (xSucc >= 0 && xSucc < width && ySucc >= 0 && ySucc < height && dT[tSucc] >= 0 &&
-              dT[tSucc] < depth) {
-            // ensure successor is not blocked by obstacle  && obstacleBloating(xSucc, ySucc)
-            if (oGrid->data[ySucc * width + xSucc] == 0) {
-              // ensure successor is not on closed list
-              if (closed[idxSucc] == false) {
-                Node3D* nSucc;
-                nSucc = new Node3D(xSucc, ySucc, tSucc, nPred->getG(), 0,
-                                   nullptr);
-                // calculate new g value
-                float newG = nPred->getG() + nSucc->movementCost(*nPred);
-
-                // if successor not on open list or g value lower than before put it on open list
-                if (open[idxSucc] == false || newG < cost[idxSucc]) {
-                  // set predecessor
-                  nSucc->setPred(nPred);
-                  nSucc->updateG(*nPred);
-                  cost[idxSucc] = nSucc->getG();
-                  nSucc->updateH(goal, oGrid, costGoal);
-                  costToGo[idxSucc] = nSucc->getH();
-                  // put successor on open list
-                  open[idxSucc] = true;
-                  O.push(nSucc);
-                  }
-                else { delete nSucc; }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-  // return 0
-  if (O.empty()) {
-    return nullptr;
-    }
-  }
+bool Node3D::operator == (const Node3D& rhs) const {
+  return (int)x == (int)rhs.x &&
+         (int)y == (int)rhs.y &&
+         (std::abs(t - rhs.t) <= constants::deltaHeadingRad ||
+          std::abs(t - rhs.t) >= constants::deltaHeadingNegRad);
+}
