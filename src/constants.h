@@ -21,7 +21,10 @@ static const bool coutDEBUG = 1;
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 1*manual;
+static const bool visualization = 0*manual;
+
+// flag -- switch to true for live visualization
+static const bool visualization2D = 0*manual;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
@@ -33,7 +36,7 @@ static const bool dubins = true;
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = false;
+static const bool twoD = true;
 
 
 // flag -- switch to true to activate obstacle bloating
@@ -70,7 +73,7 @@ static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
 static const float cellSize = 1;
 
 // [m] -- tie breaker to break ties between nodes in the same cell
-static const float tieBreaker = 0.001;
+static const float tieBreaker = 0.01;
 
 // ___________________
 // HEURISTIC CONSTANTS
@@ -79,13 +82,13 @@ static const float tieBreaker = 0.001;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.01;
+static const float penaltyTurning = 1.15;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;
 
 // [m] -- dubins shot distance
-static const float dubinsShotDistance = 1*1*(r*r);
+static const float dubinsShotDistance = 4*4*(r*r);
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC

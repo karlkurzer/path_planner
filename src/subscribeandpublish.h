@@ -12,6 +12,7 @@
 
 #include "constants.h"
 #include "helper.h"
+#include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
 #include "visualize.h"
@@ -140,8 +141,8 @@ class SubscribeAndPublish {
       int depth = constants::headings;
       int length = width * height * depth;
       // define list pointers and initialize lists
-      Node3D* nodes = new Node3D[length]();
-      float* cost2d = new float[width * height]();
+      Node3D* nodes3D = new Node3D[length]();
+      Node2D* nodes2D = new Node2D[width * height]();
 
 
       // ________________________
@@ -151,10 +152,10 @@ class SubscribeAndPublish {
       float t = tf::getYaw(goal.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
-            const Node3D nGoal(x, y, t, 0, 0, nullptr);
+      const Node3D nGoal(x, y, t, 0, 0, nullptr);
       // __________
       // DEBUG GOAL
-//      const Node3D nGoal(1, 1, M_PI, 0, 0, nullptr);
+      //      const Node3D nGoal(1, 1, M_PI, 0, 0, nullptr);
 
 
       // _________________________
@@ -167,7 +168,7 @@ class SubscribeAndPublish {
       Node3D nStart(x, y, t, 0, 0, nullptr);
       // ___________
       // DEBUG START
-//      Node3D nStart(1, 15, 0, 0, 0, nullptr);
+      //      Node3D nStart(1, 15, 0, 0, 0, nullptr);
 
 
       // ___________________________
@@ -179,14 +180,16 @@ class SubscribeAndPublish {
       // CLEAR THE VISUALIZATION
       visualization.clear();
       // FIND THE PATH
-      Node3D* nSolution = Node3D::aStar(nStart, nGoal, nodes, cost2d, grid, collisionLookup, dubinsLookup, visualization);
+      Algorithm hybridAStar;
+//      Node3D* nSolution = Node3D::aStar();
+      Node3D* nSolution = hybridAStar.findPath3D(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
       // TRACE THE PATH
       path.tracePath(nSolution);
       ros::Time t1 = ros::Time::now();
       ros::Duration d(t1 - t0);
 
       if (constants::coutDEBUG) {
-        std::cout << "Time in ms: " << d * 1000 << std::endl;
+        std::cout << "TIME in ms: " << d * 1000 << std::endl;
       }
 
       // _________________________________
@@ -194,12 +197,11 @@ class SubscribeAndPublish {
       path.publishPath();
       path.publishPathNodes();
       path.publishPathVehicles();
-      visualization.publishNode3DCosts(nodes, width, height, depth);
-      //      pub_nodes2D.publish(Path::getNodes2D(width, height, cost2d));
+      visualization.publishNode3DCosts(nodes3D, width, height, depth);
+      visualization.publishNode2DCosts(nodes2D, width, height);
 
-      delete [] nodes;
-      nodes = nullptr;
-      delete [] cost2d;
+      delete [] nodes3D;
+      delete [] nodes2D;
 
     } else {
       std::cout << "missing goal or start" << std::endl;

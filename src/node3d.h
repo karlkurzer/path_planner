@@ -9,10 +9,8 @@
 #include "node2d.h"
 #include "constants.h"
 #include "helper.h"
-#include "visualize.h"
-
+class Node2D;
 class Visualize;
-
 
 class Node3D {
  public:
@@ -29,6 +27,8 @@ class Node3D {
     this->pred = pred;
     this->o = false;
     this->c = false;
+    this->idx = -1;
+
   }
 
   // GETTER METHODS
@@ -49,7 +49,7 @@ class Node3D {
   void setT(const float& t) { this->t = t; }
   void setG(const float& g) { this->g = g; }
   void setH(const float& h) { this->h = h; }
-  int setI(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
+  int setIdx(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
   void open() { o = true; c = false;}
   void close() { c = true; o = false; }
   void setPred(const Node3D* pred) { this->pred = pred; }
@@ -58,13 +58,10 @@ class Node3D {
   // from start
   void updateG();
   // to goal
-  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup);
+  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization);
 
   // CUSTOM OPERATORS
   bool operator == (const Node3D& rhs) const;
-  bool operator() (const Node3D* rhs) const;
-//  bool operator()(const Node3D* lhs, const Node3D* rhs);
-
 
   // DUBINS SHOT
   Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
@@ -79,13 +76,7 @@ class Node3D {
   bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
 
   // SUCCESSOR CREATION
-  Node3D* createSuccessor(const int i) const;
-
-  //  HYBRID A* ALGORITHM
-  static Node3D* aStar(Node3D& start, const Node3D& goal, Node3D* nodes, float* cost2d,
-                       const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup,
-                       float* dubinsLookup, Visualize& visualization);
-
+  Node3D* createSuccessor(const int i);
 
   // CONSTANT VALUES
   // possible directions

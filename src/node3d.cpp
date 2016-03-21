@@ -1,8 +1,3 @@
-#include <functional>
-#include <queue>
-#include <vector>
-#include <boost/heap/binomial_heap.hpp>
-
 #include "node3d.h"
 
 // CONSTANT VALUES
@@ -47,12 +42,12 @@ bool Node3D::isInRange(const Node3D& goal) const {
 //###################################################
 //                                   CREATE SUCCESSOR
 //###################################################
-Node3D* Node3D::createSuccessor(const int i) const {
+Node3D* Node3D::createSuccessor(const int i) {
   // calculate successor positions
   float xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
   float ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
   float tSucc = helper::normalizeHeadingRad(t + dt[i]);
-  return new Node3D(xSucc, ySucc, tSucc, g, 0, nullptr);
+  return new Node3D(xSucc, ySucc, tSucc, g, 0, this);
 }
 
 
@@ -60,7 +55,7 @@ Node3D* Node3D::createSuccessor(const int i) const {
 //                                      MOVEMENT COST
 //###################################################
 void Node3D::updateG() {
-  float predT = pred != nullptr ? pred->t : t;
+  float predT = pred->t;
 
   // penalize turning
   if ((int)t != (int)predT) {
@@ -75,9 +70,10 @@ void Node3D::updateG() {
 //###################################################
 //                                         COST TO GO
 //###################################################
-void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, float* cost2d, float* dubinsLookup) {
+void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization) {
   float dubinsCost = 0;
   float euclideanCost = 0;
+  float twoDoffset = 0;
 
   // if dubins heuristic is activated calculate the shortest path
   // constrained without obstacles
@@ -131,19 +127,26 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
 
   // if twoD heuristic is activated determine shortest path
   // unconstrained with obstacles
-  if (constants::twoD && cost2d[(int)y * grid->info.width + (int)x] == 0) {
+  if (constants::twoD && !nodes2D[(int)y * grid->info.width + (int)x].isDiscovered()) {
     // create a 2d start node
     Node2D start2d(x, y, 0, 0, nullptr);
     // create a 2d goal node
     Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
     // run 2d astar and return the cost of the cheapest path for that node
-    cost2d[(int)y * grid->info.width + (int)x] = Node2D::aStar(goal2d, start2d, grid, cost2d);
+    nodes2D[(int)y * grid->info.width + (int)x].setG(Node2D::aStar(goal2d, start2d, grid, nodes2D, visualization));
   }
 
   // else calculate the euclidean distance
   euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
+
+  if (constants::twoD) {
+    // offset for same node in cell
+    twoDoffset = sqrt(((x - (long)x) - (goal.x - (long)goal.x)) * ((x - (long)x) - (goal.x - (long)goal.x)) +
+                      ((y - (long)y) - (goal.y - (long)goal.y)) * ((y - (long)y) - (goal.y - (long)goal.y)));
+
+  }
   // return the maximum of the heuristics, making the heuristic admissable
-  h = std::max(euclideanCost, std::max(dubinsCost, cost2d[(int)y * grid->info.width + (int)x]));
+  h = std::max(euclideanCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG()-twoDoffset));
 }
 
 //###################################################
@@ -234,229 +237,9 @@ Node3D* Node3D::dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::Co
 //###################################################
 //                                 3D NODE COMPARISON
 //###################################################
-//struct CompareNodes : public
-//  std::binary_function<Node3D*, Node3D*, bool> {
-//  bool operator()(const Node3D* lhs, const Node3D* rhs) const {
-//    return lhs->getC() > rhs->getC();
-//  }
-//};
-
-struct CompareNodes {
-  bool operator()(const Node3D* lhs, const Node3D* rhs) const {
-    return lhs->getC() > rhs->getC();
-  }
-};
-
 bool Node3D::operator == (const Node3D& rhs) const {
   return (int)x == (int)rhs.x &&
          (int)y == (int)rhs.y &&
          (std::abs(t - rhs.t) <= constants::deltaHeadingRad ||
           std::abs(t - rhs.t) >= constants::deltaHeadingNegRad);
-}
-
-//###################################################
-//                                 				3D A*
-//###################################################
-Node3D* Node3D::aStar(Node3D& start,
-                      const Node3D& goal,
-                      Node3D* nodes,
-                      float* cost2d,
-                      const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                      constants::config* collisionLookup,
-                      float* dubinsLookup,
-                      Visualize& visualization) {
-
-  ros::Duration d(0.005);
-
-  // PREDECESSOR AND SUCCESSOR POSITION
-  int iPred, iSucc;
-  int width = grid->info.width;
-  int height = grid->info.height;
-  float newG;
-
-  // OPEN LIST
-  //    std::priority_queue<Node3D*, std::vector<Node3D*>, CompareNodes> O;
-  // BOOST IMPLEMENTATION
-  typedef boost::heap::binomial_heap<Node3D*,
-          boost::heap::compare<CompareNodes>
-          > priorityQueue;
-  priorityQueue O;
-
-  // update h value
-  start.updateH(goal, grid, cost2d, dubinsLookup);
-  // mark start as open
-  start.open();
-  // push on priority queue aka open list
-  O.push(&start);
-  iPred = start.setI(width, height);
-  nodes[iPred] = start;
-
-  // create new node pointer
-  Node3D* nPred;
-  Node3D* nSucc;
-
-  // float max = 0.f;
-
-  // continue until O empty
-  while (!O.empty()) {
-
-    //    // DEBUG
-    //    Node3D* pre = nullptr;
-    //    Node3D* succ = nullptr;
-
-    //    std::cout << "\t--->>>" << std::endl;
-
-    //    for (priorityQueue::ordered_iterator it = O.ordered_begin(); it != O.ordered_end(); ++it) {
-    //      succ = (*it);
-    //      std::cout << "VAL"
-    //                << " | C:" << succ->getC()
-    //                << " | x:" << succ->getX()
-    //                << " | y:" << succ->getY()
-    //                << " | t:" << helper::toDeg(succ->getT())
-    //                << " | i:" << succ->getIdx()
-    //                << " | O:" << succ->isOpen()
-    //                << " | pred:" << succ->getPred()
-    //                << std::endl;
-
-    //      if (pre != nullptr) {
-
-    //        if (pre->getC() > succ->getC()) {
-    //          std::cout << "PRE"
-    //                    << " | C:" << pre->getC()
-    //                    << " | x:" << pre->getX()
-    //                    << " | y:" << pre->getY()
-    //                    << " | t:" << helper::toDeg(pre->getT())
-    //                    << " | i:" << pre->getIdx()
-    //                    << " | O:" << pre->isOpen()
-    //                    << " | pred:" << pre->getPred()
-    //                    << std::endl;
-    //          std::cout << "SCC"
-    //                    << " | C:" << succ->getC()
-    //                    << " | x:" << succ->getX()
-    //                    << " | y:" << succ->getY()
-    //                    << " | t:" << helper::toDeg(succ->getT())
-    //                    << " | i:" << succ->getIdx()
-    //                    << " | O:" << succ->isOpen()
-    //                    << " | pred:" << succ->getPred()
-    //                    << std::endl;
-
-    //          if (pre->getC() - succ->getC() > max) {
-    //            max = pre->getC() - succ->getC();
-    //          }
-    //        }
-    //      }
-
-    //      pre = succ;
-    //    }
-
-    // pop node with lowest cost from priority queue
-    nPred = O.top();
-    // set index
-    iPred = nPred->setI(width, height);
-
-    // RViz visualization
-    if (constants::visualization) {
-      visualization.publishNode3DPoses(*nPred);
-      visualization.publishNode3DPose(*nPred);
-      d.sleep();
-    }
-
-    // _____________________________
-    // LAZY DELETION of rewired node
-    // if there exists a pointer this node has already been expanded
-    if (nodes[iPred].isClosed()) {
-      // pop node from the open list and start with a fresh node
-      O.pop();
-      continue;
-    }
-    // _________________
-    // EXPANSION OF NODE
-    else if (nodes[iPred].isOpen()) {
-      // add node to closed list
-      nodes[iPred].close();
-      // remove node from open list
-      O.pop();
-
-      // _________
-      // GOAL TEST
-      if (*nPred == goal) {
-        //DEBUG
-        // std::cout << "max diff " << max << std::endl;
-        return nPred;
-      }
-
-      // ____________________
-      // CONTINUE WITH SEARCH
-      else {
-        // _______________________
-        // SEARCH WITH DUBINS SHOT
-        if (constants::dubinsShot && nPred->isInRange(goal)) {
-          nSucc = nPred->dubinsShot(goal, grid, collisionLookup);
-
-          if (nSucc != nullptr && *nSucc == goal) {
-            //DEBUG
-            // std::cout << "max diff " << max << std::endl;
-            return nSucc;
-          }
-        }
-
-        // ______________________________
-        // SEARCH WITH FORWARD SIMULATION
-        for (int i = 0; i < 3; i++) {
-          // create possible successor
-          nSucc = nPred->createSuccessor(i);
-          // set index of the successor
-          iSucc = nSucc->setI(width, height);
-
-          // ensure successor is on grid and traversable
-          if (nSucc->isOnGrid(width, height) && nSucc->isTraversable(grid, collisionLookup)) {
-
-            // ensure successor is not on closed list or it has the same index as the predecessor
-            if (!nodes[iSucc].isClosed() || iPred == iSucc) {
-
-              // calculate new G value
-              nSucc->updateG();
-              newG = nSucc->getG();
-
-              // if successor not on open list or found a shorter way to the cell
-              if (!nodes[iSucc].isOpen() || newG < nodes[iSucc].getG() || iPred == iSucc) {
-
-                // calculate H value
-                nSucc->updateH(goal, grid, cost2d, dubinsLookup);
-
-                // if the successor is in the same cell but the H value is larger
-                if (iPred == iSucc && nSucc->getC() > nPred->getC() + constants::tieBreaker) {
-                  delete nSucc;
-                  continue;
-                }
-                // if successor is in the same cell and the H value is lower, set predecessor to predecessor of predecessor
-                else if (iPred == iSucc && nSucc->getC() <= nPred->getC() + constants::tieBreaker) {
-                  nSucc->setPred(nPred->getPred());
-                }
-                // OTHERWISE
-                //set predecessor to predecessor
-                else {
-                  nSucc->setPred(nPred);
-                }
-
-                if (nSucc->getPred() == nSucc) {
-                  std::cout << "looping";
-                }
-
-                // put successor on open list
-                nSucc->open();
-                nodes[iSucc] = *nSucc;
-                O.push(&nodes[iSucc]);
-                delete nSucc;
-              } else { delete nSucc; }
-            } else { delete nSucc; }
-          } else { delete nSucc; }
-        }
-      }
-    }
-  }
-
-  if (O.empty()) {
-    return nullptr;
-  }
 }
