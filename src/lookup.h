@@ -59,6 +59,7 @@ void dubinsLookup(float* lookup) {
       }
     }
   }
+
   std::cout << " done!" << std::endl;
 }
 
@@ -83,7 +84,6 @@ void collisionLookup(constants::config* lookup) {
   const float cSize = constants::cellSize;
   // bounding box size length/width
   const int size = constants::bbSize;
-
 
   struct point {
     double x;
@@ -136,8 +136,8 @@ void collisionLookup(constants::config* lookup) {
   // generate all discrete positions within one cell
   for (int i = 0; i < positionResolution; ++i) {
     for (int j = 0; j < positionResolution; ++j) {
-      points[positionResolution * i + j].x = cSize / positionResolution * j;
-      points[positionResolution * i + j].y = cSize / positionResolution * i;
+      points[positionResolution * i + j].x = 1.f / positionResolution * j;
+      points[positionResolution * i + j].y = 1.f / positionResolution * i;
     }
   }
 
@@ -148,7 +148,7 @@ void collisionLookup(constants::config* lookup) {
 
     // set points of rectangle
     c.x = (double)size / 2 + points[q].x;
-    c.y = (double) size / 2 + points[q].y;
+    c.y = (double)size / 2 + points[q].y;
 
     p[0].x = c.x - constants::length / 2 / cSize;
     p[0].y = c.y - constants::width / 2 / cSize;
@@ -163,7 +163,7 @@ void collisionLookup(constants::config* lookup) {
     p[3].y = c.y - constants::width / 2 / cSize;
 
     for (int o = 0; o < constants::headings; ++o) {
-      if (DEBUG && q * constants::headings + o == 3726) { std::cout << "\ndegrees: " << theta * 180.f / M_PI << std::endl; }
+      if (DEBUG) { std::cout << "\ndegrees: " << theta * 180.f / M_PI << std::endl; }
 
       // initialize cSpace
       for (int i = 0; i < size; ++i) {
@@ -181,7 +181,6 @@ void collisionLookup(constants::config* lookup) {
         // rotate and shift back
         nP[j].x = temp.x * cos(theta) - temp.y * sin(theta) + c.x;
         nP[j].y = temp.x * sin(theta) + temp.y * cos(theta) + c.y;
-        //      std::cout << j << "--> pX: " << nP[j].x << " pY: " << nP[j].y << std::endl;
       }
 
       // create the next angle
@@ -210,28 +209,28 @@ void collisionLookup(constants::config* lookup) {
 
         // width and height normalized by t
         if (t.x != 0) {
-          tDeltaX = cSize / std::abs(t.x);
+          tDeltaX = 1.f / std::abs(t.x);
         } else {
           tDeltaX = 1000;
         }
 
         if (t.y != 0) {
-          tDeltaY = cSize / std::abs(t.y);
+          tDeltaY = 1.f / std::abs(t.y);
         } else {
           tDeltaY = 1000;
         }
 
         // set maximum traversal values
         if (stepX > 0) {
-          tMaxX = tDeltaX * (1 - (start.x / cSize - (long)(start.x / cSize)));
+          tMaxX = tDeltaX * (1 - (start.x - (long)start.x));
         } else {
-          tMaxX = tDeltaX * (1 - (1 - (start.x / cSize - (long)(start.x / cSize))));
+          tMaxX = tDeltaX * (start.x - (long)start.x);
         }
 
         if (stepY > 0) {
-          tMaxY = tDeltaY * (1 - (start.y / cSize - (long)(start.y / cSize)));
+          tMaxY = tDeltaY * (1 - (start.y - (long)start.y));
         } else {
-          tMaxY = tDeltaY * (1 - (1 - (start.y / cSize - (long)(start.y / cSize))));
+          tMaxY = tDeltaY * (start.y - (long)start.y);
         }
 
         while ((int)end.x != X || (int)end.y != Y) {
@@ -240,13 +239,11 @@ void collisionLookup(constants::config* lookup) {
             tMaxX = tMaxX + tDeltaX;
             X = X + stepX;
             cSpace[Y * size + X] = true;
-            //          std::cout << "Cell: " << X << "," << Y << std::endl;
             // only increment y if the t length is smaller and the result will be closer to the goal
           } else if (tMaxY < tMaxX && std::abs(Y + stepY - (int)end.y) < std::abs(Y - (int)end.y)) {
             tMaxY = tMaxY + tDeltaY;
             Y = Y + stepY;
             cSpace[Y * size + X] = true;
-            //          std::cout << "Cell: " << X << "," << Y << std::endl;
           } else if (2 >= std::abs(X - (int)end.x) + std::abs(Y - (int)end.y)) {
             if (std::abs(X - (int)end.x) > std::abs(Y - (int)end.y)) {
               X = X + stepX;
@@ -292,8 +289,6 @@ void collisionLookup(constants::config* lookup) {
       // GENERATE THE ACTUAL LOOKUP
       count = 0;
 
-      //      std::cout << "current idx = " << q* constants::headings + o << std::endl;
-
       for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
           if (cSpace[i * size + j]) {
@@ -308,7 +303,7 @@ void collisionLookup(constants::config* lookup) {
 
       lookup[q * constants::headings + o].length = count;
 
-      if (DEBUG && q * constants::headings + o == 3726) {
+      if (DEBUG) {
         //DEBUG
         for (int i = 0; i < size; ++i) {
           std::cout << "\n";
@@ -331,6 +326,7 @@ void collisionLookup(constants::config* lookup) {
       }
     }
   }
+
   std::cout << " done!" << std::endl;
 }
 

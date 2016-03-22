@@ -15,13 +15,13 @@ namespace constants {
 // CONFIG FLAGS
 
 // flag -- switch to true for cout info
-static const bool coutDEBUG = 1;
+static const bool coutDEBUG = 0;
 
 // flag -- switch to false for velodyne data
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 0*manual;
+static const bool visualization = 1*manual;
 
 // flag -- switch to true for live visualization
 static const bool visualization2D = 0*manual;
@@ -70,7 +70,7 @@ static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
 
 // [m] -- cell size
-static const float cellSize = 1;
+static const float cellSize = 0.5;
 
 // [m] -- tie breaker to break ties between nodes in the same cell
 static const float tieBreaker = 0.01;
@@ -103,7 +103,7 @@ static const int dubinsArea = dubinsWidth * dubinsWidth;
 // COLLISION LOOKUP SPECIFIC
 
 // [m] -- bounding box size length/width
-static const int bbSize = std::ceil(sqrt(width * width + length* length) + 4 / cellSize);
+static const int bbSize = std::ceil((sqrt(width * width + length * length) + 4) / cellSize);
 
 // [#] -- number of discrete per cell length
 static const int positionResolution = 10;
