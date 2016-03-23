@@ -43,11 +43,24 @@ bool Node3D::isInRange(const Node3D& goal) const {
 //                                   CREATE SUCCESSOR
 //###################################################
 Node3D* Node3D::createSuccessor(const int i) {
-  // calculate successor positions
-  float xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
-  float ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
-  float tSucc = helper::normalizeHeadingRad(t + dt[i]);
-  return new Node3D(xSucc, ySucc, tSucc, g, 0, this);
+  float xSucc;
+  float ySucc;
+  float tSucc;
+
+  // calculate successor positions forward
+  if (i < 3) {
+    xSucc = x + dx[i] * cos(t) - dy[i] * sin(t);
+    ySucc = y + dx[i] * sin(t) + dy[i] * cos(t);
+    tSucc = helper::normalizeHeadingRad(t + dt[i]);
+  }
+  // backwards
+  else {
+    xSucc = x - dx[i - 3] * cos(t) - dy[i - 3] * sin(t);
+    ySucc = y - dx[i - 3] * sin(t) + dy[i - 3] * cos(t);
+    tSucc = helper::normalizeHeadingRad(t + dt[i - 3] + M_PI);
+  }
+
+  return new Node3D(xSucc, ySucc, tSucc, g, 0, this, i);
 }
 
 
@@ -55,15 +68,16 @@ Node3D* Node3D::createSuccessor(const int i) {
 //                                      MOVEMENT COST
 //###################################################
 void Node3D::updateG() {
-  float predT = pred->t;
-
   // penalize turning
-  if ((int)t != (int)predT) {
-    g += dx[0] * constants::penaltyTurning;
+  if (p != 0) {
+    if (pred->p != p) {
+      g += dx[0] * constants::penaltyTurning * constants::penaltyTurning;
+    } else {
+      g += dx[0] * constants::penaltyTurning;
+    }
   } else  {
     g += dx[0];
   }
-
 }
 
 
@@ -145,8 +159,9 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
                       ((y - (long)y) - (goal.y - (long)goal.y)) * ((y - (long)y) - (goal.y - (long)goal.y)));
 
   }
+
   // return the maximum of the heuristics, making the heuristic admissable
-  h = std::max(euclideanCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG()-twoDoffset));
+  h = std::max(euclideanCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG() - twoDoffset));
 }
 
 //###################################################

@@ -18,7 +18,7 @@ class Node3D {
   // CONSTRUCTOR
   Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
   // overloaded constructor
-  Node3D(float x, float y, float t, float g, float h, const Node3D* pred) {
+  Node3D(float x, float y, float t, float g, float h, const Node3D* pred, int p = 0) {
     this->x = x;
     this->y = y;
     this->t = t;
@@ -28,7 +28,7 @@ class Node3D {
     this->o = false;
     this->c = false;
     this->idx = -1;
-
+    this->p = p;
   }
 
   // GETTER METHODS
@@ -96,6 +96,7 @@ class Node3D {
   int idx;
   bool o;
   bool c;
+  int p;
   const Node3D* pred;
 };
 

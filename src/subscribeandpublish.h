@@ -69,8 +69,14 @@ class SubscribeAndPublish {
       start.pose.pose.position.y = transform.getOrigin().y();
       tf::quaternionTFToMsg(transform.getRotation(), start.pose.pose.orientation);
 
-      // set the start as valid and plan
-      validStart = true;
+      if (grid->info.height >= start.pose.pose.position.y && start.pose.pose.position.y >= 0 &&
+          grid->info.width >= start.pose.pose.position.x && start.pose.pose.position.x >= 0) {
+        // set the start as valid and plan
+        validStart = true;
+      } else  {
+        validStart = false;
+      }
+
       plan();
     }
   }
@@ -79,8 +85,8 @@ class SubscribeAndPublish {
   //                                   INITIALIZE START
   //###################################################
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
-    float x = initial->pose.pose.position.x/constants::cellSize;
-    float y = initial->pose.pose.position.y/constants::cellSize;
+    float x = initial->pose.pose.position.x / constants::cellSize;
+    float y = initial->pose.pose.position.y / constants::cellSize;
     float t = tf::getYaw(initial->pose.pose.orientation);
     // publish the start without covariance for rviz
     geometry_msgs::PoseStamped startN;
@@ -109,8 +115,8 @@ class SubscribeAndPublish {
   //###################################################
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
     // retrieving goal position
-    float x = end->pose.position.x/constants::cellSize;
-    float y = end->pose.position.y/constants::cellSize;
+    float x = end->pose.position.x / constants::cellSize;
+    float y = end->pose.position.y / constants::cellSize;
     float t = tf::getYaw(end->pose.orientation);
 
     std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
@@ -147,8 +153,8 @@ class SubscribeAndPublish {
 
       // ________________________
       // retrieving goal position
-      float x = goal.pose.position.x/constants::cellSize;
-      float y = goal.pose.position.y/constants::cellSize;
+      float x = goal.pose.position.x / constants::cellSize;
+      float y = goal.pose.position.y / constants::cellSize;
       float t = tf::getYaw(goal.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
@@ -160,8 +166,8 @@ class SubscribeAndPublish {
 
       // _________________________
       // retrieving start position
-      x = start.pose.pose.position.x/constants::cellSize;
-      y = start.pose.pose.position.y/constants::cellSize;
+      x = start.pose.pose.position.x / constants::cellSize;
+      y = start.pose.pose.position.y / constants::cellSize;
       t = tf::getYaw(start.pose.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
@@ -175,14 +181,14 @@ class SubscribeAndPublish {
       // START AND TIME THE PLANNING
       ros::Time t0 = ros::Time::now();
 
-      // CLEAR THE PATH
-      path.clear();
       // CLEAR THE VISUALIZATION
       visualization.clear();
       // FIND THE PATH
       Algorithm hybridAStar;
       //      Node3D* nSolution = Node3D::aStar();
       Node3D* nSolution = hybridAStar.findPath3D(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
+      // CLEAR THE PATH
+      path.clear();
       // TRACE THE PATH
       path.tracePath(nSolution);
       ros::Time t1 = ros::Time::now();

@@ -18,13 +18,16 @@ namespace constants {
 static const bool coutDEBUG = 0;
 
 // flag -- switch to false for velodyne data
-static const bool manual = 1;
+static const bool manual = 0;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 1*manual;
+static const bool visualization = 0*manual;
 
 // flag -- switch to true for live visualization
 static const bool visualization2D = 0*manual;
+
+// flag -- to turn on reversin of the vehicle
+static const bool reverse = false;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
@@ -82,7 +85,7 @@ static const float tieBreaker = 0.01;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.15;
+static const float penaltyTurning = 1.1;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;

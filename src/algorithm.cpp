@@ -25,6 +25,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
   int width = grid->info.width;
   int height = grid->info.height;
   float newG;
+  int dir = constants::reverse ? 6 : 3;
 
   // VISUALIZATION DELAY
   ros::Duration d(0.005);
@@ -155,7 +156,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
 
         // ______________________________
         // SEARCH WITH FORWARD SIMULATION
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < dir; i++) {
           // create possible successor
           nSucc = nPred->createSuccessor(i);
           // set index of the successor
