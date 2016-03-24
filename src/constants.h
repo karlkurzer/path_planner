@@ -18,7 +18,7 @@ namespace constants {
 static const bool coutDEBUG = 0;
 
 // flag -- switch to false for velodyne data
-static const bool manual = 0;
+static const bool manual = 1;
 
 // flag -- switch to true for live visualization
 static const bool visualization = 0*manual;
@@ -27,13 +27,13 @@ static const bool visualization = 0*manual;
 static const bool visualization2D = 0*manual;
 
 // flag -- to turn on reversin of the vehicle
-static const bool reverse = false;
+static const bool reverse = true;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = true;
+static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
@@ -70,10 +70,10 @@ static const float deltaHeadingDeg = 360 / (float)headings;
 static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 
 // [c*PI] -- goal condition
-static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
+static const float deltaHeadingNegRad = 2*M_PI-deltaHeadingRad;
 
 // [m] -- cell size
-static const float cellSize = 0.5;
+static const float cellSize = 1;
 
 // [m] -- tie breaker to break ties between nodes in the same cell
 static const float tieBreaker = 0.01;

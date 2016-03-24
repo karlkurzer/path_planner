@@ -1,3 +1,9 @@
+#include <ompl/base/spaces/ReedsSheppStateSpace.h>
+#include <ompl/base/spaces/SE2StateSpace.h>
+#include <ompl/base/State.h>
+
+typedef ompl::base::SE2StateSpace::StateType RsState;
+
 #include "node3d.h"
 
 // CONSTANT VALUES
@@ -86,6 +92,7 @@ void Node3D::updateG() {
 //###################################################
 void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization) {
   float dubinsCost = 0;
+  float reedsSheppCost = 0;
   float euclideanCost = 0;
   float twoDoffset = 0;
 
@@ -133,10 +140,22 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
       double q0[] = { x, y, t};
       // goal
       double q1[] = { goal.x, goal.y, goal.t};
-      DubinsPath path;
-      dubins_init(q0, q1, constants::r, &path);
-      dubinsCost = dubins_path_length(&path);
+      DubinsPath dubinsPath;
+      dubins_init(q0, q1, constants::r, &dubinsPath);
+      dubinsCost = dubins_path_length(&dubinsPath);
     }
+  }
+
+  // if reversing is active use a
+  if (constants::reverse && !constants::dubins) {
+    ompl::base::ReedsSheppStateSpace reedsSheppPath(constants::r);
+    RsState* rsStart = (RsState*)reedsSheppPath.allocState();
+    RsState* rsEnd = (RsState*)reedsSheppPath.allocState();
+    rsStart->setXY(x, y);
+    rsStart->setYaw(t);
+    rsEnd->setXY(goal.x, goal.y);
+    rsEnd->setYaw(goal.t);
+    reedsSheppCost = reedsSheppPath.distance(rsStart, rsEnd);
   }
 
   // if twoD heuristic is activated determine shortest path
@@ -150,9 +169,6 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
     nodes2D[(int)y * grid->info.width + (int)x].setG(Node2D::aStar(goal2d, start2d, grid, nodes2D, visualization));
   }
 
-  // else calculate the euclidean distance
-  euclideanCost = sqrt((x - goal.x) * (x - goal.x) + (y - goal.y) * (y - goal.y));
-
   if (constants::twoD) {
     // offset for same node in cell
     twoDoffset = sqrt(((x - (long)x) - (goal.x - (long)goal.x)) * ((x - (long)x) - (goal.x - (long)goal.x)) +
@@ -161,7 +177,7 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
   }
 
   // return the maximum of the heuristics, making the heuristic admissable
-  h = std::max(euclideanCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG() - twoDoffset));
+  h = std::max(reedsSheppCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG() - twoDoffset));
 }
 
 //###################################################
