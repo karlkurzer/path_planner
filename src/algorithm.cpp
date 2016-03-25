@@ -144,7 +144,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
       else {
         // _______________________
         // SEARCH WITH DUBINS SHOT
-        if (constants::dubinsShot && nPred->isInRange(goal)) {
+        if (constants::dubinsShot && nPred->isInRange(goal) && nPred->getPrim() < 3) {
           nSucc = nPred->dubinsShot(goal, grid, collisionLookup);
 
           if (nSucc != nullptr && *nSucc == goal) {

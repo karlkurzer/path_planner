@@ -21,25 +21,25 @@ static const bool coutDEBUG = 0;
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 0*manual;
+static const bool visualization = 1*manual;
 
 // flag -- switch to true for live visualization
 static const bool visualization2D = 0*manual;
 
 // flag -- to turn on reversin of the vehicle
-static const bool reverse = true;
+static const bool reverse = false;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = false;
+static const bool dubins = true;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = true;
+static const bool twoD = false;
 
 
 // flag -- switch to true to activate obstacle bloating
@@ -91,7 +91,7 @@ static const float penaltyTurning = 1.1;
 static const float dubinsStepSize = 1;
 
 // [m] -- dubins shot distance
-static const float dubinsShotDistance = 4*4*(r*r);
+static const float dubinsShotDistance = 2*2*(r*r);
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC

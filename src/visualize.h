@@ -24,6 +24,7 @@ class Visualize {
     // TOPICS TO PUBLISH
     pubNode3D = n.advertise<geometry_msgs::PoseStamped>("/visualizeNodes3DPose", 100);
     pubNodes3D = n.advertise<geometry_msgs::PoseArray>("/visualizeNodes3DPoses", 100);
+    pubNodes3Dreverse = n.advertise<geometry_msgs::PoseArray>("/visualizeNodes3DPosesReverse", 100);
     pubNodes3DCosts = n.advertise<visualization_msgs::MarkerArray>("/visualizeNodes3DCosts", 100);
     pubNode2D = n.advertise<geometry_msgs::PoseStamped>("/visualizeNodes2DPose", 100);
     pubNodes2D = n.advertise<geometry_msgs::PoseArray>("/visualizeNodes2DPoses", 100);
@@ -31,12 +32,13 @@ class Visualize {
 
     // CONFIGURE THE CONTAINER
     poses3D.header.frame_id = "path";
+    poses3Dreverse.header.frame_id = "path";
     poses2D.header.frame_id = "path";
   }
 
   // CLEAR VISUALIZATION
   void clear();
-  void clear2D(){poses2D.poses.clear();}
+  void clear2D() {poses2D.poses.clear();}
 
   // PUBLISH A SINGEL/ARRAY 3D NODE TO RViz
   void publishNode3DPose(Node3D& node);
@@ -55,14 +57,14 @@ class Visualize {
   //publisher
   ros::Publisher pubNode3D;
   ros::Publisher pubNodes3D;
+  ros::Publisher pubNodes3Dreverse;
   ros::Publisher pubNode2D;
   ros::Publisher pubNodes2D;
   ros::Publisher pubNodes3DCosts;
   ros::Publisher pubNodes2DCosts;
   // visualization variables
-  visualization_msgs::MarkerArray nodes3D;
-  visualization_msgs::MarkerArray nodes2D;
   geometry_msgs::PoseArray poses3D;
+  geometry_msgs::PoseArray poses3Dreverse;
   geometry_msgs::PoseArray poses2D;
   // COLORS
   struct color {

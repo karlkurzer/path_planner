@@ -18,7 +18,7 @@ class Node3D {
   // CONSTRUCTOR
   Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
   // overloaded constructor
-  Node3D(float x, float y, float t, float g, float h, const Node3D* pred, int p = 0) {
+  Node3D(float x, float y, float t, float g, float h, const Node3D* pred, int prim = 0) {
     this->x = x;
     this->y = y;
     this->t = t;
@@ -28,7 +28,7 @@ class Node3D {
     this->o = false;
     this->c = false;
     this->idx = -1;
-    this->p = p;
+    this->prim = prim;
   }
 
   // GETTER METHODS
@@ -39,6 +39,7 @@ class Node3D {
   float getH() const { return h; }
   float getC() const { return g + h; }
   int getIdx() const { return idx; }
+  int getPrim() const { return prim; }
   bool  isOpen() const { return o; }
   bool  isClosed() const { return c; }
   const Node3D* getPred() const { return pred; }
@@ -96,7 +97,7 @@ class Node3D {
   int idx;
   bool o;
   bool c;
-  int p;
+  int prim;
   const Node3D* pred;
 };
 

@@ -1,8 +1,9 @@
 #include <ompl/base/spaces/ReedsSheppStateSpace.h>
+#include <ompl/base/spaces/DubinsStateSpace.h>
 #include <ompl/base/spaces/SE2StateSpace.h>
 #include <ompl/base/State.h>
 
-typedef ompl::base::SE2StateSpace::StateType RsState;
+typedef ompl::base::SE2StateSpace::StateType State;
 
 #include "node3d.h"
 
@@ -75,8 +76,8 @@ Node3D* Node3D::createSuccessor(const int i) {
 //###################################################
 void Node3D::updateG() {
   // penalize turning
-  if (p != 0) {
-    if (pred->p != p) {
+  if (prim != 0) {
+    if (pred->prim != prim) {
       g += dx[0] * constants::penaltyTurning * constants::penaltyTurning;
     } else {
       g += dx[0] * constants::penaltyTurning;
@@ -93,7 +94,7 @@ void Node3D::updateG() {
 void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization) {
   float dubinsCost = 0;
   float reedsSheppCost = 0;
-  float euclideanCost = 0;
+  float twoDCost = 0;
   float twoDoffset = 0;
 
   // if dubins heuristic is activated calculate the shortest path
@@ -143,14 +144,25 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
       DubinsPath dubinsPath;
       dubins_init(q0, q1, constants::r, &dubinsPath);
       dubinsCost = dubins_path_length(&dubinsPath);
+
+      ompl::base::DubinsStateSpace dubinsPathNew(constants::r);
+      State* dbStart = (State*)dubinsPathNew.allocState();
+      State* dbEnd = (State*)dubinsPathNew.allocState();
+      dbStart->setXY(x, y);
+      dbStart->setYaw(t);
+      dbEnd->setXY(goal.x, goal.y);
+      dbEnd->setYaw(goal.t);
+      float dubinsCostNew = dubinsPathNew.distance(dbStart, dbEnd);
+
+      std::cout << "diff dubins " << dubinsCost - dubinsCostNew << std::endl;
     }
   }
 
   // if reversing is active use a
   if (constants::reverse && !constants::dubins) {
     ompl::base::ReedsSheppStateSpace reedsSheppPath(constants::r);
-    RsState* rsStart = (RsState*)reedsSheppPath.allocState();
-    RsState* rsEnd = (RsState*)reedsSheppPath.allocState();
+    State* rsStart = (State*)reedsSheppPath.allocState();
+    State* rsEnd = (State*)reedsSheppPath.allocState();
     rsStart->setXY(x, y);
     rsStart->setYaw(t);
     rsEnd->setXY(goal.x, goal.y);
@@ -173,11 +185,12 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
     // offset for same node in cell
     twoDoffset = sqrt(((x - (long)x) - (goal.x - (long)goal.x)) * ((x - (long)x) - (goal.x - (long)goal.x)) +
                       ((y - (long)y) - (goal.y - (long)goal.y)) * ((y - (long)y) - (goal.y - (long)goal.y)));
+    twoDCost = nodes2D[(int)y * grid->info.width + (int)x].getG() - twoDoffset;
 
   }
 
   // return the maximum of the heuristics, making the heuristic admissable
-  h = std::max(reedsSheppCost, std::max(dubinsCost, nodes2D[(int)y * grid->info.width + (int)x].getG() - twoDoffset));
+  h = std::max(reedsSheppCost, std::max(dubinsCost, twoDCost));
 }
 
 //###################################################

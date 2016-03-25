@@ -48,12 +48,11 @@ file(GLOB SOURCES
 catkin_package()
 
 ## OPEN MOTION PLANNING LIBRARY
-set(OMPL_PREFIX "/usr/lib/ompl")
 find_package(OMPL REQUIRED)
 
-if(!OMPL_FOUND)
+if(NOT OMPL_FOUND)
     message(AUTHOR_WARNING,"Open Motion Planning Library not found")
-endif()
+endif(NOT OMPL_FOUND)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(include ${OMPL_INCLUDE_DIRS})

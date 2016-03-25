@@ -6,8 +6,10 @@
 
 void Visualize::clear() {
   poses3D.poses.clear();
+  poses3Dreverse.poses.clear();
   poses2D.poses.clear();
 
+  // 3D COSTS
   visualization_msgs::MarkerArray costCubes3D;
   visualization_msgs::Marker costCube3D;
   // CLEAR THE COST HEATMAP
@@ -18,6 +20,7 @@ void Visualize::clear() {
   costCubes3D.markers.push_back(costCube3D);
   pubNodes3DCosts.publish(costCubes3D);
 
+  // 2D COSTS
   visualization_msgs::MarkerArray costCubes2D;
   visualization_msgs::Marker costCube2D;
   // CLEAR THE COST HEATMAP
@@ -39,7 +42,15 @@ void Visualize::publishNode3DPose(Node3D& node) {
   pose.header.seq = 0;
   pose.pose.position.x = node.getX() * constants::cellSize;
   pose.pose.position.y = node.getY() * constants::cellSize;
-  pose.pose.orientation = tf::createQuaternionMsgFromYaw(node.getT());
+
+  //FORWARD
+  if (node.getPrim() < 3) {
+    pose.pose.orientation = tf::createQuaternionMsgFromYaw(node.getT());
+  }
+  //REVERSE
+  else {
+    pose.pose.orientation = tf::createQuaternionMsgFromYaw(node.getT() + M_PI);
+  }
 
   // PUBLISH THE POSE
   pubNode3D.publish(pose);
@@ -52,12 +63,24 @@ void Visualize::publishNode3DPoses(Node3D& node) {
   geometry_msgs::Pose pose;
   pose.position.x = node.getX() * constants::cellSize;
   pose.position.y = node.getY() * constants::cellSize;
-  pose.orientation = tf::createQuaternionMsgFromYaw(node.getT());
 
-  poses3D.poses.push_back(pose);
-  poses3D.header.stamp = ros::Time::now();
-  // PUBLISH THE POSEARRAY
-  pubNodes3D.publish(poses3D);
+  //FORWARD
+  if (node.getPrim() < 3) {
+    pose.orientation = tf::createQuaternionMsgFromYaw(node.getT());
+    poses3D.poses.push_back(pose);
+    poses3D.header.stamp = ros::Time::now();
+    // PUBLISH THE POSEARRAY
+    pubNodes3D.publish(poses3D);
+  }
+  //REVERSE
+  else {
+    pose.orientation = tf::createQuaternionMsgFromYaw(node.getT() + M_PI);
+    poses3Dreverse.poses.push_back(pose);
+    poses3Dreverse.header.stamp = ros::Time::now();
+    // PUBLISH THE POSEARRAY
+    pubNodes3Dreverse.publish(poses3Dreverse);
+  }
+
 }
 
 //###################################################
