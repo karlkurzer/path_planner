@@ -24,7 +24,7 @@ public:
   //-- Inserts a new color point into its correct position:
   void addColorPoint(float red, float green, float blue, float value)
   {
-    for(int i=0; i<color.size(); i++)  {
+    for(unsigned int i=0; i<color.size(); i++)  {
       if(value < color[i].val) {
         color.insert(color.begin()+i, ColorPoint(red,green,blue, value));
         return;  }}
@@ -52,12 +52,12 @@ public:
     if(color.size()==0)
       return;
 
-    for(int i=0; i<color.size(); i++)
+    for(unsigned int i=0; i<color.size(); i++)
     {
       ColorPoint &currC = color[i];
       if(value < currC.val)
       {
-        ColorPoint &prevC  = color[ max(0,i-1) ];
+        ColorPoint &prevC  = color[ max(0,(int)i-1) ];
         float valueDiff    = (prevC.val - currC.val);
         float fractBetween = (valueDiff==0) ? 0 : (value - currC.val) / valueDiff;
         red   = (prevC.r - currC.r)*fractBetween + currC.r;

@@ -208,4 +208,5 @@ Node3D* Algorithm::findPath3D(Node3D& start,
   if (O.empty()) {
     return nullptr;
   }
+  return nullptr;
 }

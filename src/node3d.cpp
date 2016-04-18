@@ -213,7 +213,7 @@ bool Node3D::isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, consta
     cY = (Y + collisionLookup[idx].pos[i].y);
 
     // make sure the configuration coordinates are actually on the grid
-    if (cX >= 0 && cX < grid->info.width && cY >= 0 && cY < grid->info.height) {
+    if (cX >= 0 && (unsigned int)cX < grid->info.width && cY >= 0 && (unsigned int)cY < grid->info.height) {
       if (grid->data[cY * grid->info.width + cX]) {
         return false;
       }
