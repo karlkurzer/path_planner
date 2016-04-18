@@ -21,7 +21,7 @@ static const bool coutDEBUG = 0;
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 1*manual;
+static const bool visualization = 0*manual;
 
 // flag -- switch to true for live visualization
 static const bool visualization2D = 0*manual;
@@ -70,7 +70,7 @@ static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
 
 // [m] -- cell size
-static const float cellSize = 0.5;
+static const float cellSize = 1;
 
 // [m] -- tie breaker to break ties between nodes in the same cell
 static const float tieBreaker = 0.01;
