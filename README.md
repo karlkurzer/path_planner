@@ -7,8 +7,8 @@ The goal of the thesis and hence this code is to create a real-time path plannin
 
 ##### Key Characteristics
 * Sampling in continous space with various headings
-* Unconstrained Heurisic: Dubin's Path&mdash;[Video] (https://www.youtube.com/watch?v=VNo9fU6XEGE)
-* Constrained Heuristic: 2D A* Search&mdash;[Video] (https://www.youtube.com/watch?v=Ip2iUrVoFXc)
+* Constrained Heurisic - _nonholonomic without obstacles_: Dubin's Path&mdash;[Video] (https://www.youtube.com/watch?v=VNo9fU6XEGE)
+* Unconstrained Heuristic - _holonomic with obstacles_: 2D A* Search&mdash;[Video] (https://www.youtube.com/watch?v=Ip2iUrVoFXc)
 * Dubin's Shot
 * C++ real-time implementation
 
