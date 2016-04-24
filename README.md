@@ -6,11 +6,11 @@ The code in this repository is the result of my master's thesis which I am curre
 The goal of the thesis and hence this code is to create a real-time path planning algorithm for the nonholonomic Research Concept Vehicle (RCV). The algorithm uses a binary obstacle map as an input, generated using LIDAR mounted on top of the vehicle. The algorithm is being developed using C++ due to real-time requirements in combination with ROS to ensure modularity and portability as well as using RViz as a visualization/simulation environment.
 
 ##### Key Characteristics
-* Sampling in continous space with various headings
-* Constrained Heurisic - _nonholonomic without obstacles_: Dubin's Path&mdash;[Video] (https://www.youtube.com/watch?v=VNo9fU6XEGE)
+* Sampling in continuous space with 72 different headings per cell (5° discretization)
+* Constrained Heuristic - _nonholonomic without obstacles_: Dubin's Path&mdash;[Video] (https://www.youtube.com/watch?v=VNo9fU6XEGE)
 * Unconstrained Heuristic - _holonomic with obstacles_: 2D A* Search&mdash;[Video] (https://www.youtube.com/watch?v=Ip2iUrVoFXc)
 * Dubin's Shot
-* C++ real-time implementation
+* C++ real-time implementation (~10 Hz)
 
 ##### Videos
 * [Path Planning with Sensor Fusion] (https://www.youtube.com/watch?v=GwIU00jukO4)
