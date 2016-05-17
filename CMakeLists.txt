@@ -26,22 +26,37 @@ find_package(catkin REQUIRED COMPONENTS
 
 file(GLOB SOURCES
     src/dubins.cpp
-    src/dubins.h
-    src/gradient.h
+    include/dubins.h
+    include/gradient.h
     src/node2d.cpp
-    src/node2d.h
+    include/node2d.h
     src/node3d.cpp
-    src/node3d.h
+    include/node3d.h
     src/algorithm.cpp
-    src/algorithm.h
+    include/algorithm.h
     src/path.cpp
-    src/path.h
+    include/path.h
     src/visualize.cpp
-    src/visualize.h
-    src/lookup.h
-    src/constants.h
-    src/helper.h
-    src/subscribeandpublish.h
+    include/visualize.h
+    include/lookup.h
+    include/constants.h
+    include/helper.h
+    include/subscribeandpublish.h
+)
+
+#just for QT-creator
+set(PUBLIC_INCLUDE
+#include/HybridAStar/constants.h
+#include/HybridAStar/gradient.h
+#include/HybridAStar/hybrid_astar.h
+#include/HybridAStar/node2d.h
+#include/HybridAStar/path.h
+#include/HybridAStar/dubins.h
+#include/HybridAStar/helper.h
+#include/HybridAStar/lookup.h
+#include/HybridAStar/node3d.h
+#include/HybridAStar/subscribeandpublish.h
+include/HybridAStar/visualize.h
 )
 
 ## Declare a catkin package

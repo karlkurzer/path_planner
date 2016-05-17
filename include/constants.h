@@ -10,7 +10,8 @@
 
 #include <cmath>
 
-namespace constants {
+namespace HybridAStar {
+namespace Constants {
 // _________________
 // CONFIG FLAGS
 
@@ -125,6 +126,7 @@ struct config {
   relPos pos[64];
 };
 
+}
 }
 
 #endif // CONSTANTS

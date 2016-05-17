@@ -1,5 +1,8 @@
 #include "path.h"
 
+using namespace HybridAStar;
+
+
 //###################################################
 //                                         CLEAR PATH
 //###################################################
@@ -47,8 +50,8 @@ void Path::tracePath(const Node3D* node, int i) {
 // ADD SEGMENT
 void Path::addSegment(const Node3D* node) {
   geometry_msgs::PoseStamped vertex;
-  vertex.pose.position.x = node->getX()*constants::cellSize;
-  vertex.pose.position.y = node->getY()*constants::cellSize;
+  vertex.pose.position.x = node->getX()*Constants::cellSize;
+  vertex.pose.position.y = node->getY()*Constants::cellSize;
   vertex.pose.position.z = 0;
   vertex.pose.orientation.x = 0;
   vertex.pose.orientation.y = 0;
@@ -78,8 +81,8 @@ void Path::addNode(const Node3D* node, int i) {
   pathNode.color.r = purple.red;
   pathNode.color.g = purple.green;
   pathNode.color.b = purple.blue;
-  pathNode.pose.position.x = node->getX()*constants::cellSize;
-  pathNode.pose.position.y = node->getY()*constants::cellSize;
+  pathNode.pose.position.x = node->getX()*Constants::cellSize;
+  pathNode.pose.position.y = node->getY()*Constants::cellSize;
   pathNodes.markers.push_back(pathNode);
 }
 
@@ -95,15 +98,15 @@ void Path::addVehicle(const Node3D* node, int i) {
   pathVehicle.header.stamp = ros::Time(0);
   pathVehicle.id = i;
   pathVehicle.type = visualization_msgs::Marker::CUBE;
-  pathVehicle.scale.x = constants::length - constants::bloating * 2;
-  pathVehicle.scale.y = constants::width - constants::bloating * 2;
+  pathVehicle.scale.x = Constants::length - Constants::bloating * 2;
+  pathVehicle.scale.y = Constants::width - Constants::bloating * 2;
   pathVehicle.scale.z = 1;
   pathVehicle.color.a = 0.1;
   pathVehicle.color.r = teal.red;
   pathVehicle.color.g = teal.green;
   pathVehicle.color.b = teal.blue;
-  pathVehicle.pose.position.x = node->getX()*constants::cellSize;
-  pathVehicle.pose.position.y = node->getY()*constants::cellSize;
+  pathVehicle.pose.position.x = node->getX()*Constants::cellSize;
+  pathVehicle.pose.position.y = node->getY()*Constants::cellSize;
   pathVehicle.pose.orientation = tf::createQuaternionMsgFromYaw(node->getT());
   pathVehicles.markers.push_back(pathVehicle);
 }

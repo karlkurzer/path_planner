@@ -7,6 +7,7 @@
 
 #include "constants.h"
 #include "visualize.h"
+namespace HybridAStar {
 class Visualize;
 
 class Node2D {
@@ -87,5 +88,5 @@ class Node2D {
   bool d;
   Node2D* pred;
 };
-
+}
 #endif // NODE2D_H

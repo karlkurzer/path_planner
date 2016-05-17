@@ -2,6 +2,8 @@
 
 #include <boost/heap/binomial_heap.hpp>
 
+using namespace HybridAStar;
+
 struct CompareNodes {
   bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
@@ -16,7 +18,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
                               Node3D* nodes3D,
                               Node2D* nodes2D,
                               const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                              constants::config* collisionLookup,
+                              Constants::config* collisionLookup,
                               float* dubinsLookup,
                               Visualize& visualization) {
 
@@ -25,7 +27,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
   int width = grid->info.width;
   int height = grid->info.height;
   float newG;
-  int dir = constants::reverse ? 6 : 3;
+  int dir = Constants::reverse ? 6 : 3;
 
   // VISUALIZATION DELAY
   ros::Duration d(0.005);
@@ -109,7 +111,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
     iPred = nPred->setIdx(width, height);
 
     // RViz visualization
-    if (constants::visualization) {
+    if (Constants::visualization) {
       visualization.publishNode3DPoses(*nPred);
       visualization.publishNode3DPose(*nPred);
       d.sleep();
@@ -144,7 +146,7 @@ Node3D* Algorithm::findPath3D(Node3D& start,
       else {
         // _______________________
         // SEARCH WITH DUBINS SHOT
-        if (constants::dubinsShot && nPred->isInRange(goal) && nPred->getPrim() < 3) {
+        if (Constants::dubinsShot && nPred->isInRange(goal) && nPred->getPrim() < 3) {
           nSucc = nPred->dubinsShot(goal, grid, collisionLookup);
 
           if (nSucc != nullptr && *nSucc == goal) {
@@ -179,12 +181,12 @@ Node3D* Algorithm::findPath3D(Node3D& start,
                 nSucc->updateH(goal, grid, nodes2D, dubinsLookup, visualization);
 
                 // if the successor is in the same cell but the C value is larger
-                if (iPred == iSucc && nSucc->getC() > nPred->getC() + constants::tieBreaker) {
+                if (iPred == iSucc && nSucc->getC() > nPred->getC() + Constants::tieBreaker) {
                   delete nSucc;
                   continue;
                 }
                 // if successor is in the same cell and the C value is lower, set predecessor to predecessor of predecessor
-                else if (iPred == iSucc && nSucc->getC() <= nPred->getC() + constants::tieBreaker) {
+                else if (iPred == iSucc && nSucc->getC() <= nPred->getC() + Constants::tieBreaker) {
                   nSucc->setPred(nPred->getPred());
                 }
 

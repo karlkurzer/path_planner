@@ -5,7 +5,7 @@
 #include "node2d.h"
 #include "visualize.h"
 
-
+namespace HybridAStar {
 class Algorithm {
  public:
   // CONSTRUCTOR
@@ -17,9 +17,9 @@ class Algorithm {
                             Node3D* nodes3D,
                             Node2D* nodes2D,
                             const nav_msgs::OccupancyGrid::ConstPtr& grid,
-                            constants::config* collisionLookup,
+                            Constants::config* collisionLookup,
                             float* dubinsLookup,
-                            Visualize& visualization);
+                            HybridAStar::Visualize& visualization);
 };
-
+}
 #endif // ALGORITHM_H

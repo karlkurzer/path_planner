@@ -45,9 +45,9 @@ int main(int argc, char** argv) {
 
   message<string,int>("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
 
-  message("cell size: ", constants::cellSize);
+  message("cell size: ", HybridAStar::Constants::cellSize);
 
-  if (constants::manual) {
+  if (HybridAStar::Constants::manual) {
     message("mode: ", "manual");
   } else {
     message("mode: ", "auto");

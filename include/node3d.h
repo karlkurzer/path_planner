@@ -9,6 +9,7 @@
 #include "node2d.h"
 #include "constants.h"
 #include "helper.h"
+namespace HybridAStar {
 class Node2D;
 class Visualize;
 
@@ -30,7 +31,7 @@ class Node3D {
     this->idx = -1;
     this->prim = prim;
   }
-  
+
   // GETTER METHODS
   float getX() const { return x; }
   float getY() const { return y; }
@@ -50,7 +51,7 @@ class Node3D {
   void setT(const float& t) { this->t = t; }
   void setG(const float& g) { this->g = g; }
   void setH(const float& h) { this->h = h; }
-  int setIdx(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
+  int setIdx(int width, int height) { this->idx = (int)(t / Constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
   void open() { o = true; c = false;}
   void close() { c = true; o = false; }
   void setPred(const Node3D* pred) { this->pred = pred; }
@@ -65,7 +66,7 @@ class Node3D {
   bool operator == (const Node3D& rhs) const;
 
   // DUBINS SHOT
-  Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
+  Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Constants::config* collisionLookup) const;
 
   // RANGE CHECKING
   bool isInRange(const Node3D& goal) const;
@@ -74,7 +75,7 @@ class Node3D {
   bool isOnGrid(const int width, const int height) const;
 
   // COLLISION CHECKING
-  bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
+  bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, Constants::config* collisionLookup) const;
 
   // SUCCESSOR CREATION
   Node3D* createSuccessor(const int i);
@@ -100,5 +101,5 @@ class Node3D {
   int prim;
   const Node3D* pred;
 };
-
+}
 #endif // NODE3D_H

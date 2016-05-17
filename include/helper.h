@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+namespace HybridAStar {
 namespace helper {
 
 // set theta to a value (0,360]
@@ -43,7 +44,7 @@ static inline void valueToColor(float val, float min, float max, double& red, do
   blue = 0.4;
 }
 }
-
+}
 
 #endif // HELPER
 

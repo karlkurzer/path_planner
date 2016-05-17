@@ -5,6 +5,7 @@
 
 using namespace std;
 
+namespace HybridAStar {
 class ColorGradient
 {
 private:
@@ -72,6 +73,6 @@ public:
     return;
   }
 };
-
+}
 #endif // GRADIENT
 

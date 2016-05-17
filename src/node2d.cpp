@@ -2,6 +2,8 @@
 
 #include "node2d.h"
 
+using namespace HybridAStar;
+
 // CONSTANT VALUES
 // possible directions
 const int Node2D::dir = 8;
@@ -99,7 +101,7 @@ float Node2D::aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::
       nodes2D[iPred].discover();
 
       // RViz visualization
-      if (constants::visualization2D) {
+      if (Constants::visualization2D) {
         visualization.publishNode2DPoses(*nPred);
         visualization.publishNode2DPose(*nPred);
 //        d.sleep();
