@@ -137,24 +137,22 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
                                 + h0 * constants::headings
                                 + h1];
     } else { /*if (constants::dubinsShot && std::abs(x - goal.x) >= 10 && std::abs(y - goal.y) >= 10)*/
-      // start
-      double q0[] = { x, y, t};
-      // goal
-      double q1[] = { goal.x, goal.y, goal.t};
-      DubinsPath dubinsPath;
-      dubins_init(q0, q1, constants::r, &dubinsPath);
-      dubinsCost = dubins_path_length(&dubinsPath);
+//      // start
+//      double q0[] = { x, y, t};
+//      // goal
+//      double q1[] = { goal.x, goal.y, goal.t};
+//      DubinsPath dubinsPath;
+//      dubins_init(q0, q1, constants::r, &dubinsPath);
+//      dubinsCost = dubins_path_length(&dubinsPath);
 
-      ompl::base::DubinsStateSpace dubinsPathNew(constants::r);
-      State* dbStart = (State*)dubinsPathNew.allocState();
-      State* dbEnd = (State*)dubinsPathNew.allocState();
+      ompl::base::DubinsStateSpace dubinsPath(constants::r);
+      State* dbStart = (State*)dubinsPath.allocState();
+      State* dbEnd = (State*)dubinsPath.allocState();
       dbStart->setXY(x, y);
       dbStart->setYaw(t);
       dbEnd->setXY(goal.x, goal.y);
       dbEnd->setYaw(goal.t);
-      float dubinsCostNew = dubinsPathNew.distance(dbStart, dbEnd);
-
-      std::cout << "diff dubins " << dubinsCost - dubinsCostNew << std::endl;
+      dubinsCost = dubinsPath.distance(dbStart, dbEnd);
     }
   }
 
