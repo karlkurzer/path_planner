@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>path_planner</name>
+  <name>hybrid_astar</name>
   <version>0.0.2</version>
-  <description>The path_planner package</description>
+  <description>The hybrid_astar package</description>
   <maintainer email="kurzer@kth.se">Karl Kurzer</maintainer>
   <license>BSD</license>
   <author email="kurzer@kth.se">Karl Kurzer</author>

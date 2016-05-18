@@ -101,43 +101,45 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
   // if dubins heuristic is activated calculate the shortest path
   // constrained without obstacles
   if (Constants::dubins) {
-    int uX = std::abs((int)goal.x - (int)x);
-    int uY = std::abs((int)goal.y - (int)y);
 
+// ONLY FOR dubinsLookup
+//    int uX = std::abs((int)goal.x - (int)x);
+//    int uY = std::abs((int)goal.y - (int)y);
+//    // if the lookup table flag is set and the vehicle is in the lookup area
+//    if (Constants::dubinsLookup && uX < Constants::dubinsWidth - 1 && uY < Constants::dubinsWidth - 1) {
+//      int X = (int)goal.x - (int)x;
+//      int Y = (int)goal.y - (int)y;
+//      int h0;
+//      int h1;
 
-    // if the lookup table flag is set and the vehicle is in the lookup area
-    if (Constants::dubinsLookup && uX < Constants::dubinsWidth - 1 && uY < Constants::dubinsWidth - 1) {
-      int X = (int)goal.x - (int)x;
-      int Y = (int)goal.y - (int)y;
-      int h0;
-      int h1;
+//      // mirror on x axis
+//      if (X >= 0 && Y <= 0) {
+//        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
+//        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / Constants::deltaHeadingRad);
+//      }
+//      // mirror on y axis
+//      else if (X <= 0 && Y >= 0) {
+//        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
+//        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / Constants::deltaHeadingRad);
 
-      // mirror on x axis
-      if (X >= 0 && Y <= 0) {
-        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
-        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / Constants::deltaHeadingRad);
-      }
-      // mirror on y axis
-      else if (X <= 0 && Y >= 0) {
-        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
-        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.t) / Constants::deltaHeadingRad);
+//      }
+//      // mirror on xy axis
+//      else if (X <= 0 && Y <= 0) {
+//        h0 = (int)(helper::normalizeHeadingRad(M_PI - t) / Constants::deltaHeadingRad);
+//        h1 = (int)(helper::normalizeHeadingRad(M_PI - goal.t) / Constants::deltaHeadingRad);
 
-      }
-      // mirror on xy axis
-      else if (X <= 0 && Y <= 0) {
-        h0 = (int)(helper::normalizeHeadingRad(M_PI - t) / Constants::deltaHeadingRad);
-        h1 = (int)(helper::normalizeHeadingRad(M_PI - goal.t) / Constants::deltaHeadingRad);
+//      } else {
+//        h0 = (int)(t / Constants::deltaHeadingRad);
+//        h1 = (int)(goal.t / Constants::deltaHeadingRad);
+//      }
 
-      } else {
-        h0 = (int)(t / Constants::deltaHeadingRad);
-        h1 = (int)(goal.t / Constants::deltaHeadingRad);
-      }
+//      dubinsCost = dubinsLookup[uX * Constants::dubinsWidth * Constants::headings * Constants::headings
+//                                + uY *  Constants::headings * Constants::headings
+//                                + h0 * Constants::headings
+//                                + h1];
+//    } else {
 
-      dubinsCost = dubinsLookup[uX * Constants::dubinsWidth * Constants::headings * Constants::headings
-                                + uY *  Constants::headings * Constants::headings
-                                + h0 * Constants::headings
-                                + h1];
-    } else { /*if (Constants::dubinsShot && std::abs(x - goal.x) >= 10 && std::abs(y - goal.y) >= 10)*/
+        /*if (Constants::dubinsShot && std::abs(x - goal.x) >= 10 && std::abs(y - goal.y) >= 10)*/
 //      // start
 //      double q0[] = { x, y, t};
 //      // goal
@@ -154,7 +156,6 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
       dbEnd->setXY(goal.x, goal.y);
       dbEnd->setYaw(goal.t);
       dubinsCost = dubinsPath.distance(dbStart, dbEnd);
-    }
   }
 
   // if reversing is active use a

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(path_planner)
+project(hybrid_astar)
 
 
 ## C++11
@@ -38,6 +38,8 @@ file(GLOB SOURCES
     include/path.h
     src/visualize.cpp
     include/visualize.h
+    src/collisiondetection.cpp
+    include/collisiondetection.h
     include/lookup.h
     include/constants.h
     include/helper.h
@@ -56,18 +58,18 @@ set(PUBLIC_INCLUDE
 #include/HybridAStar/lookup.h
 #include/HybridAStar/node3d.h
 #include/HybridAStar/subscribeandpublish.h
-include/HybridAStar/visualize.h
+#include/HybridAStar/visualize.h
 )
 
 ## Declare a catkin package
 catkin_package()
 
-## OPEN MOTION PLANNING LIBRARY
-find_package(OMPL REQUIRED)
+### OPEN MOTION PLANNING LIBRARY
+#find_package(OMPL REQUIRED)
 
-if(NOT OMPL_FOUND)
-    message(AUTHOR_WARNING,"Open Motion Planning Library not found")
-endif(NOT OMPL_FOUND)
+#if(NOT OMPL_FOUND)
+#    message(AUTHOR_WARNING,"Open Motion Planning Library not found")
+#endif(NOT OMPL_FOUND)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(include ${OMPL_INCLUDE_DIRS})
@@ -75,6 +77,6 @@ include_directories(include ${OMPL_INCLUDE_DIRS})
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
-add_executable(a_star src/main.cpp ${SOURCES})
-target_link_libraries(a_star ${catkin_LIBRARIES})
-target_link_libraries(a_star ${OMPL_LIBRARIES})
+add_executable(hybrid_astar src/main.cpp ${SOURCES})
+target_link_libraries(hybrid_astar ${catkin_LIBRARIES})
+target_link_libraries(hybrid_astar ${OMPL_LIBRARIES})

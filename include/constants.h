@@ -40,7 +40,7 @@ static const bool dubins = true;
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = false;
+static const bool twoD = true;
 
 
 // flag -- switch to true to activate obstacle bloating
