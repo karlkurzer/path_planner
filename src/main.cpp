@@ -12,8 +12,9 @@
 #include <cstring>
 #include <iostream>
 #include <ros/ros.h>
-#include "subscribeandpublish.h"
+
 #include "constants.h"
+#include "planner.h"
 
 //###################################################
 //                              COUT STANDARD MESSAGE
@@ -55,7 +56,7 @@ int main(int argc, char** argv) {
 
   ros::init(argc, argv, "a_star");
 
-  SubscribeAndPublish supPub;
+  HybridAStar::Planner hy;
 
   ros::spin();
   return 0;

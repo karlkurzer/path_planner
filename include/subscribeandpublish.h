@@ -242,8 +242,10 @@ class SubscribeAndPublish {
   CollisionDetection configurationSpace;
   // general pointer
   nav_msgs::OccupancyGrid::Ptr grid;
+  // FLAG for validity of start
   bool validStart = false;
   geometry_msgs::PoseWithCovarianceStamped start;
+  // FLAG for validity of goal
   bool validGoal = false;
   geometry_msgs::PoseStamped goal;
   Constants::config collisionLookup[Constants::headings * Constants::positions];

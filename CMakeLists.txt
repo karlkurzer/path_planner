@@ -24,48 +24,37 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 )
 
-file(GLOB SOURCES
-    src/dubins.cpp
-    include/dubins.h
-    include/gradient.h
-    src/node2d.cpp
-    include/node2d.h
-    src/node3d.cpp
-    include/node3d.h
-    src/algorithm.cpp
-    include/algorithm.h
-    src/path.cpp
-    include/path.h
-    src/visualize.cpp
-    include/visualize.h
-    src/collisiondetection.cpp
-    include/collisiondetection.h
-    include/lookup.h
-    include/constants.h
-    include/helper.h
-    include/subscribeandpublish.h
+set(SOURCES
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/node2d.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/node3d.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/collisiondetection.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/planner.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/path.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/visualize.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/dubins.cpp
 )
-
-#just for QT-creator
-set(PUBLIC_INCLUDE
-#include/HybridAStar/constants.h
-#include/HybridAStar/gradient.h
-#include/HybridAStar/hybrid_astar.h
-#include/HybridAStar/node2d.h
-#include/HybridAStar/path.h
-#include/HybridAStar/dubins.h
-#include/HybridAStar/helper.h
-#include/HybridAStar/lookup.h
-#include/HybridAStar/node3d.h
-#include/HybridAStar/subscribeandpublish.h
-#include/HybridAStar/visualize.h
+set(HEADERS
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/algorithm.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/node2d.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/node3d.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/collisiondetection.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/planner.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/path.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/visualize.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/helper.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/constants.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/lookup.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/gradient.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/dubins.h
 )
+#add_library(HYAS ${SOURCES} ${HEADERS})
 
 ## Declare a catkin package
 catkin_package()
 
-### OPEN MOTION PLANNING LIBRARY
-#find_package(OMPL REQUIRED)
+## OPEN MOTION PLANNING LIBRARY
+find_package(OMPL REQUIRED)
 
 #if(NOT OMPL_FOUND)
 #    message(AUTHOR_WARNING,"Open Motion Planning Library not found")
@@ -77,6 +66,7 @@ include_directories(include ${OMPL_INCLUDE_DIRS})
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
-add_executable(hybrid_astar src/main.cpp ${SOURCES})
+add_executable(hybrid_astar src/main.cpp ${HEADERS} ${SOURCES})
+#target_link_libraries(hybrid_astar ${HYAS})
 target_link_libraries(hybrid_astar ${catkin_LIBRARIES})
 target_link_libraries(hybrid_astar ${OMPL_LIBRARIES})
