@@ -29,7 +29,8 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
                               const nav_msgs::OccupancyGrid::ConstPtr& grid,
                               Constants::config* collisionLookup,
                               float* dubinsLookup,
-                              Visualize& visualization) {
+                              Visualize& visualization,
+                              CollisionDetection& configurationSpace) {
 
   // PREDECESSOR AND SUCCESSOR INDEX
   int iPred, iSucc;

@@ -4,6 +4,7 @@
 #include "node3d.h"
 #include "node2d.h"
 #include "visualize.h"
+#include "collisiondetection.h"
 
 namespace HybridAStar {
 class Node3D;
@@ -23,7 +24,8 @@ class Algorithm {
                              const nav_msgs::OccupancyGrid::ConstPtr& grid,
                              Constants::config* collisionLookup,
                              float* dubinsLookup,
-                             Visualize& visualization);
+                             Visualize& visualization,
+                             CollisionDetection& configurationSpace);
 
   // A* ALGORITHM
   static float aStar(Node2D& start,

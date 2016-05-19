@@ -48,7 +48,7 @@ set(HEADERS
    ${CMAKE_CURRENT_SOURCE_DIR}/include/gradient.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/dubins.h
 )
-#add_library(HYAS ${SOURCES} ${HEADERS})
+add_library(HYAS ${SOURCES} ${HEADERS})
 
 ## Declare a catkin package
 catkin_package()
@@ -66,7 +66,7 @@ include_directories(include ${OMPL_INCLUDE_DIRS})
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
-add_executable(hybrid_astar src/main.cpp ${HEADERS} ${SOURCES})
-#target_link_libraries(hybrid_astar ${HYAS})
+add_executable(hybrid_astar src/main.cpp ${SOURCES} ${HEADERS})
 target_link_libraries(hybrid_astar ${catkin_LIBRARIES})
 target_link_libraries(hybrid_astar ${OMPL_LIBRARIES})
+target_link_libraries(hybrid_astar ${HYAS})
