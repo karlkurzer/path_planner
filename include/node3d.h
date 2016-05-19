@@ -7,6 +7,7 @@
 
 #include "dubins.h"
 #include "node2d.h"
+#include "algorithm.h"
 #include "constants.h"
 #include "helper.h"
 namespace HybridAStar {

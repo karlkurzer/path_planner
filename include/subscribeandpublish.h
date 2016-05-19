@@ -12,6 +12,7 @@
 
 #include "constants.h"
 #include "helper.h"
+#include "collisiondetection.h"
 #include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
@@ -19,7 +20,6 @@
 #include "lookup.h"
 
 using namespace HybridAStar;
-
 class SubscribeAndPublish {
  public:
   //###################################################
@@ -28,12 +28,11 @@ class SubscribeAndPublish {
   SubscribeAndPublish() {
     // _____
     // TODOS
-    if (Constants::dubinsLookup) {
-      Lookup::dubinsLookup(dubinsLookup);
-    }
-
+    //    initializeLookups();
     Lookup::collisionLookup(collisionLookup);
-
+    // ___________________
+    // COLLISION DETECTION
+//    CollisionDetection configurationSpace;
     // _________________
     // TOPICS TO PUBLISH
     //    pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
@@ -52,6 +51,20 @@ class SubscribeAndPublish {
   }
 
   //###################################################
+  //                                       LOOKUPTABLES
+  //###################################################
+  /*!
+     \brief Initializes the collision as well as heuristic lookup table
+  */
+  void initializeLookups() {
+    if (Constants::dubinsLookup) {
+      Lookup::dubinsLookup(dubinsLookup);
+    }
+
+    Lookup::collisionLookup(collisionLookup);
+  }
+
+  //###################################################
   //                                                MAP
   //###################################################
   void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
@@ -60,6 +73,7 @@ class SubscribeAndPublish {
     }
 
     grid = map;
+    configurationSpace.updateGrid(map);
 
     // plan if the switch is not set to manual and a transform is available
     if (!Constants::manual && listener.canTransform("/map", ros::Time(0), "/base_link", ros::Time(0), "/map", nullptr)) {
@@ -152,7 +166,6 @@ class SubscribeAndPublish {
       Node3D* nodes3D = new Node3D[length]();
       Node2D* nodes2D = new Node2D[width * height]();
 
-
       // ________________________
       // retrieving goal position
       float x = goal.pose.position.x / Constants::cellSize;
@@ -186,9 +199,7 @@ class SubscribeAndPublish {
       // CLEAR THE VISUALIZATION
       visualization.clear();
       // FIND THE PATH
-      Algorithm hybridAStar;
-      //      Node3D* nSolution = Node3D::aStar();
-      Node3D* nSolution = hybridAStar.findPath3D(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
+      Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
       // CLEAR THE PATH
       path.clear();
       // TRACE THE PATH
@@ -227,6 +238,8 @@ class SubscribeAndPublish {
   Path path;
   // ADDITIONAL VISUALIZATION
   Visualize visualization;
+  // COLLISION DETECTION
+  CollisionDetection configurationSpace;
   // general pointer
   nav_msgs::OccupancyGrid::Ptr grid;
   bool validStart = false;
@@ -238,6 +251,3 @@ class SubscribeAndPublish {
 };
 
 #endif // SUBSCRIBEANDPUBLISH
-
-
-

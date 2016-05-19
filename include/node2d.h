@@ -6,9 +6,7 @@
 #include <nav_msgs/OccupancyGrid.h>
 
 #include "constants.h"
-#include "visualize.h"
 namespace HybridAStar {
-class Visualize;
 
 class Node2D {
  public:
@@ -37,7 +35,6 @@ class Node2D {
   bool  isClosed() const { return c; }
   bool  isDiscovered() const { return d; }
   Node2D* getPred() const { return pred; }
-  // return total estimated cost for node
 
   // SETTER METHODS
   void setX(const int& x) { this->x = x; }
@@ -47,6 +44,7 @@ class Node2D {
   int setIdx(int width) { this->idx = y * width + x; return idx;}
   void open() { o = true; c = false; }
   void close() { c = true; o = false; }
+  void reset() { c = false; o = false; }
   void discover() { d = true; }
   void setPred(Node2D* pred) { this->pred = pred; }
 
@@ -66,9 +64,6 @@ class Node2D {
 
   // SUCCESSOR CREATION
   Node2D* createSuccessor(const int i);
-
-  // A* ALGORITHM
-  static float aStar(Node2D& start, Node2D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, Visualize& visualization);
 
   // CONSTANT VALUES
   // possible directions

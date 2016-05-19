@@ -178,7 +178,7 @@ void Node3D::updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr
     // create a 2d goal node
     Node2D goal2d(goal.x, goal.y, 0, 0, nullptr);
     // run 2d astar and return the cost of the cheapest path for that node
-    nodes2D[(int)y * grid->info.width + (int)x].setG(Node2D::aStar(goal2d, start2d, grid, nodes2D, visualization));
+    nodes2D[(int)y * grid->info.width + (int)x].setG(Algorithm::aStar(goal2d, start2d, grid, nodes2D, visualization));
   }
 
   if (Constants::twoD) {

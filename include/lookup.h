@@ -10,7 +10,7 @@ namespace Lookup {
 //###################################################
 //                                      DUBINS LOOKUP
 //###################################################
-void dubinsLookup(float* lookup) {
+inline void dubinsLookup(float* lookup) {
   bool DEBUG = false;
   std::cout << "I am building the Dubin's lookup table...";
 
@@ -70,14 +70,14 @@ void dubinsLookup(float* lookup) {
 
 // _____________
 // SIGN FUNCTION
-int sign(double x) {
+inline int sign(double x) {
   if (x >= 0) { return 1; }
   else { return -1; }
 }
 
 // _________________________
 // COLLISION LOOKUP CREATION
-void collisionLookup(Constants::config* lookup) {
+inline void collisionLookup(Constants::config* lookup) {
   bool DEBUG = false;
   std::cout << "I am building the collision lookup table...";
   // cell size

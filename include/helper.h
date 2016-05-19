@@ -1,12 +1,25 @@
 #ifndef HELPER
 #define HELPER
+/*!
+   \file helper.h
+   \brief This is a collection of helper functions that are used throughout the project.
+
+*/
 
 #include <cmath>
 
 namespace HybridAStar {
+/*!
+    \brief The namespace that wraps the helper functions
+    \namespace helper
+*/
 namespace helper {
 
-// set theta to a value (0,360]
+/*!
+   \fn float normalizeHeading(float t)
+   \brief Normalizes a heading given in degrees to (0,360]
+   \param t heading in degrees
+*/
 static inline float normalizeHeading(float t) {
   if ((int)t <= 0 || (int)t >= 360) {
     if (t < -0.1) {
@@ -21,6 +34,11 @@ static inline float normalizeHeading(float t) {
   return t;
 }
 
+/*!
+   \fn float normalizeHeadingRad(float t)
+   \brief Normalizes a heading given in rad to (0,2PI]
+   \param t heading in rad
+*/
 static inline float normalizeHeadingRad(float t) {
   if (t < 0) {
     t = t - 2.f * M_PI * (int)(t / (2.f * M_PI));
@@ -30,18 +48,22 @@ static inline float normalizeHeadingRad(float t) {
   return t - 2.f * M_PI * (int)(t / (2.f * M_PI));
 }
 
+/*!
+   \fn float toDeg(float t)
+   \brief Converts and normalizes a heading given in rad to deg
+   \param t heading in deg
+*/
 static inline float toDeg(float t) {
   return normalizeHeadingRad(t) * 180.f / M_PI ;
 }
 
+/*!
+   \fn float toRad(float t)
+   \brief Converts and normalizes a heading given in deg to rad
+   \param t heading in rad
+*/
 static inline float toRad(float t) {
   return normalizeHeadingRad(t / 180.f * M_PI);
-}
-
-static inline void valueToColor(float val, float min, float max, double& red, double& green, double& blue) {
-  red = 0.4;
-  green = 0.4;
-  blue = 0.4;
 }
 }
 }
