@@ -3,8 +3,6 @@
 
 #include <cmath>
 
-#include <nav_msgs/OccupancyGrid.h>
-
 #include "constants.h"
 namespace HybridAStar {
 

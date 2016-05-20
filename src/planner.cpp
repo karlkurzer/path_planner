@@ -174,7 +174,7 @@ void Planner::plan() {
     // CLEAR THE VISUALIZATION
     visualization.clear();
     // FIND THE PATH
-    Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization, configurationSpace);
+    Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, width, height, configurationSpace, dubinsLookup, visualization);
     // CLEAR THE PATH
     path.clear();
     // TRACE THE PATH

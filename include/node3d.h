@@ -3,16 +3,9 @@
 
 #include <cmath>
 
-#include <nav_msgs/OccupancyGrid.h>
-
-#include "dubins.h"
-#include "node2d.h"
-#include "algorithm.h"
 #include "constants.h"
 #include "helper.h"
 namespace HybridAStar {
-class Node2D;
-class Visualize;
 
 class Node3D {
  public:
@@ -60,23 +53,15 @@ class Node3D {
   // UPDATE METHODS
   // from start
   void updateG();
-  // to goal
-  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization);
 
   // CUSTOM OPERATORS
   bool operator == (const Node3D& rhs) const;
-
-  // DUBINS SHOT
-  Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Constants::config* collisionLookup) const;
 
   // RANGE CHECKING
   bool isInRange(const Node3D& goal) const;
 
   // GRID CHECKING
   bool isOnGrid(const int width, const int height) const;
-
-  // COLLISION CHECKING
-  bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, Constants::config* collisionLookup) const;
 
   // SUCCESSOR CREATION
   Node3D* createSuccessor(const int i);
