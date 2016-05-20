@@ -15,10 +15,7 @@ namespace HybridAStar {
 class CollisionDetection {
  public:
   /// Constructor
-  CollisionDetection() {
-    this->grid = nullptr;
-    Lookup::collisionLookup(collisionLookup);
-  }
+  CollisionDetection();
 
   /*!
      \brief evaluates whether the configuration is safe

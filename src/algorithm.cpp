@@ -146,8 +146,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
       // _________
       // GOAL TEST
       if (*nPred == goal) {
-        //DEBUG
-        // std::cout << "max diff " << max << std::endl;
+        // DEBUG
         return nPred;
       }
 

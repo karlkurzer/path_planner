@@ -37,13 +37,13 @@ static const bool visualization = 0 * manual;
 static const bool visualization2D = 0 * manual;
 
 // flag -- to turn on reversin of the vehicle
-static const bool reverse = false;
+static const bool reverse = true;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = true;
+static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
@@ -95,7 +95,7 @@ static const float tieBreaker = 0.01;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.1;
+static const float penaltyTurning = 1.05;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;

@@ -65,7 +65,7 @@ Node3D* Node3D::createSuccessor(const int i) {
   else {
     xSucc = x - dx[i - 3] * cos(t) - dy[i - 3] * sin(t);
     ySucc = y - dx[i - 3] * sin(t) + dy[i - 3] * cos(t);
-    tSucc = helper::normalizeHeadingRad(t + dt[i - 3] + M_PI);
+    tSucc = helper::normalizeHeadingRad(t - dt[i - 3]);
   }
 
   return new Node3D(xSucc, ySucc, tSucc, g, 0, this, i);
