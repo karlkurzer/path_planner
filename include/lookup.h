@@ -123,8 +123,8 @@ inline void collisionLookup(Constants::config* lookup) {
   // grid
   bool cSpace[size * size];
   bool inside = false;
-  int hcross1;
-  int hcross2;
+  int hcross1 = 0;
+  int hcross2 = 0;
 
   // _____________________________
   // VARIABLES FOR LOOKUP CREATION

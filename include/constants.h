@@ -49,14 +49,16 @@ static const bool dubins = false;
 static const bool dubinsLookup = false * dubins;
 
 // flag -- to turn on the 2D heuristic
-static const bool twoD = false;
-
+static const bool twoD = true;
 
 // flag -- switch to true to activate obstacle bloating
 static const bool obstacleBloating = false;
 
 // _________________
 // GENERAL CONSTANTS
+
+// [#] -- maximum search depth
+static const int iterations = 10000;
 
 // [m] -- uniformly added padding around the vehicle
 static const double bloating = 0;

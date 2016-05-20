@@ -38,6 +38,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
   int height = grid->info.height;
   float newG;
   int dir = Constants::reverse ? 6 : 3;
+  int iterations = 0;
 
   // VISUALIZATION DELAY
   ros::Duration d(0.005);
@@ -119,6 +120,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
     nPred = O.top();
     // set index
     iPred = nPred->setIdx(width, height);
+    iterations++;
 
     // RViz visualization
     if (Constants::visualization) {
@@ -145,7 +147,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
 
       // _________
       // GOAL TEST
-      if (*nPred == goal) {
+      if (*nPred == goal || iterations > Constants::iterations) {
         // DEBUG
         return nPred;
       }
