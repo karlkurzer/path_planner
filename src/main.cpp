@@ -12,15 +12,16 @@
 #include <cstring>
 #include <iostream>
 #include <ros/ros.h>
-#include "subscribeandpublish.h"
+
 #include "constants.h"
+#include "planner.h"
 
 //###################################################
 //                              COUT STANDARD MESSAGE
 //###################################################
 /**
- * @fn message(const T& msg, T1 val = T1())
- * @brief Convenience method to display text
+ * \fn message(const T& msg, T1 val = T1())
+ * \brief Convenience method to display text
  */
 template<typename T, typename T1>
 void message(const T& msg, T1 val = T1()) {
@@ -35,19 +36,19 @@ void message(const T& msg, T1 val = T1()) {
 //                                               MAIN
 //###################################################
 /**
- * @fn main(int argc, char** argv)
- * @brief Starting the program
- * @param argc The standard main argument count
- * @param argv The standard main argument value
- * @return 0
+ * \fn main(int argc, char** argv)
+ * \brief Starting the program
+ * \param argc The standard main argument count
+ * \param argv The standard main argument value
+ * \return 0
  */
 int main(int argc, char** argv) {
 
   message<string,int>("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
 
-  message("cell size: ", constants::cellSize);
+  message("cell size: ", HybridAStar::Constants::cellSize);
 
-  if (constants::manual) {
+  if (HybridAStar::Constants::manual) {
     message("mode: ", "manual");
   } else {
     message("mode: ", "auto");
@@ -55,7 +56,7 @@ int main(int argc, char** argv) {
 
   ros::init(argc, argv, "a_star");
 
-  SubscribeAndPublish supPub;
+  HybridAStar::Planner hy;
 
   ros::spin();
   return 0;

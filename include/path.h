@@ -15,7 +15,7 @@
 #include "node3d.h"
 #include "constants.h"
 #include "helper.h"
-
+namespace HybridAStar {
 class Path {
  public:
   // ___________
@@ -76,5 +76,5 @@ class Path {
   static constexpr color pink = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f};
   static constexpr color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
 };
-
+}
 #endif // PATH_H

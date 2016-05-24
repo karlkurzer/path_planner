@@ -11,7 +11,7 @@
 
 #include "node3d.h"
 #include "node2d.h"
-
+namespace HybridAStar {
 class Node3D;
 class Node2D;
 
@@ -79,5 +79,5 @@ class Visualize {
   static constexpr color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
 
 };
-
+}
 #endif // VISUALIZE_H

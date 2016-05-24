@@ -12,12 +12,14 @@
 
 #include "constants.h"
 #include "helper.h"
+#include "collisiondetection.h"
 #include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
 #include "visualize.h"
 #include "lookup.h"
 
+using namespace HybridAStar;
 class SubscribeAndPublish {
  public:
   //###################################################
@@ -26,12 +28,11 @@ class SubscribeAndPublish {
   SubscribeAndPublish() {
     // _____
     // TODOS
-    if (constants::dubinsLookup) {
-      lookup::dubinsLookup(dubinsLookup);
-    }
-
-    lookup::collisionLookup(collisionLookup);
-
+    //    initializeLookups();
+    Lookup::collisionLookup(collisionLookup);
+    // ___________________
+    // COLLISION DETECTION
+//    CollisionDetection configurationSpace;
     // _________________
     // TOPICS TO PUBLISH
     //    pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
@@ -39,7 +40,7 @@ class SubscribeAndPublish {
 
     // ___________________
     // TOPICS TO SUBSCRIBE
-    if (constants::manual) {
+    if (Constants::manual) {
       subMap = n.subscribe("/map", 1, &SubscribeAndPublish::setMap, this);
     } else {
       subMap = n.subscribe("/occ_map", 1, &SubscribeAndPublish::setMap, this);
@@ -50,17 +51,32 @@ class SubscribeAndPublish {
   }
 
   //###################################################
+  //                                       LOOKUPTABLES
+  //###################################################
+  /*!
+     \brief Initializes the collision as well as heuristic lookup table
+  */
+  void initializeLookups() {
+    if (Constants::dubinsLookup) {
+      Lookup::dubinsLookup(dubinsLookup);
+    }
+
+    Lookup::collisionLookup(collisionLookup);
+  }
+
+  //###################################################
   //                                                MAP
   //###################################################
   void setMap(const nav_msgs::OccupancyGrid::Ptr map) {
-    if (constants::coutDEBUG) {
+    if (Constants::coutDEBUG) {
       std::cout << "I am seeing the map..." << std::endl;
     }
 
     grid = map;
+    configurationSpace.updateGrid(map);
 
     // plan if the switch is not set to manual and a transform is available
-    if (!constants::manual && listener.canTransform("/map", ros::Time(0), "/base_link", ros::Time(0), "/map", nullptr)) {
+    if (!Constants::manual && listener.canTransform("/map", ros::Time(0), "/base_link", ros::Time(0), "/map", nullptr)) {
 
       listener.lookupTransform("/map", "/base_link", ros::Time(0), transform);
 
@@ -85,8 +101,8 @@ class SubscribeAndPublish {
   //                                   INITIALIZE START
   //###################################################
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& initial) {
-    float x = initial->pose.pose.position.x / constants::cellSize;
-    float y = initial->pose.pose.position.y / constants::cellSize;
+    float x = initial->pose.pose.position.x / Constants::cellSize;
+    float y = initial->pose.pose.position.y / Constants::cellSize;
     float t = tf::getYaw(initial->pose.pose.orientation);
     // publish the start without covariance for rviz
     geometry_msgs::PoseStamped startN;
@@ -101,7 +117,7 @@ class SubscribeAndPublish {
       validStart = true;
       start = *initial;
 
-      if (constants::manual) { plan();}
+      if (Constants::manual) { plan();}
 
       // publish start for RViz
       pubStart.publish(startN);
@@ -115,8 +131,8 @@ class SubscribeAndPublish {
   //###################################################
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
     // retrieving goal position
-    float x = end->pose.position.x / constants::cellSize;
-    float y = end->pose.position.y / constants::cellSize;
+    float x = end->pose.position.x / Constants::cellSize;
+    float y = end->pose.position.y / Constants::cellSize;
     float t = tf::getYaw(end->pose.orientation);
 
     std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
@@ -125,7 +141,7 @@ class SubscribeAndPublish {
       validGoal = true;
       goal = *end;
 
-      if (constants::manual) { plan();}
+      if (Constants::manual) { plan();}
 
     } else {
       std::cout << "invalid goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
@@ -144,17 +160,16 @@ class SubscribeAndPublish {
       // LISTS ALLOWCATED ROW MAJOR ORDER
       int width = grid->info.width;
       int height = grid->info.height;
-      int depth = constants::headings;
+      int depth = Constants::headings;
       int length = width * height * depth;
       // define list pointers and initialize lists
       Node3D* nodes3D = new Node3D[length]();
       Node2D* nodes2D = new Node2D[width * height]();
 
-
       // ________________________
       // retrieving goal position
-      float x = goal.pose.position.x / constants::cellSize;
-      float y = goal.pose.position.y / constants::cellSize;
+      float x = goal.pose.position.x / Constants::cellSize;
+      float y = goal.pose.position.y / Constants::cellSize;
       float t = tf::getYaw(goal.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
@@ -166,8 +181,8 @@ class SubscribeAndPublish {
 
       // _________________________
       // retrieving start position
-      x = start.pose.pose.position.x / constants::cellSize;
-      y = start.pose.pose.position.y / constants::cellSize;
+      x = start.pose.pose.position.x / Constants::cellSize;
+      y = start.pose.pose.position.y / Constants::cellSize;
       t = tf::getYaw(start.pose.pose.orientation);
       // set theta to a value (0,2PI]
       t = helper::normalizeHeadingRad(t);
@@ -184,9 +199,7 @@ class SubscribeAndPublish {
       // CLEAR THE VISUALIZATION
       visualization.clear();
       // FIND THE PATH
-      Algorithm hybridAStar;
-      //      Node3D* nSolution = Node3D::aStar();
-      Node3D* nSolution = hybridAStar.findPath3D(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
+      Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, grid, collisionLookup, dubinsLookup, visualization);
       // CLEAR THE PATH
       path.clear();
       // TRACE THE PATH
@@ -225,17 +238,18 @@ class SubscribeAndPublish {
   Path path;
   // ADDITIONAL VISUALIZATION
   Visualize visualization;
+  // COLLISION DETECTION
+  CollisionDetection configurationSpace;
   // general pointer
   nav_msgs::OccupancyGrid::Ptr grid;
+  // FLAG for validity of start
   bool validStart = false;
   geometry_msgs::PoseWithCovarianceStamped start;
+  // FLAG for validity of goal
   bool validGoal = false;
   geometry_msgs::PoseStamped goal;
-  constants::config collisionLookup[constants::headings * constants::positions];
-  float* dubinsLookup = new float [constants::headings * constants::headings * constants::dubinsWidth * constants::dubinsWidth];
+  Constants::config collisionLookup[Constants::headings * Constants::positions];
+  float* dubinsLookup = new float [Constants::headings * Constants::headings * Constants::dubinsWidth * Constants::dubinsWidth];
 };
 
 #endif // SUBSCRIBEANDPUBLISH
-
-
-
