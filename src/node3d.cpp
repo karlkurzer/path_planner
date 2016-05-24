@@ -70,15 +70,33 @@ Node3D* Node3D::createSuccessor(const int i) {
 //                                      MOVEMENT COST
 //###################################################
 void Node3D::updateG() {
-  // penalize turning
-  if (prim != 0) {
+  // forward driving
+  if (prim < 3) {
+    // penalize turning
     if (pred->prim != prim) {
-      g += dx[0] * Constants::penaltyTurning * Constants::penaltyTurning;
+      // penalize change of direction
+      if (pred->prim > 2) {
+        g += dx[0] * Constants::penaltyTurning * Constants::penaltyCOD;
+      } else {
+        g += dx[0] * Constants::penaltyTurning;
+      }
     } else {
-      g += dx[0] * Constants::penaltyTurning;
+      g += dx[0];
     }
-  } else  {
-    g += dx[0];
+  }
+  // reverse driving
+  else {
+    // penalize turning and reversing
+    if (pred->prim != prim) {
+      // penalize change of direction
+      if (pred->prim < 3) {
+        g += dx[0] * Constants::penaltyTurning * Constants::penaltyReversing * Constants::penaltyCOD;
+      } else {
+        g += dx[0] * Constants::penaltyTurning * Constants::penaltyReversing;
+      }
+    } else {
+      g += dx[0] * Constants::penaltyReversing;
+    }
   }
 }
 

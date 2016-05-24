@@ -31,7 +31,7 @@ static const bool coutDEBUG = 0;
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 0 * manual;
+static const bool visualization = 1 * manual;
 
 // flag -- switch to true for live visualization
 static const bool visualization2D = 0 * manual;
@@ -98,6 +98,12 @@ static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
 static const float penaltyTurning = 1.05;
+
+// [#] -- penalty for reversing
+static const float penaltyReversing = 2.0;
+
+// [#] -- penalty for change of direction
+static const float penaltyCOD = 2.0;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;

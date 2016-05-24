@@ -8,7 +8,7 @@ Planner::Planner() {
   // _____
   // TODOS
   //    initializeLookups();
-  Lookup::collisionLookup(collisionLookup);
+  // Lookup::collisionLookup(collisionLookup);
   // ___________________
   // COLLISION DETECTION
   //    CollisionDetection configurationSpace;
@@ -148,10 +148,10 @@ void Planner::plan() {
     float t = tf::getYaw(goal.pose.orientation);
     // set theta to a value (0,2PI]
     t = helper::normalizeHeadingRad(t);
-//    const Node3D nGoal(x, y, t, 0, 0, nullptr);
+    const Node3D nGoal(x, y, t, 0, 0, nullptr);
     // __________
     // DEBUG GOAL
-    const Node3D nGoal(10, 10, M_PI, 0, 0, nullptr);
+//    const Node3D nGoal(155.349, 36.1969, 0.7615936, 0, 0, nullptr);
 
 
     // _________________________
@@ -161,10 +161,10 @@ void Planner::plan() {
     t = tf::getYaw(start.pose.pose.orientation);
     // set theta to a value (0,2PI]
     t = helper::normalizeHeadingRad(t);
-//    Node3D nStart(x, y, t, 0, 0, nullptr);
+    Node3D nStart(x, y, t, 0, 0, nullptr);
     // ___________
     // DEBUG START
-    Node3D nStart(90, 50, 0, 0, 0, nullptr);
+//    Node3D nStart(108.291, 30.1081, 0, 0, 0, nullptr);
 
 
     // ___________________________

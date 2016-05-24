@@ -18,7 +18,8 @@ namespace {
 void getConfiguration(const Node2D* node, float& x, float& y, float& t) {
   x = node->getX();
   y = node->getY();
-  t = 0;
+  // avoid 2D collision checking
+  t = 99;
 }
 
 void getConfiguration(const Node3D* node, float& x, float& y, float& t) {
@@ -31,6 +32,7 @@ class CollisionDetection {
  public:
   /// Constructor
   CollisionDetection();
+
 
   /*!
      \brief evaluates whether the configuration is safe
@@ -47,6 +49,11 @@ class CollisionDetection {
     float t;
     // assign values to the configuration
     getConfiguration(node, x, y, t);
+
+    // 2D collision test
+    if (t == 99) {
+      return !grid->data[node->getIdx()];
+    }
 
     if (true) {
       cost = configurationTest(x, y, t) ? 0 : 1;
