@@ -21,6 +21,6 @@ Large parts of the implementation are closely related to the hybrid A* algorithm
 * [Open Loop Path Planning using Sensor Fusion](https://www.youtube.com/watch?v=GwIU00jukO4)
 
 ##### Images
-* [Hybrid A* Path Planning Algorithm Reversing in a Maze](http://i.imgur.com/OICPCTB.png)
-* [Hybrid A* Path Planning Algorithm Parking](http://i.imgur.com/ZiV9GDW.png)
-* [Hybrid A* Path Planning Algorithm Mitigating a U-shape Obstacle](http://i.imgur.com/z7aT6lt.png)
+* [Reversing in a Maze](http://i.imgur.com/OICPCTB.png)
+* [Parking](http://i.imgur.com/ZiV9GDW.png)
+* [Mitigating a U-shape Obstacle](http://i.imgur.com/z7aT6lt.png)
