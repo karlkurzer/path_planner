@@ -3,14 +3,9 @@
 
 #include <cmath>
 
-#include <nav_msgs/OccupancyGrid.h>
-
-#include "dubins.h"
-#include "node2d.h"
 #include "constants.h"
 #include "helper.h"
-class Node2D;
-class Visualize;
+namespace HybridAStar {
 
 class Node3D {
  public:
@@ -18,7 +13,7 @@ class Node3D {
   // CONSTRUCTOR
   Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
   // overloaded constructor
-  Node3D(float x, float y, float t, float g, float h, const Node3D* pred) {
+  Node3D(float x, float y, float t, float g, float h, const Node3D* pred, int prim = 0) {
     this->x = x;
     this->y = y;
     this->t = t;
@@ -28,7 +23,7 @@ class Node3D {
     this->o = false;
     this->c = false;
     this->idx = -1;
-
+    this->prim = prim;
   }
 
   // GETTER METHODS
@@ -39,6 +34,7 @@ class Node3D {
   float getH() const { return h; }
   float getC() const { return g + h; }
   int getIdx() const { return idx; }
+  int getPrim() const { return prim; }
   bool  isOpen() const { return o; }
   bool  isClosed() const { return c; }
   const Node3D* getPred() const { return pred; }
@@ -49,7 +45,7 @@ class Node3D {
   void setT(const float& t) { this->t = t; }
   void setG(const float& g) { this->g = g; }
   void setH(const float& h) { this->h = h; }
-  int setIdx(int width, int height) { this->idx = (int)(t / constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
+  int setIdx(int width, int height) { this->idx = (int)(t / Constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
   void open() { o = true; c = false;}
   void close() { c = true; o = false; }
   void setPred(const Node3D* pred) { this->pred = pred; }
@@ -57,23 +53,15 @@ class Node3D {
   // UPDATE METHODS
   // from start
   void updateG();
-  // to goal
-  void updateH(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, Node2D* nodes2D, float* dubinsLookup, Visualize& visualization);
 
   // CUSTOM OPERATORS
   bool operator == (const Node3D& rhs) const;
-
-  // DUBINS SHOT
-  Node3D* dubinsShot(const Node3D& goal, const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
 
   // RANGE CHECKING
   bool isInRange(const Node3D& goal) const;
 
   // GRID CHECKING
   bool isOnGrid(const int width, const int height) const;
-
-  // COLLISION CHECKING
-  bool isTraversable(const nav_msgs::OccupancyGrid::ConstPtr& grid, constants::config* collisionLookup) const;
 
   // SUCCESSOR CREATION
   Node3D* createSuccessor(const int i);
@@ -96,7 +84,8 @@ class Node3D {
   int idx;
   bool o;
   bool c;
+  int prim;
   const Node3D* pred;
 };
-
+}
 #endif // NODE3D_H

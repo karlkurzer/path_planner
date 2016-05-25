@@ -12,10 +12,15 @@ The goal of the thesis and hence this code is to create a real-time path plannin
 * Dubin's Shot
 * C++ real-time implementation (~10 Hz)
 
-##### Videos
-* [Path Planning with Search Visualization] (https://www.youtube.com/watch?v=1WZEQtg8ZZ4)
-* [Dubin's Path - Constrained Heuristic] (https://www.youtube.com/watch?v=VNo9fU6XEGE)
-* [2D A* Search - Unconstrained Heuristic] (https://www.youtube.com/watch?v=Ip2iUrVoFXc)
-* [Open Loop Path Planning using Sensor Fusion] (https://www.youtube.com/watch?v=GwIU00jukO4)
-
 Large parts of the implementation are closely related to the hybrid A* algorithm developed by Dmitri Dolgov and Sebastian Thrun (_Path Planning for Autonomous Vehicles in Unknown Semi-structured Environments_ DOI: 10.1177/0278364909359210)
+
+##### Videos
+* [Path Planning with Search Visualization](https://www.youtube.com/watch?v=1WZEQtg8ZZ4)
+* [Dubin's Path - Constrained Heuristic](https://www.youtube.com/watch?v=VNo9fU6XEGE)
+* [2D A* Search - Unconstrained Heuristic](https://www.youtube.com/watch?v=Ip2iUrVoFXc)
+* [Open Loop Path Planning using Sensor Fusion](https://www.youtube.com/watch?v=GwIU00jukO4)
+
+##### Images
+* [Reversing in a Maze](http://i.imgur.com/OICPCTB.png)
+* [Parking](http://i.imgur.com/ZiV9GDW.png)
+* [Mitigating a U-shape Obstacle](http://i.imgur.com/z7aT6lt.png)

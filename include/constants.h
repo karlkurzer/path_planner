@@ -1,5 +1,10 @@
 #ifndef CONSTANTS
 #define CONSTANTS
+/*!
+   \file constants.h
+   \brief This is a collection of constants that are used throughout the project.
+   \todo All constants need to be checked and documented
+*/
 
 ////###################################################
 ////                                               INFO
@@ -10,27 +15,35 @@
 
 #include <cmath>
 
-namespace constants {
+namespace HybridAStar {
+/*!
+    \brief The namespace that wraps the constants
+    \namespace constants
+*/
+namespace Constants {
 // _________________
 // CONFIG FLAGS
 
-// flag -- switch to true for cout info
+/*! \brief A debugging variable for additional output via `std::cout` */
 static const bool coutDEBUG = 0;
 
-// flag -- switch to false for velodyne data
+/*! \brief A variable for the mode, manual for static map or dynamic for dynamic map. */
 static const bool manual = 1;
 
 // flag -- switch to true for live visualization
-static const bool visualization = 0*manual;
+static const bool visualization = 0 * manual;
 
 // flag -- switch to true for live visualization
-static const bool visualization2D = 0*manual;
+static const bool visualization2D = 0 * manual;
+
+// flag -- to turn on reversin of the vehicle
+static const bool reverse = true;
 
 // flag -- to turn on the dubins shot
 static const bool dubinsShot = true;
 
 // flag -- to turn on the dubins heuristic
-static const bool dubins = true;
+static const bool dubins = false;
 
 // flag -- to turn on the dubins lookup
 static const bool dubinsLookup = false * dubins;
@@ -38,12 +51,14 @@ static const bool dubinsLookup = false * dubins;
 // flag -- to turn on the 2D heuristic
 static const bool twoD = true;
 
-
 // flag -- switch to true to activate obstacle bloating
 static const bool obstacleBloating = false;
 
 // _________________
 // GENERAL CONSTANTS
+
+// [#] -- maximum search depth
+static const int iterations = 10000;
 
 // [m] -- uniformly added padding around the vehicle
 static const double bloating = 0;
@@ -67,7 +82,7 @@ static const float deltaHeadingDeg = 360 / (float)headings;
 static const float deltaHeadingRad = 2 * M_PI / (float)headings;
 
 // [c*PI] -- goal condition
-static const float deltaHeadingNegRad = 2*M_PI*deltaHeadingRad;
+static const float deltaHeadingNegRad = 2 * M_PI - deltaHeadingRad;
 
 // [m] -- cell size
 static const float cellSize = 1;
@@ -82,13 +97,19 @@ static const float tieBreaker = 0.01;
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 
 // [#] -- penalty for turning
-static const float penaltyTurning = 1.15;
+static const float penaltyTurning = 1.05;
+
+// [#] -- penalty for reversing
+static const float penaltyReversing = 2.0;
+
+// [#] -- penalty for change of direction
+static const float penaltyCOD = 2.0;
 
 // [m] -- dubins shot step size
 static const float dubinsStepSize = 1;
 
 // [m] -- dubins shot distance
-static const float dubinsShotDistance = 4*4*(r*r);
+static const float dubinsShotDistance = 2 * 2 * (r* r);
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC
@@ -103,7 +124,7 @@ static const int dubinsArea = dubinsWidth * dubinsWidth;
 // COLLISION LOOKUP SPECIFIC
 
 // [m] -- bounding box size length/width
-static const int bbSize = std::ceil((sqrt(width * width + length * length) + 4) / cellSize);
+static const int bbSize = std::ceil((sqrt(width * width + length* length) + 4) / cellSize);
 
 // [#] -- number of discrete per cell length
 static const int positionResolution = 10;
@@ -122,6 +143,7 @@ struct config {
   relPos pos[64];
 };
 
+}
 }
 
 #endif // CONSTANTS

@@ -15,7 +15,7 @@
 #include "node3d.h"
 #include "constants.h"
 #include "helper.h"
-
+namespace HybridAStar {
 class Path {
  public:
   // ___________
@@ -70,11 +70,11 @@ class Path {
     float green;
     float blue;
   };
-  const color teal = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f};
-  const color green = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f};
-  const color orange = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f};
-  const color pink = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f};
-  const color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
+  static constexpr color teal = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f};
+  static constexpr color green = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f};
+  static constexpr color orange = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f};
+  static constexpr color pink = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f};
+  static constexpr color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
 };
-
+}
 #endif // PATH_H
