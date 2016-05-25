@@ -39,7 +39,7 @@ static const bool dubinsShot = true;
 /// A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off)
 static const bool dubins = false;
 /*!
-   \var bool dubinsLookup
+   \var static const bool dubinsLookup
    \brief A flag to toggle the Dubin's heuristic via lookup, potentially speeding up the search by a lot
    \todo not yet functional
 */
@@ -71,7 +71,7 @@ static const float deltaHeadingNegRad = 2 * M_PI - deltaHeadingRad;
 /// [m] --- The cell size of the 2D grid of the world
 static const float cellSize = 1;
 /*!
-  \var float tieBreaker
+  \var static const float tieBreaker
   \brief [m] --- The tie breaker breaks ties between nodes expanded in the same cell
 
 

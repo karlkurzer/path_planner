@@ -1,10 +1,10 @@
-#ifndef HELPER
-#define HELPER
 /*!
-   \file helper.h
+   \file
    \brief This is a collection of helper functions that are used throughout the project.
 
 */
+#ifndef HELPER
+#define HELPER
 
 #include <cmath>
 
