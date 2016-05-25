@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -256,7 +256,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      <span class="comment">// ________________________</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="comment">// retrieving goal position</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      <span class="keywordtype">float</span> x = goal.pose.position.x / Constants::cellSize;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      <span class="keywordtype">float</span> x = goal.pose.position.<a class="code" href="classHybridAStar_1_1Node2D.html#a34dc3caf247e63bb1c8263f11bc18ad4">x</a> / Constants::cellSize;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="keywordtype">float</span> y = goal.pose.position.y / Constants::cellSize;</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="keywordtype">float</span> t = tf::getYaw(goal.pose.orientation);</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      <span class="comment">// set theta to a value (0,2PI]</span></div>
@@ -341,20 +341,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;};</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor">#endif // SUBSCRIBEANDPUBLISH</span></div>
+<div class="ttc" id="classHybridAStar_1_1Node2D_html_a34dc3caf247e63bb1c8263f11bc18ad4"><div class="ttname"><a href="classHybridAStar_1_1Node2D.html#a34dc3caf247e63bb1c8263f11bc18ad4">HybridAStar::Node2D::x</a></div><div class="ttdeci">int x</div><div class="ttdoc">the x position </div><div class="ttdef"><b>Definition:</b> node2d.h:104</div></div>
 <div class="ttc" id="classHybridAStar_1_1Node3D_html"><div class="ttname"><a href="classHybridAStar_1_1Node3D.html">HybridAStar::Node3D</a></div><div class="ttdef"><b>Definition:</b> node3d.h:10</div></div>
 <div class="ttc" id="constants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">This is a collection of constants that are used throughout the project. </div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html">HybridAStar::CollisionDetection</a></div><div class="ttdef"><b>Definition:</b> collisiondetection.h:31</div></div>
 <div class="ttc" id="classSubscribeAndPublish_html_adc7840476e763b5b8ff008c8d8042cfd"><div class="ttname"><a href="classSubscribeAndPublish.html#adc7840476e763b5b8ff008c8d8042cfd">SubscribeAndPublish::initializeLookups</a></div><div class="ttdeci">void initializeLookups()</div><div class="ttdoc">Initializes the collision as well as heuristic lookup table. </div><div class="ttdef"><b>Definition:</b> subscribeandpublish.h:59</div></div>
-<div class="ttc" id="classHybridAStar_1_1Node2D_html"><div class="ttname"><a href="classHybridAStar_1_1Node2D.html">HybridAStar::Node2D</a></div><div class="ttdef"><b>Definition:</b> node2d.h:9</div></div>
+<div class="ttc" id="classHybridAStar_1_1Node2D_html"><div class="ttname"><a href="classHybridAStar_1_1Node2D.html">HybridAStar::Node2D</a></div><div class="ttdoc">A two dimensional node class used for the holonomic with obstacles heuristic. </div><div class="ttdef"><b>Definition:</b> node2d.h:14</div></div>
 <div class="ttc" id="classSubscribeAndPublish_html"><div class="ttname"><a href="classSubscribeAndPublish.html">SubscribeAndPublish</a></div><div class="ttdef"><b>Definition:</b> subscribeandpublish.h:23</div></div>
-<div class="ttc" id="structHybridAStar_1_1Constants_1_1config_html"><div class="ttname"><a href="structHybridAStar_1_1Constants_1_1config.html">HybridAStar::Constants::config</a></div><div class="ttdef"><b>Definition:</b> constants.h:141</div></div>
+<div class="ttc" id="structHybridAStar_1_1Constants_1_1config_html"><div class="ttname"><a href="structHybridAStar_1_1Constants_1_1config.html">HybridAStar::Constants::config</a></div><div class="ttdef"><b>Definition:</b> constants.h:132</div></div>
 <div class="ttc" id="classHybridAStar_1_1Visualize_html"><div class="ttname"><a href="classHybridAStar_1_1Visualize.html">HybridAStar::Visualize</a></div><div class="ttdef"><b>Definition:</b> visualize.h:18</div></div>
 <div class="ttc" id="classHybridAStar_1_1Path_html"><div class="ttname"><a href="classHybridAStar_1_1Path.html">HybridAStar::Path</a></div><div class="ttdef"><b>Definition:</b> path.h:19</div></div>
 <div class="ttc" id="helper_8h_html"><div class="ttname"><a href="helper_8h.html">helper.h</a></div><div class="ttdoc">This is a collection of helper functions that are used throughout the project. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 12:24:55 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 25 2016 17:07:00 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

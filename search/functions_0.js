@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2',1,'HybridAStar::CollisionDetection']]],
-  ['configurationcost',['configurationCost',['../classHybridAStar_1_1CollisionDetection.html#ac79d7dd4402b2c74020eb77140ff7199',1,'HybridAStar::CollisionDetection']]],
-  ['configurationtest',['configurationTest',['../classHybridAStar_1_1CollisionDetection.html#a5712e686d47738070f741c1467caf042',1,'HybridAStar::CollisionDetection']]]
+  ['addnode',['addNode',['../classHybridAStar_1_1Path.html#afe6320a662a9237426351e6132697a5e',1,'HybridAStar::Path']]],
+  ['addsegment',['addSegment',['../classHybridAStar_1_1Path.html#a9678226eb9ac557af7635d0e07cfa932',1,'HybridAStar::Path']]],
+  ['addvehicle',['addVehicle',['../classHybridAStar_1_1Path.html#a587f7a2e9fe760bfbc690bac3788b6ad',1,'HybridAStar::Path']]]
 ];

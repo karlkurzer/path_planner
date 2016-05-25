@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,82 +97,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>HybridAStar {</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1ColorGradient.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHybridAStar_1_1ColorGradient.html">ColorGradient</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">   12</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">ColorPoint</a>  <span class="comment">// Internal class used to store colors at different points in the gradient.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">float</span> r,g,b;      <span class="comment">// Red, green and blue values of our color.</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">float</span> val;        <span class="comment">// Position of our color along the gradient (between 0 and 1).</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">ColorPoint</a>(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue, <span class="keywordtype">float</span> value)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;      : r(red), g(green), b(blue), val(value) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  };</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  vector&lt;ColorPoint&gt; color;      <span class="comment">// An array of color points in ascending value.</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="comment">//-- Default constructor:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="classHybridAStar_1_1ColorGradient.html">ColorGradient</a>()  {  createDefaultHeatMapGradient();  }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">//-- Inserts a new color point into its correct position:</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">void</span> addColorPoint(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue, <span class="keywordtype">float</span> value)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i=0; i&lt;color.size(); i++)  {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keywordflow">if</span>(value &lt; color[i].val) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        color.insert(color.begin()+i, ColorPoint(red,green,blue, value));</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span>;  }}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    color.push_back(ColorPoint(red,green,blue, value));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">//-- Inserts a new color point into its correct position:</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">void</span> clearGradient() { color.clear(); }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">//-- Places a 5 color heapmap gradient into the &quot;color&quot; vector:</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">void</span> createDefaultHeatMapGradient()</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    color.clear();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    color.push_back(ColorPoint(0, 0, 1,   0.0f));      <span class="comment">// Blue.</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    color.push_back(ColorPoint(0, 1, 1,   0.25f));     <span class="comment">// Cyan.</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    color.push_back(ColorPoint(0, 1, 0,   0.5f));      <span class="comment">// Green.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    color.push_back(ColorPoint(1, 1, 0,   0.75f));     <span class="comment">// Yellow.</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    color.push_back(ColorPoint(1, 0, 0,   1.0f));      <span class="comment">// Red.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="comment">//-- Inputs a (value) between 0 and 1 and outputs the (red), (green) and (blue)</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">//-- values representing that position in the gradient.</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> getColorAtValue(<span class="keyword">const</span> <span class="keywordtype">float</span> value, <span class="keywordtype">float</span> &amp;red, <span class="keywordtype">float</span> &amp;green, <span class="keywordtype">float</span> &amp;blue)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span>(color.size()==0)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i=0; i&lt;color.size(); i++)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      ColorPoint &amp;currC = color[i];</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keywordflow">if</span>(value &lt; currC.val)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        ColorPoint &amp;prevC  = color[ max(0,(<span class="keywordtype">int</span>)i-1) ];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">float</span> valueDiff    = (prevC.val - currC.val);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">float</span> fractBetween = (valueDiff==0) ? 0 : (value - currC.val) / valueDiff;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        red   = (prevC.r - currC.r)*fractBetween + currC.r;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        green = (prevC.g - currC.g)*fractBetween + currC.g;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        blue  = (prevC.b - currC.b)*fractBetween + currC.b;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    red   = color.back().r;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    green = color.back().g;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    blue  = color.back().b;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif // GRADIENT</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span></div>
-<div class="ttc" id="classHybridAStar_1_1ColorGradient_html"><div class="ttname"><a href="classHybridAStar_1_1ColorGradient.html">HybridAStar::ColorGradient</a></div><div class="ttdef"><b>Definition:</b> gradient.h:9</div></div>
-<div class="ttc" id="structHybridAStar_1_1ColorGradient_1_1ColorPoint_html"><div class="ttname"><a href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">HybridAStar::ColorGradient::ColorPoint</a></div><div class="ttdef"><b>Definition:</b> gradient.h:12</div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1ColorGradient.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHybridAStar_1_1ColorGradient.html">ColorGradient</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">   18</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">ColorPoint</a> { <span class="comment">// Internal class used to store colors at different points in the gradient.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">float</span> r, g, b;    <span class="comment">// Red, green and blue values of our color.</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">float</span> val;        <span class="comment">// Position of our color along the gradient (between 0 and 1).</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">ColorPoint</a>(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue, <span class="keywordtype">float</span> value)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;      : r(red), g(green), b(blue), val(value) {}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  vector&lt;ColorPoint&gt; color;      <span class="comment">// An array of color points in ascending value.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="comment">//-- Default constructor:</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="classHybridAStar_1_1ColorGradient.html">ColorGradient</a>()  {  createDefaultHeatMapGradient();  }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="comment">//-- Inserts a new color point into its correct position:</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">void</span> addColorPoint(<span class="keywordtype">float</span> red, <span class="keywordtype">float</span> green, <span class="keywordtype">float</span> blue, <span class="keywordtype">float</span> value) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; color.size(); i++)  {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keywordflow">if</span> (value &lt; color[i].val) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        color.insert(color.begin() + i, ColorPoint(red, green, blue, value));</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    color.push_back(ColorPoint(red, green, blue, value));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">//-- Inserts a new color point into its correct position:</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> clearGradient() { color.clear(); }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="comment">//-- Places a 5 color heapmap gradient into the &quot;color&quot; vector:</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> createDefaultHeatMapGradient() {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    color.clear();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    color.push_back(ColorPoint(0, 0, 1,   0.0f));      <span class="comment">// Blue.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    color.push_back(ColorPoint(0, 1, 1,   0.25f));     <span class="comment">// Cyan.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    color.push_back(ColorPoint(0, 1, 0,   0.5f));      <span class="comment">// Green.</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    color.push_back(ColorPoint(1, 1, 0,   0.75f));     <span class="comment">// Yellow.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    color.push_back(ColorPoint(1, 0, 0,   1.0f));      <span class="comment">// Red.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">//-- Inputs a (value) between 0 and 1 and outputs the (red), (green) and (blue)</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="comment">//-- values representing that position in the gradient.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> getColorAtValue(<span class="keyword">const</span> <span class="keywordtype">float</span> value, <span class="keywordtype">float</span>&amp; red, <span class="keywordtype">float</span>&amp; green, <span class="keywordtype">float</span>&amp; blue) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (color.size() == 0)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; color.size(); i++) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      ColorPoint&amp; currC = color[i];</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">if</span> (value &lt; currC.val) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        ColorPoint&amp; prevC  = color[ max(0, (<span class="keywordtype">int</span>)i - 1) ];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">float</span> valueDiff    = (prevC.val - currC.val);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">float</span> fractBetween = (valueDiff == 0) ? 0 : (value - currC.val) / valueDiff;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        red   = (prevC.r - currC.r) * fractBetween + currC.r;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        green = (prevC.g - currC.g) * fractBetween + currC.g;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        blue  = (prevC.b - currC.b) * fractBetween + currC.b;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    red   = color.back().r;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    green = color.back().g;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    blue  = color.back().b;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif // GRADIENT</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span></div>
+<div class="ttc" id="classHybridAStar_1_1ColorGradient_html"><div class="ttname"><a href="classHybridAStar_1_1ColorGradient.html">HybridAStar::ColorGradient</a></div><div class="ttdoc">A color gradient class for visualizing the cost of nodes. </div><div class="ttdef"><b>Definition:</b> gradient.h:16</div></div>
+<div class="ttc" id="structHybridAStar_1_1ColorGradient_1_1ColorPoint_html"><div class="ttname"><a href="structHybridAStar_1_1ColorGradient_1_1ColorPoint.html">HybridAStar::ColorGradient::ColorPoint</a></div><div class="ttdef"><b>Definition:</b> gradient.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 12:24:55 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

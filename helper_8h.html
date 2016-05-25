@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,31 +101,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacehelper"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelper.html">helper</a></td></tr>
-<tr class="memdesc:namespacehelper"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps the helper functions. <br/></td></tr>
+<tr class="memitem:namespaceHybridAStar"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html">HybridAStar</a></td></tr>
+<tr class="memdesc:namespaceHybridAStar"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps the entire project. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceHelper"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHelper.html">Helper</a></td></tr>
+<tr class="memdesc:namespaceHelper"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps <a class="el" href="helper_8h.html" title="This is a collection of helper functions that are used throughout the project. ">helper.h</a>. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1b283f497406daf27ff75bf34764af50"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::helper::normalizeHeading</b> (float t)</td></tr>
-<tr class="memdesc:a1b283f497406daf27ff75bf34764af50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a heading given in degrees to (0,360].  <a href="#a1b283f497406daf27ff75bf34764af50">More...</a><br/></td></tr>
-<tr class="separator:a1b283f497406daf27ff75bf34764af50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8683405a065abb6bca7d9219938d6cd"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::helper::normalizeHeadingRad</b> (float t)</td></tr>
-<tr class="memdesc:aa8683405a065abb6bca7d9219938d6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a heading given in rad to (0,2PI].  <a href="#aa8683405a065abb6bca7d9219938d6cd">More...</a><br/></td></tr>
-<tr class="separator:aa8683405a065abb6bca7d9219938d6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a888bfcc10652006133a25d95e6838ddb"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::helper::toDeg</b> (float t)</td></tr>
-<tr class="memdesc:a888bfcc10652006133a25d95e6838ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts and normalizes a heading given in rad to deg.  <a href="#a888bfcc10652006133a25d95e6838ddb">More...</a><br/></td></tr>
-<tr class="separator:a888bfcc10652006133a25d95e6838ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c9c663087a28e36c40781a898a13b08"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::helper::toRad</b> (float t)</td></tr>
-<tr class="memdesc:a6c9c663087a28e36c40781a898a13b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts and normalizes a heading given in deg to rad.  <a href="#a6c9c663087a28e36c40781a898a13b08">More...</a><br/></td></tr>
-<tr class="separator:a6c9c663087a28e36c40781a898a13b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8c53b16f21fca1eccf0a6f0468f86d0"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::normalizeHeading</b> (float t)</td></tr>
+<tr class="memdesc:ac8c53b16f21fca1eccf0a6f0468f86d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a heading given in degrees to (0,360].  <a href="#ac8c53b16f21fca1eccf0a6f0468f86d0">More...</a><br/></td></tr>
+<tr class="separator:ac8c53b16f21fca1eccf0a6f0468f86d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aad7932f7581e6904101a78ee1f5b4b"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::normalizeHeadingRad</b> (float t)</td></tr>
+<tr class="memdesc:a0aad7932f7581e6904101a78ee1f5b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a heading given in rad to (0,2PI].  <a href="#a0aad7932f7581e6904101a78ee1f5b4b">More...</a><br/></td></tr>
+<tr class="separator:a0aad7932f7581e6904101a78ee1f5b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15072edb6e46453f0e9dbd63d714eff5"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::toDeg</b> (float t)</td></tr>
+<tr class="memdesc:a15072edb6e46453f0e9dbd63d714eff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts and normalizes a heading given in rad to deg.  <a href="#a15072edb6e46453f0e9dbd63d714eff5">More...</a><br/></td></tr>
+<tr class="separator:a15072edb6e46453f0e9dbd63d714eff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1467da31e20493be3e178de5faaac29a"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::toRad</b> (float t)</td></tr>
+<tr class="memdesc:a1467da31e20493be3e178de5faaac29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts and normalizes a heading given in deg to rad.  <a href="#a1467da31e20493be3e178de5faaac29a">More...</a><br/></td></tr>
+<tr class="separator:a1467da31e20493be3e178de5faaac29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a collection of helper functions that are used throughout the project. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 12:24:55 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['helper',['helper',['../namespacehelper.html',1,'']]]
+  ['helper',['Helper',['../namespaceHelper.html',1,'']]],
+  ['hybridastar',['HybridAStar',['../namespaceHybridAStar.html',1,'']]]
 ];

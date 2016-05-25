@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['path',['Path',['../classHybridAStar_1_1Path.html',1,'HybridAStar']]],
-  ['path',['path',['../classHybridAStar_1_1Planner.html#aebfcc872dfbb7b9a4cfa178f7c5bb633',1,'HybridAStar::Planner']]],
-  ['plan',['plan',['../classHybridAStar_1_1Planner.html#a6d196b97332444d3dcf175cd9c525d8c',1,'HybridAStar::Planner']]],
-  ['planner',['Planner',['../classHybridAStar_1_1Planner.html',1,'HybridAStar']]],
-  ['planner',['Planner',['../classHybridAStar_1_1Planner.html#aceff4e3c859cc6bea1fda3c9e4ad034f',1,'HybridAStar::Planner']]],
-  ['pubstart',['pubStart',['../classHybridAStar_1_1Planner.html#abafd3fb274c56415fad2030e9624c050',1,'HybridAStar::Planner']]]
+  ['n',['n',['../classHybridAStar_1_1Planner.html#af7acdd1505e5305fc1b582c128ba4185',1,'HybridAStar::Planner']]],
+  ['node2d',['Node2D',['../classHybridAStar_1_1Node2D.html#a46abd7ce7ffb5e4b4ea75dbd57163db8',1,'HybridAStar::Node2D::Node2D()'],['../classHybridAStar_1_1Node2D.html#a2169f33191d7f0a996860e1da5998fb1',1,'HybridAStar::Node2D::Node2D(int x, int y, float g, float h, Node2D *pred)']]],
+  ['node2d',['Node2D',['../classHybridAStar_1_1Node2D.html',1,'HybridAStar']]],
+  ['node3d',['Node3D',['../classHybridAStar_1_1Node3D.html',1,'HybridAStar']]]
 ];

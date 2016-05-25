@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,77 +109,93 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr class="memitem:namespaceHybridAStar"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html">HybridAStar</a></td></tr>
+<tr class="memdesc:namespaceHybridAStar"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps the entire project. <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceconstants"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceconstants.html">constants</a></td></tr>
-<tr class="memdesc:namespaceconstants"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps the constants. <br/></td></tr>
+<tr class="memdesc:namespaceconstants"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps <a class="el" href="constants_8h.html" title="This is a collection of constants that are used throughout the project. ">constants.h</a>. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c1d2ffd1e448cc8c0bfc8c6c7381683"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::coutDEBUG</b> = 0</td></tr>
-<tr class="memdesc:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="mdescLeft">&#160;</td><td class="mdescRight">A debugging variable for additional output via <code>std::cout</code> <br/></td></tr>
+<tr class="memdesc:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for additional debugging output via <code>std::cout</code> <br/></td></tr>
 <tr class="separator:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19df83992230551cf3c043282e06b9a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19df83992230551cf3c043282e06b9a1"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::manual</b> = 1</td></tr>
-<tr class="memdesc:a19df83992230551cf3c043282e06b9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A variable for the mode, manual for static map or dynamic for dynamic map. <br/></td></tr>
+<tr class="memdesc:a19df83992230551cf3c043282e06b9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for the mode (true = manual; false = dynamic). Manual for static map or dynamic for dynamic map. <br/></td></tr>
 <tr class="separator:a19df83992230551cf3c043282e06b9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ccfc423177a4d67603579c218e0304d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ccfc423177a4d67603579c218e0304d"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::visualization</b> = 0 * manual</td></tr>
+<tr class="memdesc:a1ccfc423177a4d67603579c218e0304d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for the visualization of 3D nodes (true = on; false = off) <br/></td></tr>
 <tr class="separator:a1ccfc423177a4d67603579c218e0304d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5efde6fbf1f57bb796a7e3b9c655ed9"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::visualization2D</b> = 0 * manual</td></tr>
+<tr class="memdesc:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for the visualization of 2D nodes (true = on; false = off) <br/></td></tr>
 <tr class="separator:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f90738f30c5010bbbd888d7cc57f4fb"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::reverse</b> = true</td></tr>
+<tr class="memdesc:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle reversing (true = on; false = off) <br/></td></tr>
 <tr class="separator:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0911349a2ed0b12ad5ac8caa0863c0f0"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsShot</b> = true</td></tr>
+<tr class="memdesc:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the connection of the path via Dubin's shot (true = on; false = off) <br/></td></tr>
 <tr class="separator:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3749563f36130f152b520b9a421b75c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3749563f36130f152b520b9a421b75c8"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubins</b> = false</td></tr>
+<tr class="memdesc:a3749563f36130f152b520b9a421b75c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off) <br/></td></tr>
 <tr class="separator:a3749563f36130f152b520b9a421b75c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2262cfa271d16da0e4c6b8903c70d87a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2262cfa271d16da0e4c6b8903c70d87a"></a>
-static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsLookup</b> = false * dubins</td></tr>
-<tr class="separator:a2262cfa271d16da0e4c6b8903c70d87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6311303c7853a60e48a28ec8d2fe5440"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsLookup</b> = false * dubins</td></tr>
+<tr class="memdesc:a6311303c7853a60e48a28ec8d2fe5440"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the Dubin's heuristic via lookup, potentially speeding up the search by a lot.  <a href="#a6311303c7853a60e48a28ec8d2fe5440">More...</a><br/></td></tr>
+<tr class="separator:a6311303c7853a60e48a28ec8d2fe5440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adee8c07652b021fb58174985211b2a64"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adee8c07652b021fb58174985211b2a64"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::twoD</b> = true</td></tr>
+<tr class="memdesc:adee8c07652b021fb58174985211b2a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the 2D heuristic (true = on; false = off) <br/></td></tr>
 <tr class="separator:adee8c07652b021fb58174985211b2a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a333c2402dbb8611a80f3444b41da51f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a333c2402dbb8611a80f3444b41da51f1"></a>
-static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::obstacleBloating</b> = false</td></tr>
-<tr class="separator:a333c2402dbb8611a80f3444b41da51f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abef4a594a72960e62fb71323ac346e56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abef4a594a72960e62fb71323ac346e56"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::iterations</b> = 10000</td></tr>
+<tr class="memdesc:abef4a594a72960e62fb71323ac346e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; Limits the maximum search depth of the algorithm, possibly terminating without the solution <br/></td></tr>
 <tr class="separator:abef4a594a72960e62fb71323ac346e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb52d0173cf2dbe18a8406a2af46deab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb52d0173cf2dbe18a8406a2af46deab"></a>
 static const double&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::bloating</b> = 0</td></tr>
+<tr class="memdesc:abb52d0173cf2dbe18a8406a2af46deab"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; Uniformly adds a padding around the vehicle <br/></td></tr>
 <tr class="separator:abb52d0173cf2dbe18a8406a2af46deab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a772c7a343175b92c949551c714df3722"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a772c7a343175b92c949551c714df3722"></a>
 static const double&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::width</b> = 1.75 + 2 * bloating</td></tr>
+<tr class="memdesc:a772c7a343175b92c949551c714df3722"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The width of the vehicle <br/></td></tr>
 <tr class="separator:a772c7a343175b92c949551c714df3722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ba643b6e711237b0ae474ebac37d02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59ba643b6e711237b0ae474ebac37d02"></a>
 static const double&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::length</b> = 2.65 + 2 * bloating</td></tr>
+<tr class="memdesc:a59ba643b6e711237b0ae474ebac37d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The length of the vehicle <br/></td></tr>
 <tr class="separator:a59ba643b6e711237b0ae474ebac37d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a661b829c82ed55d31e43aab6753e98e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a661b829c82ed55d31e43aab6753e98e7"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::r</b> = 6</td></tr>
+<tr class="memdesc:a661b829c82ed55d31e43aab6753e98e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The minimum turning radius of the vehicle <br/></td></tr>
 <tr class="separator:a661b829c82ed55d31e43aab6753e98e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6977e175f1281c7b7311e4eb80d57716"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6977e175f1281c7b7311e4eb80d57716"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::headings</b> = 72</td></tr>
+<tr class="memdesc:a6977e175f1281c7b7311e4eb80d57716"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The number of discretizations in heading <br/></td></tr>
 <tr class="separator:a6977e175f1281c7b7311e4eb80d57716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a153849eab84f0628386ab89179b3ba9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a153849eab84f0628386ab89179b3ba9f"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::deltaHeadingDeg</b> = 360 / (float)headings</td></tr>
+<tr class="memdesc:a153849eab84f0628386ab89179b3ba9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">[°] &mdash; The discretization value of the heading (goal condition) <br/></td></tr>
 <tr class="separator:a153849eab84f0628386ab89179b3ba9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc09401696860e8a07a55b341a92a0a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc09401696860e8a07a55b341a92a0a1"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::deltaHeadingRad</b> = 2 * M_PI / (float)headings</td></tr>
+<tr class="memdesc:adc09401696860e8a07a55b341a92a0a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">[c*M_PI] &mdash; The discretization value of heading (goal condition) <br/></td></tr>
 <tr class="separator:adc09401696860e8a07a55b341a92a0a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa92a32821a27383a97bb1e2fb5921e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa92a32821a27383a97bb1e2fb5921e8"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::deltaHeadingNegRad</b> = 2 * M_PI - deltaHeadingRad</td></tr>
+<tr class="memdesc:afa92a32821a27383a97bb1e2fb5921e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[c*M_PI] &mdash; The heading part of the goal condition <br/></td></tr>
 <tr class="separator:afa92a32821a27383a97bb1e2fb5921e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf3dd8748ce58b7d9dc9ac15b2ad6350"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf3dd8748ce58b7d9dc9ac15b2ad6350"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::cellSize</b> = 1</td></tr>
+<tr class="memdesc:adf3dd8748ce58b7d9dc9ac15b2ad6350"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The cell size of the 2D grid of the world <br/></td></tr>
 <tr class="separator:adf3dd8748ce58b7d9dc9ac15b2ad6350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af174110d9ce417aee594651c42309d16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af174110d9ce417aee594651c42309d16"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::tieBreaker</b> = 0.01</td></tr>
-<tr class="separator:af174110d9ce417aee594651c42309d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae714f5417195ad1db347742f07c4525"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::tieBreaker</b> = 0.01</td></tr>
+<tr class="memdesc:aae714f5417195ad1db347742f07c4525"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The tie breaker breaks ties between nodes expanded in the same cell  <a href="#aae714f5417195ad1db347742f07c4525">More...</a><br/></td></tr>
+<tr class="separator:aae714f5417195ad1db347742f07c4525"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d6cfea055acda55dcc35eee43d6bd43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d6cfea055acda55dcc35eee43d6bd43"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::factor2D</b> = sqrt(5) / sqrt(2) + 1</td></tr>
 <tr class="separator:a8d6cfea055acda55dcc35eee43d6bd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,7 +236,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridASt
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 12:24:55 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

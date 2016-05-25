@@ -1,10 +1,13 @@
 var searchData=
 [
+  ['c',['c',['../classHybridAStar_1_1Node2D.html#ae967c6a89d461d81e23628ead776e19a',1,'HybridAStar::Node2D']]],
+  ['clear',['clear',['../classHybridAStar_1_1Path.html#a3e94fc24f7c713442f3d52478d0772fb',1,'HybridAStar::Path']]],
+  ['close',['close',['../classHybridAStar_1_1Node2D.html#ae11f78bde234af1912535b9eb12fba12',1,'HybridAStar::Node2D']]],
   ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html',1,'HybridAStar']]],
   ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2',1,'HybridAStar::CollisionDetection']]],
   ['collisionlookup',['collisionLookup',['../classHybridAStar_1_1CollisionDetection.html#a24696b5b3091db7bf210b38f75e3903b',1,'HybridAStar::CollisionDetection']]],
-  ['color',['color',['../structHybridAStar_1_1Visualize_1_1color.html',1,'HybridAStar::Visualize']]],
   ['color',['color',['../structHybridAStar_1_1Path_1_1color.html',1,'HybridAStar::Path']]],
+  ['color',['color',['../structHybridAStar_1_1Visualize_1_1color.html',1,'HybridAStar::Visualize']]],
   ['colorgradient',['ColorGradient',['../classHybridAStar_1_1ColorGradient.html',1,'HybridAStar']]],
   ['colorpoint',['ColorPoint',['../structHybridAStar_1_1ColorGradient_1_1ColorPoint.html',1,'HybridAStar::ColorGradient']]],
   ['comparenodes',['CompareNodes',['../structCompareNodes.html',1,'']]],
@@ -13,5 +16,6 @@ var searchData=
   ['configurationspace',['configurationSpace',['../classHybridAStar_1_1Planner.html#a0c3d6e1793e6cd303ed9469f04d8f8be',1,'HybridAStar::Planner']]],
   ['configurationtest',['configurationTest',['../classHybridAStar_1_1CollisionDetection.html#a5712e686d47738070f741c1467caf042',1,'HybridAStar::CollisionDetection']]],
   ['constants',['constants',['../namespaceconstants.html',1,'']]],
-  ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]]
+  ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]],
+  ['createsuccessor',['createSuccessor',['../classHybridAStar_1_1Node2D.html#a8c9c33a7b905beee9bf86dc7cd1415d7',1,'HybridAStar::Node2D']]]
 ];
