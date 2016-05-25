@@ -10,13 +10,13 @@
 
 namespace HybridAStar {
 /*!
-    \brief The namespace that wraps the helper functions
-    \namespace helper
+    \brief The namespace that wraps helper.h
+    \namespace Helper
 */
-namespace helper {
+namespace Helper {
 
 /*!
-   \fn float normalizeHeading(float t)
+   \fn static inline float normalizeHeading(float t)
    \brief Normalizes a heading given in degrees to (0,360]
    \param t heading in degrees
 */

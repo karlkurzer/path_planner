@@ -17,77 +17,68 @@
 
 namespace HybridAStar {
 /*!
-    \brief The namespace that wraps the constants
+    \brief The namespace that wraps constants.h
     \namespace constants
 */
 namespace Constants {
 // _________________
 // CONFIG FLAGS
 
-/*! \brief A debugging variable for additional output via `std::cout` */
+/// A flag for additional debugging output via `std::cout`
 static const bool coutDEBUG = 0;
-
-/*! \brief A variable for the mode, manual for static map or dynamic for dynamic map. */
+/// A flag for the mode (true = manual; false = dynamic). Manual for static map or dynamic for dynamic map.
 static const bool manual = 1;
-
-// flag -- switch to true for live visualization
+/// A flag for the visualization of 3D nodes (true = on; false = off)
 static const bool visualization = 0 * manual;
-
-// flag -- switch to true for live visualization
+/// A flag for the visualization of 2D nodes (true = on; false = off)
 static const bool visualization2D = 0 * manual;
-
-// flag -- to turn on reversin of the vehicle
+/// A flag to toggle reversing (true = on; false = off)
 static const bool reverse = true;
-
-// flag -- to turn on the dubins shot
+/// A flag to toggle the connection of the path via Dubin's shot (true = on; false = off)
 static const bool dubinsShot = true;
-
-// flag -- to turn on the dubins heuristic
+/// A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off)
 static const bool dubins = false;
-
-// flag -- to turn on the dubins lookup
+/*!
+   \var bool dubinsLookup
+   \brief A flag to toggle the Dubin's heuristic via lookup, potentially speeding up the search by a lot
+   \todo not yet functional
+*/
 static const bool dubinsLookup = false * dubins;
-
-// flag -- to turn on the 2D heuristic
+/// A flag to toggle the 2D heuristic (true = on; false = off)
 static const bool twoD = true;
-
-// flag -- switch to true to activate obstacle bloating
-static const bool obstacleBloating = false;
 
 // _________________
 // GENERAL CONSTANTS
 
-// [#] -- maximum search depth
+/// [#] --- Limits the maximum search depth of the algorithm, possibly terminating without the solution
 static const int iterations = 10000;
-
-// [m] -- uniformly added padding around the vehicle
+/// [m] --- Uniformly adds a padding around the vehicle
 static const double bloating = 0;
-
-// [m] -- width of the vehicle
+/// [m] --- The width of the vehicle
 static const double width = 1.75 + 2 * bloating;
-
-// [m] -- length of the vehicle
+/// [m] --- The length of the vehicle
 static const double length = 2.65 + 2 * bloating;
-
-// [m] -- minimum turning radius of the vehicle
+/// [m] --- The minimum turning radius of the vehicle
 static const float r = 6;
-
-// [#] -- number of discretizations in heading
+/// [m] --- The number of discretizations in heading
 static const int headings = 72;
-
-// [°] -- discretization value of heading == goal condition
+/// [°] --- The discretization value of the heading (goal condition)
 static const float deltaHeadingDeg = 360 / (float)headings;
-
-// [c*PI] -- discretization value of heading
+/// [c*M_PI] --- The discretization value of heading (goal condition)
 static const float deltaHeadingRad = 2 * M_PI / (float)headings;
-
-// [c*PI] -- goal condition
+/// [c*M_PI] --- The heading part of the goal condition
 static const float deltaHeadingNegRad = 2 * M_PI - deltaHeadingRad;
-
-// [m] -- cell size
+/// [m] --- The cell size of the 2D grid of the world
 static const float cellSize = 1;
+/*!
+  \var float tieBreaker
+  \brief [m] --- The tie breaker breaks ties between nodes expanded in the same cell
 
-// [m] -- tie breaker to break ties between nodes in the same cell
+
+  As the cost-so-far are bigger than the cost-to-come it is reasonbale to believe that the algorithm would prefer the predecessor rather than the successor.
+  This would lead to the fact that the successor would never be placed and the the one cell could only expand one node. The tieBreaker artificially increases the cost of the predecessor
+  to allow the successor being placed in the same cell.
+*/
 static const float tieBreaker = 0.01;
 
 // ___________________

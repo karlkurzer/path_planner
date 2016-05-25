@@ -87,7 +87,7 @@ void Planner::setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr&
   startN.header.frame_id = "map";
   startN.header.stamp = ros::Time::now();
 
-  std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
+  std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
   if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
     validStart = true;
@@ -98,7 +98,7 @@ void Planner::setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr&
     // publish start for RViz
     pubStart.publish(startN);
   } else {
-    std::cout << "invalid start x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
+    std::cout << "invalid start x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
   }
 }
 
@@ -111,7 +111,7 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
   float y = end->pose.position.y / Constants::cellSize;
   float t = tf::getYaw(end->pose.orientation);
 
-  std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
+  std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
   if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
     validGoal = true;
@@ -120,7 +120,7 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
     if (Constants::manual) { plan();}
 
   } else {
-    std::cout << "invalid goal x:" << x << " y:" << y << " t:" << helper::toDeg(t) << std::endl;
+    std::cout << "invalid goal x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
   }
 }
 
@@ -147,7 +147,7 @@ void Planner::plan() {
     float y = goal.pose.position.y / Constants::cellSize;
     float t = tf::getYaw(goal.pose.orientation);
     // set theta to a value (0,2PI]
-    t = helper::normalizeHeadingRad(t);
+    t = Helper::normalizeHeadingRad(t);
     const Node3D nGoal(x, y, t, 0, 0, nullptr);
     // __________
     // DEBUG GOAL
@@ -160,7 +160,7 @@ void Planner::plan() {
     y = start.pose.pose.position.y / Constants::cellSize;
     t = tf::getYaw(start.pose.pose.orientation);
     // set theta to a value (0,2PI]
-    t = helper::normalizeHeadingRad(t);
+    t = Helper::normalizeHeadingRad(t);
     Node3D nStart(x, y, t, 0, 0, nullptr);
     // ___________
     // DEBUG START

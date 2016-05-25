@@ -19,6 +19,11 @@
 #include "visualize.h"
 #include "lookup.h"
 
+/*!
+    \brief The namespace that wraps the entire project
+    \namespace HybridAStar
+*/
+
 namespace HybridAStar {
 class Planner {
  public:

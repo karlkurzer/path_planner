@@ -471,7 +471,7 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
     dubins_path_sample(&path, x, q);
     dubinsNodes[i].setX(q[0]);
     dubinsNodes[i].setY(q[1]);
-    dubinsNodes[i].setT(helper::normalizeHeadingRad(q[2]));
+    dubinsNodes[i].setT(Helper::normalizeHeadingRad(q[2]));
 
     // collision check
     if (configurationSpace.isTraversable(&dubinsNodes[i])) {
