@@ -87,19 +87,128 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classHybridAStar_1_1Algorithm-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">HybridAStar::Algorithm Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class that encompasses the functions central to the search.  
+ <a href="classHybridAStar_1_1Algorithm.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="algorithm_8h_source.html">algorithm.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5c7a4f3538aa5e4afe845f3da87a03aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c7a4f3538aa5e4afe845f3da87a03aa"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Algorithm.html#a5c7a4f3538aa5e4afe845f3da87a03aa">Algorithm</a> ()</td></tr>
+<tr class="memdesc:a5c7a4f3538aa5e4afe845f3da87a03aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The deault constructor. <br/></td></tr>
+<tr class="separator:a5c7a4f3538aa5e4afe845f3da87a03aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a85cf300eb629271137845dad952a8a1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85cf300eb629271137845dad952a8a1c"></a>
-static <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>hybridAStar</b> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;start, const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;goal, <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *nodes3D, <a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> *nodes2D, int width, int height, <a class="el" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a> &amp;configurationSpace, float *dubinsLookup, <a class="el" href="classHybridAStar_1_1Visualize.html">Visualize</a> &amp;visualization)</td></tr>
+<tr class="memitem:a85cf300eb629271137845dad952a8a1c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c">hybridAStar</a> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;start, const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;goal, <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *nodes3D, <a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> *nodes2D, int width, int height, <a class="el" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a> &amp;configurationSpace, float *dubinsLookup, <a class="el" href="classHybridAStar_1_1Visualize.html">Visualize</a> &amp;visualization)</td></tr>
+<tr class="memdesc:a85cf300eb629271137845dad952a8a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The heart of the planner, the main algorithm starting the search for a collision free and drivable path.  <a href="#a85cf300eb629271137845dad952a8a1c">More...</a><br/></td></tr>
 <tr class="separator:a85cf300eb629271137845dad952a8a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class that encompasses the functions central to the search. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a85cf300eb629271137845dad952a8a1c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> * Algorithm::hybridAStar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;&#160;</td>
+          <td class="paramname"><em>goal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td>
+          <td class="paramname"><em>nodes3D</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> *&#160;</td>
+          <td class="paramname"><em>nodes2D</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a> &amp;&#160;</td>
+          <td class="paramname"><em>configurationSpace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>dubinsLookup</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHybridAStar_1_1Visualize.html">Visualize</a> &amp;&#160;</td>
+          <td class="paramname"><em>visualization</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The heart of the planner, the main algorithm starting the search for a collision free and drivable path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>the start pose </td></tr>
+    <tr><td class="paramname">goal</td><td>the goal pose </td></tr>
+    <tr><td class="paramname">nodes3D</td><td>the array of 3D nodes representing the configuration space C in R^3 </td></tr>
+    <tr><td class="paramname">nodes2D</td><td>the array of 2D nodes representing the configuration space C in R^2 </td></tr>
+    <tr><td class="paramname">width</td><td>the width of the grid in number of cells </td></tr>
+    <tr><td class="paramname">height</td><td>the height of the grid in number of cells </td></tr>
+    <tr><td class="paramname">configurationSpace</td><td>the lookup of configurations and their spatial occupancy enumeration </td></tr>
+    <tr><td class="paramname">dubinsLookup</td><td>the lookup of analytical solutions (Dubin's paths) </td></tr>
+    <tr><td class="paramname">visualization</td><td>the visualization object publishing the search to RViz </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the pointer to the node satisfying the goal condition </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/<a class="el" href="algorithm_8h_source.html">algorithm.h</a></li>
 <li>src/algorithm.cpp</li>
@@ -107,7 +216,7 @@ static <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

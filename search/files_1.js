@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['helper_2eh',['helper.h',['../helper_8h.html',1,'']]]
+  ['dubins_2eh',['dubins.h',['../dubins_8h.html',1,'']]]
 ];

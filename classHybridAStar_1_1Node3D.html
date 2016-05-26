@@ -95,144 +95,196 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">HybridAStar::Node3D Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A three dimensional node class that is at the heart of the algorithm.  
+ <a href="classHybridAStar_1_1Node3D.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="node3d_8h_source.html">node3d.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a1b86cfe733d2456bdf30378feef1db77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b86cfe733d2456bdf30378feef1db77"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a1b86cfe733d2456bdf30378feef1db77">Node3D</a> ()</td></tr>
+<tr class="memdesc:a1b86cfe733d2456bdf30378feef1db77"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor for 3D array initialization. <br/></td></tr>
+<tr class="separator:a1b86cfe733d2456bdf30378feef1db77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a629db415b61b98b34d690745d525450a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a629db415b61b98b34d690745d525450a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Node3D</b> (float x, float y, float t, float g, float h, const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *pred, int prim=0)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a629db415b61b98b34d690745d525450a">Node3D</a> (float <a class="el" href="classHybridAStar_1_1Node3D.html#a438baadc52f564967eb620e5c834fd25">x</a>, float <a class="el" href="classHybridAStar_1_1Node3D.html#a33c8a511509ca41d7b48669cf8ce3402">y</a>, float <a class="el" href="classHybridAStar_1_1Node3D.html#acbfc6c5d2f10cfaee53cf2e5d2df50d5">t</a>, float <a class="el" href="classHybridAStar_1_1Node3D.html#adf255e73449b3419c7108ce298d45d30">g</a>, float <a class="el" href="classHybridAStar_1_1Node3D.html#ae4c881c8611d54d5018d72beffc1897b">h</a>, const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *<a class="el" href="classHybridAStar_1_1Node3D.html#a4bc9e3afa9badc8dff411d0dbc7d1eb0">pred</a>, int <a class="el" href="classHybridAStar_1_1Node3D.html#a8e51969aab34b2b2e9a1bf80710cd03d">prim</a>=0)</td></tr>
+<tr class="memdesc:a629db415b61b98b34d690745d525450a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a node with the given arguments. <br/></td></tr>
 <tr class="separator:a629db415b61b98b34d690745d525450a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67829a83c72a0892798e831bbaadc101"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67829a83c72a0892798e831bbaadc101"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getX</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a67829a83c72a0892798e831bbaadc101">getX</a> () const </td></tr>
+<tr class="memdesc:a67829a83c72a0892798e831bbaadc101"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the x position <br/></td></tr>
 <tr class="separator:a67829a83c72a0892798e831bbaadc101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43403d749ebc6dcb6975e37627880bc2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43403d749ebc6dcb6975e37627880bc2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getY</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a43403d749ebc6dcb6975e37627880bc2">getY</a> () const </td></tr>
+<tr class="memdesc:a43403d749ebc6dcb6975e37627880bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the y position <br/></td></tr>
 <tr class="separator:a43403d749ebc6dcb6975e37627880bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6eab1f660ff21dd93fea62f50e3074b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa6eab1f660ff21dd93fea62f50e3074b"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getT</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aa6eab1f660ff21dd93fea62f50e3074b">getT</a> () const </td></tr>
+<tr class="memdesc:aa6eab1f660ff21dd93fea62f50e3074b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the heading theta <br/></td></tr>
 <tr class="separator:aa6eab1f660ff21dd93fea62f50e3074b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff04a068af0e9b9d0743bef12dc0c47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeff04a068af0e9b9d0743bef12dc0c47"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getG</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aeff04a068af0e9b9d0743bef12dc0c47">getG</a> () const </td></tr>
+<tr class="memdesc:aeff04a068af0e9b9d0743bef12dc0c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the cost-so-far (real value) <br/></td></tr>
 <tr class="separator:aeff04a068af0e9b9d0743bef12dc0c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af13c5bef150564c585182baa0aabcf83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af13c5bef150564c585182baa0aabcf83"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getH</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#af13c5bef150564c585182baa0aabcf83">getH</a> () const </td></tr>
+<tr class="memdesc:af13c5bef150564c585182baa0aabcf83"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the cost-to-come (heuristic value) <br/></td></tr>
 <tr class="separator:af13c5bef150564c585182baa0aabcf83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f31851d42ac13f26dd963cb0e00d3d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f31851d42ac13f26dd963cb0e00d3d2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getC</b> () const </td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a6f31851d42ac13f26dd963cb0e00d3d2">getC</a> () const </td></tr>
+<tr class="memdesc:a6f31851d42ac13f26dd963cb0e00d3d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the total estimated cost <br/></td></tr>
 <tr class="separator:a6f31851d42ac13f26dd963cb0e00d3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01df4f9a62f4db7375d826949539375b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01df4f9a62f4db7375d826949539375b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getIdx</b> () const </td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a01df4f9a62f4db7375d826949539375b">getIdx</a> () const </td></tr>
+<tr class="memdesc:a01df4f9a62f4db7375d826949539375b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of the node in the 3D array <br/></td></tr>
 <tr class="separator:a01df4f9a62f4db7375d826949539375b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2e0a20cdbb9b22259e86071bc1fd53a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2e0a20cdbb9b22259e86071bc1fd53a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getPrim</b> () const </td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#ab2e0a20cdbb9b22259e86071bc1fd53a">getPrim</a> () const </td></tr>
+<tr class="memdesc:ab2e0a20cdbb9b22259e86071bc1fd53a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number associated with the motion primitive of the node <br/></td></tr>
 <tr class="separator:ab2e0a20cdbb9b22259e86071bc1fd53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf61b8f9ed6ef9c681f26288d601c358"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf61b8f9ed6ef9c681f26288d601c358"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isOpen</b> () const </td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#abf61b8f9ed6ef9c681f26288d601c358">isOpen</a> () const </td></tr>
+<tr class="memdesc:abf61b8f9ed6ef9c681f26288d601c358"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine whether the node is open <br/></td></tr>
 <tr class="separator:abf61b8f9ed6ef9c681f26288d601c358"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9179233377c9013376c75a00f8155b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd9179233377c9013376c75a00f8155b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isClosed</b> () const </td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#abd9179233377c9013376c75a00f8155b">isClosed</a> () const </td></tr>
+<tr class="memdesc:abd9179233377c9013376c75a00f8155b"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine whether the node is closed <br/></td></tr>
 <tr class="separator:abd9179233377c9013376c75a00f8155b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cb8b5532ebd1e000d8906745d7e4c2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cb8b5532ebd1e000d8906745d7e4c2d"></a>
-const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPred</b> () const </td></tr>
+const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a7cb8b5532ebd1e000d8906745d7e4c2d">getPred</a> () const </td></tr>
+<tr class="memdesc:a7cb8b5532ebd1e000d8906745d7e4c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine whether the node is open <br/></td></tr>
 <tr class="separator:a7cb8b5532ebd1e000d8906745d7e4c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e1e8a90c94b2e98ed591d4d21e1002e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e1e8a90c94b2e98ed591d4d21e1002e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setX</b> (const float &amp;x)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a5e1e8a90c94b2e98ed591d4d21e1002e">setX</a> (const float &amp;<a class="el" href="classHybridAStar_1_1Node3D.html#a438baadc52f564967eb620e5c834fd25">x</a>)</td></tr>
+<tr class="memdesc:a5e1e8a90c94b2e98ed591d4d21e1002e"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the x position <br/></td></tr>
 <tr class="separator:a5e1e8a90c94b2e98ed591d4d21e1002e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5455d3db9b468da1a6f45581a799d978"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5455d3db9b468da1a6f45581a799d978"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setY</b> (const float &amp;y)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a5455d3db9b468da1a6f45581a799d978">setY</a> (const float &amp;<a class="el" href="classHybridAStar_1_1Node3D.html#a33c8a511509ca41d7b48669cf8ce3402">y</a>)</td></tr>
+<tr class="memdesc:a5455d3db9b468da1a6f45581a799d978"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the y position <br/></td></tr>
 <tr class="separator:a5455d3db9b468da1a6f45581a799d978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb49b296601923eb57e6c3943915778"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0fb49b296601923eb57e6c3943915778"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setT</b> (const float &amp;t)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a0fb49b296601923eb57e6c3943915778">setT</a> (const float &amp;<a class="el" href="classHybridAStar_1_1Node3D.html#acbfc6c5d2f10cfaee53cf2e5d2df50d5">t</a>)</td></tr>
+<tr class="memdesc:a0fb49b296601923eb57e6c3943915778"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the heading theta <br/></td></tr>
 <tr class="separator:a0fb49b296601923eb57e6c3943915778"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9293c307fddfdac533424c1445ef4fe9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9293c307fddfdac533424c1445ef4fe9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setG</b> (const float &amp;g)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a9293c307fddfdac533424c1445ef4fe9">setG</a> (const float &amp;<a class="el" href="classHybridAStar_1_1Node3D.html#adf255e73449b3419c7108ce298d45d30">g</a>)</td></tr>
+<tr class="memdesc:a9293c307fddfdac533424c1445ef4fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the cost-so-far (real value) <br/></td></tr>
 <tr class="separator:a9293c307fddfdac533424c1445ef4fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24c427914b0fc5e6d658a715df989c31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24c427914b0fc5e6d658a715df989c31"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setH</b> (const float &amp;h)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a24c427914b0fc5e6d658a715df989c31">setH</a> (const float &amp;<a class="el" href="classHybridAStar_1_1Node3D.html#ae4c881c8611d54d5018d72beffc1897b">h</a>)</td></tr>
+<tr class="memdesc:a24c427914b0fc5e6d658a715df989c31"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the cost-to-come (heuristic value) <br/></td></tr>
 <tr class="separator:a24c427914b0fc5e6d658a715df989c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdd644dcce7c120cffa63d7b88e01436"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afdd644dcce7c120cffa63d7b88e01436"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>setIdx</b> (int width, int height)</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#afdd644dcce7c120cffa63d7b88e01436">setIdx</a> (int width, int height)</td></tr>
+<tr class="memdesc:afdd644dcce7c120cffa63d7b88e01436"><td class="mdescLeft">&#160;</td><td class="mdescRight">set and get the index of the node in the 3D grid <br/></td></tr>
 <tr class="separator:afdd644dcce7c120cffa63d7b88e01436"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ac3873582a508885dba1e899874535e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ac3873582a508885dba1e899874535e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>open</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a8ac3873582a508885dba1e899874535e">open</a> ()</td></tr>
+<tr class="memdesc:a8ac3873582a508885dba1e899874535e"><td class="mdescLeft">&#160;</td><td class="mdescRight">open the node <br/></td></tr>
 <tr class="separator:a8ac3873582a508885dba1e899874535e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c0b703791bd93192c3495f6b38575a7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c0b703791bd93192c3495f6b38575a7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>close</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a6c0b703791bd93192c3495f6b38575a7">close</a> ()</td></tr>
+<tr class="memdesc:a6c0b703791bd93192c3495f6b38575a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">close the node <br/></td></tr>
 <tr class="separator:a6c0b703791bd93192c3495f6b38575a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04500470fea4c3305381fb536a1533c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04500470fea4c3305381fb536a1533c4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPred</b> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *pred)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a04500470fea4c3305381fb536a1533c4">setPred</a> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *<a class="el" href="classHybridAStar_1_1Node3D.html#a4bc9e3afa9badc8dff411d0dbc7d1eb0">pred</a>)</td></tr>
+<tr class="memdesc:a04500470fea4c3305381fb536a1533c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a pointer to the predecessor of the node <br/></td></tr>
 <tr class="separator:a04500470fea4c3305381fb536a1533c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1532b2f036be20d2e87736e88704ce5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1532b2f036be20d2e87736e88704ce5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>updateG</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aa1532b2f036be20d2e87736e88704ce5">updateG</a> ()</td></tr>
+<tr class="memdesc:aa1532b2f036be20d2e87736e88704ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the cost-so-far for the node x' coming from its predecessor. It also discovers the node. <br/></td></tr>
 <tr class="separator:aa1532b2f036be20d2e87736e88704ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa09748e968d557155677403cfc0a60f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa09748e968d557155677403cfc0a60f4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;rhs) const </td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aa09748e968d557155677403cfc0a60f4">operator==</a> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;rhs) const </td></tr>
+<tr class="memdesc:aa09748e968d557155677403cfc0a60f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom operator to compare nodes. Nodes are equal if their x and y position as well as heading is similar. <br/></td></tr>
 <tr class="separator:aa09748e968d557155677403cfc0a60f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fa726185f446e7a856d286df0a99887"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fa726185f446e7a856d286df0a99887"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isInRange</b> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;goal) const </td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a2fa726185f446e7a856d286df0a99887">isInRange</a> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;goal) const </td></tr>
+<tr class="memdesc:a2fa726185f446e7a856d286df0a99887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether it is appropriate to find a analytical solution. <br/></td></tr>
 <tr class="separator:a2fa726185f446e7a856d286df0a99887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea394e459984ccb7b61336a1581377b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea394e459984ccb7b61336a1581377b9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isOnGrid</b> (const int width, const int height) const </td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aea394e459984ccb7b61336a1581377b9">isOnGrid</a> (const int width, const int height) const </td></tr>
+<tr class="memdesc:aea394e459984ccb7b61336a1581377b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validity check to test, whether the node is in the 3D array. <br/></td></tr>
 <tr class="separator:aea394e459984ccb7b61336a1581377b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a489799f3013f6d56e6ab3a55fef95d22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a489799f3013f6d56e6ab3a55fef95d22"></a>
-<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createSuccessor</b> (const int i)</td></tr>
+<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a489799f3013f6d56e6ab3a55fef95d22">createSuccessor</a> (const int i)</td></tr>
+<tr class="memdesc:a489799f3013f6d56e6ab3a55fef95d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a successor in the continous space. <br/></td></tr>
 <tr class="separator:a489799f3013f6d56e6ab3a55fef95d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a6745f99c911c8cea4256e0dd72774bc0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6745f99c911c8cea4256e0dd72774bc0"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><b>dir</b> = 3</td></tr>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a6745f99c911c8cea4256e0dd72774bc0">dir</a> = 3</td></tr>
+<tr class="memdesc:a6745f99c911c8cea4256e0dd72774bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of possible directions. <br/></td></tr>
 <tr class="separator:a6745f99c911c8cea4256e0dd72774bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2478fce3c612af2aa17e156905145b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2478fce3c612af2aa17e156905145b1"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>dx</b> [] = { 0.7068582, 0.705224, 0.705224}</td></tr>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#aa2478fce3c612af2aa17e156905145b1">dx</a> [] = { 0.7068582, 0.705224, 0.705224}</td></tr>
+<tr class="memdesc:aa2478fce3c612af2aa17e156905145b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible movements in the x direction. <br/></td></tr>
 <tr class="separator:aa2478fce3c612af2aa17e156905145b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98c9e611a41a14888bdae1de2bddff04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98c9e611a41a14888bdae1de2bddff04"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>dy</b> [] = { 0, -0.0415893, 0.0415893}</td></tr>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a98c9e611a41a14888bdae1de2bddff04">dy</a> [] = { 0, -0.0415893, 0.0415893}</td></tr>
+<tr class="memdesc:a98c9e611a41a14888bdae1de2bddff04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible movements in the y direction. <br/></td></tr>
 <tr class="separator:a98c9e611a41a14888bdae1de2bddff04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b588b4812f5956f30dd328f794f55a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b588b4812f5956f30dd328f794f55a4"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>dt</b> [] = { 0, 0.1178097, -0.1178097}</td></tr>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a7b588b4812f5956f30dd328f794f55a4">dt</a> [] = { 0, 0.1178097, -0.1178097}</td></tr>
+<tr class="memdesc:a7b588b4812f5956f30dd328f794f55a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible movements regarding heading theta. <br/></td></tr>
 <tr class="separator:a7b588b4812f5956f30dd328f794f55a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a438baadc52f564967eb620e5c834fd25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a438baadc52f564967eb620e5c834fd25"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>x</b></td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a438baadc52f564967eb620e5c834fd25">x</a></td></tr>
+<tr class="memdesc:a438baadc52f564967eb620e5c834fd25"><td class="mdescLeft">&#160;</td><td class="mdescRight">the x position <br/></td></tr>
 <tr class="separator:a438baadc52f564967eb620e5c834fd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33c8a511509ca41d7b48669cf8ce3402"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33c8a511509ca41d7b48669cf8ce3402"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>y</b></td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a33c8a511509ca41d7b48669cf8ce3402">y</a></td></tr>
+<tr class="memdesc:a33c8a511509ca41d7b48669cf8ce3402"><td class="mdescLeft">&#160;</td><td class="mdescRight">the y position <br/></td></tr>
 <tr class="separator:a33c8a511509ca41d7b48669cf8ce3402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbfc6c5d2f10cfaee53cf2e5d2df50d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbfc6c5d2f10cfaee53cf2e5d2df50d5"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>t</b></td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#acbfc6c5d2f10cfaee53cf2e5d2df50d5">t</a></td></tr>
+<tr class="memdesc:acbfc6c5d2f10cfaee53cf2e5d2df50d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">the heading theta <br/></td></tr>
 <tr class="separator:acbfc6c5d2f10cfaee53cf2e5d2df50d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf255e73449b3419c7108ce298d45d30"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf255e73449b3419c7108ce298d45d30"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>g</b></td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#adf255e73449b3419c7108ce298d45d30">g</a></td></tr>
+<tr class="memdesc:adf255e73449b3419c7108ce298d45d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">the cost-so-far <br/></td></tr>
 <tr class="separator:adf255e73449b3419c7108ce298d45d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4c881c8611d54d5018d72beffc1897b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4c881c8611d54d5018d72beffc1897b"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>h</b></td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#ae4c881c8611d54d5018d72beffc1897b">h</a></td></tr>
+<tr class="memdesc:ae4c881c8611d54d5018d72beffc1897b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the cost-to-go <br/></td></tr>
 <tr class="separator:ae4c881c8611d54d5018d72beffc1897b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44e73cb9d37c8badad26446693f6a7d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44e73cb9d37c8badad26446693f6a7d1"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>idx</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a44e73cb9d37c8badad26446693f6a7d1">idx</a></td></tr>
+<tr class="memdesc:a44e73cb9d37c8badad26446693f6a7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">the index of the node in the 3D array <br/></td></tr>
 <tr class="separator:a44e73cb9d37c8badad26446693f6a7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f76bcbd0115c2efe01e657bab636f9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f76bcbd0115c2efe01e657bab636f9a"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>o</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a6f76bcbd0115c2efe01e657bab636f9a">o</a></td></tr>
+<tr class="memdesc:a6f76bcbd0115c2efe01e657bab636f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the open value <br/></td></tr>
 <tr class="separator:a6f76bcbd0115c2efe01e657bab636f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0a92602b66e0d6ebeaf82ecb9f5496a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0a92602b66e0d6ebeaf82ecb9f5496a"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>c</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#ac0a92602b66e0d6ebeaf82ecb9f5496a">c</a></td></tr>
+<tr class="memdesc:ac0a92602b66e0d6ebeaf82ecb9f5496a"><td class="mdescLeft">&#160;</td><td class="mdescRight">the closed value <br/></td></tr>
 <tr class="separator:ac0a92602b66e0d6ebeaf82ecb9f5496a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e51969aab34b2b2e9a1bf80710cd03d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e51969aab34b2b2e9a1bf80710cd03d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>prim</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a8e51969aab34b2b2e9a1bf80710cd03d">prim</a></td></tr>
+<tr class="memdesc:a8e51969aab34b2b2e9a1bf80710cd03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">the motion primitive of the node <br/></td></tr>
 <tr class="separator:a8e51969aab34b2b2e9a1bf80710cd03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bc9e3afa9badc8dff411d0dbc7d1eb0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bc9e3afa9badc8dff411d0dbc7d1eb0"></a>
-const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>pred</b></td></tr>
+const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Node3D.html#a4bc9e3afa9badc8dff411d0dbc7d1eb0">pred</a></td></tr>
+<tr class="memdesc:a4bc9e3afa9badc8dff411d0dbc7d1eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">the predecessor pointer <br/></td></tr>
 <tr class="separator:a4bc9e3afa9badc8dff411d0dbc7d1eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A three dimensional node class that is at the heart of the algorithm. </p>
+<p>Each node has a unique configuration (x, y, theta) in the configuration space C. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/<a class="el" href="node3d_8h_source.html">node3d.h</a></li>
 <li>src/node3d.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

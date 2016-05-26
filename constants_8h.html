@@ -103,8 +103,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHybridAStar_1_1Constants_1_1relPos.html">HybridAStar::Constants::relPos</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure describing the relative position of the occupied cell based on the center of the vehicle.  <a href="structHybridAStar_1_1Constants_1_1relPos.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHybridAStar_1_1Constants_1_1config.html">HybridAStar::Constants::config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure capturing the lookup for each theta configuration.  <a href="structHybridAStar_1_1Constants_1_1config.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHybridAStar_1_1Constants_1_1color.html">HybridAStar::Constants::color</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure to express colors in RGB values.  <a href="structHybridAStar_1_1Constants_1_1color.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -112,8 +117,8 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceHybridAStar"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html">HybridAStar</a></td></tr>
 <tr class="memdesc:namespaceHybridAStar"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps the entire project. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceconstants"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceconstants.html">constants</a></td></tr>
-<tr class="memdesc:namespaceconstants"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps <a class="el" href="constants_8h.html" title="This is a collection of constants that are used throughout the project. ">constants.h</a>. <br/></td></tr>
+<tr class="memitem:namespaceConstants"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceConstants.html">Constants</a></td></tr>
+<tr class="memdesc:namespaceConstants"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace that wraps <a class="el" href="constants_8h.html" title="This is a collection of constants that are used throughout the project. ">constants.h</a>. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -193,42 +198,73 @@ static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridA
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::cellSize</b> = 1</td></tr>
 <tr class="memdesc:adf3dd8748ce58b7d9dc9ac15b2ad6350"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The cell size of the 2D grid of the world <br/></td></tr>
 <tr class="separator:adf3dd8748ce58b7d9dc9ac15b2ad6350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae714f5417195ad1db347742f07c4525"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::tieBreaker</b> = 0.01</td></tr>
-<tr class="memdesc:aae714f5417195ad1db347742f07c4525"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The tie breaker breaks ties between nodes expanded in the same cell  <a href="#aae714f5417195ad1db347742f07c4525">More...</a><br/></td></tr>
-<tr class="separator:aae714f5417195ad1db347742f07c4525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af174110d9ce417aee594651c42309d16"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::tieBreaker</b> = 0.01</td></tr>
+<tr class="memdesc:af174110d9ce417aee594651c42309d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The tie breaker breaks ties between nodes expanded in the same cell  <a href="#af174110d9ce417aee594651c42309d16">More...</a><br/></td></tr>
+<tr class="separator:af174110d9ce417aee594651c42309d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d6cfea055acda55dcc35eee43d6bd43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d6cfea055acda55dcc35eee43d6bd43"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::factor2D</b> = sqrt(5) / sqrt(2) + 1</td></tr>
+<tr class="memdesc:a8d6cfea055acda55dcc35eee43d6bd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A factor to ensure admissibility of the holonomic with obstacles heuristic <br/></td></tr>
 <tr class="separator:a8d6cfea055acda55dcc35eee43d6bd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53b2fb675496194d113775e16d19d12a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53b2fb675496194d113775e16d19d12a"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyTurning</b> = 1.05</td></tr>
+<tr class="memdesc:a53b2fb675496194d113775e16d19d12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A movement cost penalty for turning (choosing non straight motion primitives) <br/></td></tr>
 <tr class="separator:a53b2fb675496194d113775e16d19d12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a690e2fd376bba7ef5f8ee7dc54021e70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a690e2fd376bba7ef5f8ee7dc54021e70"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyReversing</b> = 2.0</td></tr>
+<tr class="memdesc:a690e2fd376bba7ef5f8ee7dc54021e70"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A movement cost penalty for reversing (choosing motion primitives &gt; 2) <br/></td></tr>
 <tr class="separator:a690e2fd376bba7ef5f8ee7dc54021e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf4fda464946dab4e7d2a4149e6f7cea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf4fda464946dab4e7d2a4149e6f7cea"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyCOD</b> = 2.0</td></tr>
+<tr class="memdesc:adf4fda464946dab4e7d2a4149e6f7cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A movement cost penalty for change of direction (changing from primitives &lt; 3 to primitives &gt; 2) <br/></td></tr>
 <tr class="separator:adf4fda464946dab4e7d2a4149e6f7cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d0c2771ab8616bea5a410fc1245c617"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d0c2771ab8616bea5a410fc1245c617"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsStepSize</b> = 1</td></tr>
-<tr class="separator:a4d0c2771ab8616bea5a410fc1245c617"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3c995a97b35b2808658fa531e39c4ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3c995a97b35b2808658fa531e39c4ed"></a>
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsShotDistance</b> = 2 * 2 * (r* r)</td></tr>
+<tr class="memdesc:ad3c995a97b35b2808658fa531e39c4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The distance to the goal when the analytical solution (Dubin's shot) first triggers <br/></td></tr>
 <tr class="separator:ad3c995a97b35b2808658fa531e39c4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d0c2771ab8616bea5a410fc1245c617"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d0c2771ab8616bea5a410fc1245c617"></a>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsStepSize</b> = 1</td></tr>
+<tr class="memdesc:a4d0c2771ab8616bea5a410fc1245c617"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The step size for the analytical solution (Dubin's shot) primarily relevant for collision checking <br/></td></tr>
+<tr class="separator:a4d0c2771ab8616bea5a410fc1245c617"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b07b253f8249918d4a4704926205c3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b07b253f8249918d4a4704926205c3b"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsWidth</b> = 15</td></tr>
+<tr class="memdesc:a1b07b253f8249918d4a4704926205c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The width of the dubinsArea / 2 for the analytical solution (Dubin's shot) <br/></td></tr>
 <tr class="separator:a1b07b253f8249918d4a4704926205c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a575dc0cf4e9bb12ba5d14ec8fb394e86"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a575dc0cf4e9bb12ba5d14ec8fb394e86"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsArea</b> = dubinsWidth * dubinsWidth</td></tr>
+<tr class="memdesc:a575dc0cf4e9bb12ba5d14ec8fb394e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The area of the lookup for the analytical solution (Dubin's shot) <br/></td></tr>
 <tr class="separator:a575dc0cf4e9bb12ba5d14ec8fb394e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab041df81ea702c6cdbde7433e8ebfae8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab041df81ea702c6cdbde7433e8ebfae8"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::bbSize</b> = std::ceil((sqrt(width * width + length* length) + 4) / cellSize)</td></tr>
+<tr class="memdesc:ab041df81ea702c6cdbde7433e8ebfae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &ndash; The bounding box size length and width to precompute all possible headings <br/></td></tr>
 <tr class="separator:ab041df81ea702c6cdbde7433e8ebfae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb46a77554376bfa0d720361901d1aa5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb46a77554376bfa0d720361901d1aa5"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::positionResolution</b> = 10</td></tr>
+<tr class="memdesc:adb46a77554376bfa0d720361901d1aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; The sqrt of the number of discrete positions per cell <br/></td></tr>
 <tr class="separator:adb46a77554376bfa0d720361901d1aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af93c80d7bb2c812c8433d25bb2a751"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4af93c80d7bb2c812c8433d25bb2a751"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::positions</b> = positionResolution * positionResolution</td></tr>
+<tr class="memdesc:a4af93c80d7bb2c812c8433d25bb2a751"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; The number of discrete positions per cell <br/></td></tr>
 <tr class="separator:a4af93c80d7bb2c812c8433d25bb2a751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a654e1a2cebd425e27b435dcf26935b7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a654e1a2cebd425e27b435dcf26935b7f"></a>
+static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::teal</b> = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f}</td></tr>
+<tr class="memdesc:a654e1a2cebd425e27b435dcf26935b7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for a color used for visualization. <br/></td></tr>
+<tr class="separator:a654e1a2cebd425e27b435dcf26935b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e59f1e07da858859cf49cfa45d602b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e59f1e07da858859cf49cfa45d602b2"></a>
+static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::green</b> = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f}</td></tr>
+<tr class="memdesc:a6e59f1e07da858859cf49cfa45d602b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for a color used for visualization. <br/></td></tr>
+<tr class="separator:a6e59f1e07da858859cf49cfa45d602b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5200ed819af281f12a7caab6e1293721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5200ed819af281f12a7caab6e1293721"></a>
+static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::orange</b> = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f}</td></tr>
+<tr class="memdesc:a5200ed819af281f12a7caab6e1293721"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for a color used for visualization. <br/></td></tr>
+<tr class="separator:a5200ed819af281f12a7caab6e1293721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaebcba66329c61e6ace7c5ba7ff9eb26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaebcba66329c61e6ace7c5ba7ff9eb26"></a>
+static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::pink</b> = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f}</td></tr>
+<tr class="memdesc:aaebcba66329c61e6ace7c5ba7ff9eb26"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for a color used for visualization. <br/></td></tr>
+<tr class="separator:aaebcba66329c61e6ace7c5ba7ff9eb26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa229264f5a3673d23b14606f6dc28548"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa229264f5a3673d23b14606f6dc28548"></a>
+static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::purple</b> = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f}</td></tr>
+<tr class="memdesc:aa229264f5a3673d23b14606f6dc28548"><td class="mdescLeft">&#160;</td><td class="mdescRight">A definition for a color used for visualization. <br/></td></tr>
+<tr class="separator:aa229264f5a3673d23b14606f6dc28548"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a collection of constants that are used throughout the project. </p>
@@ -236,7 +272,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridASt
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

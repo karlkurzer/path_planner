@@ -100,20 +100,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;node3d.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>HybridAStar {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> getConfiguration(<span class="keyword">const</span> Node2D* node, <span class="keywordtype">float</span>&amp; x, <span class="keywordtype">float</span>&amp; y, <span class="keywordtype">float</span>&amp; t) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  x = node-&gt;getX();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  y = node-&gt;getY();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="comment">// avoid 2D collision checking</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  t = 99;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> getConfiguration(<span class="keyword">const</span> Node3D* node, <span class="keywordtype">float</span>&amp; x, <span class="keywordtype">float</span>&amp; y, <span class="keywordtype">float</span>&amp; t) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  x = node-&gt;getX();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  y = node-&gt;getY();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  t = node-&gt;getT();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> getConfiguration(<span class="keyword">const</span> Node2D* node, <span class="keywordtype">float</span>&amp; x, <span class="keywordtype">float</span>&amp; y, <span class="keywordtype">float</span>&amp; t) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  x = node-&gt;getX();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  y = node-&gt;getY();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="comment">// avoid 2D collision checking</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  t = 99;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> getConfiguration(<span class="keyword">const</span> Node3D* node, <span class="keywordtype">float</span>&amp; x, <span class="keywordtype">float</span>&amp; y, <span class="keywordtype">float</span>&amp; t) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  x = node-&gt;getX();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  y = node-&gt;getY();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  t = node-&gt;getT();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1CollisionDetection.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a> {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2">CollisionDetection</a>();</div>
@@ -159,18 +159,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif // COLLISIONDETECTION_H</span></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_a5784de29954c2147308e6e4541d96405"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#a5784de29954c2147308e6e4541d96405">HybridAStar::CollisionDetection::isTraversable</a></div><div class="ttdeci">bool isTraversable(const T *node)</div><div class="ttdoc">evaluates whether the configuration is safe </div><div class="ttdef"><b>Definition:</b> collisiondetection.h:41</div></div>
 <div class="ttc" id="constants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">This is a collection of constants that are used throughout the project. </div></div>
-<div class="ttc" id="classHybridAStar_1_1CollisionDetection_html"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html">HybridAStar::CollisionDetection</a></div><div class="ttdef"><b>Definition:</b> collisiondetection.h:31</div></div>
+<div class="ttc" id="classHybridAStar_1_1CollisionDetection_html"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html">HybridAStar::CollisionDetection</a></div><div class="ttdoc">The CollisionDetection class determines whether a given configuration q of the robot will result in a...</div><div class="ttdef"><b>Definition:</b> collisiondetection.h:31</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_a9e3cb49a832724ae8ff1c7607734ac60"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#a9e3cb49a832724ae8ff1c7607734ac60">HybridAStar::CollisionDetection::updateGrid</a></div><div class="ttdeci">void updateGrid(nav_msgs::OccupancyGrid::Ptr map)</div><div class="ttdoc">updates the grid with the world map </div><div class="ttdef"><b>Definition:</b> collisiondetection.h:89</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_ac79d7dd4402b2c74020eb77140ff7199"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#ac79d7dd4402b2c74020eb77140ff7199">HybridAStar::CollisionDetection::configurationCost</a></div><div class="ttdeci">float configurationCost(float x, float y, float t)</div><div class="ttdoc">Calculates the cost of the robot taking a specific configuration q int the World W. </div><div class="ttdef"><b>Definition:</b> collisiondetection.h:75</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_a5712e686d47738070f741c1467caf042"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#a5712e686d47738070f741c1467caf042">HybridAStar::CollisionDetection::configurationTest</a></div><div class="ttdeci">bool configurationTest(float x, float y, float t)</div><div class="ttdoc">Tests whether the configuration q of the robot is in C_free. </div><div class="ttdef"><b>Definition:</b> collisiondetection.cpp:31</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_ac5b8af06521eccb38b5707209fa175e2"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2">HybridAStar::CollisionDetection::CollisionDetection</a></div><div class="ttdeci">CollisionDetection()</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> collisiondetection.cpp:5</div></div>
-<div class="ttc" id="structHybridAStar_1_1Constants_1_1config_html"><div class="ttname"><a href="structHybridAStar_1_1Constants_1_1config.html">HybridAStar::Constants::config</a></div><div class="ttdef"><b>Definition:</b> constants.h:132</div></div>
+<div class="ttc" id="structHybridAStar_1_1Constants_1_1config_html"><div class="ttname"><a href="structHybridAStar_1_1Constants_1_1config.html">HybridAStar::Constants::config</a></div><div class="ttdoc">A structure capturing the lookup for each theta configuration. </div><div class="ttdef"><b>Definition:</b> constants.h:131</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_a24696b5b3091db7bf210b38f75e3903b"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#a24696b5b3091db7bf210b38f75e3903b">HybridAStar::CollisionDetection::collisionLookup</a></div><div class="ttdeci">Constants::config collisionLookup[Constants::headings *Constants::positions]</div><div class="ttdoc">The collision lookup table. </div><div class="ttdef"><b>Definition:</b> collisiondetection.h:95</div></div>
 <div class="ttc" id="classHybridAStar_1_1CollisionDetection_html_a1004eed8e1a1a72ee5cf17160be52dd4"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html#a1004eed8e1a1a72ee5cf17160be52dd4">HybridAStar::CollisionDetection::grid</a></div><div class="ttdeci">nav_msgs::OccupancyGrid::Ptr grid</div><div class="ttdoc">The occupancy grid. </div><div class="ttdef"><b>Definition:</b> collisiondetection.h:93</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

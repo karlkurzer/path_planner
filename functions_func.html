@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
@@ -87,7 +88,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
-      <li class="current"><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li class="current"><a href="#index_v"><span>v</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -118,15 +120,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>addVehicle()
 : <a class="el" href="classHybridAStar_1_1Path.html#a587f7a2e9fe760bfbc690bac3788b6ad">HybridAStar::Path</a>
 </li>
+<li>Algorithm()
+: <a class="el" href="classHybridAStar_1_1Algorithm.html#a5c7a4f3538aa5e4afe845f3da87a03aa">HybridAStar::Algorithm</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>clear()
 : <a class="el" href="classHybridAStar_1_1Path.html#a3e94fc24f7c713442f3d52478d0772fb">HybridAStar::Path</a>
+, <a class="el" href="classHybridAStar_1_1Visualize.html#a96a35c9d0962cd51944256b47e682a58">HybridAStar::Visualize</a>
+</li>
+<li>clear2D()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a902e56479b3acc5eb57ba8a8dca063b5">HybridAStar::Visualize</a>
 </li>
 <li>close()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#ae11f78bde234af1912535b9eb12fba12">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a6c0b703791bd93192c3495f6b38575a7">HybridAStar::Node3D</a>
 </li>
 <li>CollisionDetection()
 : <a class="el" href="classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2">HybridAStar::CollisionDetection</a>
@@ -139,6 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>createSuccessor()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a8c9c33a7b905beee9bf86dc7cd1415d7">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a489799f3013f6d56e6ab3a55fef95d22">HybridAStar::Node3D</a>
 </li>
 </ul>
 
@@ -153,24 +164,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
 <li>getC()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a75a96c08a05358b3be4d04cd0dde1a68">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a6f31851d42ac13f26dd963cb0e00d3d2">HybridAStar::Node3D</a>
 </li>
 <li>getG()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#af0093cc07b5e8322f69c5fe32e23b1e4">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#aeff04a068af0e9b9d0743bef12dc0c47">HybridAStar::Node3D</a>
 </li>
 <li>getH()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#adab379f22787a72e6c8a9a1ce83bdb8c">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#af13c5bef150564c585182baa0aabcf83">HybridAStar::Node3D</a>
 </li>
 <li>getIdx()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a98b4e8621081bae0a5ce0a92f02fa442">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a01df4f9a62f4db7375d826949539375b">HybridAStar::Node3D</a>
 </li>
 <li>getPred()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a48646ceef0cd3510ed14d05167d347e2">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a7cb8b5532ebd1e000d8906745d7e4c2d">HybridAStar::Node3D</a>
+</li>
+<li>getPrim()
+: <a class="el" href="classHybridAStar_1_1Node3D.html#ab2e0a20cdbb9b22259e86071bc1fd53a">HybridAStar::Node3D</a>
+</li>
+<li>getT()
+: <a class="el" href="classHybridAStar_1_1Node3D.html#aa6eab1f660ff21dd93fea62f50e3074b">HybridAStar::Node3D</a>
 </li>
 <li>getX()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a339faec420ffa93c4ccaaee885d88df4">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a67829a83c72a0892798e831bbaadc101">HybridAStar::Node3D</a>
 </li>
 <li>getY()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a91b2c6c6935115b62c3b51647eaf8ec6">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a43403d749ebc6dcb6975e37627880bc2">HybridAStar::Node3D</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>hybridAStar()
+: <a class="el" href="classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c">HybridAStar::Algorithm</a>
 </li>
 </ul>
 
@@ -181,15 +212,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>isClosed()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#ae77b487597b08bf0d9a967ff64e44774">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#abd9179233377c9013376c75a00f8155b">HybridAStar::Node3D</a>
 </li>
 <li>isDiscovered()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#afb309593fd195c52957c2a20e84b345e">HybridAStar::Node2D</a>
 </li>
+<li>isInRange()
+: <a class="el" href="classHybridAStar_1_1Node3D.html#a2fa726185f446e7a856d286df0a99887">HybridAStar::Node3D</a>
+</li>
 <li>isOnGrid()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#ad5b6842b4e31ff869dacf180d920e723">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#aea394e459984ccb7b61336a1581377b9">HybridAStar::Node3D</a>
 </li>
 <li>isOpen()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a832d9926f59095042d5a33cb103dde4a">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#abf61b8f9ed6ef9c681f26288d601c358">HybridAStar::Node3D</a>
 </li>
 <li>isTraversable()
 : <a class="el" href="classHybridAStar_1_1CollisionDetection.html#a5784de29954c2147308e6e4541d96405">HybridAStar::CollisionDetection</a>
@@ -208,15 +245,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Node2D()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a46abd7ce7ffb5e4b4ea75dbd57163db8">HybridAStar::Node2D</a>
 </li>
+<li>Node3D()
+: <a class="el" href="classHybridAStar_1_1Node3D.html#a1b86cfe733d2456bdf30378feef1db77">HybridAStar::Node3D</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
 <li>open()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a8241ce31c545a59533c3945c03cb4e59">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a8ac3873582a508885dba1e899874535e">HybridAStar::Node3D</a>
+</li>
+<li>operator()()
+: <a class="el" href="structCompareNodes.html#ada8eb507a31c05f75c02dd026cdc6245">CompareNodes</a>
 </li>
 <li>operator==()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a5674a0d9323b16765b3e3f7e0a7cd9c4">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#aa09748e968d557155677403cfc0a60f4">HybridAStar::Node3D</a>
 </li>
 </ul>
 
@@ -230,6 +275,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>Planner()
 : <a class="el" href="classHybridAStar_1_1Planner.html#aceff4e3c859cc6bea1fda3c9e4ad034f">HybridAStar::Planner</a>
+</li>
+<li>publishNode2DCosts()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a16cd5bd30411a1c8fa1c9d0632566b4a">HybridAStar::Visualize</a>
+</li>
+<li>publishNode2DPose()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#aaac0936e73313bebcc4ce910d78abb7e">HybridAStar::Visualize</a>
+</li>
+<li>publishNode2DPoses()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a5e7684644c5c771fb59c08e2650d7024">HybridAStar::Visualize</a>
+</li>
+<li>publishNode3DCosts()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a1020dc0304742437b0fc998cb3c1db72">HybridAStar::Visualize</a>
+</li>
+<li>publishNode3DPose()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a3327d6a1c34be69de5e09191382bc885">HybridAStar::Visualize</a>
+</li>
+<li>publishNode3DPoses()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#af9f95619e9fad89c0bf09291f8e9463a">HybridAStar::Visualize</a>
 </li>
 <li>publishPath()
 : <a class="el" href="classHybridAStar_1_1Path.html#a744e0971b490e3f6fbf91ea63b7045b0">HybridAStar::Path</a>
@@ -253,30 +316,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>setG()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#accba02b540ac7ed9688dad8b7d5813bd">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a9293c307fddfdac533424c1445ef4fe9">HybridAStar::Node3D</a>
 </li>
 <li>setGoal()
 : <a class="el" href="classHybridAStar_1_1Planner.html#a1729afad8fa292d26a92637d20ba7cc9">HybridAStar::Planner</a>
 </li>
 <li>setH()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#af7ea75052f308a7d0a0e6ce888613b6b">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a24c427914b0fc5e6d658a715df989c31">HybridAStar::Node3D</a>
 </li>
 <li>setIdx()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#aba611d182714344588cd6f8b2a27ab0e">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#afdd644dcce7c120cffa63d7b88e01436">HybridAStar::Node3D</a>
 </li>
 <li>setMap()
 : <a class="el" href="classHybridAStar_1_1Planner.html#a3a3d6f2d290dae0d05829ad4cac4716c">HybridAStar::Planner</a>
 </li>
 <li>setPred()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a1b6dac9cb54b1711199fde4cc2ac9b34">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a04500470fea4c3305381fb536a1533c4">HybridAStar::Node3D</a>
 </li>
 <li>setStart()
 : <a class="el" href="classHybridAStar_1_1Planner.html#ad45da1d007564700f9de0efe93753dea">HybridAStar::Planner</a>
 </li>
+<li>setT()
+: <a class="el" href="classHybridAStar_1_1Node3D.html#a0fb49b296601923eb57e6c3943915778">HybridAStar::Node3D</a>
+</li>
 <li>setX()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a7fa0b08b19d2b9fa2822105e46f720a4">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a5e1e8a90c94b2e98ed591d4d21e1002e">HybridAStar::Node3D</a>
 </li>
 <li>setY()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a6839750d06cf0b96c22810ab4da39fad">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#a5455d3db9b468da1a6f45581a799d978">HybridAStar::Node3D</a>
 </li>
 </ul>
 
@@ -291,6 +363,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
 <li>updateG()
 : <a class="el" href="classHybridAStar_1_1Node2D.html#ac6eb4d58deef0583cf6d11a9ee02a2a4">HybridAStar::Node2D</a>
+, <a class="el" href="classHybridAStar_1_1Node3D.html#aa1532b2f036be20d2e87736e88704ce5">HybridAStar::Node3D</a>
 </li>
 <li>updateGrid()
 : <a class="el" href="classHybridAStar_1_1CollisionDetection.html#a9e3cb49a832724ae8ff1c7607734ac60">HybridAStar::CollisionDetection</a>
@@ -299,10 +372,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classHybridAStar_1_1Node2D.html#a03bd88c1d63743b582ae2e9e93cd0a87">HybridAStar::Node2D</a>
 </li>
 </ul>
+
+
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>Visualize()
+: <a class="el" href="classHybridAStar_1_1Visualize.html#a7bdb534ad38b24284b580c09adaa599b">HybridAStar::Visualize</a>
+</li>
+</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:21 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -109,47 +109,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Node2D;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Visualize;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1Algorithm.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHybridAStar_1_1Algorithm.html">Algorithm</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="comment">// CONSTRUCTOR</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classHybridAStar_1_1Algorithm.html">Algorithm</a>() {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="comment">// HYBRID A* ALGORITHM</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">static</span> <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>* hybridAStar(<a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>&amp; start,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                      <span class="keyword">const</span> <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>&amp; goal,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                      <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>* nodes3D,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                      <a class="code" href="classHybridAStar_1_1Node2D.html">Node2D</a>* nodes2D,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                      <span class="keywordtype">int</span> width,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                      <span class="keywordtype">int</span> height,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                      <a class="code" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a>&amp; configurationSpace,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                      <span class="keywordtype">float</span>* dubinsLookup,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                      <a class="code" href="classHybridAStar_1_1Visualize.html">Visualize</a>&amp; visualization);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//  // A* ALGORITHM</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//  float aStar(Node2D&amp; start,</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//              Node2D&amp; goal,</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//              const nav_msgs::OccupancyGrid::ConstPtr&amp; grid,</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//              Node2D* nodes2D,</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//              Visualize&amp; visualization);</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//  // DUBINS SHOT</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//  Node3D* dubinsShot(const Node3D&amp; goal, CollisionDetection configurationSpace) const;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//  // UPDATE Node3D H value</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//  void updateH(const Node3D&amp; goal, Node2D* nodes2D, float* dubinsLookup, CollisionDetection configurationSpace, Visualize&amp; visualization);</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif // ALGORITHM_H</span></div>
-<div class="ttc" id="classHybridAStar_1_1Node3D_html"><div class="ttname"><a href="classHybridAStar_1_1Node3D.html">HybridAStar::Node3D</a></div><div class="ttdef"><b>Definition:</b> node3d.h:10</div></div>
-<div class="ttc" id="classHybridAStar_1_1Algorithm_html"><div class="ttname"><a href="classHybridAStar_1_1Algorithm.html">HybridAStar::Algorithm</a></div><div class="ttdef"><b>Definition:</b> algorithm.h:21</div></div>
-<div class="ttc" id="classHybridAStar_1_1CollisionDetection_html"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html">HybridAStar::CollisionDetection</a></div><div class="ttdef"><b>Definition:</b> collisiondetection.h:31</div></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1Algorithm.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHybridAStar_1_1Algorithm.html">Algorithm</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classHybridAStar_1_1Algorithm.html#a5c7a4f3538aa5e4afe845f3da87a03aa">   27</a></span>&#160;  <a class="code" href="classHybridAStar_1_1Algorithm.html#a5c7a4f3538aa5e4afe845f3da87a03aa">Algorithm</a>() {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="comment">// HYBRID A* ALGORITHM</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span>  <span class="keyword">static</span> <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>* <a class="code" href="classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c">hybridAStar</a>(<a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>&amp; start,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                             <span class="keyword">const</span> <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>&amp; goal,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                             <a class="code" href="classHybridAStar_1_1Node3D.html">Node3D</a>* nodes3D,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                             <a class="code" href="classHybridAStar_1_1Node2D.html">Node2D</a>* nodes2D,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                             <span class="keywordtype">int</span> width,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                             <span class="keywordtype">int</span> height,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                             <a class="code" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a>&amp; configurationSpace,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                             <span class="keywordtype">float</span>* dubinsLookup,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                             <a class="code" href="classHybridAStar_1_1Visualize.html">Visualize</a>&amp; visualization);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">//  // A* ALGORITHM</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">//  float aStar(Node2D&amp; start,</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="comment">//              Node2D&amp; goal,</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">//              const nav_msgs::OccupancyGrid::ConstPtr&amp; grid,</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">//              Node2D* nodes2D,</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="comment">//              Visualize&amp; visualization);</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">//  // DUBINS SHOT</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">//  Node3D* dubinsShot(const Node3D&amp; goal, CollisionDetection configurationSpace) const;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="comment">//  // UPDATE Node3D H value</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">//  void updateH(const Node3D&amp; goal, Node2D* nodes2D, float* dubinsLookup, CollisionDetection configurationSpace, Visualize&amp; visualization);</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif // ALGORITHM_H</span></div>
+<div class="ttc" id="classHybridAStar_1_1Node3D_html"><div class="ttname"><a href="classHybridAStar_1_1Node3D.html">HybridAStar::Node3D</a></div><div class="ttdoc">A three dimensional node class that is at the heart of the algorithm. </div><div class="ttdef"><b>Definition:</b> node3d.h:14</div></div>
+<div class="ttc" id="classHybridAStar_1_1Algorithm_html"><div class="ttname"><a href="classHybridAStar_1_1Algorithm.html">HybridAStar::Algorithm</a></div><div class="ttdoc">A class that encompasses the functions central to the search. </div><div class="ttdef"><b>Definition:</b> algorithm.h:24</div></div>
+<div class="ttc" id="classHybridAStar_1_1CollisionDetection_html"><div class="ttname"><a href="classHybridAStar_1_1CollisionDetection.html">HybridAStar::CollisionDetection</a></div><div class="ttdoc">The CollisionDetection class determines whether a given configuration q of the robot will result in a...</div><div class="ttdef"><b>Definition:</b> collisiondetection.h:31</div></div>
+<div class="ttc" id="classHybridAStar_1_1Algorithm_html_a85cf300eb629271137845dad952a8a1c"><div class="ttname"><a href="classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c">HybridAStar::Algorithm::hybridAStar</a></div><div class="ttdeci">static Node3D * hybridAStar(Node3D &amp;start, const Node3D &amp;goal, Node3D *nodes3D, Node2D *nodes2D, int width, int height, CollisionDetection &amp;configurationSpace, float *dubinsLookup, Visualize &amp;visualization)</div><div class="ttdoc">The heart of the planner, the main algorithm starting the search for a collision free and drivable pa...</div><div class="ttdef"><b>Definition:</b> algorithm.cpp:31</div></div>
 <div class="ttc" id="classHybridAStar_1_1Node2D_html"><div class="ttname"><a href="classHybridAStar_1_1Node2D.html">HybridAStar::Node2D</a></div><div class="ttdoc">A two dimensional node class used for the holonomic with obstacles heuristic. </div><div class="ttdef"><b>Definition:</b> node2d.h:14</div></div>
-<div class="ttc" id="classHybridAStar_1_1Visualize_html"><div class="ttname"><a href="classHybridAStar_1_1Visualize.html">HybridAStar::Visualize</a></div><div class="ttdef"><b>Definition:</b> visualize.h:18</div></div>
+<div class="ttc" id="classHybridAStar_1_1Visualize_html"><div class="ttname"><a href="classHybridAStar_1_1Visualize.html">HybridAStar::Visualize</a></div><div class="ttdoc">A class for visualizing the hybrid A* search. </div><div class="ttdef"><b>Definition:</b> visualize.h:23</div></div>
+<div class="ttc" id="classHybridAStar_1_1Algorithm_html_a5c7a4f3538aa5e4afe845f3da87a03aa"><div class="ttname"><a href="classHybridAStar_1_1Algorithm.html#a5c7a4f3538aa5e4afe845f3da87a03aa">HybridAStar::Algorithm::Algorithm</a></div><div class="ttdeci">Algorithm()</div><div class="ttdoc">The deault constructor. </div><div class="ttdef"><b>Definition:</b> algorithm.h:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>A dubins path class for finding analytical solutions to the problem of the shortest path.  
+<a href="#details">More...</a></p>
+
 <p><a href="dubins_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -111,32 +114,44 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1fa9cca4505abaccefdc8acccb4c51c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a1fa9cca4505abaccefdc8acccb4c51c8">LSL</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memitem:a1fa9cca4505abaccefdc8acccb4c51c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa9cca4505abaccefdc8acccb4c51c8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LSL</b>&#160;&#160;&#160;(0)</td></tr>
 <tr class="separator:a1fa9cca4505abaccefdc8acccb4c51c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51d51aee21f6cc77d4955221aee3dcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#ad51d51aee21f6cc77d4955221aee3dcb">LSR</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memitem:ad51d51aee21f6cc77d4955221aee3dcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad51d51aee21f6cc77d4955221aee3dcb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LSR</b>&#160;&#160;&#160;(1)</td></tr>
 <tr class="separator:ad51d51aee21f6cc77d4955221aee3dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acad86e8fe6b05da3d654dd62fbd4bee8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#acad86e8fe6b05da3d654dd62fbd4bee8">RSL</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memitem:acad86e8fe6b05da3d654dd62fbd4bee8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acad86e8fe6b05da3d654dd62fbd4bee8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RSL</b>&#160;&#160;&#160;(2)</td></tr>
 <tr class="separator:acad86e8fe6b05da3d654dd62fbd4bee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a751dd0771f92839a65ba7db01985fbd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a751dd0771f92839a65ba7db01985fbd2">RSR</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="memitem:a751dd0771f92839a65ba7db01985fbd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a751dd0771f92839a65ba7db01985fbd2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RSR</b>&#160;&#160;&#160;(3)</td></tr>
 <tr class="separator:a751dd0771f92839a65ba7db01985fbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa01ecbbdfbf03a3f59060aa9811e6024"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#aa01ecbbdfbf03a3f59060aa9811e6024">RLR</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memitem:aa01ecbbdfbf03a3f59060aa9811e6024"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa01ecbbdfbf03a3f59060aa9811e6024"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RLR</b>&#160;&#160;&#160;(4)</td></tr>
 <tr class="separator:aa01ecbbdfbf03a3f59060aa9811e6024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1e71e72806e7bbec70d39977e4ca2fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#af1e71e72806e7bbec70d39977e4ca2fe">LRL</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="memitem:af1e71e72806e7bbec70d39977e4ca2fe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1e71e72806e7bbec70d39977e4ca2fe"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LRL</b>&#160;&#160;&#160;(5)</td></tr>
 <tr class="separator:af1e71e72806e7bbec70d39977e4ca2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accb4315ae86689e8eb5c1e0ba325bc6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#accb4315ae86689e8eb5c1e0ba325bc6f">EDUBOK</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memitem:accb4315ae86689e8eb5c1e0ba325bc6f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="accb4315ae86689e8eb5c1e0ba325bc6f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EDUBOK</b>&#160;&#160;&#160;(0)</td></tr>
 <tr class="separator:accb4315ae86689e8eb5c1e0ba325bc6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a697854590c1f1c577f3b2c228b2be425"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a697854590c1f1c577f3b2c228b2be425">EDUBCOCONFIGS</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memitem:a697854590c1f1c577f3b2c228b2be425"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a697854590c1f1c577f3b2c228b2be425"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EDUBCOCONFIGS</b>&#160;&#160;&#160;(1)</td></tr>
 <tr class="separator:a697854590c1f1c577f3b2c228b2be425"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ab2ef4179b79cdb63457b975c27810a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a6ab2ef4179b79cdb63457b975c27810a">EDUBPARAM</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memitem:a6ab2ef4179b79cdb63457b975c27810a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ab2ef4179b79cdb63457b975c27810a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EDUBPARAM</b>&#160;&#160;&#160;(2)</td></tr>
 <tr class="separator:a6ab2ef4179b79cdb63457b975c27810a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28cc9f549e9a4f6bfaec274f2e7c0644"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a28cc9f549e9a4f6bfaec274f2e7c0644">EDUBBADRHO</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="memitem:a28cc9f549e9a4f6bfaec274f2e7c0644"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28cc9f549e9a4f6bfaec274f2e7c0644"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EDUBBADRHO</b>&#160;&#160;&#160;(3)</td></tr>
 <tr class="separator:a28cc9f549e9a4f6bfaec274f2e7c0644"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7137f12da70f2c42801a13f309da4717"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dubins_8h.html#a7137f12da70f2c42801a13f309da4717">EDUBNOPATH</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memitem:a7137f12da70f2c42801a13f309da4717"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7137f12da70f2c42801a13f309da4717"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EDUBNOPATH</b>&#160;&#160;&#160;(4)</td></tr>
 <tr class="separator:a7137f12da70f2c42801a13f309da4717"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a9ad267676c2070c15f5a36dd238e6030"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a9ad267676c2070c15f5a36dd238e6030">HybridAStar::DubinsWord</a> )(double, double, double, double *)</td></tr>
+<tr class="memitem:a9ad267676c2070c15f5a36dd238e6030"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ad267676c2070c15f5a36dd238e6030"></a>
+typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::DubinsWord</b> )(double, double, double, double *)</td></tr>
 <tr class="separator:a9ad267676c2070c15f5a36dd238e6030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a198f80d00addd7680626e5a60d94526f"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a198f80d00addd7680626e5a60d94526f">HybridAStar::DubinsPathSamplingCallback</a> )(double q[3], double t, void *user_data)</td></tr>
 <tr class="separator:a198f80d00addd7680626e5a60d94526f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,156 +172,33 @@ Functions</h2></td></tr>
 <tr class="separator:a324147b328a409e2a8b390730cfce41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5e39fee68eb0fd97743a3d64258b15a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#ad5e39fee68eb0fd97743a3d64258b15a">HybridAStar::dubins_extract_subpath</a> (DubinsPath *path, double t, DubinsPath *newpath)</td></tr>
 <tr class="separator:ad5e39fee68eb0fd97743a3d64258b15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a064d9672812aa0f1027d5c30405e1dd2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a064d9672812aa0f1027d5c30405e1dd2">HybridAStar::dubins_LSL</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a064d9672812aa0f1027d5c30405e1dd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a064d9672812aa0f1027d5c30405e1dd2"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_LSL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a064d9672812aa0f1027d5c30405e1dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79491a667577ee163f861f1e53832241"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a79491a667577ee163f861f1e53832241">HybridAStar::dubins_RSR</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a79491a667577ee163f861f1e53832241"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79491a667577ee163f861f1e53832241"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_RSR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a79491a667577ee163f861f1e53832241"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a709918b17d2536bc4065172beed59952"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a709918b17d2536bc4065172beed59952">HybridAStar::dubins_LSR</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a709918b17d2536bc4065172beed59952"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a709918b17d2536bc4065172beed59952"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_LSR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a709918b17d2536bc4065172beed59952"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a113b4cd66adb10464079291b8cb0a374"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a113b4cd66adb10464079291b8cb0a374">HybridAStar::dubins_RSL</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a113b4cd66adb10464079291b8cb0a374"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a113b4cd66adb10464079291b8cb0a374"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_RSL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a113b4cd66adb10464079291b8cb0a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fe8a17b071f17f514c2eccd7889c4e4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a1fe8a17b071f17f514c2eccd7889c4e4">HybridAStar::dubins_LRL</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a1fe8a17b071f17f514c2eccd7889c4e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fe8a17b071f17f514c2eccd7889c4e4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_LRL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a1fe8a17b071f17f514c2eccd7889c4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35521041604840694a2648812b452ac9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a35521041604840694a2648812b452ac9">HybridAStar::dubins_RLR</a> (double alpha, double beta, double d, double *outputs)</td></tr>
+<tr class="memitem:a35521041604840694a2648812b452ac9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35521041604840694a2648812b452ac9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::dubins_RLR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
 <tr class="separator:a35521041604840694a2648812b452ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a28cc9f549e9a4f6bfaec274f2e7c0644"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EDUBBADRHO&#160;&#160;&#160;(3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a697854590c1f1c577f3b2c228b2be425"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EDUBCOCONFIGS&#160;&#160;&#160;(1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7137f12da70f2c42801a13f309da4717"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EDUBNOPATH&#160;&#160;&#160;(4)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="accb4315ae86689e8eb5c1e0ba325bc6f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EDUBOK&#160;&#160;&#160;(0)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6ab2ef4179b79cdb63457b975c27810a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EDUBPARAM&#160;&#160;&#160;(2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af1e71e72806e7bbec70d39977e4ca2fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define LRL&#160;&#160;&#160;(5)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a1fa9cca4505abaccefdc8acccb4c51c8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define LSL&#160;&#160;&#160;(0)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad51d51aee21f6cc77d4955221aee3dcb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define LSR&#160;&#160;&#160;(1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aa01ecbbdfbf03a3f59060aa9811e6024"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RLR&#160;&#160;&#160;(4)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="acad86e8fe6b05da3d654dd62fbd4bee8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RSL&#160;&#160;&#160;(2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a751dd0771f92839a65ba7db01985fbd2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RSR&#160;&#160;&#160;(3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A dubins path class for finding analytical solutions to the problem of the shortest path. </p>
+<p>It has been copied from <a href="https://github.com/AndrewWalker/Dubins-Curves/">https://github.com/AndrewWalker/Dubins-Curves/</a> under the WTFPL. Please refer to the author in case of questions. </p>
+<dl class="section author"><dt>Author</dt><dd>Andrew Walker </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 16:44:19 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

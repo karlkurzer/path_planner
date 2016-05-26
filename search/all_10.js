@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['validgoal',['validGoal',['../classHybridAStar_1_1Planner.html#aea5cbbdcad5f0649769b1384663c3ce0',1,'HybridAStar::Planner']]],
-  ['validstart',['validStart',['../classHybridAStar_1_1Planner.html#a73e41b36d567278d795987eb673fa1e7',1,'HybridAStar::Planner']]],
-  ['visualization',['visualization',['../classHybridAStar_1_1Planner.html#a8161a794cf6915664c7c513ed5d9efbc',1,'HybridAStar::Planner']]],
-  ['visualize',['Visualize',['../classHybridAStar_1_1Visualize.html',1,'HybridAStar']]]
+  ['updateg',['updateG',['../classHybridAStar_1_1Node2D.html#ac6eb4d58deef0583cf6d11a9ee02a2a4',1,'HybridAStar::Node2D::updateG()'],['../classHybridAStar_1_1Node3D.html#aa1532b2f036be20d2e87736e88704ce5',1,'HybridAStar::Node3D::updateG()']]],
+  ['updategrid',['updateGrid',['../classHybridAStar_1_1CollisionDetection.html#a9e3cb49a832724ae8ff1c7607734ac60',1,'HybridAStar::CollisionDetection']]],
+  ['updateh',['updateH',['../classHybridAStar_1_1Node2D.html#a03bd88c1d63743b582ae2e9e93cd0a87',1,'HybridAStar::Node2D']]]
 ];

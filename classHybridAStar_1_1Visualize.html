@@ -87,110 +87,116 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classHybridAStar_1_1Visualize-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">HybridAStar::Visualize Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class for visualizing the hybrid A* search.  
+ <a href="classHybridAStar_1_1Visualize.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="visualize_8h_source.html">visualize.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a7bdb534ad38b24284b580c09adaa599b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bdb534ad38b24284b580c09adaa599b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a7bdb534ad38b24284b580c09adaa599b">Visualize</a> ()</td></tr>
+<tr class="memdesc:a7bdb534ad38b24284b580c09adaa599b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor initializing the visualization object and setting publishers for the same. <br/></td></tr>
+<tr class="separator:a7bdb534ad38b24284b580c09adaa599b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96a35c9d0962cd51944256b47e682a58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96a35c9d0962cd51944256b47e682a58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a96a35c9d0962cd51944256b47e682a58">clear</a> ()</td></tr>
+<tr class="memdesc:a96a35c9d0962cd51944256b47e682a58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the entire visualization. <br/></td></tr>
 <tr class="separator:a96a35c9d0962cd51944256b47e682a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a902e56479b3acc5eb57ba8a8dca063b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a902e56479b3acc5eb57ba8a8dca063b5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear2D</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a902e56479b3acc5eb57ba8a8dca063b5">clear2D</a> ()</td></tr>
+<tr class="memdesc:a902e56479b3acc5eb57ba8a8dca063b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the 2D visualization. <br/></td></tr>
 <tr class="separator:a902e56479b3acc5eb57ba8a8dca063b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3327d6a1c34be69de5e09191382bc885"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3327d6a1c34be69de5e09191382bc885"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode3DPose</b> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a3327d6a1c34be69de5e09191382bc885">publishNode3DPose</a> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;node)</td></tr>
+<tr class="memdesc:a3327d6a1c34be69de5e09191382bc885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes a single node to RViz, usually the one currently being expanded. <br/></td></tr>
 <tr class="separator:a3327d6a1c34be69de5e09191382bc885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9f95619e9fad89c0bf09291f8e9463a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9f95619e9fad89c0bf09291f8e9463a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode3DPoses</b> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#af9f95619e9fad89c0bf09291f8e9463a">publishNode3DPoses</a> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &amp;node)</td></tr>
+<tr class="memdesc:af9f95619e9fad89c0bf09291f8e9463a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes all expanded nodes to RViz. <br/></td></tr>
 <tr class="separator:af9f95619e9fad89c0bf09291f8e9463a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1020dc0304742437b0fc998cb3c1db72"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1020dc0304742437b0fc998cb3c1db72"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode3DCosts</b> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *nodes, int width, int height, int depth)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a1020dc0304742437b0fc998cb3c1db72">publishNode3DCosts</a> (<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *nodes, int width, int height, int depth)</td></tr>
+<tr class="memdesc:a1020dc0304742437b0fc998cb3c1db72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the minimum of the cost of all nodes in a 2D grid cell. <br/></td></tr>
 <tr class="separator:a1020dc0304742437b0fc998cb3c1db72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaac0936e73313bebcc4ce910d78abb7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaac0936e73313bebcc4ce910d78abb7e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode2DPose</b> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> &amp;node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#aaac0936e73313bebcc4ce910d78abb7e">publishNode2DPose</a> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> &amp;node)</td></tr>
+<tr class="memdesc:aaac0936e73313bebcc4ce910d78abb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes a single node to RViz, usually the one currently being expanded. <br/></td></tr>
 <tr class="separator:aaac0936e73313bebcc4ce910d78abb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e7684644c5c771fb59c08e2650d7024"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e7684644c5c771fb59c08e2650d7024"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode2DPoses</b> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> &amp;node)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a5e7684644c5c771fb59c08e2650d7024">publishNode2DPoses</a> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> &amp;node)</td></tr>
+<tr class="memdesc:a5e7684644c5c771fb59c08e2650d7024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes all expanded nodes to RViz. <br/></td></tr>
 <tr class="separator:a5e7684644c5c771fb59c08e2650d7024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16cd5bd30411a1c8fa1c9d0632566b4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16cd5bd30411a1c8fa1c9d0632566b4a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>publishNode2DCosts</b> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> *nodes, int width, int height)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a16cd5bd30411a1c8fa1c9d0632566b4a">publishNode2DCosts</a> (<a class="el" href="classHybridAStar_1_1Node2D.html">Node2D</a> *nodes, int width, int height)</td></tr>
+<tr class="memdesc:a16cd5bd30411a1c8fa1c9d0632566b4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the minimum of the cost of all nodes in a 2D grid cell. <br/></td></tr>
 <tr class="separator:a16cd5bd30411a1c8fa1c9d0632566b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:adbc8c8b04921210a5498f06359c11051"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbc8c8b04921210a5498f06359c11051"></a>
-ros::NodeHandle&#160;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
+ros::NodeHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#adbc8c8b04921210a5498f06359c11051">n</a></td></tr>
+<tr class="memdesc:adbc8c8b04921210a5498f06359c11051"><td class="mdescLeft">&#160;</td><td class="mdescRight">A handle to the ROS node. <br/></td></tr>
 <tr class="separator:adbc8c8b04921210a5498f06359c11051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc619e6e4543d1cd7c7f95b816970d4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc619e6e4543d1cd7c7f95b816970d4d"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNode3D</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#adc619e6e4543d1cd7c7f95b816970d4d">pubNode3D</a></td></tr>
+<tr class="memdesc:adc619e6e4543d1cd7c7f95b816970d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for a single 3D node. <br/></td></tr>
 <tr class="separator:adc619e6e4543d1cd7c7f95b816970d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a576d53b7e2c268cd3ae1476e1f58da4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a576d53b7e2c268cd3ae1476e1f58da4f"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNodes3D</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a576d53b7e2c268cd3ae1476e1f58da4f">pubNodes3D</a></td></tr>
+<tr class="memdesc:a576d53b7e2c268cd3ae1476e1f58da4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for an array of 3D forward nodes. <br/></td></tr>
 <tr class="separator:a576d53b7e2c268cd3ae1476e1f58da4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a994403f6bc70a54747d6d32398e9efea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a994403f6bc70a54747d6d32398e9efea"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNodes3Dreverse</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a994403f6bc70a54747d6d32398e9efea">pubNodes3Dreverse</a></td></tr>
+<tr class="memdesc:a994403f6bc70a54747d6d32398e9efea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for an array of 3D reaward nodes. <br/></td></tr>
 <tr class="separator:a994403f6bc70a54747d6d32398e9efea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaa78dc34e3fdd29e4c442db6ecbbad5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaaa78dc34e3fdd29e4c442db6ecbbad5"></a>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#aaaa78dc34e3fdd29e4c442db6ecbbad5">pubNodes3DCosts</a></td></tr>
+<tr class="memdesc:aaaa78dc34e3fdd29e4c442db6ecbbad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for an array of 3D cost with color gradient. <br/></td></tr>
+<tr class="separator:aaaa78dc34e3fdd29e4c442db6ecbbad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7942c2deb88d59cfcde5f37b2411db23"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7942c2deb88d59cfcde5f37b2411db23"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNode2D</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a7942c2deb88d59cfcde5f37b2411db23">pubNode2D</a></td></tr>
+<tr class="memdesc:a7942c2deb88d59cfcde5f37b2411db23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for a single 2D node. <br/></td></tr>
 <tr class="separator:a7942c2deb88d59cfcde5f37b2411db23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61bdbdb90c4578eead65e73e317ba05f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61bdbdb90c4578eead65e73e317ba05f"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNodes2D</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a61bdbdb90c4578eead65e73e317ba05f">pubNodes2D</a></td></tr>
+<tr class="memdesc:a61bdbdb90c4578eead65e73e317ba05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for an array of 2D nodes. <br/></td></tr>
 <tr class="separator:a61bdbdb90c4578eead65e73e317ba05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaa78dc34e3fdd29e4c442db6ecbbad5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaaa78dc34e3fdd29e4c442db6ecbbad5"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNodes3DCosts</b></td></tr>
-<tr class="separator:aaaa78dc34e3fdd29e4c442db6ecbbad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e3056bebc41e9865f9e8d54c28adb77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e3056bebc41e9865f9e8d54c28adb77"></a>
-ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>pubNodes2DCosts</b></td></tr>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a3e3056bebc41e9865f9e8d54c28adb77">pubNodes2DCosts</a></td></tr>
+<tr class="memdesc:a3e3056bebc41e9865f9e8d54c28adb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publisher for an array of 2D cost with color gradient. <br/></td></tr>
 <tr class="separator:a3e3056bebc41e9865f9e8d54c28adb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81205c2f774b1991ec9af2bb64e58a4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81205c2f774b1991ec9af2bb64e58a4c"></a>
-geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><b>poses3D</b></td></tr>
+geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a81205c2f774b1991ec9af2bb64e58a4c">poses3D</a></td></tr>
+<tr class="memdesc:a81205c2f774b1991ec9af2bb64e58a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of poses describing forward nodes. <br/></td></tr>
 <tr class="separator:a81205c2f774b1991ec9af2bb64e58a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fbc2fd5f38fdcc24aa2cf40c6411c62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0fbc2fd5f38fdcc24aa2cf40c6411c62"></a>
-geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><b>poses3Dreverse</b></td></tr>
+geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a0fbc2fd5f38fdcc24aa2cf40c6411c62">poses3Dreverse</a></td></tr>
+<tr class="memdesc:a0fbc2fd5f38fdcc24aa2cf40c6411c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of poses describing reaward nodes. <br/></td></tr>
 <tr class="separator:a0fbc2fd5f38fdcc24aa2cf40c6411c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b2e14835a250b8c39ebbfb8ea3f812b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b2e14835a250b8c39ebbfb8ea3f812b"></a>
-geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><b>poses2D</b></td></tr>
+geometry_msgs::PoseArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Visualize.html#a8b2e14835a250b8c39ebbfb8ea3f812b">poses2D</a></td></tr>
+<tr class="memdesc:a8b2e14835a250b8c39ebbfb8ea3f812b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of poses describing 2D heuristic nodes. <br/></td></tr>
 <tr class="separator:a8b2e14835a250b8c39ebbfb8ea3f812b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:acb3c5364046757ec04df7125a3afac54"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb3c5364046757ec04df7125a3afac54"></a>
-static constexpr <a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>teal</b> = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f}</td></tr>
-<tr class="separator:acb3c5364046757ec04df7125a3afac54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af730458e652dd269994328c0ddd0eaa1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af730458e652dd269994328c0ddd0eaa1"></a>
-static constexpr <a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>green</b> = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f}</td></tr>
-<tr class="separator:af730458e652dd269994328c0ddd0eaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af847a9f00aa69027096a133be7edf239"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af847a9f00aa69027096a133be7edf239"></a>
-static constexpr <a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>orange</b> = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f}</td></tr>
-<tr class="separator:af847a9f00aa69027096a133be7edf239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0725b9b0f0002a6828a06abd1e07bd24"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0725b9b0f0002a6828a06abd1e07bd24"></a>
-static constexpr <a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pink</b> = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f}</td></tr>
-<tr class="separator:a0725b9b0f0002a6828a06abd1e07bd24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1871bfe59ac5eb092625a9aa35cd7ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1871bfe59ac5eb092625a9aa35cd7ac"></a>
-static constexpr <a class="el" href="structHybridAStar_1_1Visualize_1_1color.html">color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>purple</b> = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f}</td></tr>
-<tr class="separator:ae1871bfe59ac5eb092625a9aa35cd7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class for visualizing the hybrid A* search. </p>
+<p>Depending on the settings in <a class="el" href="constants_8h.html" title="This is a collection of constants that are used throughout the project. ">constants.h</a> the visualization will send different amounts of detail. It can show the 3D search as well as the underlying 2D search used for the holonomic with obstacles heuristic. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/<a class="el" href="visualize_8h_source.html">visualize.h</a></li>
 <li>src/visualize.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 25 2016 17:23:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

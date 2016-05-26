@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['idx',['idx',['../classHybridAStar_1_1Node2D.html#a8ec5cf6776c4b9a3eec877f5df321f95',1,'HybridAStar::Node2D']]],
-  ['initializelookups',['initializeLookups',['../classHybridAStar_1_1Planner.html#ab0ffd4b6de2b70244619c3a335807787',1,'HybridAStar::Planner']]],
-  ['isclosed',['isClosed',['../classHybridAStar_1_1Node2D.html#ae77b487597b08bf0d9a967ff64e44774',1,'HybridAStar::Node2D']]],
-  ['isdiscovered',['isDiscovered',['../classHybridAStar_1_1Node2D.html#afb309593fd195c52957c2a20e84b345e',1,'HybridAStar::Node2D']]],
-  ['isongrid',['isOnGrid',['../classHybridAStar_1_1Node2D.html#ad5b6842b4e31ff869dacf180d920e723',1,'HybridAStar::Node2D']]],
-  ['isopen',['isOpen',['../classHybridAStar_1_1Node2D.html#a832d9926f59095042d5a33cb103dde4a',1,'HybridAStar::Node2D']]],
-  ['istraversable',['isTraversable',['../classHybridAStar_1_1CollisionDetection.html#a5784de29954c2147308e6e4541d96405',1,'HybridAStar::CollisionDetection']]]
+  ['h',['h',['../classHybridAStar_1_1Node2D.html#a2277c2f951693341d678f6dadcd4c876',1,'HybridAStar::Node2D::h()'],['../classHybridAStar_1_1Node3D.html#ae4c881c8611d54d5018d72beffc1897b',1,'HybridAStar::Node3D::h()']]],
+  ['helper',['Helper',['../namespaceHelper.html',1,'']]],
+  ['helper_2eh',['helper.h',['../helper_8h.html',1,'']]],
+  ['hybridastar',['HybridAStar',['../namespaceHybridAStar.html',1,'HybridAStar'],['../classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c',1,'HybridAStar::Algorithm::hybridAStar()']]]
 ];
