@@ -13,7 +13,7 @@ namespace HybridAStar {
 */
 class Node2D {
  public:
-  /// The default constructor for 2D grid initialization.
+  /// The default constructor for 2D array initialization.
   Node2D(): Node2D(0, 0, 0, 0, nullptr) {}
   /// Constructor for a node with the given arguments
   Node2D(int x, int y, float g, float h, Node2D* pred) {
@@ -38,7 +38,7 @@ class Node2D {
   float getH() const { return h; }
   /// get the total estimated cost
   float getC() const { return g + h; }
-  /// get the index of the node in the 2D grid
+  /// get the index of the node in the 2D array
   int getIdx() const { return idx; }
   /// determine whether the node is open
   bool  isOpen() const { return o; }
@@ -58,7 +58,7 @@ class Node2D {
   void setG(const float& g) { this->g = g; }
   /// set the cost-to-come (heuristic value)
   void setH(const float& h) { this->h = h; }
-  /// set and get the index of the node in the 2D grid
+  /// set and get the index of the node in the 2D array
   int setIdx(int width) { this->idx = y * width + x; return idx;}
   /// open the node
   void open() { o = true; c = false; }
@@ -84,7 +84,7 @@ class Node2D {
   bool operator == (const Node2D& rhs) const;
 
   // GRID CHECKING
-  /// Validity check to test, whether the node is on the 2D grid.
+  /// Validity check to test, whether the node is in the 2D array.
   bool isOnGrid(const int width, const int height) const;
 
   // SUCCESSOR CREATION
@@ -108,7 +108,7 @@ class Node2D {
   float g;
   /// the cost-to-go
   float h;
-  /// the index of the node in the 2D grid
+  /// the index of the node in the 2D array
   int idx;
   /// the open value
   bool o;

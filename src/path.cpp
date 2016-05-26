@@ -78,9 +78,9 @@ void Path::addNode(const Node3D* node, int i) {
   pathNode.scale.y = 0.1;
   pathNode.scale.z = 0.1;
   pathNode.color.a = 1.0;
-  pathNode.color.r = purple.red;
-  pathNode.color.g = purple.green;
-  pathNode.color.b = purple.blue;
+  pathNode.color.r = Constants::purple.red;
+  pathNode.color.g = Constants::purple.green;
+  pathNode.color.b = Constants::purple.blue;
   pathNode.pose.position.x = node->getX()*Constants::cellSize;
   pathNode.pose.position.y = node->getY()*Constants::cellSize;
   pathNodes.markers.push_back(pathNode);
@@ -102,9 +102,9 @@ void Path::addVehicle(const Node3D* node, int i) {
   pathVehicle.scale.y = Constants::width - Constants::bloating * 2;
   pathVehicle.scale.z = 1;
   pathVehicle.color.a = 0.1;
-  pathVehicle.color.r = teal.red;
-  pathVehicle.color.g = teal.green;
-  pathVehicle.color.b = teal.blue;
+  pathVehicle.color.r = Constants::teal.red;
+  pathVehicle.color.g = Constants::teal.green;
+  pathVehicle.color.b = Constants::teal.blue;
   pathVehicle.pose.position.x = node->getX()*Constants::cellSize;
   pathVehicle.pose.position.y = node->getY()*Constants::cellSize;
   pathVehicle.pose.orientation = tf::createQuaternionMsgFromYaw(node->getT());

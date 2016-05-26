@@ -15,10 +15,15 @@
 
 #include <cmath>
 
+/*!
+    \brief The namespace that wraps the entire project
+    \namespace HybridAStar
+*/
+
 namespace HybridAStar {
 /*!
     \brief The namespace that wraps constants.h
-    \namespace constants
+    \namespace Constants
 */
 namespace Constants {
 // _________________
@@ -71,7 +76,6 @@ static const float deltaHeadingNegRad = 2 * M_PI - deltaHeadingRad;
 /// [m] --- The cell size of the 2D grid of the world
 static const float cellSize = 1;
 /*!
-  \var static const float tieBreaker
   \brief [m] --- The tie breaker breaks ties between nodes expanded in the same cell
 
 
@@ -84,56 +88,78 @@ static const float tieBreaker = 0.01;
 // ___________________
 // HEURISTIC CONSTANTS
 
-// [#] -- factor to ensure admissibility
+/// [#] --- A factor to ensure admissibility of the holonomic with obstacles heuristic
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
-
-// [#] -- penalty for turning
+/// [#] --- A movement cost penalty for turning (choosing non straight motion primitives)
 static const float penaltyTurning = 1.05;
-
-// [#] -- penalty for reversing
+/// [#] --- A movement cost penalty for reversing (choosing motion primitives > 2)
 static const float penaltyReversing = 2.0;
-
-// [#] -- penalty for change of direction
+/// [#] --- A movement cost penalty for change of direction (changing from primitives < 3 to primitives > 2)
 static const float penaltyCOD = 2.0;
-
-// [m] -- dubins shot step size
+/// [m] --- The distance to the goal when the analytical solution (Dubin's shot) first triggers
+static const float dubinsShotDistance = 2 * 2 * (r* r);
+/// [m] --- The step size for the analytical solution (Dubin's shot) primarily relevant for collision checking
 static const float dubinsStepSize = 1;
 
-// [m] -- dubins shot distance
-static const float dubinsShotDistance = 2 * 2 * (r* r);
 
 // ______________________
 // DUBINS LOOKUP SPECIFIC
 
-// [m] -- width of the dubinsArea / 2
+/// [m] --- The width of the dubinsArea / 2 for the analytical solution (Dubin's shot)
 static const int dubinsWidth = 15;
-// [m²] -- area of the dubinsArea
+/// [m] --- The area of the lookup for the analytical solution (Dubin's shot)
 static const int dubinsArea = dubinsWidth * dubinsWidth;
 
 
 // _________________________
 // COLLISION LOOKUP SPECIFIC
 
-// [m] -- bounding box size length/width
+/// [m] -- The bounding box size length and width to precompute all possible headings
 static const int bbSize = std::ceil((sqrt(width * width + length* length) + 4) / cellSize);
-
-// [#] -- number of discrete per cell length
+/// [#] --- The sqrt of the number of discrete positions per cell
 static const int positionResolution = 10;
-// [#] -- number of discrete points in one square
+/// [#] --- The number of discrete positions per cell
 static const int positions = positionResolution * positionResolution;
-
-// [i] -- relative position from center of the vehicle
+/// A structure describing the relative position of the occupied cell based on the center of the vehicle
 struct relPos {
+  /// the x position relative to the center
   int x;
+  /// the y position relative to the center
   int y;
 };
-
-//
+/// A structure capturing the lookup for each theta configuration
 struct config {
+  /// the number of cells occupied by this configuration of the vehicle
   int length;
+  /*!
+     \var relPos pos[64]
+     \brief The maximum number of occupied cells
+     \todo needs to be dynamic
+  */
   relPos pos[64];
 };
 
+// ____________________________________________
+// COLOR DEFINITIONS FOR VISUALIZATION PURPOSES
+/// A structure to express colors in RGB values
+struct color {
+  /// the red portion of the color
+  float red;
+  /// the green portion of the color
+  float green;
+  /// the blue portion of the color
+  float blue;
+};
+/// A definition for a color used for visualization
+static constexpr color teal = {102.f / 255.f, 217.f / 255.f, 239.f / 255.f};
+/// A definition for a color used for visualization
+static constexpr color green = {166.f / 255.f, 226.f / 255.f, 46.f / 255.f};
+/// A definition for a color used for visualization
+static constexpr color orange = {253.f / 255.f, 151.f / 255.f, 31.f / 255.f};
+/// A definition for a color used for visualization
+static constexpr color pink = {249.f / 255.f, 38.f / 255.f, 114.f / 255.f};
+/// A definition for a color used for visualization
+static constexpr color purple = {174.f / 255.f, 129.f / 255.f, 255.f / 255.f};
 }
 }
 

@@ -19,11 +19,6 @@
 #include "visualize.h"
 #include "lookup.h"
 
-/*!
-    \brief The namespace that wraps the entire project
-    \namespace HybridAStar
-*/
-
 namespace HybridAStar {
 /*!
    \brief A class that creates the interface for the hybrid A* algorithm.
@@ -33,7 +28,7 @@ namespace HybridAStar {
 */
 class Planner {
  public:
-  /// default constructor
+  /// The default constructor
   Planner();
 
   /*!
@@ -50,13 +45,13 @@ class Planner {
 
   /*!
      \brief setStart
-     \param initial the start pose
+     \param start the start pose
   */
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& start);
 
   /*!
      \brief setGoal
-     \param end the goal pose
+     \param goal the goal pose
   */
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal);
 
@@ -96,7 +91,9 @@ class Planner {
   bool validStart = false;
   /// Flags for allowing the planner to plan
   bool validGoal = false;
+  /// A lookup table for configurations of the vehicle and their spatial occupancy enumeration
   Constants::config collisionLookup[Constants::headings * Constants::positions];
+  /// A lookup of analytical solutions (Dubin's paths)
   float* dubinsLookup = new float [Constants::headings * Constants::headings * Constants::dubinsWidth * Constants::dubinsWidth];
 };
 }
