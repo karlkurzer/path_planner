@@ -12,12 +12,14 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
 //                                    NODE COMPARISON
 //###################################################
 /*!
-   \brief The CompareNodes struct
+   \brief A structure to sort nodes in a heap structure
 */
 struct CompareNodes {
+  /// Sorting 3D nodes by increasing C value - the total estimated cost
   bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
+  /// Sorting 2D nodes by increasing C value - the total estimated cost
   bool operator()(const Node2D* lhs, const Node2D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
@@ -471,7 +473,7 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
     dubins_path_sample(&path, x, q);
     dubinsNodes[i].setX(q[0]);
     dubinsNodes[i].setY(q[1]);
-    dubinsNodes[i].setT(helper::normalizeHeadingRad(q[2]));
+    dubinsNodes[i].setT(Helper::normalizeHeadingRad(q[2]));
 
     // collision check
     if (configurationSpace.isTraversable(&dubinsNodes[i])) {

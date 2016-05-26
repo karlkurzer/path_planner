@@ -1,3 +1,10 @@
+/*!
+  \file dubins.h
+   \brief A dubins path class for finding analytical solutions to the problem of the shortest path.
+
+  It has been copied from https://github.com/AndrewWalker/Dubins-Curves/ under the WTFPL. Please refer to the author in case of questions.
+  \author Andrew Walker
+*/
 // Copyright (c) 2008-2014, Andrew Walker
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy

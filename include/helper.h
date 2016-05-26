@@ -1,22 +1,22 @@
-#ifndef HELPER
-#define HELPER
 /*!
-   \file helper.h
+   \file
    \brief This is a collection of helper functions that are used throughout the project.
 
 */
+#ifndef HELPER
+#define HELPER
 
 #include <cmath>
 
 namespace HybridAStar {
 /*!
-    \brief The namespace that wraps the helper functions
-    \namespace helper
+    \brief The namespace that wraps helper.h
+    \namespace Helper
 */
-namespace helper {
+namespace Helper {
 
 /*!
-   \fn float normalizeHeading(float t)
+   \fn static inline float normalizeHeading(float t)
    \brief Normalizes a heading given in degrees to (0,360]
    \param t heading in degrees
 */

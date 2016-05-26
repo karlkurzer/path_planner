@@ -9,11 +9,6 @@
 #include "node3d.h"
 
 namespace HybridAStar {
-/*!
-   \brief The CollisionDetection class determines whether a given configuration q of the robot will result in a collision with the environment.
-
-   It is supposed to return a boolean value that returns true for collisions and false in the case of a safe node.
-*/
 namespace {
 void getConfiguration(const Node2D* node, float& x, float& y, float& t) {
   x = node->getX();
@@ -28,6 +23,11 @@ void getConfiguration(const Node3D* node, float& x, float& y, float& t) {
   t = node->getT();
 }
 }
+/*!
+   \brief The CollisionDetection class determines whether a given configuration q of the robot will result in a collision with the environment.
+
+   It is supposed to return a boolean value that returns true for collisions and false in the case of a safe node.
+*/
 class CollisionDetection {
  public:
   /// Constructor

@@ -20,10 +20,16 @@
 #include "lookup.h"
 
 namespace HybridAStar {
+/*!
+   \brief A class that creates the interface for the hybrid A* algorithm.
+
+    It inherits from `ros::nav_core::BaseGlobalPlanner` so that it can easily be used with the ROS navigation stack
+   \todo make it actually inherit from nav_core::BaseGlobalPlanner
+*/
 class Planner {
  public:
-  /// default constructor
-    Planner();
+  /// The default constructor
+  Planner();
 
   /*!
      \brief Initializes the collision as well as heuristic lookup table
@@ -32,26 +38,26 @@ class Planner {
   void initializeLookups();
 
   /*!
-   * \brief setMap
-   * \param map the map provided as nav_msgs::OccupancyGrid
-   */
+     \brief setMap
+     \param map the map provided as nav_msgs::OccupancyGrid
+  */
   void setMap(const nav_msgs::OccupancyGrid::Ptr map);
 
   /*!
-   * \brief setStart
-   * \param initial the start pose
-   */
+     \brief setStart
+     \param start the start pose
+  */
   void setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& start);
 
   /*!
-   * \brief setGoal
-   * \param end the goal pose
-   */
+     \brief setGoal
+     \param goal the goal pose
+  */
   void setGoal(const geometry_msgs::PoseStamped::ConstPtr& goal);
 
   /*!
-   * \brief The central function entry point making the necessary preparations to start the planning.
-   */
+     \brief The central function entry point making the necessary preparations to start the planning.
+  */
   void plan();
 
  private:
@@ -85,7 +91,9 @@ class Planner {
   bool validStart = false;
   /// Flags for allowing the planner to plan
   bool validGoal = false;
+  /// A lookup table for configurations of the vehicle and their spatial occupancy enumeration
   Constants::config collisionLookup[Constants::headings * Constants::positions];
+  /// A lookup of analytical solutions (Dubin's paths)
   float* dubinsLookup = new float [Constants::headings * Constants::headings * Constants::dubinsWidth * Constants::dubinsWidth];
 };
 }
