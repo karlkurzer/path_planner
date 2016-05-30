@@ -14,7 +14,6 @@ Planner::Planner() {
   //    CollisionDetection configurationSpace;
   // _________________
   // TOPICS TO PUBLISH
-  //    pub_nodes2D = n.advertise<visualization_msgs::MarkerArray>("/nodes2D", 1);
   pubStart = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/start", 1);
 
   // ___________________
@@ -49,7 +48,28 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
   }
 
   grid = map;
+  //update the configuration space with the current map
   configurationSpace.updateGrid(map);
+  //create array for Voronoi diagram
+  ros::Time t0 = ros::Time::now();
+  int height = map->info.height;
+  int width = map->info.width;
+  bool** binMap;
+  binMap = new bool*[width];
+
+  for (int x = 0; x < width; x++) { binMap[x] = new bool[height]; }
+
+  for (int x = 0; x < width; ++x) {
+    for (int y = 0; y < height; ++y) {
+      binMap[x][y] = map->data[y * width + x] ? true : false;
+    }
+  }
+
+  voronoiDiagram.initializeMap(width, height, binMap);
+  voronoiDiagram.update();
+  ros::Time t1 = ros::Time::now();
+  ros::Duration d(t1 - t0);
+  std::cout << "created Voronoi Diagram in ms: " << d * 1000 << std::endl;
 
   // plan if the switch is not set to manual and a transform is available
   if (!Constants::manual && listener.canTransform("/map", ros::Time(0), "/base_link", ros::Time(0), "/map", nullptr)) {
@@ -151,7 +171,7 @@ void Planner::plan() {
     const Node3D nGoal(x, y, t, 0, 0, nullptr);
     // __________
     // DEBUG GOAL
-//    const Node3D nGoal(155.349, 36.1969, 0.7615936, 0, 0, nullptr);
+    //    const Node3D nGoal(155.349, 36.1969, 0.7615936, 0, 0, nullptr);
 
 
     // _________________________
@@ -164,7 +184,7 @@ void Planner::plan() {
     Node3D nStart(x, y, t, 0, 0, nullptr);
     // ___________
     // DEBUG START
-//    Node3D nStart(108.291, 30.1081, 0, 0, 0, nullptr);
+    //    Node3D nStart(108.291, 30.1081, 0, 0, 0, nullptr);
 
 
     // ___________________________

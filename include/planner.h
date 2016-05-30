@@ -38,8 +38,8 @@ class Planner {
   void initializeLookups();
 
   /*!
-     \brief setMap
-     \param map the map provided as nav_msgs::OccupancyGrid
+     \brief Sets the map e.g. through a callback from a subscriber listening to map updates.
+     \param map the map or occupancy grid
   */
   void setMap(const nav_msgs::OccupancyGrid::Ptr map);
 
