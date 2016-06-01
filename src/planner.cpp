@@ -51,7 +51,7 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
   //update the configuration space with the current map
   configurationSpace.updateGrid(map);
   //create array for Voronoi diagram
-  ros::Time t0 = ros::Time::now();
+//  ros::Time t0 = ros::Time::now();
   int height = map->info.height;
   int width = map->info.width;
   bool** binMap;
@@ -67,9 +67,9 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
 
   voronoiDiagram.initializeMap(width, height, binMap);
   voronoiDiagram.update();
-  ros::Time t1 = ros::Time::now();
-  ros::Duration d(t1 - t0);
-  std::cout << "created Voronoi Diagram in ms: " << d * 1000 << std::endl;
+//  ros::Time t1 = ros::Time::now();
+//  ros::Duration d(t1 - t0);
+//  std::cout << "created Voronoi Diagram in ms: " << d * 1000 << std::endl;
 
   // plan if the switch is not set to manual and a transform is available
   if (!Constants::manual && listener.canTransform("/map", ros::Time(0), "/base_link", ros::Time(0), "/map", nullptr)) {

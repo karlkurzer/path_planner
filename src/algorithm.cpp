@@ -416,6 +416,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
 
   // if reversing is active use a
   if (Constants::reverse && !Constants::dubins) {
+    //    ros::Time t0 = ros::Time::now();
     ompl::base::ReedsSheppStateSpace reedsSheppPath(Constants::r);
     State* rsStart = (State*)reedsSheppPath.allocState();
     State* rsEnd = (State*)reedsSheppPath.allocState();
@@ -424,17 +425,24 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
     rsEnd->setXY(goal.getX(), goal.getY());
     rsEnd->setYaw(goal.getT());
     reedsSheppCost = reedsSheppPath.distance(rsStart, rsEnd);
+    //    ros::Time t1 = ros::Time::now();
+    //    ros::Duration d(t1 - t0);
+    //    std::cout << "calculated Reed-Sheep Heuristic in ms: " << d * 1000 << std::endl;
   }
 
   // if twoD heuristic is activated determine shortest path
   // unconstrained with obstacles
   if (Constants::twoD && !nodes2D[(int)start.getY() * width + (int)start.getX()].isDiscovered()) {
+    //    ros::Time t0 = ros::Time::now();
     // create a 2d start node
     Node2D start2d(start.getX(), start.getY(), 0, 0, nullptr);
     // create a 2d goal node
     Node2D goal2d(goal.getX(), goal.getY(), 0, 0, nullptr);
     // run 2d astar and return the cost of the cheapest path for that node
     nodes2D[(int)start.getY() * width + (int)start.getX()].setG(aStar(goal2d, start2d, nodes2D, width, height, configurationSpace, visualization));
+    //    ros::Time t1 = ros::Time::now();
+    //    ros::Duration d(t1 - t0);
+    //    std::cout << "calculated 2D Heuristic in ms: " << d * 1000 << std::endl;
   }
 
   if (Constants::twoD) {

@@ -13,6 +13,7 @@
 #include "constants.h"
 #include "helper.h"
 #include "collisiondetection.h"
+#include "dynamicvoronoi.h"
 #include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
@@ -81,6 +82,8 @@ class Planner {
   Visualize visualization;
   /// The collission detection for testing specific configurations
   CollisionDetection configurationSpace;
+  /// The voronoi diagram
+  DynamicVoronoi voronoiDiagram;
   /// A pointer to the grid the planner runs on
   nav_msgs::OccupancyGrid::Ptr grid;
   /// The start pose set through RViz

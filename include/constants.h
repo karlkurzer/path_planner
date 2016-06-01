@@ -139,6 +139,11 @@ struct config {
   relPos pos[64];
 };
 
+// _________________
+// SMOOTHER SPECIFIC
+/// [m] --- The minimum width of a safe road for the vehicle at hand
+static const float minRoadWidth = 2;
+
 // ____________________________________________
 // COLOR DEFINITIONS FOR VISUALIZATION PURPOSES
 /// A structure to express colors in RGB values
