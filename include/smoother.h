@@ -2,8 +2,12 @@
 #define SMOOTHER_H
 
 #include <cmath>
+#include <vector>
 
 #include "dynamicvoronoi.h"
+#include "node3d.h"
+#include "vector2d.h"
+#include "helper.h"
 #include "constants.h"
 namespace HybridAStar {
 /*!
@@ -14,7 +18,6 @@ namespace HybridAStar {
 class Smoother {
  public:
   Smoother();
-  ~Smoother();
 
   /*!
      \brief obstacleCost
@@ -30,13 +33,13 @@ class Smoother {
 
 
   */
-  void curvatureTerm();
+  Vector2D curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
 
   /*!
      \brief smoothnessCost
 
   */
-  void smoothnessTerm();
+  Vector2D smoothnessTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
 
   /*!
      \brief voronoiCost - trade off between path length and closeness to obstacles
@@ -69,23 +72,34 @@ class Smoother {
   */
   void smoothPath();
 
+  /*!
+     \brief Given a node pointer the path to the root node will be traced recursively
+     \param node a 3D node, usually the goal node
+     \param i a parameter for counting the number of nodes
+  */
+  void tracePath(const Node3D* node, int i = 0, std::vector<Node3D> path = std::vector<Node3D>());
+  /// returns the path
+  std::vector<Node3D> getPath() {return path;}
+
  private:
   /// maximum possible curvature of the non-holonomic vehicle
-  float kMax = 1.f / (Constants::r * 1.f);
+  float kappaMax = 1.f / (Constants::r * 1.1);
   /// maximum distance to obstacles that is penalized
   float obsDMax = Constants::minRoadWidth;
   /// maximum distance for obstacles to influence the voronoi field
   float vorObsDMax = Constants::minRoadWidth;
   /// falloff rate for the voronoi field
-  float alpha = 0;
+  float alpha = 1;
   /// weight for the obstacle term
-  float wObstacle = 0;
-  /// weight for the collision term
-  float wCollision = 0;
+  float wObstacle = 1;
+  /// weight for the voronoi term
+  float wVoronoi = 1;
   /// weight for the curvature term
-  float wCurvature = 0;
+  float wCurvature = 0.01;
   /// weight for the smoothness term
-  float wSmoothness = 0;
+  float wSmoothness = 0.025;
+  /// path to be smoothed
+  std::vector<Node3D> path;
 };
 }
 #endif // SMOOTHER_H

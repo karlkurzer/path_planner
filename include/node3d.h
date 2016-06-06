@@ -48,9 +48,9 @@ class Node3D {
   /// get the number associated with the motion primitive of the node
   int getPrim() const { return prim; }
   /// determine whether the node is open
-  bool  isOpen() const { return o; }
+  bool isOpen() const { return o; }
   /// determine whether the node is closed
-  bool  isClosed() const { return c; }
+  bool isClosed() const { return c; }
   /// determine whether the node is open
   const Node3D* getPred() const { return pred; }
 

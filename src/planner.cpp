@@ -193,12 +193,19 @@ void Planner::plan() {
 
     // CLEAR THE VISUALIZATION
     visualization.clear();
-    // FIND THE PATH
-    Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, width, height, configurationSpace, dubinsLookup, visualization);
     // CLEAR THE PATH
     path.clear();
+    smoothedPath.clear();
+    // FIND THE PATH
+    Node3D* nSolution = Algorithm::hybridAStar(nStart, nGoal, nodes3D, nodes2D, width, height, configurationSpace, dubinsLookup, visualization);
     // TRACE THE PATH
-    path.tracePath(nSolution);
+    smoother.tracePath(nSolution);
+    // CREATE THE UPDATED PATH
+    path.updatePath(smoother.getPath());
+    // SMOOTH THE PATH
+    smoother.smoothPath();
+    // CREATE THE UPDATED PATH
+    smoothedPath.updatePath(smoother.getPath());
     ros::Time t1 = ros::Time::now();
     ros::Duration d(t1 - t0);
     std::cout << "TIME in ms: " << d * 1000 << std::endl;
@@ -208,8 +215,13 @@ void Planner::plan() {
     path.publishPath();
     path.publishPathNodes();
     path.publishPathVehicles();
+    smoothedPath.publishPath();
+    smoothedPath.publishPathNodes();
+    smoothedPath.publishPathVehicles();
     visualization.publishNode3DCosts(nodes3D, width, height, depth);
     visualization.publishNode2DCosts(nodes2D, width, height);
+
+
 
     delete [] nodes3D;
     delete [] nodes2D;

@@ -17,6 +17,7 @@
 #include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
+#include "smoother.h"
 #include "visualize.h"
 #include "lookup.h"
 
@@ -76,8 +77,12 @@ class Planner {
   tf::TransformListener listener;
   /// A transform for moving start positions
   tf::StampedTransform transform;
-  /// The path used for tracing and visualization
+  /// The path produced by the hybrid A* algorithm
   Path path;
+  /// The smoother used for optimizing the path
+  Smoother smoother;
+  /// The path smoothed and ready for the controller
+  Path smoothedPath = Path(true);
   /// The visualization used for search visualization
   Visualize visualization;
   /// The collission detection for testing specific configurations

@@ -7,7 +7,9 @@
 #define HELPER
 
 #include <cmath>
+#include <algorithm>
 
+#include "constants.h"
 namespace HybridAStar {
 /*!
     \brief The namespace that wraps helper.h
@@ -65,6 +67,16 @@ static inline float toDeg(float t) {
 static inline float toRad(float t) {
   return normalizeHeadingRad(t / 180.f * M_PI);
 }
+
+/*!
+   \fn float clamp(float n, float lower, float upper)
+   \brief Clamps a number between a lower and an upper bound
+   \param t heading in rad
+*/
+static inline float clamp(float n, float lower, float upper) {
+  return std::max(lower, std::min(n, upper));
+}
+
 }
 }
 
