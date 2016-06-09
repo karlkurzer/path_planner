@@ -67,6 +67,7 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
 
   voronoiDiagram.initializeMap(width, height, binMap);
   voronoiDiagram.update();
+  voronoiDiagram.visualize();
 //  ros::Time t1 = ros::Time::now();
 //  ros::Duration d(t1 - t0);
 //  std::cout << "created Voronoi Diagram in ms: " << d * 1000 << std::endl;
@@ -203,7 +204,7 @@ void Planner::plan() {
     // CREATE THE UPDATED PATH
     path.updatePath(smoother.getPath());
     // SMOOTH THE PATH
-    smoother.smoothPath();
+    smoother.smoothPath(voronoiDiagram);
     // CREATE THE UPDATED PATH
     smoothedPath.updatePath(smoother.getPath());
     ros::Time t1 = ros::Time::now();

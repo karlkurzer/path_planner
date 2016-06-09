@@ -25,6 +25,8 @@ class Vector2D {
   friend std::ostream& operator<<(std::ostream& os, const Vector2D& b) {os << "(" << b.x << "|" << b.y << ")"; return os; }
   /// a method to calculate the length of the vector
   float length() const { return std::sqrt(std::pow(x, 2) + std::pow(y, 2)); }
+  /// a method to calculate the length of the vector
+  float sqlength() const { return x*x + y*y; }
   /// a method to calculate the dot product of two vectors
   float dot(Vector2D b) { return x * b.x + y * b.y; }
   ///a method that returns the orthogonal complement of two vectors
@@ -32,7 +34,7 @@ class Vector2D {
     Vector2D a(this->x, this->y);
     Vector2D c;
     // multiply b by the dot product of this and b then divide it by b's length
-    c = a - b * a.dot(b) / std::pow(b.length(), 2);
+    c = a - b * a.dot(b) / b.sqlength();
     return c;
   }
   inline float getX() { return x; }

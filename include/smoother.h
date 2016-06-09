@@ -17,52 +17,10 @@ namespace HybridAStar {
 */
 class Smoother {
  public:
-  Smoother();
-
-  /*!
-     \brief obstacleCost
-
-     wObstacle * SUM penaltyFunction * (|x_i-o_i|-dMax)
-
-     dMax is the road width
-  */
-  void obstacleTerm();
-
-  /*!
-     \brief curvatureCost
-
-
-  */
-  Vector2D curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
-
-  /*!
-     \brief smoothnessCost
-
-  */
-  Vector2D smoothnessTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
-
-  /*!
-     \brief voronoiCost - trade off between path length and closeness to obstacles
-
-     alpha > 0 = falloff rate
-     dObs(x,y) = distance to nearest obstacle
-     dEge(x,y) = distance to nearest edge of the GVD
-     dObsMax   = maximum distance for the cost to be applicable
-
-     wVoronoi * SUM voronoiCost
-
-  */
-  void voronoiTerm();
+  Smoother() {}
 
   /*!
      \brief This function takes a path consisting of nodes and attempts to iteratively smooth the same using gradient descent.
-
-     x_i = sequence of nodes
-     o_i = the location of the obstacle nearest to the node x_i
-     delta_x_i = x_i - x_(i-1) = the displacement vector at the vertex
-     delta_theta_i = |tan^-1 (delta_y_(i+1)/delta_x_(i+1)) - tan^-1 (delta_y_(i)/delta_x_(i))| = the change in tangential angle at the vertex
-
-
 
      During the different interations the following cost are being calculated
      obstacleCost
@@ -70,7 +28,7 @@ class Smoother {
      smoothnessCost
      voronoiCost
   */
-  void smoothPath();
+  void smoothPath(DynamicVoronoi& voronoi);
 
   /*!
      \brief Given a node pointer the path to the root node will be traced recursively
@@ -78,8 +36,30 @@ class Smoother {
      \param i a parameter for counting the number of nodes
   */
   void tracePath(const Node3D* node, int i = 0, std::vector<Node3D> path = std::vector<Node3D>());
-  /// returns the path
+
+  /// returns the path of the smoother object
   std::vector<Node3D> getPath() {return path;}
+
+  /// obstacleCost - pushes the path away from obstacles
+  Vector2D obstacleTerm(Vector2D xi);
+
+  /// curvatureCost - forces a maximum curvature of 1/R along the path ensuring drivability
+  Vector2D curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
+
+  /// smoothnessCost - attempts to spread nodes equidistantly and with the same orientation
+  Vector2D smoothnessTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
+
+  /// voronoiCost - trade off between path length and closeness to obstacles
+  Vector2D voronoiTerm();
+
+  /// a boolean test, whether vector is on the grid or not
+  bool isOnGrid(Vector2D vec) {
+    if (vec.getX() >= 0 && vec.getX() < width &&
+        vec.getY() >= 0 && vec.getY() < height) {
+      return true;
+    }
+    return false;
+  }
 
  private:
   /// maximum possible curvature of the non-holonomic vehicle
@@ -91,13 +71,19 @@ class Smoother {
   /// falloff rate for the voronoi field
   float alpha = 1;
   /// weight for the obstacle term
-  float wObstacle = 1;
+  float wObstacle = 0.3;
   /// weight for the voronoi term
   float wVoronoi = 1;
   /// weight for the curvature term
-  float wCurvature = 0.01;
+  float wCurvature = 0;
   /// weight for the smoothness term
-  float wSmoothness = 0.025;
+  float wSmoothness = 0.01;
+  /// voronoi diagram describing the topology of the map
+  DynamicVoronoi voronoi;
+  /// width of the map
+  int width;
+  /// height of the map
+  int height;
   /// path to be smoothed
   std::vector<Node3D> path;
 };

@@ -49,7 +49,8 @@ class DynamicVoronoi {
   //! returns the vertical size of the workspace/map
   unsigned int getSizeY() {return sizeY;}
 
- private:
+  // was private, changed to public for obstX, obstY
+ public:
   struct dataCell {
     float dist;
     char voronoi;

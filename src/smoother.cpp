@@ -8,24 +8,25 @@ inline bool isCusp(std::vector<Node3D> path, int i) {
   bool revim1 = path[i - 1].getPrim() > 3 ? true : false;
   bool revi   = path[i].getPrim() > 3 ? true : false;
   bool revip1 = path[i + 1].getPrim() > 3 ? true : false;
-  bool revip2 = path[i + 2].getPrim() > 3 ? true : false;
+  //  bool revip2 = path[i + 2].getPrim() > 3 ? true : false;
 
   if (revim2 != revim1 || revim1 != revi || revi != revip1) { return true; }
 
   return false;
 }
 //###################################################
-//                               SMOOTHER CONSTRUCTOR
-//###################################################
-Smoother::Smoother() {
-}
-
-//###################################################
 //                                SMOOTHING ALGORITHM
 //###################################################
-void Smoother::smoothPath() {
+void Smoother::smoothPath(DynamicVoronoi& voronoi) {
+  // load the current voronoi diagram into the smoother
+  this->voronoi = voronoi;
+  this->width = voronoi.getSizeX();
+  this->height = voronoi.getSizeY();
+  // current number of iterations of the gradient descent smoother
   int iterations = 0;
+  // the maximum iterations for the gd smoother
   int maxIterations = 500;
+  // the lenght of the path in number of nodes
   int pathLength = 0;
 
   // path objects with all nodes oldPath the original, newPath the resulting smoothed path
@@ -48,14 +49,20 @@ void Smoother::smoothPath() {
       // keep these points fixed if they are a cusp point or adjacent to one
       if (isCusp(newPath, i)) { continue; }
 
-      //      obstacleTerm();
-      //      // ensure that it is on the grid
+      correction = correction - obstacleTerm(xi1);
+      if (!isOnGrid(xi1 + correction)) { continue; }
+
       //      voronoiTerm();
       // ensure that it is on the grid
       correction = correction - smoothnessTerm(xi0, xi1, xi2);
+      if (!isOnGrid(xi1 + correction)) { continue; }
+
       // ensure that it is on the grid
       correction = correction - curvatureTerm(xi0, xi1, xi2);
+      if (!isOnGrid(xi1 + correction)) { continue; }
+
       // ensure that it is on the grid
+
       xi1 = xi1 + correction;
       newPath[i].setX(xi1.getX());
       newPath[i].setY(xi1.getY());
@@ -84,25 +91,30 @@ void Smoother::tracePath(const Node3D* node, int i, std::vector<Node3D> path) {
 //###################################################
 //                                      OBSTACLE TERM
 //###################################################
-void Smoother::obstacleTerm() {
-  float obsDst;
+Vector2D Smoother::obstacleTerm(Vector2D xi) {
+  Vector2D gradient;
+  // the distance to the closest obstacle from the current node
+  float obsDst = voronoi.getDistance(xi.getX(), xi.getY());
   // the vector determining where the obstacle is
-  float obsVct;
-
-  //calculate the distance to the closest obstacle from the current node
-  //obsDist =  voronoiDiagram.getDistance(node->getX(),node->getY())
+  Vector2D obsVct(xi.getX() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstX,
+                  xi.getY() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstY);
 
   // the closest obstacle is closer than desired correct the path for that
-  // negative to move away from the obstacle closest
   if (obsDst < obsDMax) {
-    float gradient = wObstacle * (obsDst - obsDMax) * obsVct / obsDst;
+    return gradient = wObstacle * 2 * (obsDst - obsDMax) * obsVct / obsDst;
   }
+  return gradient;
 }
 
 //###################################################
 //                                       VORONOI TERM
 //###################################################
-void Smoother::voronoiTerm() {
+Vector2D Smoother::voronoiTerm() {
+  Vector2D gradient;
+  //    alpha > 0 = falloff rate
+  //    dObs(x,y) = distance to nearest obstacle
+  //    dEge(x,y) = distance to nearest edge of the GVD
+  //    dObsMax   = maximum distance for the cost to be applicable
   // distance to the closest obstacle
   float obsDst;
   // distance to the closest voronoi edge
@@ -127,7 +139,7 @@ void Smoother::voronoiTerm() {
       float PvorPtn_PobsDst = (alpha * edgDst * (obsDst - vorObsDMax) * ((edgDst + 2 * vorObsDMax + alpha)
                                * obsDst + (vorObsDMax + 2 * alpha) * edgDst + alpha * vorObsDMax))
                               / (std::pow(vorObsDMax, 2) * std::pow(obsDst + alpha, 2) * std::pow(obsDst + edgDst, 2));
-      float gradient = wVoronoi * PvorPtn_PobsDst * PobsDst_Pxi + PvorPtn_PedgDst * PedgDst_Pxi;
+      gradient = wVoronoi * PvorPtn_PobsDst * PobsDst_Pxi + PvorPtn_PedgDst * PedgDst_Pxi;
 
     }
   }
@@ -166,10 +178,10 @@ Vector2D Smoother::curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2) {
       p1 = xi1.ort(-xi2) / (absDxi1 * absDxi2);
       p2 = -xi2.ort(xi1) / (absDxi1 * absDxi2);
       // calculate the last terms
-      float cxi1 = Dphi1 / std::pow(absDxi1 * absDxi1, 2);
+      float cxi1 = Dphi1 / (absDxi1 * absDxi1);
       Vector2D ones(1, 1);
-      Vector2D kxi0 = u * p2 - (cxi1 * ones);
       Vector2D kxi1 = u * (-p1 - p2) - (cxi1 * ones);
+      Vector2D kxi0 = u * p2 - (cxi1 * ones);
       Vector2D kxi2 = u * p1;
 
       // calculate the gradient
