@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['node2d',['Node2D',['../classHybridAStar_1_1Node2D.html',1,'HybridAStar']]],
-  ['node3d',['Node3D',['../classHybridAStar_1_1Node3D.html',1,'HybridAStar']]]
+  ['datacell',['dataCell',['../structHybridAStar_1_1DynamicVoronoi_1_1dataCell.html',1,'HybridAStar::DynamicVoronoi']]],
+  ['dubinspath',['DubinsPath',['../structHybridAStar_1_1DubinsPath.html',1,'HybridAStar']]],
+  ['dynamicvoronoi',['DynamicVoronoi',['../classHybridAStar_1_1DynamicVoronoi.html',1,'HybridAStar']]]
 ];

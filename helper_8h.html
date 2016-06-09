@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,6 +96,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This is a collection of helper functions that are used throughout the project.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br/>
+<code>#include &lt;algorithm&gt;</code><br/>
+<code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br/>
 </div>
 <p><a href="helper_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -122,13 +124,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a1467da31e20493be3e178de5faaac29a"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::toRad</b> (float t)</td></tr>
 <tr class="memdesc:a1467da31e20493be3e178de5faaac29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts and normalizes a heading given in deg to rad.  <a href="#a1467da31e20493be3e178de5faaac29a">More...</a><br/></td></tr>
 <tr class="separator:a1467da31e20493be3e178de5faaac29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d0e7407616df62cad76bf280fc64ea"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Helper::clamp</b> (float n, float lower, float upper)</td></tr>
+<tr class="memdesc:ab5d0e7407616df62cad76bf280fc64ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a number between a lower and an upper bound.  <a href="#ab5d0e7407616df62cad76bf280fc64ea">More...</a><br/></td></tr>
+<tr class="separator:ab5d0e7407616df62cad76bf280fc64ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a collection of helper functions that are used throughout the project. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 26 2016 17:19:20 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 9 2016 16:37:19 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

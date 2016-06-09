@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['blue',['blue',['../structHybridAStar_1_1Constants_1_1color.html#ac05d407a64e0797c0200143d0031fe88',1,'HybridAStar::Constants::color']]]
+  ['alpha',['alpha',['../classHybridAStar_1_1Smoother.html#a4b090e5da2a6b9fdc2aeac9fc62423f6',1,'HybridAStar::Smoother']]]
 ];

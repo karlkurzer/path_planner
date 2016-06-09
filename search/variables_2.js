@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['d',['d',['../classHybridAStar_1_1Node2D.html#af715c822b916900310929411acdbc156',1,'HybridAStar::Node2D']]],
-  ['dir',['dir',['../classHybridAStar_1_1Node2D.html#ade3e50e2a60da27a43e6219b1aad9b33',1,'HybridAStar::Node2D::dir()'],['../classHybridAStar_1_1Node3D.html#a6745f99c911c8cea4256e0dd72774bc0',1,'HybridAStar::Node3D::dir()']]],
-  ['dt',['dt',['../classHybridAStar_1_1Node3D.html#a7b588b4812f5956f30dd328f794f55a4',1,'HybridAStar::Node3D']]],
-  ['dubinslookup',['dubinsLookup',['../classHybridAStar_1_1Planner.html#acb061c9e16c99ebea6b6008972615fc4',1,'HybridAStar::Planner']]],
-  ['dx',['dx',['../classHybridAStar_1_1Node2D.html#a5af9fcd79929ddf2f0d1d5e6a9afcd8c',1,'HybridAStar::Node2D::dx()'],['../classHybridAStar_1_1Node3D.html#aa2478fce3c612af2aa17e156905145b1',1,'HybridAStar::Node3D::dx()']]],
-  ['dy',['dy',['../classHybridAStar_1_1Node2D.html#ad63b28137994815b3c05e700fd56f5cc',1,'HybridAStar::Node2D::dy()'],['../classHybridAStar_1_1Node3D.html#a98c9e611a41a14888bdae1de2bddff04',1,'HybridAStar::Node3D::dy()']]]
+  ['c',['c',['../classHybridAStar_1_1Node2D.html#ae967c6a89d461d81e23628ead776e19a',1,'HybridAStar::Node2D::c()'],['../classHybridAStar_1_1Node3D.html#ac0a92602b66e0d6ebeaf82ecb9f5496a',1,'HybridAStar::Node3D::c()']]],
+  ['collisionlookup',['collisionLookup',['../classHybridAStar_1_1CollisionDetection.html#a24696b5b3091db7bf210b38f75e3903b',1,'HybridAStar::CollisionDetection::collisionLookup()'],['../classHybridAStar_1_1Planner.html#aa6e88f4bb3cb309ba7f572101b86f652',1,'HybridAStar::Planner::collisionLookup()']]],
+  ['configurationspace',['configurationSpace',['../classHybridAStar_1_1Planner.html#a0c3d6e1793e6cd303ed9469f04d8f8be',1,'HybridAStar::Planner']]]
 ];

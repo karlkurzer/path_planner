@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['t',['t',['../classHybridAStar_1_1Node3D.html#acbfc6c5d2f10cfaee53cf2e5d2df50d5',1,'HybridAStar::Node3D']]],
-  ['todo_20list',['Todo List',['../todo.html',1,'']]],
-  ['tracepath',['tracePath',['../classHybridAStar_1_1Path.html#a4ab8cd725597bd0bcafa22ebfa0be87f',1,'HybridAStar::Path']]],
-  ['transform',['transform',['../classHybridAStar_1_1Planner.html#ab5f49161390847bb1b1523458d4f5493',1,'HybridAStar::Planner']]]
+  ['red',['red',['../structHybridAStar_1_1Constants_1_1color.html#abc3cc52fce58282070fdefd582f5e798',1,'HybridAStar::Constants::color']]],
+  ['relpos',['relPos',['../structHybridAStar_1_1Constants_1_1relPos.html',1,'HybridAStar::Constants']]],
+  ['reset',['reset',['../classHybridAStar_1_1Node2D.html#a5cf4a316e14d428bba43956f635846e6',1,'HybridAStar::Node2D']]]
 ];

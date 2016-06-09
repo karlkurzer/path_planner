@@ -3,6 +3,7 @@ var searchData=
   ['c',['c',['../classHybridAStar_1_1Node2D.html#ae967c6a89d461d81e23628ead776e19a',1,'HybridAStar::Node2D::c()'],['../classHybridAStar_1_1Node3D.html#ac0a92602b66e0d6ebeaf82ecb9f5496a',1,'HybridAStar::Node3D::c()']]],
   ['clear',['clear',['../classHybridAStar_1_1Path.html#a3e94fc24f7c713442f3d52478d0772fb',1,'HybridAStar::Path::clear()'],['../classHybridAStar_1_1Visualize.html#a96a35c9d0962cd51944256b47e682a58',1,'HybridAStar::Visualize::clear()']]],
   ['clear2d',['clear2D',['../classHybridAStar_1_1Visualize.html#a902e56479b3acc5eb57ba8a8dca063b5',1,'HybridAStar::Visualize']]],
+  ['clearcell',['clearCell',['../classHybridAStar_1_1DynamicVoronoi.html#aa93b79d97c4e8347c812b6f9bbca20da',1,'HybridAStar::DynamicVoronoi']]],
   ['close',['close',['../classHybridAStar_1_1Node2D.html#ae11f78bde234af1912535b9eb12fba12',1,'HybridAStar::Node2D::close()'],['../classHybridAStar_1_1Node3D.html#a6c0b703791bd93192c3495f6b38575a7',1,'HybridAStar::Node3D::close()']]],
   ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html',1,'HybridAStar']]],
   ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2',1,'HybridAStar::CollisionDetection']]],
@@ -17,5 +18,6 @@ var searchData=
   ['configurationtest',['configurationTest',['../classHybridAStar_1_1CollisionDetection.html#a5712e686d47738070f741c1467caf042',1,'HybridAStar::CollisionDetection']]],
   ['constants',['Constants',['../namespaceConstants.html',1,'']]],
   ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]],
-  ['createsuccessor',['createSuccessor',['../classHybridAStar_1_1Node2D.html#a8c9c33a7b905beee9bf86dc7cd1415d7',1,'HybridAStar::Node2D::createSuccessor()'],['../classHybridAStar_1_1Node3D.html#a489799f3013f6d56e6ab3a55fef95d22',1,'HybridAStar::Node3D::createSuccessor()']]]
+  ['createsuccessor',['createSuccessor',['../classHybridAStar_1_1Node2D.html#a8c9c33a7b905beee9bf86dc7cd1415d7',1,'HybridAStar::Node2D::createSuccessor()'],['../classHybridAStar_1_1Node3D.html#a489799f3013f6d56e6ab3a55fef95d22',1,'HybridAStar::Node3D::createSuccessor()']]],
+  ['curvatureterm',['curvatureTerm',['../classHybridAStar_1_1Smoother.html#ac3d386dc51841355080042f958c8ece7',1,'HybridAStar::Smoother']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['relpos',['relPos',['../structHybridAStar_1_1Constants_1_1relPos.html',1,'HybridAStar::Constants']]]
+  ['node2d',['Node2D',['../classHybridAStar_1_1Node2D.html',1,'HybridAStar']]],
+  ['node3d',['Node3D',['../classHybridAStar_1_1Node3D.html',1,'HybridAStar']]]
 ];

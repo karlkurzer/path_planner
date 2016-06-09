@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['discover',['discover',['../classHybridAStar_1_1Node2D.html#ac8a6e674708eacb12e9f5875069adae1',1,'HybridAStar::Node2D']]],
-  ['dubins_5fextract_5fsubpath',['dubins_extract_subpath',['../namespaceHybridAStar.html#ad5e39fee68eb0fd97743a3d64258b15a',1,'HybridAStar']]],
-  ['dubins_5finit',['dubins_init',['../namespaceHybridAStar.html#a0404fb6480b9d14c0e4e4fdd7dbabc60',1,'HybridAStar']]],
-  ['dubins_5fpath_5fendpoint',['dubins_path_endpoint',['../namespaceHybridAStar.html#a324147b328a409e2a8b390730cfce41d',1,'HybridAStar']]],
-  ['dubins_5fpath_5flength',['dubins_path_length',['../namespaceHybridAStar.html#ad7b6000e80687a5ec4873638fe3b4bb8',1,'HybridAStar']]],
-  ['dubins_5fpath_5fsample',['dubins_path_sample',['../namespaceHybridAStar.html#aa3d0dbd5e4b79c182902da30c6b93eee',1,'HybridAStar']]],
-  ['dubins_5fpath_5fsample_5fmany',['dubins_path_sample_many',['../namespaceHybridAStar.html#a436ec3e5443ebfe2063406459213044e',1,'HybridAStar']]],
-  ['dubins_5fpath_5ftype',['dubins_path_type',['../namespaceHybridAStar.html#a6922b64f04c192f0386fd98d908cd8ae',1,'HybridAStar']]]
+  ['clear',['clear',['../classHybridAStar_1_1Path.html#a3e94fc24f7c713442f3d52478d0772fb',1,'HybridAStar::Path::clear()'],['../classHybridAStar_1_1Visualize.html#a96a35c9d0962cd51944256b47e682a58',1,'HybridAStar::Visualize::clear()']]],
+  ['clear2d',['clear2D',['../classHybridAStar_1_1Visualize.html#a902e56479b3acc5eb57ba8a8dca063b5',1,'HybridAStar::Visualize']]],
+  ['clearcell',['clearCell',['../classHybridAStar_1_1DynamicVoronoi.html#aa93b79d97c4e8347c812b6f9bbca20da',1,'HybridAStar::DynamicVoronoi']]],
+  ['close',['close',['../classHybridAStar_1_1Node2D.html#ae11f78bde234af1912535b9eb12fba12',1,'HybridAStar::Node2D::close()'],['../classHybridAStar_1_1Node3D.html#a6c0b703791bd93192c3495f6b38575a7',1,'HybridAStar::Node3D::close()']]],
+  ['collisiondetection',['CollisionDetection',['../classHybridAStar_1_1CollisionDetection.html#ac5b8af06521eccb38b5707209fa175e2',1,'HybridAStar::CollisionDetection']]],
+  ['configurationcost',['configurationCost',['../classHybridAStar_1_1CollisionDetection.html#ac79d7dd4402b2c74020eb77140ff7199',1,'HybridAStar::CollisionDetection']]],
+  ['configurationtest',['configurationTest',['../classHybridAStar_1_1CollisionDetection.html#a5712e686d47738070f741c1467caf042',1,'HybridAStar::CollisionDetection']]],
+  ['createsuccessor',['createSuccessor',['../classHybridAStar_1_1Node2D.html#a8c9c33a7b905beee9bf86dc7cd1415d7',1,'HybridAStar::Node2D::createSuccessor()'],['../classHybridAStar_1_1Node3D.html#a489799f3013f6d56e6ab3a55fef95d22',1,'HybridAStar::Node3D::createSuccessor()']]],
+  ['curvatureterm',['curvatureTerm',['../classHybridAStar_1_1Smoother.html#ac3d386dc51841355080042f958c8ece7',1,'HybridAStar::Smoother']]]
 ];
