@@ -34,14 +34,18 @@ void Smoother::smoothPath(DynamicVoronoi& voronoi) {
   std::vector<Node3D> newPath = path;
 
   // descent along the gradient untill the maximum number of iterations has been reached
+  float totalWeight = wSmoothness + wCurvature + wVoronoi + wObstacle;
+
   while (iterations < maxIterations) {
 
     // choose the first three nodes of the path
     for (int i = 2; i < pathLength - 2; ++i) {
 
-      Vector2D xi0(newPath[i - 1].getX(), newPath[i - 1].getY());
-      Vector2D xi1(newPath[i].getX(), newPath[i].getY());
-      Vector2D xi2(newPath[i + 1].getX(), newPath[i + 1].getY());
+      Vector2D xim2(newPath[i - 2].getX(), newPath[i - 2].getY());
+      Vector2D xim1(newPath[i - 1].getX(), newPath[i - 1].getY());
+      Vector2D xi(newPath[i].getX(), newPath[i].getY());
+      Vector2D xip1(newPath[i + 1].getX(), newPath[i + 1].getY());
+      Vector2D xip2(newPath[i + 2].getX(), newPath[i + 2].getY());
       Vector2D correction;
 
 
@@ -49,25 +53,25 @@ void Smoother::smoothPath(DynamicVoronoi& voronoi) {
       // keep these points fixed if they are a cusp point or adjacent to one
       if (isCusp(newPath, i)) { continue; }
 
-      correction = correction - obstacleTerm(xi1);
-      if (!isOnGrid(xi1 + correction)) { continue; }
+      correction = correction - obstacleTerm(xi);
+      if (!isOnGrid(xi + correction)) { continue; }
 
       //      voronoiTerm();
       // ensure that it is on the grid
-      correction = correction - smoothnessTerm(xi0, xi1, xi2);
-      if (!isOnGrid(xi1 + correction)) { continue; }
+      correction = correction - smoothnessTerm(xim2, xim1, xi, xip1, xip2);
+      if (!isOnGrid(xi + correction)) { continue; }
 
       // ensure that it is on the grid
-      correction = correction - curvatureTerm(xi0, xi1, xi2);
-      if (!isOnGrid(xi1 + correction)) { continue; }
+      correction = correction - curvatureTerm(xim1, xi, xip1);
+      if (!isOnGrid(xi + correction)) { continue; }
 
       // ensure that it is on the grid
 
-      xi1 = xi1 + correction;
-      newPath[i].setX(xi1.getX());
-      newPath[i].setY(xi1.getY());
-      Vector2D Dxi1 = xi1 - xi0;
-      newPath[i - 1].setT(std::atan2(Dxi1.getY(), Dxi1.getX()));
+      xi = xi + alpha * correction/totalWeight;
+      newPath[i].setX(xi.getX());
+      newPath[i].setY(xi.getY());
+      Vector2D Dxi = xi - xim1;
+      newPath[i - 1].setT(std::atan2(Dxi.getY(), Dxi.getX()));
 
     }
 
@@ -96,12 +100,17 @@ Vector2D Smoother::obstacleTerm(Vector2D xi) {
   // the distance to the closest obstacle from the current node
   float obsDst = voronoi.getDistance(xi.getX(), xi.getY());
   // the vector determining where the obstacle is
-  Vector2D obsVct(xi.getX() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstX,
-                  xi.getY() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstY);
+  int x = (int)xi.getX();
+  int y = (int)xi.getY();
+  // if the node is within the map
+  if (x < width && x >= 0 && y < height && y >= 0) {
+    Vector2D obsVct(xi.getX() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstX,
+                    xi.getY() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstY);
 
-  // the closest obstacle is closer than desired correct the path for that
-  if (obsDst < obsDMax) {
-    return gradient = wObstacle * 2 * (obsDst - obsDMax) * obsVct / obsDst;
+    // the closest obstacle is closer than desired correct the path for that
+    if (obsDst < obsDMax) {
+      return gradient = wObstacle * 2 * (obsDst - obsDMax) * obsVct / obsDst;
+    }
   }
   return gradient;
 }
@@ -148,44 +157,44 @@ Vector2D Smoother::voronoiTerm() {
 //###################################################
 //                                     CURVATURE TERM
 //###################################################
-Vector2D Smoother::curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2) {
+Vector2D Smoother::curvatureTerm(Vector2D xim1, Vector2D xi, Vector2D xip1) {
   Vector2D gradient;
   // the vectors between the nodes
-  Vector2D Dxi1 = xi1 - xi0;
-  Vector2D Dxi2 = xi2 - xi1;
+  Vector2D Dxi = xi - xim1;
+  Vector2D Dxip1 = xip1 - xi;
   // orthogonal complements vector
   Vector2D p1, p2;
 
   // the distance of the vectors
-  float absDxi1 = Dxi1.length();
-  float absDxi2 = Dxi2.length();
+  float absDxi = Dxi.length();
+  float absDxip1 = Dxip1.length();
 
   // ensure that the absolute values are not null
-  if (absDxi1 > 0 && absDxi2 > 0) {
+  if (absDxi > 0 && absDxip1 > 0) {
     // the angular change at the node
-    float Dphi1 = std::acos(Helper::clamp(Dxi1.dot(Dxi2) / (absDxi1 * absDxi2), -1, 1));
-    float kappa = Dphi1 / absDxi1;
+    float Dphi = std::acos(Helper::clamp(Dxi.dot(Dxip1) / (absDxi * absDxip1), -1, 1));
+    float kappa = Dphi / absDxi;
 
     // if the curvature is smaller then the maximum do nothing
     if (kappa <= kappaMax) {
       Vector2D zeros;
       return zeros;
     } else {
-      float absDxi1Inv = 1 / absDxi1;
-      float PDphi1_PcosDphi1 = -1 / std::sqrt(1 - std::pow(std::cos(Dphi1), 2));
-      float u = -absDxi1Inv * PDphi1_PcosDphi1;
+      float absDxi1Inv = 1 / absDxi;
+      float PDphi_PcosDphi = -1 / std::sqrt(1 - std::pow(std::cos(Dphi), 2));
+      float u = -absDxi1Inv * PDphi_PcosDphi;
       // calculate the p1 and p2 terms
-      p1 = xi1.ort(-xi2) / (absDxi1 * absDxi2);
-      p2 = -xi2.ort(xi1) / (absDxi1 * absDxi2);
+      p1 = xi.ort(-xip1) / (absDxi * absDxip1);
+      p2 = -xip1.ort(xi) / (absDxi * absDxip1);
       // calculate the last terms
-      float cxi1 = Dphi1 / (absDxi1 * absDxi1);
+      float s = Dphi / (absDxi * absDxi);
       Vector2D ones(1, 1);
-      Vector2D kxi1 = u * (-p1 - p2) - (cxi1 * ones);
-      Vector2D kxi0 = u * p2 - (cxi1 * ones);
-      Vector2D kxi2 = u * p1;
+      Vector2D ki = u * (-p1 - p2) - (s * ones);
+      Vector2D kim1 = u * p2 - (s * ones);
+      Vector2D kip1 = u * p1;
 
       // calculate the gradient
-      gradient = wCurvature * (0.25 * kxi0 + 0.5 * kxi1 + 0.25 * kxi2);
+      gradient = wCurvature * (0.25 * kim1 + 0.5 * ki + 0.25 * kip1);
 
       if (std::isnan(gradient.getX()) || std::isnan(gradient.getY())) {
         std::cout << "nan values in curvature term" << std::endl;
@@ -209,7 +218,7 @@ Vector2D Smoother::curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2) {
 //###################################################
 //                                    SMOOTHNESS TERM
 //###################################################
-Vector2D Smoother::smoothnessTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2) {
-  return wSmoothness * (-4 * xi2 + 8 * xi1 - 4 * xi0);
+Vector2D Smoother::smoothnessTerm(Vector2D xim2, Vector2D xim1, Vector2D xi, Vector2D xip1, Vector2D xip2) {
+  return wSmoothness * (xim2 - 4 * xim1 + 6 * xi - 4 * xip1 + xip2);
 }
 

@@ -47,9 +47,9 @@ class Smoother {
   Vector2D curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
 
   /// smoothnessCost - attempts to spread nodes equidistantly and with the same orientation
-  Vector2D smoothnessTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
+  Vector2D smoothnessTerm(Vector2D xim2, Vector2D xim1, Vector2D xi, Vector2D xip1, Vector2D xip2);
 
-  /// voronoiCost - trade off between path length and closeness to obstacles
+  /// voronoiCost - trade off between path length and closeness to obstaclesg
   Vector2D voronoiTerm();
 
   /// a boolean test, whether vector is on the grid or not
@@ -69,15 +69,15 @@ class Smoother {
   /// maximum distance for obstacles to influence the voronoi field
   float vorObsDMax = Constants::minRoadWidth;
   /// falloff rate for the voronoi field
-  float alpha = 1;
+  float alpha = 0.1;
   /// weight for the obstacle term
-  float wObstacle = 0.3;
+  float wObstacle = 0.2;
   /// weight for the voronoi term
-  float wVoronoi = 1;
+  float wVoronoi = 0;
   /// weight for the curvature term
   float wCurvature = 0;
   /// weight for the smoothness term
-  float wSmoothness = 0.01;
+  float wSmoothness = 0.2;
   /// voronoi diagram describing the topology of the map
   DynamicVoronoi voronoi;
   /// width of the map

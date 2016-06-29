@@ -47,7 +47,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
   int iterations = 0;
 
   // VISUALIZATION DELAY
-  ros::Duration d(0.005);
+  ros::Duration d(0.003);
 
   // OPEN LIST AS BOOST IMPLEMENTATION
   typedef boost::heap::binomial_heap<Node3D*,
