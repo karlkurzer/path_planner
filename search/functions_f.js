@@ -10,7 +10,7 @@ var searchData=
   ['sett',['setT',['../classHybridAStar_1_1Node3D.html#a0fb49b296601923eb57e6c3943915778',1,'HybridAStar::Node3D']]],
   ['setx',['setX',['../classHybridAStar_1_1Node2D.html#a7fa0b08b19d2b9fa2822105e46f720a4',1,'HybridAStar::Node2D::setX()'],['../classHybridAStar_1_1Node3D.html#a5e1e8a90c94b2e98ed591d4d21e1002e',1,'HybridAStar::Node3D::setX()']]],
   ['sety',['setY',['../classHybridAStar_1_1Node2D.html#a6839750d06cf0b96c22810ab4da39fad',1,'HybridAStar::Node2D::setY()'],['../classHybridAStar_1_1Node3D.html#a5455d3db9b468da1a6f45581a799d978',1,'HybridAStar::Node3D::setY()']]],
-  ['smoothnessterm',['smoothnessTerm',['../classHybridAStar_1_1Smoother.html#a3a44baadadd3f0f235191f1676baf95e',1,'HybridAStar::Smoother']]],
+  ['smoothnessterm',['smoothnessTerm',['../classHybridAStar_1_1Smoother.html#a1c064e16d606534fac46b5636f3ebee0',1,'HybridAStar::Smoother']]],
   ['smoothpath',['smoothPath',['../classHybridAStar_1_1Smoother.html#ad859d1e05295caf5cc9f3768e4c2a33f',1,'HybridAStar::Smoother']]],
   ['sqlength',['sqlength',['../classHybridAStar_1_1Vector2D.html#a6db914405a5e3caee1ccd3d042ffd656',1,'HybridAStar::Vector2D']]]
 ];

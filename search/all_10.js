@@ -14,7 +14,7 @@ var searchData=
   ['smoothedpath',['smoothedPath',['../classHybridAStar_1_1Planner.html#a94220d639e6bc5887d0847b4d02756c2',1,'HybridAStar::Planner']]],
   ['smoother',['Smoother',['../classHybridAStar_1_1Smoother.html',1,'HybridAStar']]],
   ['smoother',['smoother',['../classHybridAStar_1_1Planner.html#aeb26011b6e68ae8baa96465581587d65',1,'HybridAStar::Planner']]],
-  ['smoothnessterm',['smoothnessTerm',['../classHybridAStar_1_1Smoother.html#a3a44baadadd3f0f235191f1676baf95e',1,'HybridAStar::Smoother']]],
+  ['smoothnessterm',['smoothnessTerm',['../classHybridAStar_1_1Smoother.html#a1c064e16d606534fac46b5636f3ebee0',1,'HybridAStar::Smoother']]],
   ['smoothpath',['smoothPath',['../classHybridAStar_1_1Smoother.html#ad859d1e05295caf5cc9f3768e4c2a33f',1,'HybridAStar::Smoother']]],
   ['sqlength',['sqlength',['../classHybridAStar_1_1Vector2D.html#a6db914405a5e3caee1ccd3d042ffd656',1,'HybridAStar::Vector2D']]],
   ['start',['start',['../classHybridAStar_1_1Planner.html#a90d20b41185050e06dbf3761b87d59b2',1,'HybridAStar::Planner']]],

@@ -120,13 +120,13 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
 <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#ac3d386dc51841355080042f958c8ece7">curvatureTerm</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi0, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi2)</td></tr>
 <tr class="memdesc:ac3d386dc51841355080042f958c8ece7"><td class="mdescLeft">&#160;</td><td class="mdescRight">curvatureCost - forces a maximum curvature of 1/R along the path ensuring drivability <br/></td></tr>
 <tr class="separator:ac3d386dc51841355080042f958c8ece7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a44baadadd3f0f235191f1676baf95e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a44baadadd3f0f235191f1676baf95e"></a>
-<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a3a44baadadd3f0f235191f1676baf95e">smoothnessTerm</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi0, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi2)</td></tr>
-<tr class="memdesc:a3a44baadadd3f0f235191f1676baf95e"><td class="mdescLeft">&#160;</td><td class="mdescRight">smoothnessCost - attempts to spread nodes equidistantly and with the same orientation <br/></td></tr>
-<tr class="separator:a3a44baadadd3f0f235191f1676baf95e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c064e16d606534fac46b5636f3ebee0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c064e16d606534fac46b5636f3ebee0"></a>
+<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a1c064e16d606534fac46b5636f3ebee0">smoothnessTerm</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xim2, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xim1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xip1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xip2)</td></tr>
+<tr class="memdesc:a1c064e16d606534fac46b5636f3ebee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">smoothnessCost - attempts to spread nodes equidistantly and with the same orientation <br/></td></tr>
+<tr class="separator:a1c064e16d606534fac46b5636f3ebee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111e6e44aac3c88cea63769de2f78184"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a111e6e44aac3c88cea63769de2f78184"></a>
 <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a111e6e44aac3c88cea63769de2f78184">voronoiTerm</a> ()</td></tr>
-<tr class="memdesc:a111e6e44aac3c88cea63769de2f78184"><td class="mdescLeft">&#160;</td><td class="mdescRight">voronoiCost - trade off between path length and closeness to obstacles <br/></td></tr>
+<tr class="memdesc:a111e6e44aac3c88cea63769de2f78184"><td class="mdescLeft">&#160;</td><td class="mdescRight">voronoiCost - trade off between path length and closeness to obstaclesg <br/></td></tr>
 <tr class="separator:a111e6e44aac3c88cea63769de2f78184"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d05cdce88da7d6ea2ea50b8e6a80654"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d05cdce88da7d6ea2ea50b8e6a80654"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a9d05cdce88da7d6ea2ea50b8e6a80654">isOnGrid</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> vec)</td></tr>
@@ -148,15 +148,15 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memdesc:a6d652167fcea0a8152efd7963690c7a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum distance for obstacles to influence the voronoi field <br/></td></tr>
 <tr class="separator:a6d652167fcea0a8152efd7963690c7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b090e5da2a6b9fdc2aeac9fc62423f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b090e5da2a6b9fdc2aeac9fc62423f6"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a4b090e5da2a6b9fdc2aeac9fc62423f6">alpha</a> = 1</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a4b090e5da2a6b9fdc2aeac9fc62423f6">alpha</a> = 0.1</td></tr>
 <tr class="memdesc:a4b090e5da2a6b9fdc2aeac9fc62423f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">falloff rate for the voronoi field <br/></td></tr>
 <tr class="separator:a4b090e5da2a6b9fdc2aeac9fc62423f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c98e2aa003567300d55f40e423fa34a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c98e2aa003567300d55f40e423fa34a"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a5c98e2aa003567300d55f40e423fa34a">wObstacle</a> = 0.3</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a5c98e2aa003567300d55f40e423fa34a">wObstacle</a> = 0.2</td></tr>
 <tr class="memdesc:a5c98e2aa003567300d55f40e423fa34a"><td class="mdescLeft">&#160;</td><td class="mdescRight">weight for the obstacle term <br/></td></tr>
 <tr class="separator:a5c98e2aa003567300d55f40e423fa34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80d873fdacb1b882f115a56c54f0cde3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80d873fdacb1b882f115a56c54f0cde3"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a80d873fdacb1b882f115a56c54f0cde3">wVoronoi</a> = 1</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a80d873fdacb1b882f115a56c54f0cde3">wVoronoi</a> = 0</td></tr>
 <tr class="memdesc:a80d873fdacb1b882f115a56c54f0cde3"><td class="mdescLeft">&#160;</td><td class="mdescRight">weight for the voronoi term <br/></td></tr>
 <tr class="separator:a80d873fdacb1b882f115a56c54f0cde3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46eb5127c0236cc4d574d830856ad073"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46eb5127c0236cc4d574d830856ad073"></a>
@@ -164,7 +164,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr class="memdesc:a46eb5127c0236cc4d574d830856ad073"><td class="mdescLeft">&#160;</td><td class="mdescRight">weight for the curvature term <br/></td></tr>
 <tr class="separator:a46eb5127c0236cc4d574d830856ad073"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a878ab4beae55fd8b028a2cc2e9b758e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a878ab4beae55fd8b028a2cc2e9b758e0"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a878ab4beae55fd8b028a2cc2e9b758e0">wSmoothness</a> = 0.01</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a878ab4beae55fd8b028a2cc2e9b758e0">wSmoothness</a> = 0.2</td></tr>
 <tr class="memdesc:a878ab4beae55fd8b028a2cc2e9b758e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">weight for the smoothness term <br/></td></tr>
 <tr class="separator:a878ab4beae55fd8b028a2cc2e9b758e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0955242f5939a16b69e476d9f54ef86e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0955242f5939a16b69e476d9f54ef86e"></a>
@@ -255,7 +255,7 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 9 2016 16:37:19 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 29 2016 18:34:41 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
