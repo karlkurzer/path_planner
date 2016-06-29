@@ -56,7 +56,7 @@ static const bool twoD = true;
 // GENERAL CONSTANTS
 
 /// [#] --- Limits the maximum search depth of the algorithm, possibly terminating without the solution
-static const int iterations = 10000;
+static const int iterations = 30000;
 /// [m] --- Uniformly adds a padding around the vehicle
 static const double bloating = 0;
 /// [m] --- The width of the vehicle
@@ -97,7 +97,7 @@ static const float penaltyReversing = 2.0;
 /// [#] --- A movement cost penalty for change of direction (changing from primitives < 3 to primitives > 2)
 static const float penaltyCOD = 2.0;
 /// [m] --- The distance to the goal when the analytical solution (Dubin's shot) first triggers
-static const float dubinsShotDistance = 2 * 2 * (r* r);
+static const float dubinsShotDistance = 100;
 /// [m] --- The step size for the analytical solution (Dubin's shot) primarily relevant for collision checking
 static const float dubinsStepSize = 1;
 
@@ -138,6 +138,11 @@ struct config {
   */
   relPos pos[64];
 };
+
+// _________________
+// SMOOTHER SPECIFIC
+/// [m] --- The minimum width of a safe road for the vehicle at hand
+static const float minRoadWidth = 2;
 
 // ____________________________________________
 // COLOR DEFINITIONS FOR VISUALIZATION PURPOSES

@@ -13,9 +13,11 @@
 #include "constants.h"
 #include "helper.h"
 #include "collisiondetection.h"
+#include "dynamicvoronoi.h"
 #include "algorithm.h"
 #include "node3d.h"
 #include "path.h"
+#include "smoother.h"
 #include "visualize.h"
 #include "lookup.h"
 
@@ -38,8 +40,8 @@ class Planner {
   void initializeLookups();
 
   /*!
-     \brief setMap
-     \param map the map provided as nav_msgs::OccupancyGrid
+     \brief Sets the map e.g. through a callback from a subscriber listening to map updates.
+     \param map the map or occupancy grid
   */
   void setMap(const nav_msgs::OccupancyGrid::Ptr map);
 
@@ -75,12 +77,18 @@ class Planner {
   tf::TransformListener listener;
   /// A transform for moving start positions
   tf::StampedTransform transform;
-  /// The path used for tracing and visualization
+  /// The path produced by the hybrid A* algorithm
   Path path;
+  /// The smoother used for optimizing the path
+  Smoother smoother;
+  /// The path smoothed and ready for the controller
+  Path smoothedPath = Path(true);
   /// The visualization used for search visualization
   Visualize visualization;
   /// The collission detection for testing specific configurations
   CollisionDetection configurationSpace;
+  /// The voronoi diagram
+  DynamicVoronoi voronoiDiagram;
   /// A pointer to the grid the planner runs on
   nav_msgs::OccupancyGrid::Ptr grid;
   /// The start pose set through RViz

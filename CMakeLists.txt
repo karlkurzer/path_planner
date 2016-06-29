@@ -31,8 +31,11 @@ set(SOURCES
    ${CMAKE_CURRENT_SOURCE_DIR}/src/collisiondetection.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/planner.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/path.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/smoother.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/visualize.cpp
-   ${CMAKE_CURRENT_SOURCE_DIR}/src/dubins.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/dubins.cpp #Andrew Walker
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/dynamicvoronoi.cpp #Boris Lau, Christoph Sprunk, Wolfram Burgard
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/bucketedqueue.cpp #Boris Lau, Christoph Sprunk, Wolfram Burgard
 )
 set(HEADERS
    ${CMAKE_CURRENT_SOURCE_DIR}/include/algorithm.h
@@ -41,12 +44,18 @@ set(HEADERS
    ${CMAKE_CURRENT_SOURCE_DIR}/include/collisiondetection.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/planner.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/path.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/smoother.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/vector2d.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/visualize.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/helper.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/constants.h
    ${CMAKE_CURRENT_SOURCE_DIR}/include/lookup.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/include/gradient.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/include/dubins.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/gradient.h #Andrew Noske
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/dubins.h #Andrew Walker
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/dynamicvoronoi.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/bucketedqueue.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
+   ${CMAKE_CURRENT_SOURCE_DIR}/include/point.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
+
 )
 add_library(HYAS ${SOURCES} ${HEADERS})
 

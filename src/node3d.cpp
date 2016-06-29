@@ -36,8 +36,9 @@ bool Node3D::isOnGrid(const int width, const int height) const {
 //                                        IS IN RANGE
 //###################################################
 bool Node3D::isInRange(const Node3D& goal) const {
-  float dx = std::abs(x - goal.x);
-  float dy = std::abs(y - goal.y);
+  int random = rand() % 10 + 1;
+  float dx = std::abs(x - goal.x) / random;
+  float dy = std::abs(y - goal.y) / random;
   return (dx * dx) + (dy * dy) < Constants::dubinsShotDistance;
 }
 
