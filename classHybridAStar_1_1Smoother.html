@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad859d1e05295caf5cc9f3768e4c2a33f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#ad859d1e05295caf5cc9f3768e4c2a33f">smoothPath</a> (<a class="el" href="classHybridAStar_1_1DynamicVoronoi.html">DynamicVoronoi</a> &amp;<a class="el" href="classHybridAStar_1_1Smoother.html#a0955242f5939a16b69e476d9f54ef86e">voronoi</a>)</td></tr>
 <tr class="memdesc:ad859d1e05295caf5cc9f3768e4c2a33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a path consisting of nodes and attempts to iteratively smooth the same using gradient descent.  <a href="#ad859d1e05295caf5cc9f3768e4c2a33f">More...</a><br/></td></tr>
 <tr class="separator:ad859d1e05295caf5cc9f3768e4c2a33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a344114a6f8bbca00f712ff4bb5b2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#ad4a344114a6f8bbca00f712ff4bb5b2c">tracePath</a> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *node, int i=0, std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt; <a class="el" href="classHybridAStar_1_1Smoother.html#ae7a0e766b7d00ee5542e553734345361">path</a>=std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt;())</td></tr>
-<tr class="memdesc:ad4a344114a6f8bbca00f712ff4bb5b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a node pointer the path to the root node will be traced recursively.  <a href="#ad4a344114a6f8bbca00f712ff4bb5b2c">More...</a><br/></td></tr>
-<tr class="separator:ad4a344114a6f8bbca00f712ff4bb5b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a909eff8bfba753f7f87dcdfaafed8225"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a909eff8bfba753f7f87dcdfaafed8225">tracePath</a> (const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *node, int i=0, std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt; <a class="el" href="classHybridAStar_1_1Smoother.html#ae7a0e766b7d00ee5542e553734345361">path</a>=std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt;(), double length=0)</td></tr>
+<tr class="memdesc:a909eff8bfba753f7f87dcdfaafed8225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a node pointer the path to the root node will be traced recursively.  <a href="#a909eff8bfba753f7f87dcdfaafed8225">More...</a><br/></td></tr>
+<tr class="separator:a909eff8bfba753f7f87dcdfaafed8225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26475010566ed9393b9a6831a2d56198"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26475010566ed9393b9a6831a2d56198"></a>
 std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a26475010566ed9393b9a6831a2d56198">getPath</a> ()</td></tr>
 <tr class="memdesc:a26475010566ed9393b9a6831a2d56198"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the path of the smoother object <br/></td></tr>
@@ -124,10 +124,10 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
 <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a1c064e16d606534fac46b5636f3ebee0">smoothnessTerm</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xim2, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xim1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xi, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xip1, <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> xip2)</td></tr>
 <tr class="memdesc:a1c064e16d606534fac46b5636f3ebee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">smoothnessCost - attempts to spread nodes equidistantly and with the same orientation <br/></td></tr>
 <tr class="separator:a1c064e16d606534fac46b5636f3ebee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a111e6e44aac3c88cea63769de2f78184"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a111e6e44aac3c88cea63769de2f78184"></a>
-<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a111e6e44aac3c88cea63769de2f78184">voronoiTerm</a> ()</td></tr>
-<tr class="memdesc:a111e6e44aac3c88cea63769de2f78184"><td class="mdescLeft">&#160;</td><td class="mdescRight">voronoiCost - trade off between path length and closeness to obstaclesg <br/></td></tr>
-<tr class="separator:a111e6e44aac3c88cea63769de2f78184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad524b1924628a91b654b4b88c3c658c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad524b1924628a91b654b4b88c3c658c8"></a>
+<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#ad524b1924628a91b654b4b88c3c658c8">voronoiTerm</a> ()</td></tr>
+<tr class="memdesc:ad524b1924628a91b654b4b88c3c658c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">voronoiCost - trade off between path length and closeness to obstaclesg <br/></td></tr>
+<tr class="separator:ad524b1924628a91b654b4b88c3c658c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d05cdce88da7d6ea2ea50b8e6a80654"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d05cdce88da7d6ea2ea50b8e6a80654"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1Smoother.html#a9d05cdce88da7d6ea2ea50b8e6a80654">isOnGrid</a> (<a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> vec)</td></tr>
 <tr class="memdesc:a9d05cdce88da7d6ea2ea50b8e6a80654"><td class="mdescLeft">&#160;</td><td class="mdescRight">a boolean test, whether vector is on the grid or not <br/></td></tr>
@@ -207,12 +207,12 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
 
 </div>
 </div>
-<a class="anchor" id="ad4a344114a6f8bbca00f712ff4bb5b2c"></a>
+<a class="anchor" id="a909eff8bfba753f7f87dcdfaafed8225"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Smoother::tracePath </td>
+          <td class="memname">double Smoother::tracePath </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> *&#160;</td>
           <td class="paramname"><em>node</em>, </td>
@@ -227,7 +227,13 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> &gt;&#160;</td>
-          <td class="paramname"><em>path</em> = <code>std::vector&lt;<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a>&gt;()</code>&#160;</td>
+          <td class="paramname"><em>path</em> = <code>std::vector&lt;<a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a>&gt;()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>length</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -255,7 +261,7 @@ std::vector&lt; <a class="el" href="classHybridAStar_1_1Node3D.html">Node3D</a> 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 18:34:41 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 8 2016 18:36:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

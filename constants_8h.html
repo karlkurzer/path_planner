@@ -124,7 +124,7 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c1d2ffd1e448cc8c0bfc8c6c7381683"></a>
-static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::coutDEBUG</b> = 0</td></tr>
+static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::coutDEBUG</b> = 1</td></tr>
 <tr class="memdesc:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for additional debugging output via <code>std::cout</code> <br/></td></tr>
 <tr class="separator:a3c1d2ffd1e448cc8c0bfc8c6c7381683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19df83992230551cf3c043282e06b9a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19df83992230551cf3c043282e06b9a1"></a>
@@ -136,17 +136,25 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAS
 <tr class="memdesc:a1ccfc423177a4d67603579c218e0304d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for the visualization of 3D nodes (true = on; false = off) <br/></td></tr>
 <tr class="separator:a1ccfc423177a4d67603579c218e0304d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5efde6fbf1f57bb796a7e3b9c655ed9"></a>
-static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::visualization2D</b> = 0 * manual</td></tr>
+static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::visualization2D</b> = 0* manual</td></tr>
 <tr class="memdesc:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag for the visualization of 2D nodes (true = on; false = off) <br/></td></tr>
 <tr class="separator:ac5efde6fbf1f57bb796a7e3b9c655ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f90738f30c5010bbbd888d7cc57f4fb"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::reverse</b> = true</td></tr>
 <tr class="memdesc:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle reversing (true = on; false = off) <br/></td></tr>
 <tr class="separator:a1f90738f30c5010bbbd888d7cc57f4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0911349a2ed0b12ad5ac8caa0863c0f0"></a>
-static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsShot</b> = true</td></tr>
-<tr class="memdesc:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the connection of the path via Dubin's shot (true = on; false = off) <br/></td></tr>
-<tr class="separator:a0911349a2ed0b12ad5ac8caa0863c0f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3c995a97b35b2808658fa531e39c4ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3c995a97b35b2808658fa531e39c4ed"></a>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsShotDistance</b> = 1*1</td></tr>
+<tr class="memdesc:ad3c995a97b35b2808658fa531e39c4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The distance to the goal when the analytical solution (Dubin's shot) first triggers <br/></td></tr>
+<tr class="separator:ad3c995a97b35b2808658fa531e39c4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d7b0bed524879e306a9d0982979fd8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9d7b0bed524879e306a9d0982979fd8"></a>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::reedsSheppShotDistance</b> = 1*1</td></tr>
+<tr class="memdesc:af9d7b0bed524879e306a9d0982979fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">/// [m] &mdash; The distance to the goal when the analytical solution (ReedsShepp's shot) first triggers <br/></td></tr>
+<tr class="separator:af9d7b0bed524879e306a9d0982979fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7105c2b2ff6f3747c64d6cac6ab17e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7105c2b2ff6f3747c64d6cac6ab17e8"></a>
+static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::reedsShepp</b> = true</td></tr>
+<tr class="memdesc:ab7105c2b2ff6f3747c64d6cac6ab17e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the ReedsShepp's heuristic. <br/></td></tr>
+<tr class="separator:ab7105c2b2ff6f3747c64d6cac6ab17e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3749563f36130f152b520b9a421b75c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3749563f36130f152b520b9a421b75c8"></a>
 static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubins</b> = false</td></tr>
 <tr class="memdesc:a3749563f36130f152b520b9a421b75c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off) <br/></td></tr>
@@ -159,11 +167,11 @@ static const bool&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAS
 <tr class="memdesc:adee8c07652b021fb58174985211b2a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag to toggle the 2D heuristic (true = on; false = off) <br/></td></tr>
 <tr class="separator:adee8c07652b021fb58174985211b2a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abef4a594a72960e62fb71323ac346e56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abef4a594a72960e62fb71323ac346e56"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::iterations</b> = 30000</td></tr>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::iterations</b> = 1000000</td></tr>
 <tr class="memdesc:abef4a594a72960e62fb71323ac346e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; Limits the maximum search depth of the algorithm, possibly terminating without the solution <br/></td></tr>
 <tr class="separator:abef4a594a72960e62fb71323ac346e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb52d0173cf2dbe18a8406a2af46deab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb52d0173cf2dbe18a8406a2af46deab"></a>
-static const double&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::bloating</b> = 0</td></tr>
+static const double&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::bloating</b> = 0.1</td></tr>
 <tr class="memdesc:abb52d0173cf2dbe18a8406a2af46deab"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; Uniformly adds a padding around the vehicle <br/></td></tr>
 <tr class="separator:abb52d0173cf2dbe18a8406a2af46deab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a772c7a343175b92c949551c714df3722"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a772c7a343175b92c949551c714df3722"></a>
@@ -206,7 +214,7 @@ static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridA
 <tr class="memdesc:a8d6cfea055acda55dcc35eee43d6bd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A factor to ensure admissibility of the holonomic with obstacles heuristic <br/></td></tr>
 <tr class="separator:a8d6cfea055acda55dcc35eee43d6bd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53b2fb675496194d113775e16d19d12a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53b2fb675496194d113775e16d19d12a"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyTurning</b> = 1.05</td></tr>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyTurning</b> = 1.03</td></tr>
 <tr class="memdesc:a53b2fb675496194d113775e16d19d12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A movement cost penalty for turning (choosing non straight motion primitives) <br/></td></tr>
 <tr class="separator:a53b2fb675496194d113775e16d19d12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a690e2fd376bba7ef5f8ee7dc54021e70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a690e2fd376bba7ef5f8ee7dc54021e70"></a>
@@ -217,12 +225,8 @@ static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridA
 static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::penaltyCOD</b> = 2.0</td></tr>
 <tr class="memdesc:adf4fda464946dab4e7d2a4149e6f7cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">[#] &mdash; A movement cost penalty for change of direction (changing from primitives &lt; 3 to primitives &gt; 2) <br/></td></tr>
 <tr class="separator:adf4fda464946dab4e7d2a4149e6f7cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3c995a97b35b2808658fa531e39c4ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3c995a97b35b2808658fa531e39c4ed"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsShotDistance</b> = 100</td></tr>
-<tr class="memdesc:ad3c995a97b35b2808658fa531e39c4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The distance to the goal when the analytical solution (Dubin's shot) first triggers <br/></td></tr>
-<tr class="separator:ad3c995a97b35b2808658fa531e39c4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d0c2771ab8616bea5a410fc1245c617"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d0c2771ab8616bea5a410fc1245c617"></a>
-static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsStepSize</b> = 1</td></tr>
+static const float&#160;</td><td class="memItemRight" valign="bottom"><b>HybridAStar::Constants::dubinsStepSize</b> = 0.5</td></tr>
 <tr class="memdesc:a4d0c2771ab8616bea5a410fc1245c617"><td class="mdescLeft">&#160;</td><td class="mdescRight">[m] &mdash; The step size for the analytical solution (Dubin's shot) primarily relevant for collision checking <br/></td></tr>
 <tr class="separator:a4d0c2771ab8616bea5a410fc1245c617"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b07b253f8249918d4a4704926205c3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b07b253f8249918d4a4704926205c3b"></a>
@@ -272,11 +276,10 @@ static constexpr color&#160;</td><td class="memItemRight" valign="bottom"><b>Hyb
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a collection of constants that are used throughout the project. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>All constants need to be checked and documented </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 18:34:41 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 8 2016 18:36:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
