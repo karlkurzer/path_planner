@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef COLLISIONLOOKUP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define COLLISIONLOOKUP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dubins_8h.html">dubins.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;dubins.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="constants_8h.html">constants.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>HybridAStar {</div>
@@ -137,8 +137,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          goal[2] = Constants::deltaHeadingRad * h1;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          <span class="comment">// calculate the actual cost</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          <a class="code" href="namespaceHybridAStar.html#a0404fb6480b9d14c0e4e4fdd7dbabc60">dubins_init</a>(start, goal, Constants::r, &amp;path);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;          lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] = <a class="code" href="namespaceHybridAStar.html#ad7b6000e80687a5ec4873638fe3b4bb8">dubins_path_length</a>(&amp;path);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          dubins_init(start, goal, Constants::r, &amp;path);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;          lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] = dubins_path_length(&amp;path);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;          <span class="keywordflow">if</span> (DEBUG &amp;&amp; lookup[X * headings * headings * width + Y * headings * headings + h0 * headings + h1] &lt; sqrt(X * X + Y * Y) * 1.000001) {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            std::cout &lt;&lt; X &lt;&lt; <span class="stringliteral">&quot; | &quot;</span> &lt;&lt; Y &lt;&lt; <span class="stringliteral">&quot; | &quot;</span></div>
@@ -425,14 +425,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">#endif // LOOKUP</span></div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor"></span></div>
-<div class="ttc" id="namespaceHybridAStar_html_ad7b6000e80687a5ec4873638fe3b4bb8"><div class="ttname"><a href="namespaceHybridAStar.html#ad7b6000e80687a5ec4873638fe3b4bb8">HybridAStar::dubins_path_length</a></div><div class="ttdeci">double dubins_path_length(DubinsPath *path)</div><div class="ttdef"><b>Definition:</b> dubins.cpp:232</div></div>
 <div class="ttc" id="constants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">This is a collection of constants that are used throughout the project. </div></div>
-<div class="ttc" id="namespaceHybridAStar_html_a0404fb6480b9d14c0e4e4fdd7dbabc60"><div class="ttname"><a href="namespaceHybridAStar.html#a0404fb6480b9d14c0e4e4fdd7dbabc60">HybridAStar::dubins_init</a></div><div class="ttdeci">int dubins_init(double q0[3], double q1[3], double rho, DubinsPath *path)</div><div class="ttdef"><b>Definition:</b> dubins.cpp:121</div></div>
-<div class="ttc" id="dubins_8h_html"><div class="ttname"><a href="dubins_8h.html">dubins.h</a></div><div class="ttdoc">A dubins path class for finding analytical solutions to the problem of the shortest path...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 8 2016 18:36:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 8 2016 18:38:50 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

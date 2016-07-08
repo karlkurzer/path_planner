@@ -1,20 +1,8 @@
 var searchData=
 [
-  ['g',['g',['../classHybridAStar_1_1Node2D.html#a3715c85154c486192585e8fcba785a65',1,'HybridAStar::Node2D::g()'],['../classHybridAStar_1_1Node3D.html#adf255e73449b3419c7108ce298d45d30',1,'HybridAStar::Node3D::g()']]],
-  ['getc',['getC',['../classHybridAStar_1_1Node2D.html#a75a96c08a05358b3be4d04cd0dde1a68',1,'HybridAStar::Node2D::getC()'],['../classHybridAStar_1_1Node3D.html#a6f31851d42ac13f26dd963cb0e00d3d2',1,'HybridAStar::Node3D::getC()']]],
-  ['getdistance',['getDistance',['../classHybridAStar_1_1DynamicVoronoi.html#a31a96e01c16437c54050acaaf1a05886',1,'HybridAStar::DynamicVoronoi']]],
-  ['getg',['getG',['../classHybridAStar_1_1Node2D.html#af0093cc07b5e8322f69c5fe32e23b1e4',1,'HybridAStar::Node2D::getG()'],['../classHybridAStar_1_1Node3D.html#aeff04a068af0e9b9d0743bef12dc0c47',1,'HybridAStar::Node3D::getG()']]],
-  ['geth',['getH',['../classHybridAStar_1_1Node2D.html#adab379f22787a72e6c8a9a1ce83bdb8c',1,'HybridAStar::Node2D::getH()'],['../classHybridAStar_1_1Node3D.html#af13c5bef150564c585182baa0aabcf83',1,'HybridAStar::Node3D::getH()']]],
-  ['getidx',['getIdx',['../classHybridAStar_1_1Node2D.html#a98b4e8621081bae0a5ce0a92f02fa442',1,'HybridAStar::Node2D::getIdx()'],['../classHybridAStar_1_1Node3D.html#a01df4f9a62f4db7375d826949539375b',1,'HybridAStar::Node3D::getIdx()']]],
-  ['getpath',['getPath',['../classHybridAStar_1_1Smoother.html#a26475010566ed9393b9a6831a2d56198',1,'HybridAStar::Smoother']]],
-  ['getpred',['getPred',['../classHybridAStar_1_1Node2D.html#a48646ceef0cd3510ed14d05167d347e2',1,'HybridAStar::Node2D::getPred()'],['../classHybridAStar_1_1Node3D.html#a7cb8b5532ebd1e000d8906745d7e4c2d',1,'HybridAStar::Node3D::getPred()']]],
-  ['getprim',['getPrim',['../classHybridAStar_1_1Node3D.html#ab2e0a20cdbb9b22259e86071bc1fd53a',1,'HybridAStar::Node3D']]],
-  ['getsizex',['getSizeX',['../classHybridAStar_1_1DynamicVoronoi.html#aa93e35b00ef98dc6fce8844cdae48f98',1,'HybridAStar::DynamicVoronoi']]],
-  ['getsizey',['getSizeY',['../classHybridAStar_1_1DynamicVoronoi.html#a3c4cb39b33dae43a0ace06c0a4709818',1,'HybridAStar::DynamicVoronoi']]],
-  ['gett',['getT',['../classHybridAStar_1_1Node3D.html#aa6eab1f660ff21dd93fea62f50e3074b',1,'HybridAStar::Node3D']]],
-  ['getx',['getX',['../classHybridAStar_1_1Node2D.html#a339faec420ffa93c4ccaaee885d88df4',1,'HybridAStar::Node2D::getX()'],['../classHybridAStar_1_1Node3D.html#a67829a83c72a0892798e831bbaadc101',1,'HybridAStar::Node3D::getX()']]],
-  ['gety',['getY',['../classHybridAStar_1_1Node2D.html#a91b2c6c6935115b62c3b51647eaf8ec6',1,'HybridAStar::Node2D::getY()'],['../classHybridAStar_1_1Node3D.html#a43403d749ebc6dcb6975e37627880bc2',1,'HybridAStar::Node3D::getY()']]],
-  ['goal',['goal',['../classHybridAStar_1_1Planner.html#a1fe5cf27b7eb335762bc6773cdd40035',1,'HybridAStar::Planner']]],
-  ['green',['green',['../structHybridAStar_1_1Constants_1_1color.html#a71e8d6cd58e3cec2b54a80c661cdce5a',1,'HybridAStar::Constants::color']]],
-  ['grid',['grid',['../classHybridAStar_1_1CollisionDetection.html#a1004eed8e1a1a72ee5cf17160be52dd4',1,'HybridAStar::CollisionDetection::grid()'],['../classHybridAStar_1_1Planner.html#adb6394da6b8df2ff2988544711611e7b',1,'HybridAStar::Planner::grid()']]]
+  ['h',['h',['../classHybridAStar_1_1Node2D.html#a2277c2f951693341d678f6dadcd4c876',1,'HybridAStar::Node2D::h()'],['../classHybridAStar_1_1Node3D.html#ae4c881c8611d54d5018d72beffc1897b',1,'HybridAStar::Node3D::h()']]],
+  ['height',['height',['../classHybridAStar_1_1Smoother.html#afa72350b9ededc7124794fb44e387258',1,'HybridAStar::Smoother']]],
+  ['helper',['Helper',['../namespaceHelper.html',1,'']]],
+  ['helper_2eh',['helper.h',['../helper_8h.html',1,'']]],
+  ['hybridastar',['HybridAStar',['../namespaceHybridAStar.html',1,'HybridAStar'],['../classHybridAStar_1_1Algorithm.html#a85cf300eb629271137845dad952a8a1c',1,'HybridAStar::Algorithm::hybridAStar()']]]
 ];

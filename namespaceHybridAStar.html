@@ -62,7 +62,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="namespaces.html"><span>Namespace&#160;List</span></a></li>
-      <li><a href="namespacemembers.html"><span>Namespace&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -70,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,9 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">HybridAStar Namespace Reference</div>  </div>
 </div><!--header-->
@@ -104,8 +101,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1CollisionDetection.html">CollisionDetection</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classHybridAStar_1_1CollisionDetection.html" title="The CollisionDetection class determines whether a given configuration q of the robot will result in a...">CollisionDetection</a> class determines whether a given configuration q of the robot will result in a collision with the environment.  <a href="classHybridAStar_1_1CollisionDetection.html#details">More...</a><br/></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHybridAStar_1_1DynamicVoronoi.html">DynamicVoronoi</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classHybridAStar_1_1DynamicVoronoi.html" title="A DynamicVoronoi object computes and updates a distance map and Voronoi diagram. ">DynamicVoronoi</a> object computes and updates a distance map and Voronoi diagram.  <a href="classHybridAStar_1_1DynamicVoronoi.html#details">More...</a><br/></td></tr>
@@ -137,429 +132,18 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for visualizing the hybrid A* search.  <a href="classHybridAStar_1_1Visualize.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a9ad267676c2070c15f5a36dd238e6030"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ad267676c2070c15f5a36dd238e6030"></a>
-typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><b>DubinsWord</b> )(double, double, double, double *)</td></tr>
-<tr class="separator:a9ad267676c2070c15f5a36dd238e6030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a198f80d00addd7680626e5a60d94526f"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a198f80d00addd7680626e5a60d94526f">DubinsPathSamplingCallback</a> )(double q[3], double t, void *user_data)</td></tr>
-<tr class="separator:a198f80d00addd7680626e5a60d94526f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2990c9dc10d42ba10e1e3793d763c376"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a2990c9dc10d42ba10e1e3793d763c376">fmodr</a> (double x, double y)</td></tr>
-<tr class="separator:a2990c9dc10d42ba10e1e3793d763c376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcfe6a9c2f717140d4339fe4d8d107dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcfe6a9c2f717140d4339fe4d8d107dc"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>mod2pi</b> (double theta)</td></tr>
-<tr class="separator:adcfe6a9c2f717140d4339fe4d8d107dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91ebf8ab4fd1a248c089d8ce2488050b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91ebf8ab4fd1a248c089d8ce2488050b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_init_normalised</b> (double alpha, double beta, double d, <a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path)</td></tr>
-<tr class="separator:a91ebf8ab4fd1a248c089d8ce2488050b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0404fb6480b9d14c0e4e4fdd7dbabc60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a0404fb6480b9d14c0e4e4fdd7dbabc60">dubins_init</a> (double q0[3], double q1[3], double rho, <a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path)</td></tr>
-<tr class="separator:a0404fb6480b9d14c0e4e4fdd7dbabc60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a064d9672812aa0f1027d5c30405e1dd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a064d9672812aa0f1027d5c30405e1dd2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_LSL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a064d9672812aa0f1027d5c30405e1dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79491a667577ee163f861f1e53832241"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79491a667577ee163f861f1e53832241"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_RSR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a79491a667577ee163f861f1e53832241"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a709918b17d2536bc4065172beed59952"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a709918b17d2536bc4065172beed59952"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_LSR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a709918b17d2536bc4065172beed59952"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a113b4cd66adb10464079291b8cb0a374"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a113b4cd66adb10464079291b8cb0a374"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_RSL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a113b4cd66adb10464079291b8cb0a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35521041604840694a2648812b452ac9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35521041604840694a2648812b452ac9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_RLR</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a35521041604840694a2648812b452ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fe8a17b071f17f514c2eccd7889c4e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fe8a17b071f17f514c2eccd7889c4e4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_LRL</b> (double alpha, double beta, double d, double *outputs)</td></tr>
-<tr class="separator:a1fe8a17b071f17f514c2eccd7889c4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b6000e80687a5ec4873638fe3b4bb8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#ad7b6000e80687a5ec4873638fe3b4bb8">dubins_path_length</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path)</td></tr>
-<tr class="separator:ad7b6000e80687a5ec4873638fe3b4bb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6922b64f04c192f0386fd98d908cd8ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a6922b64f04c192f0386fd98d908cd8ae">dubins_path_type</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path)</td></tr>
-<tr class="separator:a6922b64f04c192f0386fd98d908cd8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebdc6a4aa3eb275ad456ef02ef7fcf1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebdc6a4aa3eb275ad456ef02ef7fcf1c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_segment</b> (double t, double qi[3], double qt[3], int type)</td></tr>
-<tr class="separator:aebdc6a4aa3eb275ad456ef02ef7fcf1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3d0dbd5e4b79c182902da30c6b93eee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#aa3d0dbd5e4b79c182902da30c6b93eee">dubins_path_sample</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path, double t, double q[3])</td></tr>
-<tr class="separator:aa3d0dbd5e4b79c182902da30c6b93eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a436ec3e5443ebfe2063406459213044e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a436ec3e5443ebfe2063406459213044e">dubins_path_sample_many</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path, <a class="el" href="namespaceHybridAStar.html#a198f80d00addd7680626e5a60d94526f">DubinsPathSamplingCallback</a> cb, double stepSize, void *user_data)</td></tr>
-<tr class="separator:a436ec3e5443ebfe2063406459213044e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a324147b328a409e2a8b390730cfce41d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#a324147b328a409e2a8b390730cfce41d">dubins_path_endpoint</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path, double q[3])</td></tr>
-<tr class="separator:a324147b328a409e2a8b390730cfce41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5e39fee68eb0fd97743a3d64258b15a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHybridAStar.html#ad5e39fee68eb0fd97743a3d64258b15a">dubins_extract_subpath</a> (<a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *path, double t, <a class="el" href="structHybridAStar_1_1DubinsPath.html">DubinsPath</a> *newpath)</td></tr>
-<tr class="separator:ad5e39fee68eb0fd97743a3d64258b15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a019a2da0d2056d18adde62e15933c6fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a019a2da0d2056d18adde62e15933c6fb"></a>
 <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (double k, const <a class="el" href="classHybridAStar_1_1Vector2D.html">Vector2D</a> &amp;b)</td></tr>
 <tr class="separator:a019a2da0d2056d18adde62e15933c6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a3881260ffad42bee624d3fec090ca0c5"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><b>DIRDATA</b> [][3]</td></tr>
-<tr class="separator:a3881260ffad42bee624d3fec090ca0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71c4717a209f9ce598ec5932b51d675c"><td class="memItemLeft" align="right" valign="top">DubinsWord&#160;</td><td class="memItemRight" valign="bottom"><b>dubins_words</b> []</td></tr>
-<tr class="separator:a71c4717a209f9ce598ec5932b51d675c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The namespace that wraps the entire project. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="a198f80d00addd7680626e5a60d94526f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef int(* HybridAStar::DubinsPathSamplingCallback)(double q[3], double t, void *user_data)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Callback function for path sampling</p>
-<dl class="section note"><dt>Note</dt><dd>the q parameter is a configuration </dd>
-<dd>
-the t parameter is the distance along the path </dd>
-<dd>
-the user_data parameter is forwarded from the caller </dd>
-<dd>
-return non-zero to denote sampling should be stopped </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ad5e39fee68eb0fd97743a3d64258b15a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_extract_subpath </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>newpath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenience function to extract a subset of a path</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- an initialised path </td></tr>
-    <tr><td class="paramname">t</td><td>- a length measure, where 0 &lt; t &lt; dubins_path_length(path) </td></tr>
-    <tr><td class="paramname">newpath</td><td>- the resultant path </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a0404fb6480b9d14c0e4e4fdd7dbabc60"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_init </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>q0</em>[3], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>q1</em>[3], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rho</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Generate a path from an initial configuration to a target configuration, with a specified maximum turning radii</p>
-<p>A configuration is (x, y, theta), where theta is in radians, with zero along the line x = 0, and counter-clockwise is positive</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">q0</td><td>- a configuration specified as an array of x, y, theta </td></tr>
-    <tr><td class="paramname">q1</td><td>- a configuration specified as an array of x, y, theta </td></tr>
-    <tr><td class="paramname">rho</td><td>- turning radius of the vehicle (forward velocity divided by maximum angular velocity) </td></tr>
-    <tr><td class="paramname">path</td><td>- the resultant path </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- non-zero on error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a324147b328a409e2a8b390730cfce41d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_path_endpoint </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>q</em>[3]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenience function to identify the endpoint of a path</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- an initialised path </td></tr>
-    <tr><td class="paramname">q</td><td>- the configuration result </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ad7b6000e80687a5ec4873638fe3b4bb8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double HybridAStar::dubins_path_length </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Calculate the length of an initialised path</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- the path to find the length of </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aa3d0dbd5e4b79c182902da30c6b93eee"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_path_sample </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>q</em>[3]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Calculate the configuration along the path, using the parameter t</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- an initialised path </td></tr>
-    <tr><td class="paramname">t</td><td>- a length measure, where 0 &lt;= t &lt; dubins_path_length(path) </td></tr>
-    <tr><td class="paramname">q</td><td>- the configuration result </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- non-zero if 't' is not in the correct range </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a436ec3e5443ebfe2063406459213044e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_path_sample_many </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DubinsPathSamplingCallback&#160;</td>
-          <td class="paramname"><em>cb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>stepSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>user_data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Walk along the path at a fixed sampling interval, calling the callback function at each interval</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- the path to sample </td></tr>
-    <tr><td class="paramname">cb</td><td>- the callback function to call for each sample </td></tr>
-    <tr><td class="paramname">user_data</td><td>- optional information to pass on to the callback </td></tr>
-    <tr><td class="paramname">stepSize</td><td>- the distance along the path for subsequent samples </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a6922b64f04c192f0386fd98d908cd8ae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int HybridAStar::dubins_path_type </td>
-          <td>(</td>
-          <td class="paramtype">DubinsPath *&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Extract an integer that represents which path type was used</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>- an initialised path </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- one of LSL, LSR, RSL, RSR, RLR or LRL (ie/ 0-5 inclusive) </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a2990c9dc10d42ba10e1e3793d763c376"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double HybridAStar::fmodr </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Floating point modulus suitable for rings</p>
-<p>fmod doesn't behave correctly for angular quantities, this function does </p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a3881260ffad42bee624d3fec090ca0c5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int HybridAStar::DIRDATA[][3]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    { L_SEG, S_SEG, L_SEG },</div>
-<div class="line">    { L_SEG, S_SEG, R_SEG },</div>
-<div class="line">    { R_SEG, S_SEG, L_SEG },</div>
-<div class="line">    { R_SEG, S_SEG, R_SEG },</div>
-<div class="line">    { R_SEG, L_SEG, R_SEG },</div>
-<div class="line">    { L_SEG, R_SEG, L_SEG }</div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a class="anchor" id="a71c4717a209f9ce598ec5932b51d675c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DubinsWord HybridAStar::dubins_words</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    dubins_LSL,</div>
-<div class="line">    dubins_LSR,</div>
-<div class="line">    dubins_RSL,</div>
-<div class="line">    dubins_RSR,</div>
-<div class="line">    dubins_RLR,</div>
-<div class="line">    dubins_LRL,</div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jul 8 2016 18:36:03 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 8 2016 18:38:50 for Hybrid A* Planner by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
