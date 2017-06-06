@@ -26,7 +26,7 @@ void DynamicVoronoi::initializeEmpty(int _sizeX, int _sizeY, bool initGridMap) {
   sizeX = _sizeX;
   sizeY = _sizeY;
   if (data) {
-    for (int x=0; x<sizeX; x++) delete[] data[x];
+    for (int y=0; y<sizeY; y++) delete[] data[y];
     delete[] data;
   }
   data = new dataCell*[sizeX];
