@@ -25,3 +25,33 @@ Large parts of the implementation are closely related to the hybrid A* algorithm
 <img src="http://i.imgur.com/OICPCTB.png" alt="Reversing in a Maze" width="600"/>
 <img src="http://i.imgur.com/ZiV9GDW.png" alt="Parking" width="600"/>
 <img src="http://i.imgur.com/z7aT6lt.png" alt="Mitigating a U-shape Obstacle" width="600"/>
+
+#### Setup
+
+Dependency: 
+
+* [OMPL](http://ompl.kavrakilab.org/)
+
+#### Run
+
+Run the following command to start demo:
+
+```
+cd ~/catkin_ws/src
+git clone https://github.com/karlkurzer/path_planner.git
+cd ..
+catkin_make
+source devel/setup.bash
+rospack profile
+roslaunch hybrid_astar manual.launch
+```
+
+In Rviz:
+1. Add -> By Topic -> /map, /path, /pathVehicle, (/visualizeNode2DPoses)
+2. Click 2D Pose Estimate to set a start point on the map
+3. Click 2D Nav Goal to set a goal point on the map
+4. Wait for path searching...
+5. Path is generated!
+
+
+
