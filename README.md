@@ -46,7 +46,7 @@ cd ~/catkin_ws/src \
 1. Add -> By Topic -> /map, /path, /pathVehicle, (/visualizeNode2DPoses)
 2. Click 2D Pose Estimate to set a start point on the map
 3. Click 2D Nav Goal to set a goal point on the map
-4. Wait for the path being searched! (this process can be visualized [optional)
+4. Wait for the path being searched! (this process can be visualized [optional])
 
 
 
