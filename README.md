@@ -27,7 +27,8 @@ Large parts of the implementation are closely related to the hybrid A* algorithm
 <img src="http://i.imgur.com/z7aT6lt.png" alt="Mitigating a U-shape Obstacle" width="600"/>
 
 #### Dependencies
-The package has a dependency on [OMPL](http://ompl.kavrakilab.org/).
+* [Open Motion Planning Library (OMPL)](http://ompl.kavrakilab.org/)
+* [ros_map_server](http://wiki.ros.org/map_server)
 
 #### Setup
 
