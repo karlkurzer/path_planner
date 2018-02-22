@@ -32,10 +32,12 @@ Large parts of the implementation are closely related to the hybrid A* algorithm
 
 #### Setup
 
-Run the following command to clone, build, and launch the package:
+Run the following command to clone, build, and launch the package (requires a sources ROS environment):
 
 ```
-cd ~/catkin_ws/src \
+sudo apt install libompl-dev \
+&& mkdir -p ~/catkin_ws/src \
+&& cd ~/catkin_ws/src \
 && git clone https://github.com/karlkurzer/path_planner.git  \
 && cd .. \
 && catkin_make \
