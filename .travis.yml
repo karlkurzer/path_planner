@@ -1,0 +1,121 @@
+# Generic .travis.yml file for running continuous integration on Travis-CI for
+# any ROS package.
+#
+# Available here:
+#   - http://felixduvallet.github.io/ros-travis-integration
+#   - https://github.com/felixduvallet/ros-travis-integration
+#
+# This installs ROS on a clean Travis-CI virtual machine, creates a ROS
+# workspace, resolves all listed dependencies, and sets environment variables
+# (setup.bash). Then, it compiles the entire ROS workspace (ensuring there are
+# no compilation errors), and runs all the tests. If any of the compilation/test
+# phases fail, the build is marked as a failure.
+#
+# We handle two types of package dependencies specified in the package manifest:
+#   - system dependencies that can be installed using `rosdep`, including other
+#     ROS packages and system libraries. These dependencies must be known to
+#     `rosdistro` and get installed using apt-get.
+#   - package dependencies that must be checked out from source. These are handled by
+#     `wstool`, and should be listed in a file named dependencies.rosinstall.
+#
+# There are two variables you may want to change:
+#   - ROS_DISTRO (default is indigo). Note that packages must be available for
+#     ubuntu 14.04 trusty.
+#   - ROSINSTALL_FILE (default is dependencies.rosinstall inside the repo
+#     root). This should list all necessary repositories in wstool format (see
+#     the ros wiki). If the file does not exists then nothing happens.
+#
+# See the README.md for more information.
+#
+# Author: Felix Duvallet <felixd@gmail.com>
+
+# NOTE: The build lifecycle on Travis.ci is something like this:
+#    before_install
+#    install
+#    before_script
+#    script
+#    after_success or after_failure
+#    after_script
+#    OPTIONAL before_deploy
+#    OPTIONAL deploy
+#    OPTIONAL after_deploy
+
+################################################################################
+
+# Use ubuntu trusty (14.04) with sudo privileges.
+dist: trusty
+sudo: required
+language:
+  - generic
+cache:
+  - apt
+
+# Configuration variables. All variables are global now, but this can be used to
+# trigger a build matrix for different ROS distributions if desired.
+env:
+  global:
+    - ROS_DISTRO=indigo
+    - ROS_CI_DESKTOP="`lsb_release -cs`"  # e.g. [precise|trusty|...]
+    - CI_SOURCE_PATH=$(pwd)
+    - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
+    - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
+    - ROS_PARALLEL_JOBS='-j8 -l6'
+    # Set the python path manually to include /usr/-/python2.7/dist-packages
+    # as this is where apt-get installs python packages.
+    - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+
+################################################################################
+
+# Install system dependencies, namely a very barebones ROS setup.
+before_install:
+  - sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
+  - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+  - sudo apt-get update -qq
+  - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-catkin
+  - source /opt/ros/$ROS_DISTRO/setup.bash
+  # Prepare rosdep to install dependencies.
+  - sudo rosdep init
+  - rosdep update
+
+# Create a catkin workspace with the package under integration.
+install:
+  - sudo apt-get install libompl-dev
+  - mkdir -p ~/catkin_ws/src
+  - cd ~/catkin_ws/src
+  - catkin_init_workspace
+  # Create the devel/setup.bash (run catkin_make with an empty workspace) and
+  # source it to set the path variables.
+  - cd ~/catkin_ws
+  - catkin_make
+  - source devel/setup.bash
+  # Add the package under integration to the workspace using a symlink.
+  - cd ~/catkin_ws/src
+  - ln -s $CI_SOURCE_PATH .
+
+# Install all dependencies, using wstool first and rosdep second.
+# wstool looks for a ROSINSTALL_FILE defined in the environment variables.
+before_script:
+  # source dependencies: install using wstool.
+  - cd ~/catkin_ws/src
+  - wstool init
+  - if [[ -f $ROSINSTALL_FILE ]] ; then wstool merge $ROSINSTALL_FILE ; fi
+  - wstool up
+  # package depdencies: install using rosdep.
+  - cd ~/catkin_ws
+  - rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+
+# Compile and test (mark the build as failed if any step fails). If the
+# CATKIN_OPTIONS file exists, use it as an argument to catkin_make, for example
+# to blacklist certain packages.
+#
+# NOTE on testing: `catkin_make run_tests` will show the output of the tests
+# (gtest, nosetest, etc..) but always returns 0 (success) even if a test
+# fails. Running `catkin_test_results` aggregates all the results and returns
+# non-zero when a test fails (which notifies Travis the build failed).
+script:
+  - source /opt/ros/$ROS_DISTRO/setup.bash
+  - cd ~/catkin_ws
+  - catkin_make $( [ -f $CATKIN_OPTIONS ] && cat $CATKIN_OPTIONS )
+  # Run the tests, ensuring the path is set correctly.
+  - source devel/setup.bash
+  - catkin_make run_tests && catkin_test_results

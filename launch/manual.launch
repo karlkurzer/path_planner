@@ -1,6 +1,7 @@
 <launch>
- <!-- <node name="hybrid_astar" pkg="hybrid_astar" type="hybrid_astar" /> -->
+ <!-- Turn on hybrid_astar node -->
+ <node name="hybrid_astar" pkg="hybrid_astar" type="hybrid_astar" /> 
  <node name="tf_broadcaster" pkg="hybrid_astar" type="tf_broadcaster" />
- <node name="map_server" pkg="map_server" type="map_server" args="/home/karl/ros_ws/src/path_planner/maps/map.yaml" />
- <node name="rviz" pkg="rviz" type="rviz" args="-d /home/karl/.rviz/path_planner.rviz" />
+ <node name="map_server" pkg="map_server" type="map_server" args="$(find hybrid_astar)/maps/map.yaml" />
+ <node name="rviz" pkg="rviz" type="rviz" args="-d $(env HOME)/.rviz/path_planner.rviz" />
 </launch>

@@ -34,9 +34,9 @@ static const bool coutDEBUG = 0;
 /// A flag for the mode (true = manual; false = dynamic). Manual for static map or dynamic for dynamic map.
 static const bool manual = 1;
 /// A flag for the visualization of 3D nodes (true = on; false = off)
-static const bool visualization = 0 * manual;
+static const bool visualization = 1 * manual;
 /// A flag for the visualization of 2D nodes (true = on; false = off)
-static const bool visualization2D = 0 * manual;
+static const bool visualization2D = 1 * manual;
 /// A flag to toggle reversing (true = on; false = off)
 static const bool reverse = true;
 /// A flag to toggle the connection of the path via Dubin's shot (true = on; false = off)

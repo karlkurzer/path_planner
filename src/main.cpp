@@ -57,6 +57,7 @@ int main(int argc, char** argv) {
   ros::init(argc, argv, "a_star");
 
   HybridAStar::Planner hy;
+  hy.plan(); 
 
   ros::spin();
   return 0;
