@@ -28,7 +28,7 @@ CollisionDetection::CollisionDetection() {
 //  return cost <= 0;
 //}
 
-bool CollisionDetection::configurationTest(float x, float y, float t) {
+bool CollisionDetection::configurationTest(float x, float y, float t) const {
   int X = (int)x;
   int Y = (int)y;
   int iX = (int)((x - (long)x) * Constants::positionResolution);

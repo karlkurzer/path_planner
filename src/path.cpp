@@ -45,7 +45,7 @@ void Path::clear() {
 //###################################################
 // __________
 // TRACE PATH
-void Path::updatePath(std::vector<Node3D> nodePath) {
+void Path::updatePath(const std::vector<Node3D>& nodePath) {
   path.header.stamp = ros::Time::now();
   int k = 0;
 

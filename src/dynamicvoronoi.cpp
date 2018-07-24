@@ -129,7 +129,7 @@ void DynamicVoronoi::removeObstacle(int x, int y) {
   data[x][y] = c;
 }
 
-void DynamicVoronoi::exchangeObstacles(std::vector<INTPOINT> points) {
+void DynamicVoronoi::exchangeObstacles(const std::vector<INTPOINT>& points) {
 
   for (unsigned int i=0; i<lastObstacles.size(); i++) {
     int x = lastObstacles[i].x;
@@ -141,6 +141,7 @@ void DynamicVoronoi::exchangeObstacles(std::vector<INTPOINT> points) {
   }  
 
   lastObstacles.clear();
+  lastObstacles.reserve(points.size());
 
   for (unsigned int i=0; i<points.size(); i++) {
     int x = points[i].x;
@@ -241,12 +242,12 @@ void DynamicVoronoi::update(bool updateRealDist) {
   }
 }
 
-float DynamicVoronoi::getDistance( int x, int y ) {
+float DynamicVoronoi::getDistance( int x, int y ) const {
   if( (x>0) && (x<sizeX) && (y>0) && (y<sizeY)) return data[x][y].dist; 
   else return -INFINITY;
 }
 
-bool DynamicVoronoi::isVoronoi( int x, int y ) {
+bool DynamicVoronoi::isVoronoi( int x, int y ) const {
   dataCell c = data[x][y];
   return (c.voronoi==free || c.voronoi==voronoiKeep);
 }
@@ -348,7 +349,7 @@ void DynamicVoronoi::reviveVoroNeighbors(int &x, int &y) {
 }
 
 
-bool DynamicVoronoi::isOccupied(int x, int y) {
+bool DynamicVoronoi::isOccupied(int x, int y) const {
   dataCell c = data[x][y];
   return (c.obstX==x && c.obstY==y);
 }
