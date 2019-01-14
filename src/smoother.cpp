@@ -56,7 +56,9 @@ void Smoother::smoothPath(DynamicVoronoi& voronoi) {
       correction = correction - obstacleTerm(xi);
       if (!isOnGrid(xi + correction)) { continue; }
 
-      //      voronoiTerm();
+      //todo not implemented yet
+      // voronoiTerm(); 
+
       // ensure that it is on the grid
       correction = correction - smoothnessTerm(xim2, xim1, xi, xip1, xip2);
       if (!isOnGrid(xi + correction)) { continue; }
@@ -118,41 +120,44 @@ Vector2D Smoother::obstacleTerm(Vector2D xi) {
 //###################################################
 //                                       VORONOI TERM
 //###################################################
-Vector2D Smoother::voronoiTerm() {
-  Vector2D gradient;
-  //    alpha > 0 = falloff rate
-  //    dObs(x,y) = distance to nearest obstacle
-  //    dEge(x,y) = distance to nearest edge of the GVD
-  //    dObsMax   = maximum distance for the cost to be applicable
-  // distance to the closest obstacle
-  float obsDst;
-  // distance to the closest voronoi edge
-  float edgDst;
-  // the vector determining where the obstacle is
-  float obsVct;
-  // the vector determining where the voronoi edge is
-  float vorVct;
-  //calculate the distance to the closest obstacle from the current node
-  //obsDist =  voronoiDiagram.getDistance(node->getX(),node->getY())
+// Vector2D Smoother::voronoiTerm(Vector2D xi) {
+//   Vector2D gradient;
+//   //    alpha > 0 = falloff rate
+//   //    dObs(x,y) = distance to nearest obstacle
+//   //    dEge(x,y) = distance to nearest edge of the GVD
+//   //    dObsMax   = maximum distance for the cost to be applicable
+//   // distance to the closest obstacle
+//   float obsDst = voronoi.getDistance(xi.getX(), xi.getY());
+//   // distance to the closest voronoi edge
+//   float edgDst; //todo
+//   // the vector determining where the obstacle is
+//   Vector2D obsVct(xi.getX() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstX,
+//                     xi.getY() - voronoi.data[(int)xi.getX()][(int)xi.getY()].obstY);
+//   // the vector determining where the voronoi edge is
+//   Vector2D edgVct; //todo
+//   //calculate the distance to the closest obstacle from the current node
+//   //obsDist =  voronoiDiagram.getDistance(node->getX(),node->getY())
 
-  if (obsDst < vorObsDMax) {
-    //calculate the distance to the closest GVD edge from the current node
-    //vorDist =  voronoiDiagram.getDistance(node->getX(),node->getY())
-    // the node is away from the optimal free space area
-    if (edgDst > 0) {
-      float PobsDst_Pxi = obsVct / obsDst;
-      float PedgDst_Pxi = vorVct / edgDst;
-      float PvorPtn_PedgDst = alpha * obsDst * std::pow(obsDst - vorObsDMax, 2) / (std::pow(vorObsDMax, 2)
-                              * (obsDst + alpha) * std::pow(edgDst + obsDst, 2));
+//   if (obsDst < vorObsDMax) {
+//     //calculate the distance to the closest GVD edge from the current node
+//     // the node is away from the optimal free space area
+//     if (edgDst > 0) {
+//       float PobsDst_Pxi; //todo = obsVct / obsDst;
+//       float PedgDst_Pxi; //todo = edgVct / edgDst;
+//       float PvorPtn_PedgDst = alpha * obsDst * std::pow(obsDst - vorObsDMax, 2) / (std::pow(vorObsDMax, 2)
+//                               * (obsDst + alpha) * std::pow(edgDst + obsDst, 2));
 
-      float PvorPtn_PobsDst = (alpha * edgDst * (obsDst - vorObsDMax) * ((edgDst + 2 * vorObsDMax + alpha)
-                               * obsDst + (vorObsDMax + 2 * alpha) * edgDst + alpha * vorObsDMax))
-                              / (std::pow(vorObsDMax, 2) * std::pow(obsDst + alpha, 2) * std::pow(obsDst + edgDst, 2));
-      gradient = wVoronoi * PvorPtn_PobsDst * PobsDst_Pxi + PvorPtn_PedgDst * PedgDst_Pxi;
+//       float PvorPtn_PobsDst = (alpha * edgDst * (obsDst - vorObsDMax) * ((edgDst + 2 * vorObsDMax + alpha)
+//                                * obsDst + (vorObsDMax + 2 * alpha) * edgDst + alpha * vorObsDMax))
+//                               / (std::pow(vorObsDMax, 2) * std::pow(obsDst + alpha, 2) * std::pow(obsDst + edgDst, 2));
+//       gradient = wVoronoi * PvorPtn_PobsDst * PobsDst_Pxi + PvorPtn_PedgDst * PedgDst_Pxi;
 
-    }
-  }
-}
+//       return gradient;
+//     }
+//       return gradient;
+//   }
+//     return gradient;
+// }
 
 //###################################################
 //                                     CURVATURE TERM

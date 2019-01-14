@@ -7,27 +7,6 @@ CollisionDetection::CollisionDetection() {
   Lookup::collisionLookup(collisionLookup);
 }
 
-//template<typename T> bool CollisionDetection::isTraversable(const T* node) {
-//  /* Depending on the used collision checking mechanism this needs to be adjusted
-//     standard: collision checking using the spatial occupancy enumeration
-//     other: collision checking using the 2d costmap and the navigation stack
-//  */
-//  float cost = 0;
-//  float x;
-//  float y;
-//  float t;
-//  // assign values to the configuration
-//  getConfiguration(node, x, y, t);
-
-//  if (true) {
-//    cost = configurationTest(x, y, t) ? 0 : 1;
-//  } else {
-//    cost = configurationCost(x, y, t);
-//  }
-
-//  return cost <= 0;
-//}
-
 bool CollisionDetection::configurationTest(float x, float y, float t) {
   int X = (int)x;
   int Y = (int)y;

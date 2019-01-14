@@ -50,7 +50,7 @@ class Smoother {
   Vector2D smoothnessTerm(Vector2D xim2, Vector2D xim1, Vector2D xi, Vector2D xip1, Vector2D xip2);
 
   /// voronoiCost - trade off between path length and closeness to obstaclesg
-  Vector2D voronoiTerm();
+  //   Vector2D voronoiTerm(Vector2D xi);
 
   /// a boolean test, whether vector is on the grid or not
   bool isOnGrid(Vector2D vec) {
