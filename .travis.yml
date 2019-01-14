@@ -50,9 +50,6 @@ matrix:
   - name: "Trusty indigo"
     dist: trusty
     env: ROS_DISTRO=indigo
-  - name: "Trusty jade"
-    dist: trusty
-    env: ROS_DISTRO=jade
   - name: "Xenial kinetic"
     dist: xenial
     env: ROS_DISTRO=kinetic
