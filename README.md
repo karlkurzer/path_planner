@@ -1,12 +1,12 @@
 ### Hybrid A* Path Planner for the KTH Research Concept Vehicle [![Build Status](https://travis-ci.org/karlkurzer/path_planner.svg?branch=master)](https://travis-ci.org/karlkurzer/path_planner)
 
-[link](#characteristics)
-[link](#videos)
-[link](#images)
-[link](#dependencies)
-[link](#setup)
-[link](#visualization)
-[link](#citation)
+* [Characteristics](#characteristics)
+* [Videos](#videos)
+* [Images](#images)
+* [Dependencies](#dependencies)
+* [Setup](#setup)
+* [Visualization](#visualization)
+* [Citation](#citation)
 
 The code in this repository is the result of my master's thesis which I have written at the Integrated Research Lab (ITRL) at KTH Royal Institute of Technology (2016).
 The code is documented [here](http://karlkurzer.github.io/path_planner) and the associated thesis can be found [here](http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-198534).
