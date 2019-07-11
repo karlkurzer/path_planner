@@ -47,9 +47,9 @@ cache:
 language: generic
 matrix:
   include:
-  - name: "Trusty indigo"
-    dist: trusty
-    env: ROS_DISTRO=indigo
+  - name: "Bionic melodic"
+    dist: bionic
+    env: ROS_DISTRO=melodic
   - name: "Xenial kinetic"
     dist: xenial
     env: ROS_DISTRO=kinetic
