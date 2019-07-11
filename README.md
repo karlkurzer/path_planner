@@ -51,5 +51,15 @@ sudo apt install libompl-dev \
 3. Click 2D Nav Goal to set a goal point on the map (`g`)
 4. Wait for the path being searched! (this process can be visualized [optional])
 
+#### Cite
+In case you are using my code for your project, I would appreciate if you include a respective citation.
 
-
+```
+@mastersthesis{kurzer2016,
+  author       = {Karl Kurzer}, 
+  title        = {Path Planning in Unstructured Environments : A Real-time Hybrid A* Implementation for Fast and Deterministic Path Generation for the KTH Research Concept Vehicle},
+  school       = {KTH Royal Institute of Technology},
+  year         = 2016,
+  month        = 12,
+}
+```
