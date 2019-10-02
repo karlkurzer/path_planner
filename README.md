@@ -54,7 +54,7 @@ sudo apt install libompl-dev \
 && roslaunch hybrid_astar manual.launch
 ```
 #### <a name="visualization"></a>Visualization (Rviz)
-1. Add -> By Topic -> /map, /path, /pathVehicle, (/visualizeNode2DPoses)
+1. Add -> By Topic -> `/map`, `/path`, `/pathVehicle`, (`/visualizeNode2DPoses`)
 2. Click 2D Pose Estimate to set a start point on the map (`p`)
 3. Click 2D Nav Goal to set a goal point on the map (`g`)
 4. Wait for the path being searched! (this process can be visualized [optional])
