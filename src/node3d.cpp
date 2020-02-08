@@ -2,6 +2,10 @@
 
 using namespace HybridAStar;
 
+//Initialize static map data
+geometry_msgs::Pose Node3D::mp;
+float Node3D::res = 1.0;
+
 // CONSTANT VALUES
 // possible directions
 const int Node3D::dir = 3;
@@ -28,7 +32,7 @@ const float Node3D::dt[] = { 0,         0.1178097,   -0.1178097};
 //                                         IS ON GRID
 //###################################################
 bool Node3D::isOnGrid(const int width, const int height) const {
-  return x >= 0 && x < width && y >= 0 && y < height && (int)(t / Constants::deltaHeadingRad) >= 0 && (int)(t / Constants::deltaHeadingRad) < Constants::headings;
+  return abs(x) < width/2 &&  abs(y) < height/2 && (int)(t / Constants::deltaHeadingRad) >= 0 && (int)(t / Constants::deltaHeadingRad) < Constants::headings;
 }
 
 
@@ -300,3 +304,4 @@ bool Node3D::operator == (const Node3D& rhs) const {
          (std::abs(t - rhs.t) <= Constants::deltaHeadingRad ||
           std::abs(t - rhs.t) >= Constants::deltaHeadingNegRad);
 }
+

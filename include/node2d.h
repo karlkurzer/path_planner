@@ -2,6 +2,7 @@
 #define NODE2D_H
 
 #include <cmath>
+#include <geometry_msgs/Pose.h>
 
 #include "constants.h"
 namespace HybridAStar {
@@ -48,6 +49,10 @@ class Node2D {
   bool  isDiscovered() const { return d; }
   /// get a pointer to the predecessor
   Node2D* getPred() const { return pred; }
+  /// Get x as on map
+  int getGridX(){ return (int)((x - mp.position.x) / res); }
+  /// Get y as on map
+  int getGridY(){ return (int)((y - mp.position.y) / res); }
 
   // SETTER METHODS
   /// set the x position
@@ -59,7 +64,7 @@ class Node2D {
   /// set the cost-to-come (heuristic value)
   void setH(const float& h) { this->h = h; }
   /// set and get the index of the node in the 2D array
-  int setIdx(int width) { this->idx = y * width + x; return idx;}
+  int setIdx(int width) { this->idx = this->getGridY() * width + this->getGridX(); return idx;}
   /// open the node
   void open() { o = true; c = false; }
   /// close the node
@@ -70,6 +75,8 @@ class Node2D {
   void discover() { d = true; }
   /// set a pointer to the predecessor of the node
   void setPred(Node2D* pred) { this->pred = pred; }
+  /// set map meta data
+  static void setMeta(geometry_msgs::Pose p, float r){ mp = p; res = r; }
 
   // UPDATE METHODS
   /// Updates the cost-so-far for the node x' coming from its predecessor. It also discovers the node.
@@ -118,6 +125,10 @@ class Node2D {
   bool d;
   /// the predecessor pointer
   Node2D* pred;
+  /// map pose
+  static geometry_msgs::Pose mp;
+  /// resolution
+  static float res;
 };
 }
 #endif // NODE2D_H

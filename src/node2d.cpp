@@ -2,6 +2,10 @@
 
 using namespace HybridAStar;
 
+// initialize static data
+geometry_msgs::Pose Node2D::mp;
+float Node2D::res = 1.0;
+
 // possible directions
 const int Node2D::dir = 8;
 // possible movements
@@ -12,7 +16,7 @@ const int Node2D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 //                                         IS ON GRID
 //###################################################
 bool Node2D::isOnGrid(const int width, const int height) const {
-  return  x >= 0 && x < width && y >= 0 && y < height;
+  return  abs(x) < width/2 &&  abs(y) < height/2;
 }
 
 //###################################################
