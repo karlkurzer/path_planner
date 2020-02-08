@@ -16,7 +16,7 @@ const int Node2D::dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 //                                         IS ON GRID
 //###################################################
 bool Node2D::isOnGrid(const int width, const int height) const {
-  return  abs(x) < width/2 &&  abs(y) < height/2;
+  return  (y > mp.position.y && y <= (res * height + mp.position.y)) && (x > mp.position.x && x <= (res * width + mp.position.x));
 }
 
 //###################################################

@@ -32,7 +32,7 @@ const float Node3D::dt[] = { 0,         0.1178097,   -0.1178097};
 //                                         IS ON GRID
 //###################################################
 bool Node3D::isOnGrid(const int width, const int height) const {
-  return abs(x) < width/2 &&  abs(y) < height/2 && (int)(t / Constants::deltaHeadingRad) >= 0 && (int)(t / Constants::deltaHeadingRad) < Constants::headings;
+  return (y > mp.position.y && y <= (res * height + mp.position.y)) && (x > mp.position.x && x <= (res * width + mp.position.x)) && (int)(t / Constants::deltaHeadingRad) >= 0 && (int)(t / Constants::deltaHeadingRad) < Constants::headings;
 }
 
 

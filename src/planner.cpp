@@ -119,7 +119,8 @@ void Planner::setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr&
 
   std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
-  if (grid->info.height/2 >= abs(y) && grid->info.width/2 >= abs(x)) {
+  if ((y > grid->info.origin.position.y && y <= ( grid->info.resolution * grid->info.height + grid->info.origin.position.y) ) &&
+          (x > grid->info.origin.position.x && x <= ( grid->info.resolution * grid->info.width + grid->info.origin.position.x) )){
     validStart = true;
     start = *initial;
 
@@ -143,7 +144,8 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
 
   std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
-  if (grid->info.height/2 >= abs(y) && grid->info.width/2 >= abs(x)) {
+  if ((y > grid->info.origin.position.y && y <= ( grid->info.resolution * grid->info.height + grid->info.origin.position.y) ) &&
+      (x > grid->info.origin.position.x && x <= ( grid->info.resolution * grid->info.width + grid->info.origin.position.x) )){
     validGoal = true;
     goal = *end;
 
