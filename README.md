@@ -65,10 +65,9 @@ I would appreciate if you cite my work, in case you are using it for your work. 
 ```
 @mastersthesis{Kurzer1057261,
    author = {Kurzer, Karl},
-   institution = {KTH, Vehicle Dynamics},
    institution = {KTH, Integrated Transport Research Lab, ITRL},
    pages = {63},
-   school = {KTHKTH, Vehicle Dynamics, Integrated Transport Research Lab, ITRL},
+   school = {KTH, Integrated Transport Research Lab, ITRL},
    title = {Path Planning in Unstructured Environments : A Real-time Hybrid A* Implementation for Fast and Deterministic Path Generation for the KTH Research Concept Vehicle},
    series = {TRITA-AVE},
    ISSN = {1651-7660},
