@@ -28,7 +28,7 @@ class DynamicVoronoi {
   //! remove an obstacle at the specified cell coordinate
   void clearCell(int x, int y);
   //! remove old dynamic obstacles and add the new ones
-  void exchangeObstacles(std::vector<INTPOINT> newObstacles);
+  void exchangeObstacles(const std::vector<IntPoint> &newObstacles);
 
   //! update distance map and Voronoi diagram to reflect the changes
   void update(bool updateRealDist = true);
@@ -36,18 +36,18 @@ class DynamicVoronoi {
   void prune();
 
   //! returns the obstacle distance at the specified location
-  float getDistance(int x, int y);
+  float getDistance(int x, int y) const;
   //! returns whether the specified cell is part of the (pruned) Voronoi graph
-  bool isVoronoi(int x, int y);
+  bool isVoronoi(int x, int y) const;
   //! checks whether the specficied location is occupied
-  bool isOccupied(int x, int y);
+  bool isOccupied(int x, int y) const;
   //! write the current distance map and voronoi diagram as ppm file
   void visualize(const char* filename = "result.ppm");
 
   //! returns the horizontal size of the workspace/map
-  unsigned int getSizeX() {return sizeX;}
+  unsigned int getSizeX() const {return sizeX;}
   //! returns the vertical size of the workspace/map
-  unsigned int getSizeY() {return sizeY;}
+  unsigned int getSizeY() const {return sizeY;}
 
   // was private, changed to public for obstX, obstY
  public:

@@ -26,7 +26,7 @@ class BucketPrioQueue {
   */
   BucketPrioQueue();
   //! Checks whether the Queue is empty
-  bool empty();
+  bool empty() const;
   //! push an element
   void push(int prio, INTPOINT t);
   //! return and pop the element with the lowest squared distance */

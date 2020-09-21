@@ -23,7 +23,7 @@ BucketPrioQueue::BucketPrioQueue() {
   count = 0;
 }
 
-bool BucketPrioQueue::empty() {
+bool BucketPrioQueue::empty() const {
   return (count==0);
 }
 
