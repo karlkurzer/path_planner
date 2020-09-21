@@ -2,7 +2,6 @@
 # any ROS package.
 #
 # Available here:
-#   - http://felixduvallet.github.io/ros-travis-integration
 #   - https://github.com/felixduvallet/ros-travis-integration
 #
 # This installs ROS on a clean Travis-CI virtual machine, creates a ROS
@@ -14,18 +13,16 @@
 # We handle two types of package dependencies specified in the package manifest:
 #   - system dependencies that can be installed using `rosdep`, including other
 #     ROS packages and system libraries. These dependencies must be known to
-#     `rosdistro` and get installed using apt-get.
+#     `rosdistro` and are installed using apt-get.
 #   - package dependencies that must be checked out from source. These are handled by
 #     `wstool`, and should be listed in a file named dependencies.rosinstall.
 #
-# There are two variables you may want to change:
-#   - ROS_DISTRO (default is indigo). Note that packages must be available for
-#     ubuntu 14.04 trusty.
-#   - ROSINSTALL_FILE (default is dependencies.rosinstall inside the repo
-#     root). This should list all necessary repositories in wstool format (see
-#     the ros wiki). If the file does not exists then nothing happens.
-#
-# See the README.md for more information.
+
+# There are envioronment variables you may want to change, such as ROS_DISTRO,
+# ROSINSTALL_FILE, and the CATKIN_OPTIONS file.  See the README.md for more
+# information on these flags, and
+# https://docs.travis-ci.com/user/environment-variables/ for information about
+# Travis environment variables in general.
 #
 # Author: Felix Duvallet <felixd@gmail.com>
 
@@ -42,19 +39,25 @@
 
 ################################################################################
 
-# Use ubuntu trusty (14.04) with sudo privileges.
-dist: trusty
 sudo: required
-language:
-  - generic
 cache:
   - apt
+
+# Build all valid Ubuntu/ROS combinations available on Travis VMs.
+language: generic
+matrix:
+  include:
+  - name: "Bionic melodic"
+    dist: bionic
+    env: ROS_DISTRO=melodic
+  - name: "Xenial kinetic"
+    dist: xenial
+    env: ROS_DISTRO=kinetic
 
 # Configuration variables. All variables are global now, but this can be used to
 # trigger a build matrix for different ROS distributions if desired.
 env:
   global:
-    - ROS_DISTRO=indigo
     - ROS_CI_DESKTOP="`lsb_release -cs`"  # e.g. [precise|trusty|...]
     - CI_SOURCE_PATH=$(pwd)
     - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
@@ -69,9 +72,10 @@ env:
 # Install system dependencies, namely a very barebones ROS setup.
 before_install:
   - sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
-  - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
   - sudo apt-get update -qq
-  - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-catkin
+  - sudo apt-get install dpkg
+  - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-ros-base
   - source /opt/ros/$ROS_DISTRO/setup.bash
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
