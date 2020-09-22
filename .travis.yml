@@ -50,9 +50,9 @@ matrix:
   - name: "Bionic melodic"
     dist: bionic
     env: ROS_DISTRO=melodic
-  - name: "Xenial kinetic"
-    dist: xenial
-    env: ROS_DISTRO=kinetic
+  - name: "Focal noetic"
+    dist: focal
+    env: ROS_DISTRO=noetic
 
 # Configuration variables. All variables are global now, but this can be used to
 # trigger a build matrix for different ROS distributions if desired.
