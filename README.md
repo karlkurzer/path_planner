@@ -9,7 +9,7 @@
 * [Citation](#citation)
 
 The code in this repository is the result of my master's thesis which I have written at the Integrated Research Lab (ITRL) at KTH Royal Institute of Technology (2016).
-The code is documented [here](http://karlkurzer.github.io/path_planner) and the associated thesis can be found [here](http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-198534).
+The code is documented [here](https://karlkurzer.github.io/path_planner) and the associated thesis can be found [here](https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-198534).
 
 
 The goal of the thesis and hence this code is to create a real-time path planning algorithm for the nonholonomic Research Concept Vehicle (RCV). The algorithm uses a binary obstacle map as an input, generated using LIDAR mounted on top of the vehicle. The algorithm is being developed using C++ due to real-time requirements in combination with ROS to ensure modularity and portability as well as using RViz as a visualization/simulation environment.
@@ -30,13 +30,13 @@ Large parts of the implementation are closely related to the hybrid A* algorithm
 * [Open Loop Path Planning using Sensor Fusion](https://www.youtube.com/watch?v=GwIU00jukO4)
 
 ##### <a name="images"></a>Images
-<img src="http://i.imgur.com/OICPCTB.png" alt="Reversing in a Maze" width="600"/>
-<img src="http://i.imgur.com/ZiV9GDW.png" alt="Parking" width="600"/>
-<img src="http://i.imgur.com/z7aT6lt.png" alt="Mitigating a U-shape Obstacle" width="600"/>
+<img src="https://i.imgur.com/OICPCTB.png" alt="Reversing in a Maze" width="600"/>
+<img src="https://i.imgur.com/ZiV9GDW.png" alt="Parking" width="600"/>
+<img src="https://i.imgur.com/z7aT6lt.png" alt="Mitigating a U-shape Obstacle" width="600"/>
 
 #### <a name="dependencies"></a>Dependencies
 * [Open Motion Planning Library (OMPL)](http://ompl.kavrakilab.org/)
-* [ros_map_server](http://wiki.ros.org/map_server)
+* [ros_map_server](https://wiki.ros.org/map_server)
 
 #### <a name="setup"></a>Setup
 
