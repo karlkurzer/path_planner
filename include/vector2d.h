@@ -29,9 +29,9 @@ class Vector2D {
   /// a method to calculate the length of the vector
   float sqlength() const { return x*x + y*y; }
   /// a method to calculate the dot product of two vectors
-  float dot(Vector2D b) { return x * b.x + y * b.y; }
+  float dot(Vector2D b) const { return x * b.x + y * b.y; }
   ///a method that returns the orthogonal complement of two vectors
-  inline Vector2D ort(Vector2D b) {
+  inline Vector2D ort(Vector2D b) const {
     Vector2D a(this->x, this->y);
     Vector2D c;
     // multiply b by the dot product of this and b then divide it by b's length

@@ -62,7 +62,8 @@ void Smoother::smoothPath(DynamicVoronoi& voronoi) {
       if (!isOnGrid(xi + correction)) { continue; }
 
       // ensure that it is on the grid
-      correction = correction - curvatureTerm(xim1, xi, xip1);
+      // correction = correction - curvatureTerm(xim1, xi, xip1);
+      correction = correction - curvatureTerm(xim2, xim1, xi, xip1, xip2);
       if (!isOnGrid(xi + correction)) { continue; }
 
       // ensure that it is on the grid
@@ -195,6 +196,77 @@ Vector2D Smoother::curvatureTerm(Vector2D xim1, Vector2D xi, Vector2D xip1) {
       Vector2D ki = u * (-p1 - p2) - (s * ones);
       Vector2D kim1 = u * p2 - (s * ones);
       Vector2D kip1 = u * p1;
+
+      // calculate the gradient
+      gradient = wCurvature * (0.25 * kim1 + 0.5 * ki + 0.25 * kip1);
+
+      if (std::isnan(gradient.getX()) || std::isnan(gradient.getY())) {
+        std::cout << "nan values in curvature term" << std::endl;
+        Vector2D zeros;
+        return zeros;
+      }
+      // return gradient of 0
+      else {
+        return gradient;
+      }
+    }
+  }
+  // return gradient of 0
+  else {
+    std::cout << "abs values not larger than 0" << std::endl;
+    Vector2D zeros;
+    return zeros;
+  }
+}
+
+Vector2D Smoother::curvatureTerm(Vector2D x_im2, Vector2D x_im1, Vector2D x_i, Vector2D x_ip1, Vector2D x_ip2) {
+  Vector2D gradient;
+  // the vectors between the nodes
+  const Vector2D& delta_x_im1 = x_im1 - x_im2;
+  const Vector2D& delta_x_i = x_i - x_im1;
+  const Vector2D& delta_x_ip1 = x_ip1 - x_i;
+  const Vector2D& delta_x_ip2 = x_ip2 - x_ip1;
+
+  // ensure that the absolute values are not null
+  if (delta_x_im1.length() > 0 && delta_x_i.length() > 0 && delta_x_ip1.length() > 0 && delta_x_ip2.length() > 0) {
+    // the angular change at the node
+    auto compute_kappa = [](const Vector2D& delta_x_0, const Vector2D& delta_x_1, float& delta_phi, float& kappa) {
+        delta_phi = std::acos(Helper::clamp(delta_x_0.dot(delta_x_1) / (delta_x_0.length() * delta_x_1.length()), -1, 1));
+        kappa = delta_phi / delta_x_0.length();
+    };
+    float delta_phi_im1, kappa_im1;
+    compute_kappa(delta_x_im1, delta_x_i, delta_phi_im1, kappa_im1);
+    float delta_phi_i, kappa_i;
+    compute_kappa(delta_x_i, delta_x_ip1, delta_phi_i, kappa_i);
+    float delta_phi_ip1, kappa_ip1;
+    compute_kappa(delta_x_ip1, delta_x_ip2, delta_phi_ip1, kappa_ip1);
+
+    // if the curvature is smaller then the maximum do nothing
+    if (kappa_i <= kappaMax) {
+      Vector2D zeros;
+      return zeros;
+    } else {
+      auto compute_d_delta_phi = [](const float delta_phi){
+          return -1. / std::sqrt(1. - std::pow(std::cos(delta_phi), 2));
+      };
+
+      const float& d_delta_phi_im1 = compute_d_delta_phi(delta_phi_im1);
+      const Vector2D& d_cos_delta_phi_im1 = delta_x_im1.ort(delta_x_i) / (delta_x_im1.length() * delta_x_i.length());
+      const Vector2D& d_kappa_im1 = 1. / delta_x_im1.length() * d_delta_phi_im1 * d_cos_delta_phi_im1;
+      const Vector2D& kim1 = 2. * (kappa_im1 - kappaMax) * d_kappa_im1;
+
+      const float& d_delta_phi_i = compute_d_delta_phi(delta_phi_i);
+      const Vector2D& d_cos_delta_phi_i = delta_x_ip1.ort(delta_x_i) / (delta_x_ip1.length() * delta_x_i.length()) -
+                                          delta_x_i.ort(delta_x_ip1) / (delta_x_i.length() * delta_x_ip1.length());
+      const Vector2D& d_kappa_i = 1. / delta_x_i.length() * d_delta_phi_i * d_cos_delta_phi_i -
+                                  delta_phi_i / std::pow(delta_x_i.length(), 3) * delta_x_i;
+      const Vector2D& ki = 2. * (kappa_i - kappaMax) * d_kappa_i;
+
+      const float& d_delta_phi_ip1 = compute_d_delta_phi(delta_phi_ip1);
+      const Vector2D& d_cos_delta_phi_ip1 = -delta_x_ip2.ort(delta_x_ip1) / (delta_x_ip2.length() * delta_x_ip1.length());
+      const Vector2D& d_kappa_ip1 = 1. / delta_x_ip1.length() * d_delta_phi_ip1 * d_cos_delta_phi_ip1 +
+                                    delta_phi_ip1 / std::pow(delta_x_ip1.length(), 3) * delta_x_ip1;
+      const Vector2D& kip1 = 2. * (kappa_ip1 - kappaMax) * d_kappa_ip1;
 
       // calculate the gradient
       gradient = wCurvature * (0.25 * kim1 + 0.5 * ki + 0.25 * kip1);
