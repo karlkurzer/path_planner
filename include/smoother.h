@@ -44,7 +44,7 @@ class Smoother {
   Vector2D obstacleTerm(Vector2D xi);
 
   /// curvatureCost - forces a maximum curvature of 1/R along the path ensuring drivability
-  Vector2D curvatureTerm(Vector2D xi0, Vector2D xi1, Vector2D xi2);
+  Vector2D curvatureTerm(Vector2D x_im2, Vector2D x_im1, Vector2D x_i, Vector2D x_ip1, Vector2D x_ip2);
 
   /// smoothnessCost - attempts to spread nodes equidistantly and with the same orientation
   Vector2D smoothnessTerm(Vector2D xim2, Vector2D xim1, Vector2D xi, Vector2D xip1, Vector2D xip2);
@@ -75,7 +75,7 @@ class Smoother {
   /// weight for the voronoi term
   float wVoronoi = 0;
   /// weight for the curvature term
-  float wCurvature = 0;
+  float wCurvature = 0.1;
   /// weight for the smoothness term
   float wSmoothness = 0.2;
   /// voronoi diagram describing the topology of the map

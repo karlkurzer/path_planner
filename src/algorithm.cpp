@@ -476,6 +476,8 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
 
   Node3D* dubinsNodes = new Node3D [(int)(length / Constants::dubinsStepSize) + 1];
 
+  // avoid duplicate waypoint
+  x += Constants::dubinsStepSize;
   while (x <  length) {
     double q[3];
     dubins_path_sample(&path, x, q);
