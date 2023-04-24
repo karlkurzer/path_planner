@@ -1,5 +1,9 @@
-### Hybrid A* Path Planner for the KTH Research Concept Vehicle [![Build Status](https://travis-ci.org/karlkurzer/path_planner.svg?branch=master)](https://travis-ci.org/karlkurzer/path_planner)
+### Hybrid A* Path Planner for the KTH Research Concept Vehicle [![Build Status](https://app.travis-ci.com/karlkurzer/path_planner.svg?branch=master)](https://travis-ci.org/karlkurzer/path_planner)
 
+This repository contains the implementation of a Hybrid A* Path Planner for autonomous vehicles, specifically developed for the KTH Research Concept Vehicle. The Hybrid A* algorithm is a powerful path planning approach that combines the benefits of A* search in continuous space with a discretized set of headings. It enables the generation of efficient and smooth paths for nonholonomic vehicles navigating complex environments.
+
+#### Table of Contents
+* [Introduction](#introduction)
 * [Characteristics](#characteristics)
 * [Videos](#videos)
 * [Images](#images)
@@ -8,13 +12,14 @@
 * [Visualization](#visualization)
 * [Citation](#citation)
 
+#### Introduction
 The code in this repository is the result of my master's thesis which I have written at the Integrated Research Lab (ITRL) at KTH Royal Institute of Technology (2016).
 The code is documented [here](https://karlkurzer.github.io/path_planner) and the associated thesis can be found [here](https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-198534).
 
 
 The goal of the thesis and hence this code is to create a real-time path planning algorithm for the nonholonomic Research Concept Vehicle (RCV). The algorithm uses a binary obstacle map as an input, generated using LIDAR mounted on top of the vehicle. The algorithm is being developed using C++ due to real-time requirements in combination with ROS to ensure modularity and portability as well as using RViz as a visualization/simulation environment.
 
-##### <a name="characteristics"></a>Key Characteristics
+#### <a name="characteristics"></a>Key Characteristics
 * Sampling in continuous space with 72 different headings per cell (5° discretization)
 * Constrained Heuristic - _nonholonomic without obstacles_
 * Unconstrained Heuristic - _holonomic with obstacles_
@@ -23,13 +28,13 @@ The goal of the thesis and hence this code is to create a real-time path plannin
 
 Large parts of the implementation are closely related to the hybrid A* algorithm developed by Dmitri Dolgov and Sebastian Thrun (_Path Planning for Autonomous Vehicles in Unknown Semi-structured Environments_ DOI: 10.1177/0278364909359210)
 
-##### <a name="videos"></a>Videos
+#### <a name="videos"></a>Videos
 * [Path Planning with Search Visualization](https://www.youtube.com/watch?v=1WZEQtg8ZZ4)
 * [Dubin's Path - Constrained Heuristic](https://www.youtube.com/watch?v=VNo9fU6XEGE)
 * [2D A* Search - Unconstrained Heuristic](https://www.youtube.com/watch?v=Ip2iUrVoFXc)
 * [Open Loop Path Planning using Sensor Fusion](https://www.youtube.com/watch?v=GwIU00jukO4)
 
-##### <a name="images"></a>Images
+#### <a name="images"></a>Images
 <img src="https://i.imgur.com/OICPCTB.png" alt="Reversing in a Maze" width="600"/>
 <img src="https://i.imgur.com/ZiV9GDW.png" alt="Parking" width="600"/>
 <img src="https://i.imgur.com/z7aT6lt.png" alt="Mitigating a U-shape Obstacle" width="600"/>
