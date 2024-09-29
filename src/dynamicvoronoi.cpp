@@ -60,6 +60,12 @@ void DynamicVoronoi::initializeEmpty(int _sizeX, int _sizeY, bool initGridMap) {
 }
 
 void DynamicVoronoi::initializeMap(int _sizeX, int _sizeY, bool** _gridMap) {
+  // release memory used by existing gridMap
+  if (gridMap) {
+    for (int x=0; x<sizeX; x++) delete[] gridMap[x];
+    delete[] gridMap;
+  }
+  
   gridMap = _gridMap;
   initializeEmpty(_sizeX, _sizeY, false);
 
