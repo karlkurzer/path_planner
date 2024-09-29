@@ -52,6 +52,15 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
   configurationSpace.updateGrid(map);
   //create array for Voronoi diagram
 //  ros::Time t0 = ros::Time::now();
+
+  geometry_msgs::Pose map_pose;
+  //convert map origin to world
+  map_pose.position.x = map->info.origin.position.x + (map->info.origin.position.x + 0.5) * map->info.resolution;
+  map_pose.position.y = map->info.origin.position.y + (map->info.origin.position.y + 0.5) * map->info.resolution;
+  //set Meta data for Node 2D and 3D
+  Node3D::setMeta(map_pose, map->info.resolution);
+  Node2D::setMeta(map_pose, map->info.resolution);
+
   int height = map->info.height;
   int width = map->info.width;
   bool** binMap;
@@ -110,7 +119,8 @@ void Planner::setStart(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr&
 
   std::cout << "I am seeing a new start x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
-  if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
+  if ((y > grid->info.origin.position.y && y <= ( grid->info.resolution * grid->info.height + grid->info.origin.position.y) ) &&
+          (x > grid->info.origin.position.x && x <= ( grid->info.resolution * grid->info.width + grid->info.origin.position.x) )){
     validStart = true;
     start = *initial;
 
@@ -134,7 +144,8 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
 
   std::cout << "I am seeing a new goal x:" << x << " y:" << y << " t:" << Helper::toDeg(t) << std::endl;
 
-  if (grid->info.height >= y && y >= 0 && grid->info.width >= x && x >= 0) {
+  if ((y > grid->info.origin.position.y && y <= ( grid->info.resolution * grid->info.height + grid->info.origin.position.y) ) &&
+      (x > grid->info.origin.position.x && x <= ( grid->info.resolution * grid->info.width + grid->info.origin.position.x) )){
     validGoal = true;
     goal = *end;
 

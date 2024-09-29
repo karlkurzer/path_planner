@@ -2,6 +2,7 @@
 #define NODE3D_H
 
 #include <cmath>
+#include <geometry_msgs/Pose.h>
 
 #include "constants.h"
 #include "helper.h"
@@ -53,6 +54,10 @@ class Node3D {
   bool isClosed() const { return c; }
   /// determine whether the node is open
   const Node3D* getPred() const { return pred; }
+  /// Get x as on map
+  int getGridX(){ return (int)((x - mp.position.x) / res); }
+  /// Get y as on map
+  int getGridY(){ return (int)((y - mp.position.y) / res); }
 
   // SETTER METHODS
   /// set the x position
@@ -66,13 +71,15 @@ class Node3D {
   /// set the cost-to-come (heuristic value)
   void setH(const float& h) { this->h = h; }
   /// set and get the index of the node in the 3D grid
-  int setIdx(int width, int height) { this->idx = (int)(t / Constants::deltaHeadingRad) * width * height + (int)(y) * width + (int)(x); return idx;}
+  int setIdx(int width, int height) { this->idx = (int)(t / Constants::deltaHeadingRad) * width * height + this->getGridY() * width + this->getGridX(); return idx;}
   /// open the node
   void open() { o = true; c = false;}
   /// close the node
   void close() { c = true; o = false; }
   /// set a pointer to the predecessor of the node
   void setPred(const Node3D* pred) { this->pred = pred; }
+  /// set map meta data
+  static void setMeta(geometry_msgs::Pose p, float r){ mp = p; res = r; }
 
   // UPDATE METHODS
   /// Updates the cost-so-far for the node x' coming from its predecessor. It also discovers the node.
@@ -125,6 +132,10 @@ class Node3D {
   int prim;
   /// the predecessor pointer
   const Node3D* pred;
+  /// map pose
+  static geometry_msgs::Pose mp;
+  /// resolution
+  static float res;
 };
 }
 #endif // NODE3D_H
