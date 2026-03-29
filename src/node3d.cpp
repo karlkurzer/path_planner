@@ -1,4 +1,5 @@
 #include "node3d.h"
+#include <random>
 
 using namespace HybridAStar;
 
@@ -36,7 +37,10 @@ bool Node3D::isOnGrid(const int width, const int height) const {
 //                                        IS IN RANGE
 //###################################################
 bool Node3D::isInRange(const Node3D& goal) const {
-  int random = rand() % 10 + 1;
+  static std::random_device rd;
+  static std::mt19937 gen(rd());
+  std::uniform_int_distribution<int> distribution(1, 10);
+  int random = distribution(gen);
   float dx = std::abs(x - goal.x) / random;
   float dy = std::abs(y - goal.y) / random;
   return (dx * dx) + (dy * dy) < Constants::dubinsShotDistance;
