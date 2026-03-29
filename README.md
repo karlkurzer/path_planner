@@ -1,4 +1,4 @@
-### Hybrid A* Path Planner for the KTH Research Concept Vehicle [![Build Status](https://app.travis-ci.com/karlkurzer/path_planner.svg?branch=master)](https://travis-ci.org/karlkurzer/path_planner)
+### Hybrid A* Path Planner for the KTH Research Concept Vehicle [![Build Status](https://github.com/karlkurzer/path_planner/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/karlkurzer/path_planner/actions/workflows/ci.yml)
 
 This repository contains the implementation of a Hybrid A* Path Planner for autonomous vehicles, specifically developed for the KTH Research Concept Vehicle. The Hybrid A* algorithm is a powerful path planning approach that combines the benefits of A* search in continuous space with a discretized set of headings. It enables the generation of efficient and smooth paths for nonholonomic vehicles navigating complex environments.
 

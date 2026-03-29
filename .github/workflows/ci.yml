@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      ROS_DISTRO: noetic
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup ROS
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: noetic
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libompl-dev
+
+      - name: Build and Test
+        uses: ros-tooling/action-ros-ci@v0.3
+        with:
+          package-name: hybrid_astar
+          target-ros1-distro: noetic
+          vcs-repo-file-url: ""
