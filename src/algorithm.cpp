@@ -357,53 +357,6 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
   // if dubins heuristic is activated calculate the shortest path
   // constrained without obstacles
   if (Constants::dubins) {
-
-    // ONLY FOR dubinsLookup
-    //    int uX = std::abs((int)goal.getX() - (int)start.getX());
-    //    int uY = std::abs((int)goal.getY() - (int)start.getY());
-    //    // if the lookup table flag is set and the vehicle is in the lookup area
-    //    if (Constants::dubinsLookup && uX < Constants::dubinsWidth - 1 && uY < Constants::dubinsWidth - 1) {
-    //      int X = (int)goal.getX() - (int)start.getX();
-    //      int Y = (int)goal.getY() - (int)start.getY();
-    //      int h0;
-    //      int h1;
-
-    //      // mirror on x axis
-    //      if (X >= 0 && Y <= 0) {
-    //        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
-    //        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.getT()) / Constants::deltaHeadingRad);
-    //      }
-    //      // mirror on y axis
-    //      else if (X <= 0 && Y >= 0) {
-    //        h0 = (int)(helper::normalizeHeadingRad(M_PI_2 - t) / Constants::deltaHeadingRad);
-    //        h1 = (int)(helper::normalizeHeadingRad(M_PI_2 - goal.getT()) / Constants::deltaHeadingRad);
-
-    //      }
-    //      // mirror on xy axis
-    //      else if (X <= 0 && Y <= 0) {
-    //        h0 = (int)(helper::normalizeHeadingRad(M_PI - t) / Constants::deltaHeadingRad);
-    //        h1 = (int)(helper::normalizeHeadingRad(M_PI - goal.getT()) / Constants::deltaHeadingRad);
-
-    //      } else {
-    //        h0 = (int)(t / Constants::deltaHeadingRad);
-    //        h1 = (int)(goal.getT() / Constants::deltaHeadingRad);
-    //      }
-
-    //      dubinsCost = dubinsLookup[uX * Constants::dubinsWidth * Constants::headings * Constants::headings
-    //                                + uY *  Constants::headings * Constants::headings
-    //                                + h0 * Constants::headings
-    //                                + h1];
-    //    } else {
-
-    /*if (Constants::dubinsShot && std::abs(start.getX() - goal.getX()) >= 10 && std::abs(start.getY() - goal.getY()) >= 10)*/
-    //      // start
-    //      double q0[] = { start.getX(), start.getY(), start.getT()};
-    //      // goal
-    //      double q1[] = { goal.getX(), goal.getY(), goal.getT()};
-    //      DubinsPath dubinsPath;
-    //      dubins_init(q0, q1, Constants::r, &dubinsPath);
-    //      dubinsCost = dubins_path_length(&dubinsPath);
-
     ompl::base::DubinsStateSpace dubinsPath(Constants::r);
     State* dbStart = (State*)dubinsPath.allocState();
     State* dbEnd = (State*)dubinsPath.allocState();
