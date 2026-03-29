@@ -188,7 +188,7 @@ Vector2D Smoother::curvatureTerm(Vector2D x_im2, Vector2D x_im1, Vector2D x_i, V
       return zeros;
     } else {
       auto compute_d_delta_phi = [](const float delta_phi){
-          return -1. / std::sqrt(1. - std::pow(std::cos(delta_phi), 2));
+          return -1. / std::abs(std::sin(delta_phi));
       };
 
       const float& d_delta_phi_im1 = compute_d_delta_phi(delta_phi_im1);
