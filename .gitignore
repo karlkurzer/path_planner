@@ -1,2 +1,12 @@
-/html
-/latex
+build/
+install/
+log/
+cmake/
+test_out.log
+run_gdb.sh
+run_test.sh
+
+build/
+install/
+log/
+test_out.log

@@ -1,7 +1,0 @@
-<launch>
- <!-- <node name="a_star" pkg="hybrid_astar" type="hybrid_astar" /> -->
- <node name="tf_broadcaster" pkg="hybrid_astar" type="tf_broadcaster" />
- <param name="use_sim_time" value="true" />
- <node name="player" pkg="rosbag" type="play" args="-l --clock -r 0.5 /home/karl/ros_ws/src/test_data/arlanda_050.bag" />
- <node name="rviz" pkg="rviz" type="rviz" args="-d $(env HOME)/.rviz/path_planner_bag.rviz" />
-</launch>

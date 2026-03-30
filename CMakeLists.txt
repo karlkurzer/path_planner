@@ -1,88 +1,129 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(hybrid_astar)
 
-
-## C++11
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
-elseif(COMPILER_SUPPORTS_CXX0X)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-else()
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-find_package(catkin REQUIRED COMPONENTS
-    roscpp
-    rospy
-    std_msgs
-    tf
-    )
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+
+find_package(ompl REQUIRED)
+if(NOT ompl_FOUND)
+    message(AUTHOR_WARNING "Open Motion Planning Library not found")
+endif()
 
 set(SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/node2d.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/node3d.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/collisiondetection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/planner.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/path.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/smoother.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/visualize.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/dubins.cpp #Andrew Walker
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/dynamicvoronoi.cpp #Boris Lau, Christoph Sprunk, Wolfram Burgard
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/bucketedqueue.cpp #Boris Lau, Christoph Sprunk, Wolfram Burgard
-    )
+    src/algorithm.cpp
+    src/node2d.cpp
+    src/node3d.cpp
+    src/collisiondetection.cpp
+    src/planner.cpp
+    src/path.cpp
+    src/smoother.cpp
+    src/visualize.cpp
+    src/dubins.cpp
+    src/dynamicvoronoi.cpp
+    src/bucketedqueue.cpp
+)
+
 set(HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/algorithm.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/node2d.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/node3d.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/collisiondetection.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/planner.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/path.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/smoother.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/vector2d.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/visualize.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/helper.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/constants.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/lookup.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/gradient.h #Andrew Noske
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/dubins.h #Andrew Walker
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/dynamicvoronoi.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/bucketedqueue.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/point.h #Boris Lau, Christoph Sprunk, Wolfram Burgard
+    include/algorithm.h
+    include/node2d.h
+    include/node3d.h
+    include/collisiondetection.h
+    include/planner.h
+    include/path.h
+    include/smoother.h
+    include/vector2d.h
+    include/visualize.h
+    include/helper.h
+    include/constants.h
+    include/lookup.h
+    include/gradient.h
+    include/dubins.h
+    include/dynamicvoronoi.h
+    include/bucketedqueue.h
+    include/point.h
+)
 
-    )
-add_library(HYAS ${SOURCES} ${HEADERS})
+include_directories(
+    /usr/include/ompl-1.5
+    include
+)
 
-## Declare a catkin package
-catkin_package()
+add_library(${PROJECT_NAME}_lib ${SOURCES})
+target_include_directories(${PROJECT_NAME}_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
 
-## OPEN MOTION PLANNING LIBRARY
-find_package(ompl REQUIRED)
+ament_target_dependencies(${PROJECT_NAME}_lib
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  visualization_msgs
+  tf2
+  tf2_ros
+  tf2_geometry_msgs
+)
 
-if(NOT OMPL_FOUND)
-    message(AUTHOR_WARNING,"Open Motion Planning Library not found")
-endif(NOT OMPL_FOUND)
-
-include_directories(include ${catkin_INCLUDE_DIRS})
-include_directories(include ${OMPL_INCLUDE_DIRS})
-include_directories(include include)
+if(ompl_FOUND)
+  target_link_libraries(${PROJECT_NAME}_lib ompl)
+endif()
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
-target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+ament_target_dependencies(tf_broadcaster rclcpp nav_msgs tf2 tf2_ros geometry_msgs)
 
-add_executable(hybrid_astar src/main.cpp ${HEADERS} ${SOURCES})
-target_link_libraries(hybrid_astar ${catkin_LIBRARIES})
-target_link_libraries(hybrid_astar ${OMPL_LIBRARIES})
+add_executable(hybrid_astar src/main.cpp)
+target_link_libraries(hybrid_astar ${PROJECT_NAME}_lib ompl)
+ament_target_dependencies(hybrid_astar rclcpp)
 
-install(TARGETS ${PROJECT_NAME} tf_broadcaster
-    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-    )
+install(TARGETS ${PROJECT_NAME}_lib tf_broadcaster hybrid_astar
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
 
-install(DIRECTORY launch/
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-    )
+install(DIRECTORY include/
+  DESTINATION include/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch/ maps/
+  DESTINATION share/${PROJECT_NAME}
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+
+  find_package(ament_cmake_gtest REQUIRED)
+
+  ament_add_gtest(test_parity test/test_parity.cpp)
+  target_link_libraries(test_parity ${PROJECT_NAME}_lib ompl)
+  ament_target_dependencies(test_parity rclcpp std_msgs geometry_msgs nav_msgs tf2 tf2_ros tf2_geometry_msgs ament_cmake_gtest)
+
+  # For AddressSanitizer and UndefinedBehaviorSanitizer
+  target_compile_options(test_parity PRIVATE -O0 -g -fno-omit-frame-pointer -fsanitize=address,undefined)
+  target_link_options(test_parity PRIVATE -fsanitize=address,undefined)
+endif()
+
+ament_export_include_directories(include)
+ament_export_libraries(${PROJECT_NAME}_lib)
+ament_export_targets(export_${PROJECT_NAME})
+ament_export_dependencies(rclcpp std_msgs geometry_msgs nav_msgs visualization_msgs tf2 tf2_ros tf2_geometry_msgs)
+
+ament_package()

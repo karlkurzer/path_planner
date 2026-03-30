@@ -1,3 +1,4 @@
+#include <iostream>
 #ifndef COLLISIONLOOKUP
 #define COLLISIONLOOKUP
 
