@@ -17,7 +17,7 @@ namespace HybridAStar {
 */
 class Smoother {
  public:
-  Smoother() {}
+  Smoother() { voronoi = nullptr; }
 
   /*!
      \brief This function takes a path consisting of nodes and attempts to iteratively smooth the same using gradient descent.
@@ -79,7 +79,7 @@ class Smoother {
   /// weight for the smoothness term
   float wSmoothness = 0.2;
   /// voronoi diagram describing the topology of the map
-  DynamicVoronoi voronoi;
+  DynamicVoronoi* voronoi;
   /// width of the map
   int width;
   /// height of the map
